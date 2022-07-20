@@ -1,11 +1,9 @@
-@import "src/style/mixins";
+//@import "src/style/mixins";
 
 .search-container {
   height: toRem(40);
   width: toRem(200);
   border-radius: var(--selected-input-border-radius);
-  //background: var(--light-70);
-  //--background: var(--light-70);
   border: 1px solid var(--light-50);
 
   &.full-width {
