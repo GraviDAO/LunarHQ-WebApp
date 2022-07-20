@@ -1,0 +1,87 @@
+@import "src/style/notch";
+
+.header-container {
+  height: toRem(64);
+  width: 100%;
+  max-width: 1440px;
+  background: var(--bg-dark);
+  display: flex;
+  //position: fixed;
+  z-index: 999;
+  padding-left: 24px;
+  padding-right: 24px;
+  position: fixed;
+}
+
+.logo-wrapper {
+  width: 120px;
+  height: 36px;
+}
+
+.logo-container {
+  width: 54px;
+  height: 54px;
+}
+
+.divider {
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 24px;
+  width: 1px;
+  background: var(--light-20);
+
+  &.sm {
+    height: 11px;
+  }
+
+  //margin-left: 16px;
+  //margin-right: 24px;
+}
+
+.search-container {
+  height: 40px;
+  width: 40px;
+  background-color: var(--dark-50);
+  border-radius: 0 8px 0 8px;
+  text-align: center;
+}
+
+.right-wrapper {
+  height: 64px;
+}
+
+.lg-container {
+  flex: 2
+}
+
+.sm-container {
+  flex: 1;
+}
+
+.profile-container {
+  width: 192px;
+  height: 32px;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  //margin-top: 4px;
+  @include notch(8px);
+}
+
+.profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+
+  &.add-notch {
+    border-radius: 0;
+    opacity: 0.5;
+    @include notch(8px);
+  }
+}
+
+.settings-container {
+  height: 18px;
+  padding-right: 8px;
+}

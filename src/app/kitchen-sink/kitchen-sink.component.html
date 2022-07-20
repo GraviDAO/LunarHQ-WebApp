@@ -1,0 +1,34 @@
+<app-why-header
+  [buttonLabel]="''"
+  [profileObj]="profileObj"
+  [title]="'Directory'"
+  [subTitle]="'Proposals'"></app-why-header>
+<section class="pd-box-24" style="background: var(--dark); height: 100%">
+
+  <div>
+    <app-why-cta-one
+      [cssClass]="cssClass.cta1Md" [btnLabel]="'Connect wallet'"></app-why-cta-one>
+  </div>
+
+  <div class="pd-top-16">
+    <app-why-cta-one
+      [cssClass]="cssClass.cta1"
+      [iconType]="'file-tray-full'"
+      [btnLabel]="'Connect wallet'"></app-why-cta-one>
+  </div>
+
+  <div class="pd-top-16">
+    <app-why-cta-one
+      [cssClass]="cssClass.cta1"
+      [iconType]="'logo-discord'"
+      [btnLabel]="'Connect discord'"></app-why-cta-one>
+  </div>
+
+  <div class="pd-top-16 d-flex justify-content-center" style="width: 36px;">
+    <app-why-lunar-hq-social-links></app-why-lunar-hq-social-links>
+  </div>
+
+  <div class="pd-top-16">
+    <app-why-lunar-hq-logo></app-why-lunar-hq-logo>
+  </div>
+</section>

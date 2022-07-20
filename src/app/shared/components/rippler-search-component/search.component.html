@@ -1,0 +1,22 @@
+<section class="search-container"
+[ngClass]="{'is-active': isSearchSelected}">
+  <article class="d-flex full-height">
+    <div class="search-icon-container">
+      <ion-icon class="app-why-icon ic20 dark-50"
+                [ngClass]="{'primary': isSearchSelected}"
+                name="search"></ion-icon>
+    </div>
+    <div class="search-icon-container text">
+      <input class="search-box"
+             [(ngModel)]="searchText"
+             (click)="isSearchSelected = true"
+             (focusout)="lostFocus()"
+             (ngModelChange)="search()"
+             placeholder="{{placeholderText}}"
+             type="text"/>
+    </div>
+    <div class="search-icon-container" *ngIf="isSearchSelected" (click)="clearSearchText()">
+      <ion-icon class="app-why-icon ic20 primary" name="close-circle-outline"></ion-icon>
+    </div>
+  </article>
+</section>

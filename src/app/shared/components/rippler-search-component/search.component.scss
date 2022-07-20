@@ -1,0 +1,58 @@
+@import "src/style/mixins";
+
+.search-container {
+  height: toRem(40);
+  width: toRem(200);
+  border-radius: var(--selected-input-border-radius);
+  //background: var(--light-70);
+  //--background: var(--light-70);
+  border: 1px solid var(--light-50);
+
+  &.full-width {
+    width: toRem(300);
+  }
+
+  .search-icon-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 8px;
+
+    &.text {
+      width: calc(100% - 66px);
+      //width: 76%;
+    }
+  }
+
+  .search-box {
+    color: var(--dark);
+    font-size: var(--font-size-12);
+    letter-spacing: 0;
+    line-height: var(--font-size-20);
+    border: 0;
+    background: transparent;
+
+    &:focus {
+      &::-webkit-input-placeholder {
+        color: var(--dark);
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      font-size: var(--font-size-12);
+      line-height: var(--font-size-20);
+      color: var(--dark-50);
+    }
+  }
+
+  .full-height {
+    height: 100%;
+  }
+}
+
+.is-active {
+  z-index: 999;
+  //@include mx-box-shadow-16;
+}
+

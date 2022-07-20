@@ -1,0 +1,89 @@
+@import "theme";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$container-max-widths: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+:root {
+  --primary: #{map-get($theme-colors, primary)}; // primary color
+  --primary-70: #{map-get($theme-colors, primary-70)}; //#6D59FEB2;
+  --primary-50: #{map-get($theme-colors, primary-50)};
+  --primary-20: #{map-get($theme-colors, primary-20)}; //inactive/disable
+  --primary-dark: #{map-get($theme-colors, primary-dark)}; // on hover
+
+  --secondary: #{map-get($theme-colors, secondary)};
+  --secondary-dark: #{map-get($theme-colors, secondary-dark)};
+  --secondary-70: #{map-get($theme-colors, secondary-70)};
+  --secondary-50: #{map-get($theme-colors, secondary-50)};
+  --secondary-20: #{map-get($theme-colors, secondary-20)};
+
+
+  --dark: #{map-get($theme-colors, dark)}; // titles
+  --dark-70: #{map-get($theme-colors, dark-70)}; // body text
+  --dark-50: #{map-get($theme-colors, dark-50)}; // labels & placeholder
+  --dark-20: #{map-get($theme-colors, dark-20)}; // disabled/inactive
+  --dark-10: #{map-get($theme-colors, dark-10)}; //
+
+  --light: #{map-get($theme-colors, light)};
+  --light-70: #{map-get($theme-colors, light-70)};
+  --light-50: #{map-get($theme-colors, light-50)};
+  --light-20: #{map-get($theme-colors, light-20)};
+
+  --error: #FF40A0;
+  --success: #40FFA0;
+  --warning: #FBA400;
+
+  --bg-light: #eceef0;
+  --bg-medium: #fafafa;
+  --bg-white: #FFFFFF;
+  --bg-dark: #{map-get($theme-colors, bg-dark)};
+
+  --btn-height: 40px;
+  --btn-lg-width: 240px;
+
+  --btn-md-height: 40px;
+  --btn-md-width: 140px;
+
+  --btn-sm-height: 32px;
+  --btn-sm-width: 96px;
+
+  --selected-btn-border-radius: 8px;
+  --selected-input-border-radius: 8px;
+
+  --pill-btn-border-radius: 2.8125rem;
+  --pill-input-border-radius: 2.8125rem;
+
+  --btn-letter-spacing: 0;
+
+
+  --font-size-64: 4rem;
+  --font-size-48: 3rem;
+  --font-size-40: 2.5rem;
+  --font-size-36: 2.25rem;
+  --font-size-34: 2.125rem;
+  --font-size-32: 2rem;
+  --font-size-30: 1.875rem;
+  --font-size-28: 1.75rem;
+  --font-size-24: 1.5rem;
+  --font-size-22: 1.375rem;
+  --font-size-20: 1.25rem;
+  --font-size-18: 1.125rem;
+  --font-size-16: 1rem;
+  --font-size-14: 0.875rem;
+  --font-size-12: 0.75rem;
+  --font-size-10: 0.625rem;
+  --font-size-8: 0.5rem;
+  --font-size-7: 0.438rem;
+  --font-size-6: 0.375rem;
+}

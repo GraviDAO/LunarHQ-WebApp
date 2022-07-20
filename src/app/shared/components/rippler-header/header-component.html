@@ -1,0 +1,53 @@
+<section class="header-container">
+  <div class="d-flex justify-content-start lg-container">
+    <div class="pd-top-14">
+      <img src="/assets/img/png/LA-logo.png" alt="logo" class="logo-wrapper">
+    </div>
+    <div class="mr-left-90 divider"></div>
+    <div class="d-flex align-items-center">
+      <div class="pd-right-8">
+        <span class="pd-left-24 app-why-lbl f16 light ft-uni">{{title}}</span>
+      </div>
+      <div class="divider sm" *ngIf="subTitle"></div>
+      <div class="pd-left-8" *ngIf="subTitle">
+        <span class="app-why-lbl f16 light-70 ft-bold">{{subTitle}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center sm-container" *ngIf="showMidContainer">
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" style="height: 64px">
+        <img class="logo-container" src="/assets/img/svg/LAHQ_logo.svg" alt="logo">
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end lg-container">
+    <div class="d-flex align-items-center right-wrapper">
+
+      <div *ngIf="showSearchBar">
+        <app-why-search-component></app-why-search-component>
+      </div>
+
+      <div class="mr-left-16 divider" *ngIf="showLastDivider"></div>
+      <div class="pd-left-8 pd-top-4" *ngIf="buttonLabel">
+        <app-why-cta-one
+          [cssClass]="cssClass.cta1SmFlex" [btnLabel]="buttonLabel"></app-why-cta-one>
+      </div>
+
+      <div class="profile-container" *ngIf="profileObj?.viewProfile">
+        <div>
+          <img class="profile-img" [src]="profileObj?.img"
+               [ngClass]="{'add-notch': profileObj?.img === ''}"
+               alt="" imgFallback>
+          <label class="pd-left-8 app-why-lbl f14 ft-bold light">Dw00k #5732</label>
+        </div>
+        <div class="settings-container" *ngIf="profileObj?.viewSettings">
+          <ion-icon class="app-why-icon ic14 light" name="cog-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

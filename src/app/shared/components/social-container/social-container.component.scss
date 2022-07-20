@@ -1,0 +1,11 @@
+.social-container {
+  width: 20px;
+  height: 20px;
+  opacity: 0.2;
+  color: var(--light);
+  margin-bottom: 16px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

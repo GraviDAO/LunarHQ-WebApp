@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+//@import "~bootstrap/scss/functions";
+//@import "~bootstrap/scss/variables";
+//@import "~bootstrap/scss/mixins";
+//@import "~bootstrap/scss/reboot";
+//@import "~bootstrap/scss/grid";
+// add the grid
+//@import "~bootstrap/scss/utilities";
+// add css utilities
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "src/style/index";

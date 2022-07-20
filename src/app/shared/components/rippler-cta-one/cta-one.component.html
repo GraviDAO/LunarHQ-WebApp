@@ -1,0 +1,12 @@
+<div>
+  <button [type]="buttonType"
+          (click)="onCLick()"
+          [disabled]="isDisabled"
+          [class]="cssClass">
+    <ion-icon class="app-why-icon {{iconClass}} dark"
+              *ngIf="iconType !== ''" name="{{iconType}}"></ion-icon>
+    <div class="pd-top-2">
+      {{btnLabel}}
+    </div>
+  </button>
+</div>
