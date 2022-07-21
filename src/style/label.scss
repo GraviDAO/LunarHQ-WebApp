@@ -1,7 +1,7 @@
 .app-why-lbl {
   height: var(--font-size-16);
   color: var(--dark-70);
-  font-family: Jura, serif;
+  font-family: Jura, sans-serif;
   font-size: var(--font-size-10);
   --font-size: var(--font-size-10);
   letter-spacing: var(--label-letter-spacing);
@@ -64,8 +64,12 @@
     height: var(--font-size-36);
   }
 
-  &.ft-uni{
-    font-family: Uniwars, serif;
+  &.ft-uni {
+    font-family: Uniwars, sans-serif;
+  }
+
+  &.ft-lato {
+    font-family: Lato, sans-serif;
   }
 
   &.ft-bold {
@@ -197,7 +201,7 @@
 .app-lbl_normal {
   --color: var(--primary);
   color: var(--primary);
-  font-family: Sora, serif;
+  font-family: Sora, sans-serif;
   font-weight: 500;
   font-size: var(--font-size-14);
   letter-spacing: 0;

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {CssConstants} from '../shared/services/css-constants.service';
+import { ModalService } from '../shared/_modal/modal.service';
 
 @Component({
   selector: 'app-why-lunar-hq-kitchen-sink',
@@ -8,11 +9,16 @@ import {CssConstants} from '../shared/services/css-constants.service';
 })
 export class KitchenSinkComponent {
   profileObj = {
-    img: '',
+    img: '../../../../assets/img/png/nft-profile.jpeg',
     viewProfile: true,
-    viewSettings: false
+    viewSettings: true
   };
-  constructor(public cssClass: CssConstants) {
+  constructor(public cssClass: CssConstants,
+              private modalService: ModalService) {
+  }
+
+  openModal() {
+    this.modalService.open('popUpDemo');
   }
 
 }

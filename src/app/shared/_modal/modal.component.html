@@ -1,0 +1,10 @@
+<div class="app-why-modal" (click)="outSide()">
+  <div class="app-why-modal-body {{alignModal}}" [ngClass]="getClass()" (click)="outSide()">
+<!--    <div class="top-container"></div>-->
+<!--    <div class="mid-container">-->
+      <ng-content></ng-content>
+<!--    </div>-->
+<!--    <div class="bottom-container"></div>-->
+  </div>
+</div>
+<div class="app-why-modal-background"></div>

@@ -1,34 +1,83 @@
 <app-why-header
   [buttonLabel]="''"
   [profileObj]="profileObj"
-  [title]="'Directory'"
-  [subTitle]="'Proposals'"></app-why-header>
-<section class="pd-box-24" style="background: var(--dark); height: 100%">
+  [title]="'Welcome'"
+  [subTitle]="''"></app-why-header>
 
-  <div>
+<section class="pd-top-80 pd-left-24" style="background: var(--tertiary); height: 100%; overflow: scroll">
+
+  <div class="pd-top-24">
     <app-why-cta-one
-      [cssClass]="cssClass.cta1Md" [btnLabel]="'Connect wallet'"></app-why-cta-one>
+      [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'"></app-why-cta-one>
   </div>
 
-  <div class="pd-top-16">
+  <div class="pd-top-24">
     <app-why-cta-one
       [cssClass]="cssClass.cta1"
       [iconType]="'file-tray-full'"
+      (click)="openModal()"
       [btnLabel]="'Connect wallet'"></app-why-cta-one>
   </div>
 
-  <div class="pd-top-16">
-    <app-why-cta-one
-      [cssClass]="cssClass.cta1"
-      [iconType]="'logo-discord'"
-      [btnLabel]="'Connect discord'"></app-why-cta-one>
+  <div class="pd-top-24 d-flex flex-nowrap">
+    <div *ngFor="let i of [0,1,2,3,4]" style="padding-right: 8px; flex: 1; max-width: 300px; min-width: 210px">
+      <div class="tile-1">
+      </div>
+    </div>
   </div>
 
-  <div class="pd-top-16 d-flex justify-content-center" style="width: 36px;">
+  <div class="pd-top-24">
+    <app-why-lunar-hq-cta-two></app-why-lunar-hq-cta-two>
+  </div>
+
+
+  <div class="pd-top-24 d-flex justify-content-center" style="width: 36px;">
     <app-why-lunar-hq-social-links></app-why-lunar-hq-social-links>
   </div>
 
-  <div class="pd-top-16">
+  <div class="pd-top-24 pd-bottom-80">
     <app-why-lunar-hq-logo></app-why-lunar-hq-logo>
   </div>
 </section>
+
+<app-why-modal id="popUpDemo" [popUpType]="'confirmation'">
+  <section class="modal-container">
+    <section class="modal-wrapper">
+      <article class="pd-top-48" style="width: 320px; margin: auto">
+        <div class="app-why-lbl f22 ft-uni ft-medium light">Unlink discord ?</div>
+        <div class="pd-top-32">
+          <label class="app-why-lbl f16 ft-lato light-70">
+            This will remove the link between Lunar Assistant and Discord.
+          </label>
+        </div>
+        <div class="pd-top-24">
+          <label class="app-why-lbl f16 ft-lato light-70 pd-top-16">
+            Your current profile will be saved but will no longer be updated if you change your
+            Discord profile.
+          </label>
+        </div>
+        <!--<div class="pd-top-24">
+          <label class="app-why-lbl f16 ft-lato light-70 pd-top-16">
+            Your current profile will be saved but will no longer be updated if you change your
+            Discord profile.
+          </label>
+        </div>-->
+        <!--<div class="pd-top-24">
+          <label class="app-why-lbl f16 ft-lato light-70">
+            You will no longer have access to Discord channels managed by Lunar Assistant.
+          </label>
+        </div>-->
+        <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+          <div>
+            <app-why-lunar-hq-cta-two
+              [btnTheme]="'bg--dark'"></app-why-lunar-hq-cta-two>
+          </div>
+          <div>
+            <app-why-cta-one
+              [cssClass]="cssClass.cta1Md" [btnLabel]="'Unlink'"></app-why-cta-one>
+          </div>
+        </div>
+      </article>
+    </section>
+  </section>
+</app-why-modal>

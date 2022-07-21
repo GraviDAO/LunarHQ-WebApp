@@ -4,6 +4,11 @@ import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'kitchen',
+    pathMatch: 'full'
+  },
+  {
     path: 'kitchen',
     component: KitchenSinkComponent
   }

@@ -7,19 +7,21 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
 import {SharedModule} from './shared/shared.module';
+import {ModalModule} from './shared/_modal/modal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     KitchenSinkComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgxUiLoaderModule,
-    SharedModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgxUiLoaderModule,
+        SharedModule,
+        ModalModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

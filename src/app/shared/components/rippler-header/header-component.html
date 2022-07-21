@@ -37,11 +37,11 @@
       </div>
 
       <div class="profile-container" *ngIf="profileObj?.viewProfile">
-        <div>
+        <div class="d-flex align-items-center">
           <img class="profile-img" [src]="profileObj?.img"
                [ngClass]="{'add-notch': profileObj?.img === ''}"
                alt="" imgFallback>
-          <label class="pd-left-8 app-why-lbl f14 ft-bold light">Dw00k #5732</label>
+          <div class="pd-left-8 app-why-lbl f14 ft-bold light">Dw00k #5732</div>
         </div>
         <div class="settings-container" *ngIf="profileObj?.viewSettings">
           <ion-icon class="app-why-icon ic14 light" name="cog-outline"></ion-icon>

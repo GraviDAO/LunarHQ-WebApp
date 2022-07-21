@@ -28,6 +28,8 @@ $container-max-widths: (
   --secondary-50: #{map-get($theme-colors, secondary-50)};
   --secondary-20: #{map-get($theme-colors, secondary-20)};
 
+  --tertiary : #{map-get($theme-colors, tertiary)};
+
 
   --dark: #{map-get($theme-colors, dark)}; // titles
   --dark-70: #{map-get($theme-colors, dark-70)}; // body text
@@ -48,6 +50,7 @@ $container-max-widths: (
   --bg-medium: #fafafa;
   --bg-white: #FFFFFF;
   --bg-dark: #{map-get($theme-colors, bg-dark)};
+  --bg-dark-50: #{map-get($theme-colors, bg-dark-50)};
 
   --btn-height: 40px;
   --btn-lg-width: 240px;

@@ -1,3 +1,4 @@
+@use "core" as mixin;
 
 .app-why-btn {
   display: flex;
@@ -15,20 +16,18 @@
   font-size: var(--font-size-16);
   letter-spacing: var(--btn-letter-spacing);
   color: var(--dark);
-  font-family: Jura, serif;
+  font-family: Jura, sans-serif;
   text-transform: uppercase;
   font-weight: bold;
   margin-inline: 0;
   margin: 0;
   padding: 0;
   //border-radius: var(--selected-btn-border-radius);
-  @include notch(8px);
+  @include mixin.notch(8px);
 
   &.md {
     height: var(--btn-md-height);
     width: var(--btn-md-width);
-    line-height: var(--font-size-20);
-    font-size: var(--font-size-12);
   }
 
   &:hover {
@@ -72,7 +71,10 @@
 
 
   &.cta2 {
+    clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 0 1%, 98% 2%, 100% 92%, 5% 91%, 23% 100%, 100% 100%, 100% 0);
+    //clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 100%, 70% 100%, 25% 100%, 0 75%, 0% 30%);
     border: 1px solid var(--primary);
+    border-radius: 0 8px 0 8px;
     background: transparent;
     color: var(--primary);
 

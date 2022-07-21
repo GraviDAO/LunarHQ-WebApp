@@ -1,7 +1,7 @@
-@import "src/style/notch";
+@use "src/style/core" as mixin;
 
 .header-container {
-  height: toRem(64);
+  height: mixin.toRem(64);
   width: 100%;
   max-width: 1440px;
   background: var(--bg-dark);
@@ -66,22 +66,22 @@
   align-items: center;
   justify-content: space-between;
   //margin-top: 4px;
-  @include notch(8px);
+  @include mixin.notch(8px);
 }
 
 .profile-img {
   width: 32px;
   height: 32px;
-  border-radius: 16px;
+  @include mixin.notch(8px);
 
   &.add-notch {
-    border-radius: 0;
     opacity: 0.5;
-    @include notch(8px);
   }
 }
 
 .settings-container {
-  height: 18px;
+  height: 32px;
+  display: flex;
+  align-items: center;
   padding-right: 8px;
 }

@@ -8,6 +8,8 @@ import {GravidaoLogoComponent} from './components/gravidao-logo/gravidao-logo.co
 import {HeaderComponent} from './components/rippler-header/header-component';
 import {SearchComponent} from './components/rippler-search-component/search.component';
 import {ImgFallbackDirective} from './_helpers/image-fallback-directive';
+import {RipplerCtaTwoComponent} from './components/rippler-cta-two/rippler-cta-two.component';
+import {ModalModule} from './_modal/modal.module';
 
 const commonModules = [
   CtaOneComponent,
@@ -16,7 +18,8 @@ const commonModules = [
   GravidaoLogoComponent,
   HeaderComponent,
   SearchComponent,
-  ImgFallbackDirective
+  ImgFallbackDirective,
+  RipplerCtaTwoComponent
 ];
 
 @NgModule({
@@ -26,6 +29,7 @@ const commonModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

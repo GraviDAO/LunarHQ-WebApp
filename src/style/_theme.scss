@@ -1,12 +1,12 @@
 $theme-colors: (
-  primary-dark: #00FFFF,
+  primary-dark: #00B0B0,
   primary: #00FFFF,
   primary-70:#00FFFFB3,
   primary-50:#00FFFF80,
   primary-20:#00FFFF33,
   primary-10:#00FFFF1A,
 
-  secondary-dark:#FFFF40,
+  secondary-dark:#CCCC27,
   secondary:#FFFF40,
   secondary-70:#FFFF40B3,
   secondary-50:#FFFF4080,
@@ -35,5 +35,6 @@ $theme-colors: (
   warning: #FBA400,
   error: #FF40A0,
 
-  bg-dark: #09060B
+  bg-dark: #09060B,
+  bg-dark-50: #09060B80
 );
