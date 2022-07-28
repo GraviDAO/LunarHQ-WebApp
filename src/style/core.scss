@@ -1,42 +1,35 @@
-@use "sass:math";
-
-@mixin notch($notchSize) {
-  clip-path: polygon(
-      0% 0px, /* top left */
-      0px 0%, /* top left */
-      calc(100% - #{$notchSize}) 0%, /* top right */
-      100% #{$notchSize}, /* top right */
-      100% 100%, /* bottom right */
-      100% 100%, /* bottom right */
-      #{$notchSize} 100%, /* bottom left */
-      0 calc(100% - #{$notchSize}) /* bottom left */
-  );
+.vertical-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--primary);
 }
 
+.horizontal-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--primary);
 
-@function toRem($value) {
-  $remValue: math.div($value, 16) + rem;
-  //$remValue: ($value / 16) + rem;
-  @return $remValue;
-}
+  &.dark {
+    background: var(--dark);
+  }
 
-// modal top-bottom image wrapper
+  &.dark-70 {
+    background: var(--dark-70);
+  }
 
-.modal-wrapper {
-  text-align: center;
-  min-height: 200px;
-  background: url(../assets/img/png/popup-top.png) top no-repeat, url(../assets/img/png/popup-bottom.png) no-repeat bottom;
-  background-size: contain;
-}
+  &.dark-50 {
+    background: var(--dark-50);
+  }
 
-// modal background
-.modal-container {
-  background: var(--bg-dark);
-  @include notch(8px);
-}
+  &.light {
+    background: var(--light);
+  }
 
-// background-wrapper
-@mixin bg--wrapper {
-  background: var(--dark-50);
-  @include notch(8px);
+  &.light-70 {
+    background: var(--light-70);
+  }
+
+  &.light-50 {
+    background: var(--light-50);
+  }
 }

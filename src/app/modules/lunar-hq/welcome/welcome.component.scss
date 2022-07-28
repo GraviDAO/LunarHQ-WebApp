@@ -1,0 +1,41 @@
+@use "src/style/mixin-core" as mixin;
+
+.add-bg {
+  width: 100vw;
+  height: 100vh;
+  background: url("../../../../assets/img/png/la-bg.png"), var(--bg-dark);
+  background-position: inherit;
+  background-repeat: round;
+}
+
+.main-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-container {
+  padding: mixin.toRem(32);
+  width: mixin.toRem(346);
+  height: mixin.toRem(272);
+  @include mixin.notch(8px);
+  background: var(--tertiary);
+  opacity: 0.5;
+
+  &.active {
+    padding: mixin.toRem(40);
+    width: mixin.toRem(432);
+    height: mixin.toRem(350);
+    @include mixin.notch(8px);
+    background: var(--tertiary);
+    opacity: 1;
+  }
+}
+
+.transform-sm {
+  :host(app-why-cta-one) {
+    div > button {
+      transform: scale(0.8);
+    }
+  }
+}

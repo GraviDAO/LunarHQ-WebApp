@@ -1,7 +1,7 @@
 @use "sass:math";
 
 $max: 230;
-$offset: 2;
+$offset: 1;
 $unit: 'px'; // Feel free to change the unit.
 @mixin padding-margin-loop($className, $styleName) {
   $i: 0;

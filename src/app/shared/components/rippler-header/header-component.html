@@ -1,9 +1,10 @@
 <section class="header-container">
   <div class="d-flex justify-content-start lg-container">
     <div class="pd-top-14">
-      <img src="/assets/img/png/LA-logo.png" alt="logo" class="logo-wrapper">
+      <img src="/assets/img/svg/logo.svg" alt="logo" class="logo-wrapper">
+<!--      <img src="/assets/img/png/LA-logo.png" alt="logo" class="logo-wrapper">-->
     </div>
-    <div class="mr-left-90 divider"></div>
+    <div class="mr-left-28 divider"></div>
     <div class="d-flex align-items-center">
       <div class="pd-right-8">
         <span class="pd-left-24 app-why-lbl f16 light ft-uni">{{title}}</span>
@@ -46,6 +47,10 @@
         <div class="settings-container" *ngIf="profileObj?.viewSettings">
           <ion-icon class="app-why-icon ic14 light" name="cog-outline"></ion-icon>
         </div>
+      </div>
+
+      <div *ngIf="rightLabel">
+        <span class="app-why-lbl f12 light-20 ft-bold">{{rightLabel}}</span>
       </div>
     </div>
   </div>

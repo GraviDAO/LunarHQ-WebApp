@@ -1,6 +1,6 @@
 /* MODAL STYLES
 -------------------------------*/
-@use "src/style/core" as mixin;
+@use "src/style/mixin-core" as mixin;
 
 app-why-modal {
   /* modals are hidden by default */
@@ -32,7 +32,7 @@ app-why-modal {
       //border-radius: 15px;
       //padding: 25px;
       //background: var(--bg-white);
-      background: var(--bg-dark);
+      //background: var(--bg-dark);
       /* margin exposes part of the modal background */
       margin: 10%;
 

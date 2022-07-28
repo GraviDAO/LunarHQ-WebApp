@@ -2,7 +2,7 @@
   <button [type]="buttonType"
           (click)="onCLick()"
           [disabled]="isDisabled"
-          [class]="cssClass">
+          [class]="cssClass + ' ' + transform">
     <ion-icon class="app-why-icon {{iconClass}} dark"
               *ngIf="iconType !== ''" name="{{iconType}}"></ion-icon>
     <div class="">

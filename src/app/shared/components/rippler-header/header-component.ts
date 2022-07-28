@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   @Input() showMidContainer = false;
   @Input() title = '';
   @Input() subTitle = '';
+  @Input() rightLabel = '';
   @Input() showSearchBar = false;
   @Input() showLastDivider = false;
   @Input() buttonLabel = '';

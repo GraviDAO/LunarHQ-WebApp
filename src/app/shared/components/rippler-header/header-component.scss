@@ -1,4 +1,4 @@
-@use "src/style/core" as mixin;
+@use "src/style/mixin-core" as mixin;
 
 .header-container {
   height: mixin.toRem(64);
@@ -14,7 +14,7 @@
 }
 
 .logo-wrapper {
-  width: 120px;
+  width: 180px;
   height: 36px;
 }
 

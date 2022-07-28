@@ -27,7 +27,8 @@
   </div>
 
   <div class="pd-top-24">
-    <app-why-lunar-hq-cta-two></app-why-lunar-hq-cta-two>
+    <app-why-lunar-hq-cta-two
+      [btnTheme]="'bg--dark'"></app-why-lunar-hq-cta-two>
   </div>
 
 
@@ -43,19 +44,22 @@
 <app-why-modal id="popUpDemo" [popUpType]="'confirmation'">
   <section class="modal-container">
     <section class="modal-wrapper">
-      <article class="pd-top-48" style="width: 320px; margin: auto">
+      <article class="pd-top-48" style="width: 320px; margin: auto; min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;">
         <div class="app-why-lbl f22 ft-uni ft-medium light">Unlink discord ?</div>
         <div class="pd-top-32">
           <label class="app-why-lbl f16 ft-lato light-70">
             This will remove the link between Lunar Assistant and Discord.
           </label>
         </div>
-        <div class="pd-top-24">
+        <!--<div class="pd-top-24">
           <label class="app-why-lbl f16 ft-lato light-70 pd-top-16">
             Your current profile will be saved but will no longer be updated if you change your
             Discord profile.
           </label>
-        </div>
+        </div>-->
         <!--<div class="pd-top-24">
           <label class="app-why-lbl f16 ft-lato light-70 pd-top-16">
             Your current profile will be saved but will no longer be updated if you change your

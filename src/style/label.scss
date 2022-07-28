@@ -158,6 +158,16 @@
     --color: var(--light-50);
   }
 
+  &.light-20 {
+    color: var(--light-20);
+    --color: var(--light-20);
+  }
+
+  &.light-10 {
+    color: var(--light-10);
+    --color: var(--light-10);
+  }
+
   &.white {
     color: var(--bg-white);
   }

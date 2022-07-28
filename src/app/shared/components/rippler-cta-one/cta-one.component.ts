@@ -13,6 +13,7 @@ export class CtaOneComponent implements OnInit {
   @Input() iconClass = 'ic20 pd-right-8';
   @Input() isDisabled = false;
   @Output() clickEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Input() transform = '';
 
   constructor() { }
 

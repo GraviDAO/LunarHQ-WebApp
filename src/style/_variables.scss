@@ -41,6 +41,7 @@ $container-max-widths: (
   --light-70: #{map-get($theme-colors, light-70)};
   --light-50: #{map-get($theme-colors, light-50)};
   --light-20: #{map-get($theme-colors, light-20)};
+  --light-10: #{map-get($theme-colors, light-10)};
 
   --error: #FF40A0;
   --success: #40FFA0;
