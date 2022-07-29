@@ -7,6 +7,7 @@ import {CssConstants} from '../../../shared/services/css-constants.service';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent {
+  selected = 'discord';
   constructor(public cssClass: CssConstants) {
   }
 }

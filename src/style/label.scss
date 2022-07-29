@@ -52,6 +52,12 @@
     height: var(--font-size-24);
   }
 
+  &.f22_28 {
+    font-size: var(--font-size-22);
+    line-height: var(--font-size-28);
+    height: var(--font-size-28);
+  }
+
   &.f22 {
     font-size: var(--font-size-22);
     line-height: var(--font-size-32);
@@ -113,8 +119,8 @@
 
 
   &.secondary {
-    color: var(--secondary);
-    --color: var(--secondary);
+    color: var(--secondary) !important;
+    --color: var(--secondary) !important;
   }
 
   &.secondary-70 {

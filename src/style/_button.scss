@@ -30,6 +30,13 @@
     width: var(--btn-md-width);
   }
 
+  &.norm {
+    line-height: var(--font-size-20);
+    font-size: var(--font-size-12);
+    height: var(--btn-sm-height);
+    width: var(--btn-norm-width);
+  }
+
   &:hover {
     background: var(--primary-dark);
   }

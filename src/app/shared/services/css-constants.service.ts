@@ -5,6 +5,9 @@ import {Injectable} from '@angular/core';
 })
 export class CssConstants {
   cta1 = 'app-why-btn full-width';
+  cta1Icon = 'ic20 pd-right-8';
+  cta1Norm = 'app-why-btn norm';
+  cta1NormIcon = 'ic16 pd-right-6';
   cta1Md = 'app-why-btn md';
   cta1Sm = 'app-why-btn small'
   cta1SmFlex = 'app-why-btn small flex'

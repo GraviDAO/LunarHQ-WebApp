@@ -15,7 +15,7 @@
 }
 
 .option-container {
-  padding: mixin.toRem(32);
+  padding: mixin.toRem(32) mixin.toRem(44);
   width: mixin.toRem(346);
   height: mixin.toRem(272);
   @include mixin.notch(8px);
@@ -23,7 +23,7 @@
   opacity: 0.5;
 
   &.active {
-    padding: mixin.toRem(40);
+    padding: mixin.toRem(40) mixin.toRem(56) mixin.toRem(50) mixin.toRem(56);
     width: mixin.toRem(432);
     height: mixin.toRem(350);
     @include mixin.notch(8px);
