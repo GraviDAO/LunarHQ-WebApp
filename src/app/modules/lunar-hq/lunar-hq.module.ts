@@ -4,9 +4,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from '../../shared/_modal/modal.module';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {SharedModule} from '../../shared/shared.module';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 const commonModules = [
-  WelcomeComponent
+  WelcomeComponent,
+  DashboardComponent
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
 import {WelcomeComponent} from './modules/lunar-hq/welcome/welcome.component';
+import {DashboardComponent} from './modules/lunar-hq/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
   }
 ];
 

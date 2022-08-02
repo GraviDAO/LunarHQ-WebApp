@@ -10,6 +10,7 @@ import {SearchComponent} from './components/rippler-search-component/search.comp
 import {ImgFallbackDirective} from './_helpers/image-fallback-directive';
 import {RipplerCtaTwoComponent} from './components/rippler-cta-two/rippler-cta-two.component';
 import {ModalModule} from './_modal/modal.module';
+import {SideBarComponent} from './components/side-bar/side-bar.component';
 
 const commonModules = [
   CtaOneComponent,
@@ -19,7 +20,8 @@ const commonModules = [
   HeaderComponent,
   SearchComponent,
   ImgFallbackDirective,
-  RipplerCtaTwoComponent
+  RipplerCtaTwoComponent,
+  SideBarComponent
 ];
 
 @NgModule({

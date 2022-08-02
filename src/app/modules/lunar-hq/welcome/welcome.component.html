@@ -25,6 +25,7 @@
     <div class="pd-top-40">
       <app-why-cta-one
         [iconType]="'file-tray-full'"
+        (click)="connectToDiscord()"
         [iconClass]="selected === 'discord' ? cssClass.cta1Icon : cssClass.cta1NormIcon"
         [cssClass]="selected === 'discord' ? cssClass.cta1 : cssClass.cta1Norm"
         [btnLabel]="selected === 'discord' ? 'Connect Discord': 'Connected'"></app-why-cta-one>

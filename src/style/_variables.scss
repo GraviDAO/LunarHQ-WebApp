@@ -29,6 +29,8 @@ $container-max-widths: (
   --secondary-20: #{map-get($theme-colors, secondary-20)};
 
   --tertiary : #{map-get($theme-colors, tertiary)};
+  --tertiary-70 : #{map-get($theme-colors, tertiary-70)};
+  --tertiary-50 : #{map-get($theme-colors, tertiary-50)};
 
 
   --dark: #{map-get($theme-colors, dark)}; // titles

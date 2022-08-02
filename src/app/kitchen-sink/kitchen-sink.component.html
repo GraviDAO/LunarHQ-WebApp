@@ -8,7 +8,8 @@
 
   <div class="pd-top-24">
     <app-why-cta-one
-      [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'"></app-why-cta-one>
+      (click)="navigateToWelcome()"
+      [cssClass]="cssClass.cta1Md" [btnLabel]="'Welcome'"></app-why-cta-one>
   </div>
 
   <div class="pd-top-24">

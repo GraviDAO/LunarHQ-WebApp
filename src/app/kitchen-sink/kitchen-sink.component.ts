@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {CssConstants} from '../shared/services/css-constants.service';
-import { ModalService } from '../shared/_modal/modal.service';
+import {ModalService} from '../shared/_modal/modal.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-why-lunar-hq-kitchen-sink',
@@ -13,7 +14,9 @@ export class KitchenSinkComponent {
     viewProfile: true,
     viewSettings: true
   };
+
   constructor(public cssClass: CssConstants,
+              private router: Router,
               private modalService: ModalService) {
   }
 
@@ -21,4 +24,7 @@ export class KitchenSinkComponent {
     this.modalService.open('popUpDemo');
   }
 
+  navigateToWelcome() {
+    this.router.navigate(['/welcome']);
+  }
 }

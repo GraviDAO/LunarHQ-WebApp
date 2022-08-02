@@ -10,4 +10,8 @@ export class WelcomeComponent {
   selected = 'discord';
   constructor(public cssClass: CssConstants) {
   }
+
+  connectToDiscord() {
+
+  }
 }
