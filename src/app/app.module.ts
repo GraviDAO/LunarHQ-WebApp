@@ -10,6 +10,7 @@ import {SharedModule} from './shared/shared.module';
 import {ModalModule} from './shared/_modal/modal.module';
 import {LunarHqModule} from './modules/lunar-hq/lunar-hq.module';
 import {HttpClientModule} from '@angular/common/http';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxUiLoaderModule,
+    ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
     SharedModule,
     ModalModule,
