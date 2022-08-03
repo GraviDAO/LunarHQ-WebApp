@@ -45,6 +45,7 @@ a {
 
 button {
   transition: .3s all ease;
+
   &:hover, &:focus {
     text-decoration: none !important;
     outline: none !important;
@@ -121,8 +122,10 @@ h1, h2, h3, h4, h5,
 .hide {
   display: none;
 }
+
 //
 #sidebar {
+  margin-top: 64px;
   //max-width: 25vw;
   min-width: 240px;
   background: var(--tertiary-70);
@@ -138,7 +141,7 @@ h1, h2, h3, h4, h5,
       li {
         font-size: 14px;
         display: flex;
-        height: 48px;
+        height: 24px;
         align-items: center;
 
         &:hover {
@@ -188,7 +191,7 @@ h1, h2, h3, h4, h5,
       //padding-top: 20px;
       display: flex;
       align-items: center;
-      height: 48px;
+      height: 24px;
 
       > ul {
         margin-left: 10px;
@@ -363,7 +366,7 @@ a[data-toggle="collapse"] {
 }
 
 .no-height {
-  min-height: 48px;
+  min-height: 24px;
   height: auto !important;
 }
 

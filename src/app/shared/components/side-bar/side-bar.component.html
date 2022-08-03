@@ -1,7 +1,7 @@
 <section>
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar" class="active">
-      <div class="d-flex align-items-center add-transition logo-wrapper"
+      <!--<div class="d-flex align-items-center add-transition logo-wrapper"
            [ngClass]="[isToggled ? 'pd-left-34': 'justify-content-center']">
         <div>
           <img class="icon dark-50" src="/assets/img/png/Icon-M-light.png" alt="">
@@ -9,8 +9,8 @@
         <div *ngIf="isToggled">
           <span class="pd-left-20 app-lbl f22 light-50">MAPIMO</span>
         </div>
-      </div>
-      <ul class="list-unstyled components mr-bottom-5">
+      </div>-->
+      <ul class="list-unstyled components mr-bottom-5 pd-top-36">
         <li *ngFor="let sideNav of sideNavList; let i = index;"
             class="show-cursor" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
             [ngClass]="{'no-height': sideNav.subMenu}">

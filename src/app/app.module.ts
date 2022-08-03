@@ -9,6 +9,7 @@ import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
 import {SharedModule} from './shared/shared.module';
 import {ModalModule} from './shared/_modal/modal.module';
 import {LunarHqModule} from './modules/lunar-hq/lunar-hq.module';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,14 @@ import {LunarHqModule} from './modules/lunar-hq/lunar-hq.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxUiLoaderModule,
+    HttpClientModule,
     SharedModule,
     ModalModule,
     LunarHqModule
   ],
-  providers: [],
+  providers: [
+    // {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
