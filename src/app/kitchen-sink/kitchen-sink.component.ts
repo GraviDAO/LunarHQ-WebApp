@@ -11,8 +11,8 @@ import {Router} from '@angular/router';
 export class KitchenSinkComponent {
   profileObj = {
     img: '../../../../assets/img/png/nft-profile.jpeg',
-    viewProfile: false,
-    viewSettings: false
+    viewProfile: true,
+    viewSettings: true
   };
 
   constructor(public cssClass: CssConstants,
