@@ -19,7 +19,8 @@ app-why-modal {
     left: 0;
 
     background: var(--dark-05);
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
+    //backdrop-filter: blur(4px);
 
 
     /* z-index must be higher than .app-why-modal-background */

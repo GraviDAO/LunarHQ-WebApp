@@ -10,6 +10,7 @@ export class CtaOneComponent implements OnInit {
   @Input() cssClass = 'btn full-width';
   @Input() btnLabel = '';
   @Input() iconType = '';
+  @Input() iconPath = '';
   @Input() iconClass = 'ic20 pd-right-8';
   @Input() isDisabled = false;
   @Output() clickEvent: EventEmitter<any> = new EventEmitter<any>();

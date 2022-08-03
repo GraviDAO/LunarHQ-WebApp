@@ -25,6 +25,21 @@
   //border-radius: var(--selected-btn-border-radius);
   @include mixin.notch(8px);
 
+  &.dark-50 {
+    justify-content: flex-start;
+    padding-left: 16px;
+    background: var(--dark-50);
+    --background: var(--dark-50);
+    --background-activated: var(--dark-50);
+    --background-hover: var(--dark-50);
+    color: var(--light-70);
+
+    &:hover {
+      background: var(--dark);
+      color: var(--light);
+    }
+  }
+
   &.md {
     height: var(--btn-md-height);
     width: var(--btn-md-width);

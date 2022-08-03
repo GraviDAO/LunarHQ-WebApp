@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CoreService} from '../../services/core.service';
+import {ModalService} from '../../../shared/_modal/modal.service';
 
 @Component({
   selector: 'app-why-lunar-hq-welcome',
@@ -15,6 +16,7 @@ export class WelcomeComponent implements OnInit {
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
+              private modalService: ModalService,
               public coreService: CoreService,
               private router: Router) {
     this.route.queryParams.subscribe((params: any) => {
@@ -35,5 +37,9 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  connectWallet() {
+    this.modalService.open('popUpDemo');
   }
 }

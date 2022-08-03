@@ -11,6 +11,7 @@ import {ImgFallbackDirective} from './_helpers/image-fallback-directive';
 import {RipplerCtaTwoComponent} from './components/rippler-cta-two/rippler-cta-two.component';
 import {ModalModule} from './_modal/modal.module';
 import {SideBarComponent} from './components/side-bar/side-bar.component';
+import {ModalWrapperComponent} from './components/modal-wrapper/modal-wrapper.component';
 
 const commonModules = [
   CtaOneComponent,
@@ -21,7 +22,8 @@ const commonModules = [
   SearchComponent,
   ImgFallbackDirective,
   RipplerCtaTwoComponent,
-  SideBarComponent
+  SideBarComponent,
+  ModalWrapperComponent
 ];
 
 @NgModule({
