@@ -1,9 +1,17 @@
 <app-why-header
   [buttonLabel]="''"
   [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
-  [title]="'Welcome'"
+  [title]="'Manage Profile'"
   (click)="navigateToProfile()"
   [subTitle]="''"></app-why-header>
 <app-why-side-nav
   [sideNavList]="sideNavList"
-></app-why-side-nav>
+>
+<div class="d-flex flex-nowrap">
+  <div style="padding-right: 8px; flex: 1; max-width: 76rem; min-width: 76rem;">
+    <div class="tile-1">
+        <a></a>
+    </div>
+  </div>
+</div>
+</app-why-side-nav>

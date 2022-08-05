@@ -1,0 +1,11 @@
+@use "src/style/mixin-core" as mixin;
+.tile-1 {
+  max-width: 76rem;
+  height: 4rem;
+  @include mixin.bg--wrapper;
+  clip-path: none;
+}
+
+.profile-container {
+  cursor: pointer !important;
+}

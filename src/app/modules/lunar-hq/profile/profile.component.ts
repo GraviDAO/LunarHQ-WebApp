@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 
 @Component({
-  selector: 'app-why-lunar-hq-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-why-lunar-hq-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'

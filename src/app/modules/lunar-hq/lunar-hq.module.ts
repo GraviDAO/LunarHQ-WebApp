@@ -5,10 +5,12 @@ import {ModalModule} from '../../shared/_modal/modal.module';
 import {WelcomeComponent} from './welcome/welcome.component';
 import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const commonModules = [
   WelcomeComponent,
-  DashboardComponent
+  DashboardComponent,
+  ProfileComponent
 ];
 
 @NgModule({
