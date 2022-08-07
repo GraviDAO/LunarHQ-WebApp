@@ -29,14 +29,11 @@ a {
 .submenu-list {
   height: 24px !important;
 
-  span {
-    font-weight: 300 !important;
-  }
 }
 
 //
 .active-sub-menu {
-  color: var(--primary-dark) !important;
+  color: var(--secondary) !important;
 }
 
 .active-bg {
@@ -128,7 +125,7 @@ h1, h2, h3, h4, h5,
   margin-top: 64px;
   //max-width: 25vw;
   min-width: 240px;
-  background: var(--tertiary-70);
+  background: var(--dark-70);
   color: #fff;
   transition: all 0.4s;
 
@@ -205,7 +202,7 @@ h1, h2, h3, h4, h5,
         padding-left: 8px;
         font-size: var(--font-size-14);
         line-height: var(--font-size-22);
-        color: var(--light-50);
+        color: var(--light-70);
         font-weight: 500;
         @include mixin.media-breakpoint-down(md) {
           display: block;
@@ -286,10 +283,10 @@ a[data-toggle="collapse"] {
 }
 
 .active-container {
-  background: var(--tertiary-50);
+  background: var(--light-20);
   box-shadow: 0 16px 20px -8px rgba(0, 0, 0, 0.04);
-  padding-bottom: 4px;
-  padding-top: 4px;
+  padding-bottom: 8px;
+  padding-top: 8px;
 }
 
 .add-pd-lr-80 {
@@ -382,6 +379,6 @@ a[data-toggle="collapse"] {
   transform: rotate(180deg);
 }
 
-.pd-left-78 {
-  padding-left: 78px !important;
+.add--pd-left {
+  padding-left: 46px !important;
 }
