@@ -1,11 +1,4 @@
 @use "src/style/mixin-core" as mixin;
-.add-bg {
-    width: 100vw;
-    height: 100vh;
-    background: url("/assets/img/png/la-bg.png"), var(--bg-dark);
-    background-position: inherit;
-    background-repeat: round;
-  }
   .server-header {
     height: mixin.toRem(64);
     width: 100%;
@@ -31,44 +24,34 @@
   }
   .server-name-container {
     width: mixin.toRem(388);
-    position: relative;
-    float: left;
   }
   .server-logo {
     height: 32px;
     width: 32px;
-    float: left;
-    position: relative;
-  }
-  .server-name {
-      float: left;
-      position: relative;
   }
   .server-name-right-icon {
       width: mixin.toRem(14);
       height: mixin.toRem(14);
-      position: relative;
-      float: left;
   }
   .server-details {
     width: mixin.toRem(376);
-    position: relative;
-    float: left;
   }
   .server-detail-item {
       width: mixin.toRem(80);
       height: mixin.toRem(42);
-      position: relative;
-      float: left;
   }
   .server-icons {
     width: mixin.toRem(184);
-    position: relative;
-    float: left;
   }
   .server-icon-container {
     width: mixin.toRem(20);
     height: mixin.toRem(20);
+  }
+  .visit-button {
+    width: mixin.toRem(134);
+  }
+  .add-license-button {
+    width: mixin.toRem(134);
   }
   .add-license {
     width: mixin.toRem(44);
@@ -80,6 +63,4 @@
     height: 58px;
     width: 1px;
     background: var(--light-20);
-    position: relative;
-    float: left;
   }

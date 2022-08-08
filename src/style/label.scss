@@ -25,12 +25,14 @@
     font-size: var(--font-size-10);
     line-height: var(--font-size-16);
     height: var(--font-size-16);
+    letter-spacing: 0.2px;
   }
 
   &.f12 {
     font-size: var(--font-size-12);
     line-height: var(--font-size-20);
     height: var(--font-size-20);
+    letter-spacing: 0.47px;
   }
 
   &.f14 {

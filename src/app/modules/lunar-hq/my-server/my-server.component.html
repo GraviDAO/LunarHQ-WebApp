@@ -7,23 +7,23 @@
 <app-why-side-nav
   [sideNavList]="sideNavList"
 >
-<div class="flex flex-nowrap add-bg">
+<div class="flex flex-nowrap">
     <div class="server-header">
         <div class="pd-top-20 pd-left-24 back-button">
             <ion-icon name="chevron-back-outline" class="app-why-icon"></ion-icon>
             <div class="app-why-lbl f14 ft-bold primary">BACK</div>
         </div>
         <div class="pd-top-20 mr-right-24 add-server app-why-lbl f12 ft-bold primary">
-            <app--why-cta-three
+            <app-why-cta-three
             [cssClass]="cssClass.cta3Primary"
             [iconType]="'reader-outline'"
             (click)="openModal()"
-            [btnLabel]="'HOW TO ADD A NEW SERVER'"></app--why-cta-three>
+            [btnLabel]="'HOW TO ADD A NEW SERVER'"></app-why-cta-three>
         </div>
     </div>
-    <div class="server-list mr-top-56 mr-left-60">
-        <div class="server-item">
-            <div class="server-name-container pd-top-28">
+    <div class="server-list flex justify-content-center align-items-center mr-top-56 mr-left-60">
+        <div class="server-item d-flex">
+            <div class="server-name-container d-flex align-items-start pd-top-28">
                 <div class="server-logo mr-left-24">
                     <img src="/assets/img/svg/gravidao-logo.svg" width="32" alt="logo" class="logo-wrapper">
                 </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="divider"></div>
-            <div class="server-details pd-left-16 pd-top-24">
+            <div class="server-details  d-flex pd-left-16 pd-top-24">
                 <div class="server-detail-item">
                     <div class="server-detail-item-number app-why-lbl f16 text-center ft-lato light-70">
                         334
@@ -80,11 +80,11 @@
             <div class="divider"></div>
             <div class="pd-top-34 visit-button d-flex justify-content-center">
                 <div class="app-why-lbl f12 ft-bold primary">VISIT</div>
-                <ion-icon name="chevron-forward-outline" class="app-why-icon ic24"></ion-icon>
+                <ion-icon name="chevron-forward-outline" class="app-why-icon ic20"></ion-icon>
             </div>
         </div>
-        <div class="server-item mr-top-8">
-            <div class="server-name-container pd-top-28">
+        <div class="server-item d-flex mr-top-8">
+            <div class="server-name-container d-flex align-items-start pd-top-28">
                 <div class="server-logo mr-left-24">
                     <img src="/assets/img/svg/gravidao-logo.svg" width="32" alt="logo" class="logo-wrapper">
                 </div>
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="divider"></div>
-            <div class="server-details pd-left-16 pd-top-24">
+            <div class="server-details pd-left-16 pd-top-24 d-flex">
                 <div class="server-detail-item">
                     <div class="server-detail-item-number app-why-lbl f16 text-center ft-lato light-70">
                         87
@@ -137,13 +137,13 @@
                 <img class="server-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
             </div>
             <div class="divider"></div>
-            <div class="add-license-button d-flex flex-column align-items-center pd-top-18 text-center">
-                <ion-icon name="add-circle-outline" class="app-why-icon ic14 error"></ion-icon>
+            <div class="add-license-button d-flex flex-column align-items-center justify-content-center pd-top-18 text-center">
+                <ion-icon name="add-circle-outline" class="app-why-icon ic18 error"></ion-icon>
                 <div class="add-license pd-top-8 app-why-lbl f10 ft-bold error">ADD LICENSE</div>
             </div>
         </div>
-        <div class="server-item mr-top-8">
-            <div class="server-name-container pd-top-28">
+        <div class="server-item d-flex mr-top-8">
+            <div class="server-name-container d-flex align-items-start pd-top-28">
                 <div class="server-logo mr-left-24">
                     <img src="/assets/img/svg/gravidao-logo.svg" width="32" alt="logo" class="logo-wrapper">
                 </div>
@@ -155,7 +155,7 @@
                 </div> -->
             </div>
             <div class="divider"></div>
-            <div class="server-details pd-left-16 pd-top-24">
+            <div class="server-details pd-left-16 pd-top-24 d-flex">
                 <div class="server-detail-item">
                     <div class="server-detail-item-number app-why-lbl f16 text-center ft-lato light-70">
                         121
@@ -196,7 +196,7 @@
             <div class="divider"></div>
             <div class="pd-top-34 visit-button d-flex justify-content-center">
                 <div class="app-why-lbl f12 ft-bold primary">VISIT</div>
-                <ion-icon name="chevron-forward-outline" class="app-why-icon ic24"></ion-icon>
+                <ion-icon name="chevron-forward-outline" class="app-why-icon ic20"></ion-icon>
             </div>
         </div>
     </div>
