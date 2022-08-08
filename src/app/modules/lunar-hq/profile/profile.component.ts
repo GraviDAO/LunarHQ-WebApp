@@ -54,4 +54,8 @@ export class ProfileComponent implements OnInit {
   navigateToProfile() {
     this.router.navigate(['profile']);
   }
+
+  navigateBack() {
+    this.router.navigate(['dashboard']);
+  }
 }

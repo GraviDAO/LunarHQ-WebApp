@@ -9,8 +9,13 @@
     <div class="profile-container">
       <div class="back-header">
         <div class="pd-left-24 pd-top-21 pd-bottom-21">
-          <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'" [leftIconType]="'chevron-back'"
-            [iconClass]="cssClass.cta3PrimaryIcon"></app-why-cta-three>
+          <app-why-cta-three
+            [btnClass]="cssClass.cta3Primary"
+            [btnLabel]="'Back'"
+            [leftIconType]="'chevron-back'"
+            [iconClass]="cssClass.cta3PrimaryIcon"
+            (click)="navigateBack()"
+          ></app-why-cta-three>
         </div>
       </div>
       <div class="profile-content">
