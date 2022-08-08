@@ -58,6 +58,8 @@ export class SideBarComponent implements OnInit {
   }
 
   navigate(tab: string, pos: number, isSubMenu?: any) {
+    console.log(tab,'activeTab');
+    this.activeTab = tab;
     Object.keys(this.toggle).forEach((key: string, index: number) => this.toggle[key] = false);
     this.toggle[pos] = true;
   }
