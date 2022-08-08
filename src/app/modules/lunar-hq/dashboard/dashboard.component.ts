@@ -11,64 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 
 export class DashboardComponent implements OnInit {
-  profileObj = {
-    img: '../../../../assets/img/png/nft-profile.jpeg',
-    viewProfile: true,
-    viewSettings: true
-  };
-  sideNavList: Array<SideNavType> = [
-    {
-      title: 'DASHBOARD'
-    },
-    {
-      title: 'MY SERVERS',
-      subMenu: [
-        {
-          title: 'GraviDAO',
-          permissionType: PermissionType.fullAccess,
-          nestedMenuList: [
-            'Rules',
-            'Polls'
-          ]
-        },
-        {
-          title: 'SockDao',
-          permissionType: PermissionType.partialAccess,
-          nestedMenuList: [
-            'Rules',
-            'Polls'
-          ]
-        },
-        {
-          title: 'Hubble fan club',
-          permissionType: PermissionType.noAccess,
-          nestedMenuList: [
-            'Rules',
-            'Polls'
-          ]
-        }
-      ]
-    },
-    {
-      title: 'POLLS',
-      subMenu: [
-        {
-          title: 'Owner'
-        },
-        {
-          title: 'Participant'
-        }
-      ]
-    },
-    {
-      title: 'ANNOUNCEMENTS',
-      subMenu: [
-        {
-          title: 'Accordions'
-        }
-      ]
-    },
-  ];
+
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
