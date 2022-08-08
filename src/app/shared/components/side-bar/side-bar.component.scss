@@ -27,7 +27,7 @@ a {
 }
 
 .submenu-list {
-  height: 24px !important;
+  min-height: 24px !important;
 
 }
 
@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5,
           padding-left: 0;
         }
 
-        span {
+        span, label {
           margin-right: 0;
           display: none;
           font-size: 24px;
@@ -188,7 +188,7 @@ h1, h2, h3, h4, h5,
       //padding-top: 20px;
       display: flex;
       align-items: center;
-      height: 24px;
+      min-height: 24px;
 
       > ul {
         margin-left: 10px;
@@ -198,7 +198,7 @@ h1, h2, h3, h4, h5,
         }
       }
 
-      span {
+      span, label {
         padding-left: 8px;
         font-size: var(--font-size-14);
         line-height: var(--font-size-22);
@@ -241,7 +241,7 @@ a[data-toggle="collapse"] {
 }
 
 #sidebarCollapse {
-  span {
+  span, label {
     @include mixin.media-breakpoint-down(md) {
       display: none;
     }
@@ -381,4 +381,19 @@ a[data-toggle="collapse"] {
 
 .add--pd-left {
   padding-left: 46px !important;
+}
+
+
+.add--pd-left-34 {
+  padding-left: 34px !important;
+}
+
+.add-pd-left-8 {
+  padding-left: 8px !important;
+}
+
+.nest-label {
+  color: var(--light-50);
+  font-size: var(--font-size-14);
+  line-height: var(--font-size-22);
 }

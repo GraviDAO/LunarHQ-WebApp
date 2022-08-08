@@ -8,3 +8,23 @@
 <app-why-side-nav
   [sideNavList]="sideNavList">
 </app-why-side-nav>
+
+<app-why-modal id="successPopUp" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">Success</div>
+
+    <div class="pd-top-24">
+      <label class="app-why-lbl f16 ft-lato light-70">
+        You have now linked your Discord Profile to a wallet. Return to Discord to see your new communities. Lunar HQ
+        will make it even easier to find and participate in communities, keep watching this space.
+      </label>
+    </div>
+
+    <div>
+      <app-why-cta-one
+        (click)="close()"
+        [cssClass]="cssClass.cta1Md"
+        [btnLabel]="'Done'"></app-why-cta-one>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
