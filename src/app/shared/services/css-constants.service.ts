@@ -13,6 +13,6 @@ export class CssConstants {
   cta1Sm = 'app-why-btn small'
   cta1SmFlex = 'app-why-btn small flex'
   cta2 = 'app-why-btn cta2 full-width';
-  cta3Primary = 'cta3';
-  cta3PrimaryIcon = 'app-why-icon ic20 primary';
+  cta3Primary = 'cta3 app-why-lbl f16 norm primary';
+  cta3PrimaryIcon = 'app-why-icon pd-right-6 ic20 primary-70';
 }

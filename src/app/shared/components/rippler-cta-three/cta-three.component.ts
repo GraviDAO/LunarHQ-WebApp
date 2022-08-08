@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app--why-cta-three',
+  selector: 'app-why-cta-three',
   templateUrl: './cta-three.component.html',
   styleUrls: ['./cta-three.component.scss'],
 })
