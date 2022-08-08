@@ -13,19 +13,19 @@ export class CoreService {
   }
 
   getDiscordUser(data: any): Observable<any> {
-    const url = environment.server + 'api/auth/user/discord-user'
-    return this.http.post<any>(url, {data});
+    const url = environment.server + 'linkDiscord'
+    return this.http.put<any>(url, data);
   }
 
-  login(data: any): Observable<any> {
-    return this.http.post<any>(environment.server + 'api/auth/user/login', {data})
+  getNonce(walletAddr: string, blockchainName: string): Observable<any> {
+    return this.http.get<any>(environment.server + 'getNonce/' + walletAddr + '?blockchainName=' + blockchainName)
       .pipe(map((result) => {
-        return result.data;
+        return result;
       }));
   }
 
   authenticate(data: any): Observable<any> {
-    return this.http.post<any>(environment.server + 'api/auth/user/authenticate', {data})
+    return this.http.post<any>(environment.server + 'login', data)
       .pipe(map((result) => {
         return result.data;
       }));

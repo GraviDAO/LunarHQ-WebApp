@@ -28,7 +28,7 @@ export class Web3Service {
           description: 'Scan the qr code and sign in',
           qrcodeModalOptions: {
             mobileLinks: [
-              'terra',
+              // 'terra',
               'metamask'/*,
               'rainbow',
               'argent',
@@ -65,6 +65,7 @@ export class Web3Service {
 
 
   async connectAccount() {
+    console.log(this.provider, 'prov', this.web3Modal);
     this.provider = await this.web3Modal.connect(); // set provider
     if (this.provider) {
       this.web3js = new Web3(this.provider);
@@ -74,18 +75,14 @@ export class Web3Service {
   }
 
   async accountInfo(account: any[]) {
-    const initialvalue = await this.web3js.eth.getBalance(account);
-    this.balance = this.web3js.utils.fromWei(initialvalue, 'ether');
+    const initialValue = await this.web3js.eth.getBalance(account);
+    this.balance = this.web3js.utils.fromWei(initialValue, 'ether');
     return this.balance;
   }
 
   async signIn(data: any, address: string) {
-    console.log(data, 'data');
     const msgHex = this.web3js.utils.sha3(data);
-    console.log(msgHex, 'msgHex');
-    // const msgBufferHex = this.web3js.utils.hexToUtf8(data);
     return await this.web3js.eth.personal.sign(msgHex, address, '');
-    // return await this.web3js.eth.personal.sign(msgBufferHex, address, '');
   }
 
   async publicAddress() {

@@ -53,6 +53,7 @@ $container-max-widths: (
   --bg-medium: #fafafa;
   --bg-white: #FFFFFF;
   --bg-dark: #{map-get($theme-colors, bg-dark)};
+  --bg-dark-90: #{map-get($theme-colors, bg-dark-90)};
   --bg-dark-50: #{map-get($theme-colors, bg-dark-50)};
 
   --btn-height: 40px;

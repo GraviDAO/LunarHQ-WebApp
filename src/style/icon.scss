@@ -77,6 +77,10 @@
     color: var(--primary-50);
   }
 
+  &.secondary-dark {
+    color: var(--secondary-dark) !important;
+  }
+
   &.secondary {
     color: var(--secondary) !important;
   }

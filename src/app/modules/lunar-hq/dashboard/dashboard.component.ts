@@ -9,6 +9,11 @@ import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 })
 
 export class DashboardComponent implements OnInit {
+  profileObj = {
+    img: '../../../../assets/img/png/nft-profile.jpeg',
+    viewProfile: true,
+    viewSettings: true
+  };
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'
@@ -17,7 +22,10 @@ export class DashboardComponent implements OnInit {
       title: 'MY SERVERS',
       subMenu: [
         {
-          title: 'Accordions'
+          title: 'GraviDAO'
+        },
+        {
+          title: 'SockDao'
         }
       ]
     },
