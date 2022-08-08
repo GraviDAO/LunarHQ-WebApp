@@ -134,3 +134,9 @@ openssl req -nodes -newkey rsa:2048 -keyout <domain.com>.key -out <domain.com>.c
     SSLCertificateChainFile /application/ssl/gd_bundle-g2-g1.crt
 </VirtualHost>
 ```
+
+```
+export NODE_OPTIONS="--max-old-space-size=2048"
+npm run build
+cp -r dist/lunar-hq-web-app/* ../server/public/www/
+```
