@@ -2,7 +2,9 @@
   [buttonLabel]="''"
   [profileObj]="profileObj"
   [title]="'Dashboard'"
-  [subTitle]="''"></app-why-header>
+  [subTitle]="''"
+  (click)="navigateToProfile()"
+></app-why-header>
 <app-why-side-nav
   [sideNavList]="sideNavList">
 </app-why-side-nav>
