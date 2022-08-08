@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {PermissionType, SideNavType} from '../side-bar/side.nav.type';
 
 @Component({
@@ -66,8 +66,15 @@ export class RipplerHeaderSideNavComponent {
     },
   ];
   @Input() activeTab = '';
+  @Input() title = 'Dashboard';
+  @Output() profileClick = new EventEmitter;
 
   constructor() {
   }
 
+  profileClickEmitter(event: MouseEvent) {
+    if (this.profileObj.viewProfile) {
+      this.profileClick.emit(event);
+    }
+  }
 }

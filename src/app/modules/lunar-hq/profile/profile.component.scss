@@ -1,14 +1,15 @@
 @use "src/style/mixin-core" as mixin;
 .back-header {
+  position: fixed;
   width: 75rem;
+  height: 4rem;
   @include mixin.bg--wrapper;
   clip-path: none;
-  position: fixed;
+  margin-top: -3.5rem;
 }
 
 .profile-wrapper {
-  max-width: 90rem;
-  width: 90rem;
+  margin-left: -3.75rem;
 }
 
 .profile-container {
@@ -20,8 +21,16 @@
 .profile-widget {
   position: relative;
   width: 45rem;
-  height: 25rem;
   @include mixin.bg--wrapper;
+}
+.widget_profile {
+  height: 24.95rem;
+}
+.widget_wallets {
+  height: 16rem;
+}
+.widget_licences {
+  height: 21.25rem;
 }
 .profile-content {
   max-width: 45rem;
@@ -33,4 +42,15 @@
 .backBtn {
   width: 132px;
   height: 24px;
+}
+.profile-header {
+  width: 640px;
+  height: 33px;
+  line-height: 24px;
+}
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--light);
+  opacity: 0.2;
 }

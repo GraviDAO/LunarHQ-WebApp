@@ -1,8 +1,10 @@
 <app-why-header
   [buttonLabel]="''"
   [profileObj]="profileObj"
-  [title]="'Dashboard'"
-  [subTitle]="''"></app-why-header>
+  [title]="title"
+  [subTitle]="''"
+  (click)="profileClickEmitter($event)"
+></app-why-header>
 <app-why-side-nav
   [activeTab]="activeTab"
   [sideNavList]="sideNavList">

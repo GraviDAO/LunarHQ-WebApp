@@ -1,6 +1,6 @@
 <app-why-header-side-nav
   [activeTab]="'DASHBOARD'"
-  (click)="navigateToProfile()"
+  (profileClick)="navigateToProfile()"
   >
   <section>
     <div class="d-flex">
@@ -36,7 +36,9 @@
     <div class="pd-top-16">
       <app-why-cta-three
         [leftIconType]="'cog-outline'"
-        [btnLabel]="'MANAGE PROFILE'"></app-why-cta-three>
+        [btnLabel]="'MANAGE PROFILE'"
+        (click)="navigateToProfile()"
+      ></app-why-cta-three>
     </div>
 
     <div class="pd-top-40 pd-bottom-40">
