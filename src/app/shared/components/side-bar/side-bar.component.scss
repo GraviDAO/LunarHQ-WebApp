@@ -353,9 +353,11 @@ a[data-toggle="collapse"] {
 
 .content-wrapper {
   width: calc(100vw - 240px);
-  margin: auto;
-  display: flex;
-  justify-content: center;
+  padding-left: 16vw;
+  padding-top: 56px;
+  //margin: auto;
+  //display: flex;
+  //justify-content: center;
 }
 
 .content-wrapper-toggled {
