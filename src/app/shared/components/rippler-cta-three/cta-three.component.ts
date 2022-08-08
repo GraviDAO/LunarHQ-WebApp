@@ -9,8 +9,8 @@ export class CtaThreeComponent implements OnInit {
   @Input() btnLabel = '';
   @Input() iconType = '';
   @Input() leftIconType = '';
-  @Input() btnClass = '';
-  @Input() iconClass = '';
+  @Input() btnClass = 'app-why-lbl f14 primary ft-bold';
+  @Input() iconClass = 'app-why-icon ic14 primary pd-right-8';
 
   constructor() {
   }

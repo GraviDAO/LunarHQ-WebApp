@@ -353,8 +353,9 @@ a[data-toggle="collapse"] {
 
 .content-wrapper {
   width: calc(100vw - 240px);
-  padding-left: 16vw;
-  padding-top: 56px;
+  padding-left: mixin.toRem(60);
+  padding-right: mixin.toRem(60);
+  padding-top: mixin.toRem(56);
   //margin: auto;
   //display: flex;
   //justify-content: center;
