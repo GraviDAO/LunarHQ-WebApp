@@ -2,7 +2,7 @@
   [buttonLabel]="''"
   [profileObj]="{viewProfile: false, viewSettings: false}"
   [title]="'Welcome'"
-  [rightLabel]="'CONNECT WALLET'"
+  [rightLabel]="selected === 'discord'? 'WALLET CONNECTED' : 'CONNECT WALLET'"
   [subTitle]="''"></app-why-header>
 
 <section>
@@ -73,15 +73,6 @@
         [iconPath]="'./assets/img/svg/matic-logo.svg'"
         [btnLabel]="'Polygon'"></app-why-cta-one>
     </div>
-
-    <!--<div class="d-flex justify-content-center pd-top-16">
-      <app-why-cta-one
-        [cssClass]="cssClass.cta1Dark50"
-        (click)="terraWalletConnect()"
-        [iconPath]="'./assets/img/svg/StationWallet.svg'"
-        [btnLabel]="'Wallet connect'"></app-why-cta-one>
-    </div>-->
-
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
         <app-why-lunar-hq-cta-two
@@ -94,6 +85,26 @@
           [cssClass]="selectedWallet === '' ? cssClass.cta1MdInActive : cssClass.cta1Md"
           [btnLabel]="'Confirm'"></app-why-cta-one>
       </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="successPopUp" [popUpType]="'confirmation'" (clickEvent)="closeDiscordPopUp()">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">Success</div>
+
+    <div class="pd-top-24">
+      <label class="app-why-lbl f16 ft-lato light-70">
+        You have now linked your Discord Profile to a wallet. Return to Discord to see your new communities. Lunar HQ
+        will make it even easier to find and participate in communities, keep watching this space.
+      </label>
+    </div>
+
+    <div class="pd-top-48 pd-bottom-48 d-flex justify-content-center">
+      <app-why-cta-one
+        (click)="closeDiscordPopUp()"
+        [cssClass]="cssClass.cta1Md"
+        [btnLabel]="'Done'"></app-why-cta-one>
     </div>
   </app-why-modal-wrapper>
 </app-why-modal>

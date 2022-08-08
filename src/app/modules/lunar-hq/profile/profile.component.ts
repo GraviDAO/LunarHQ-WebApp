@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import {CssConstants} from '../../../shared/services/css-constants.service';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 
 @Component({
@@ -42,12 +43,19 @@ export class ProfileComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public cssClass: CssConstants
+  ) {}
 
   ngOnInit(): void {
   }
 
   navigateToProfile() {
     this.router.navigate(['profile']);
+  }
+
+  navigateBack() {
+    this.router.navigate(['dashboard']);
   }
 }

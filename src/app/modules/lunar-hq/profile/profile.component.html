@@ -4,14 +4,25 @@
   [title]="'Manage Profile'"
   (click)="navigateToProfile()"
   [subTitle]="''"></app-why-header>
-<app-why-side-nav
-  [sideNavList]="sideNavList"
->
-<div class="d-flex flex-nowrap">
-  <div style="padding-right: 8px; flex: 1; max-width: 76rem; min-width: 76rem;">
-    <div class="tile-1">
-        <a></a>
+<app-why-side-nav [sideNavList]="sideNavList">
+  <div class="d-flex flex-nowrap profile-wrapper">
+    <div class="profile-container">
+      <div class="back-header">
+        <div class="pd-left-24 pd-top-21 pd-bottom-21">
+          <app-why-cta-three
+            [btnClass]="cssClass.cta3Primary + ' backBtn'"
+            [btnLabel]="'Back'"
+            [leftIconType]="'chevron-back'"
+            [iconClass]="cssClass.cta3PrimaryIcon"
+            (click)="navigateBack()"
+          ></app-why-cta-three>
+        </div>
+      </div>
+      <div class="profile-content">
+        <div class="profile-widget mr-top-40"></div>
+        <div class="profile-widget"></div>
+        <div class="profile-widget"></div>
+      </div>
     </div>
   </div>
-</div>
 </app-why-side-nav>

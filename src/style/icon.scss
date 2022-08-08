@@ -97,6 +97,9 @@
     color: var(--secondary-50);
   }
 
+  &.error {
+    color: var(--error);
+  }
   &.transparent {
     color: transparent;
   }

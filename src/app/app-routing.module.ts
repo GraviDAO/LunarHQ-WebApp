@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
 import {WelcomeComponent} from './modules/lunar-hq/welcome/welcome.component';
 import {DashboardComponent} from './modules/lunar-hq/dashboard/dashboard.component';
-import {ProfileComponent} from './modules/lunar-hq/profile/profile.component';
-import { MyServerComponent } from './modules/lunar-hq/my-server/my-server.component';
+import {ProfileComponent} from './modules/lunar-hq/profile/profile.component';\
+import {StateGuard} from './shared/services/state-guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'kitchen',
+    redirectTo: 'welcome',
     pathMatch: 'full'
   },
   {
@@ -18,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    component: WelcomeComponent
+    component: WelcomeComponent,
+    canActivate: [StateGuard]
   },
   {
     path: 'dashboard',
@@ -27,10 +28,6 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
-  },
-  {
-    path: 'my-server',
-    component: MyServerComponent
   }
 ];
 

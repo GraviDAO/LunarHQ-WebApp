@@ -13,8 +13,11 @@ export class CoreService {
   }
 
   getDiscordUser(data: any): Observable<any> {
-    const url = environment.server + 'linkDiscord'
-    return this.http.put<any>(url, data);
+    const url = environment.server + 'linkDiscord/?discordUserId=' + data.discordUserId + '&walletAddress=' + data.walletAddress + '&blockchainName=' + data.blockchainName;
+    return this.http.put<any>(url, {})
+      .pipe(map((result) => {
+        return result.data;
+      }));
   }
 
   getNonce(walletAddr: string, blockchainName: string): Observable<any> {
@@ -27,14 +30,15 @@ export class CoreService {
   authenticate(data: any): Observable<any> {
     return this.http.post<any>(environment.server + 'login', data)
       .pipe(map((result) => {
-        return result.data;
+        console.log(result, 'result');
+        return result;
       }));
   }
 
-  signUp(data: any): Observable<any> {
+  /*signUp(data: any): Observable<any> {
     return this.http.post<any>(environment.server + 'api/auth/user/signUp', {data})
       .pipe(map((result) => {
         return result.data;
       }));
-  }
+  }*/
 }
