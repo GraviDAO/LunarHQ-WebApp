@@ -58,25 +58,8 @@ export class SideBarComponent implements OnInit {
   }
 
   navigate(tab: string, pos: number, isSubMenu?: any) {
-
-    console.log('nav', tab, pos, isSubMenu);
-    // Object.keys(this.toggle).forEach((key: string, index: number) => (pos !== index ? this.toggle[key] = false : ''));
-    // this.toggle[pos] = this.toggle[pos] !== true;
     Object.keys(this.toggle).forEach((key: string, index: number) => this.toggle[key] = false);
     this.toggle[pos] = true;
-
-    if (!this.isDisabled) {
-      if (tab === 'emailIntegration') {
-        window.open('https://mailchimp.com/en-gb/', '_blank');
-      } else if (tab === 'googleAnalytics') {
-        window.open('https://analytics.google.com/analytics/web/', '_blank');
-      } else if (tab === 'luckyOrange') {
-        window.open('https://www.luckyorange.com/', '_blank');
-      } else {
-        this.activeTab = tab;
-      }
-    } else {
-    }
   }
 
   subMenu(event: any, tab: string, index: number, nestedMenu?: string) {
