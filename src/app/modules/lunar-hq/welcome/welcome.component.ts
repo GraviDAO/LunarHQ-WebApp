@@ -24,7 +24,7 @@ import {query} from '@angular/animations';
 export class WelcomeComponent implements OnInit {
   selected = 'connect';
   // selected = 'discord';
-  url = 'https://discord.com/api/oauth2/authorize?client_id=975751237242867742&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
+  url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   // url = 'https://discord.com/api/oauth2/authorize?client_id=959099639309664266&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   data: string[] | undefined;
   terraController: WalletController | undefined;
@@ -55,21 +55,18 @@ export class WelcomeComponent implements OnInit {
           blockchainName: lunarUserObj.blockchainName
         }).subscribe((data) => {
           console.log(data, 'data');
-          this.router.navigate(
-            [],
-            {
-              relativeTo: route,
-              queryParams: {},
-              queryParamsHandling: 'merge', // remove to replace all query params by provided
-            });
-          this.router.navigate(['/dashboard'], {
-            queryParams: {displayPopUp: true}
-          });
+          this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
+          this.discordSuccess();
         });
       }
     });
     this.walletInit().then(r => console.log(r));
   }
+
+  discordSuccess() {
+    this.modalService.open('successPopUp');
+  }
+
 
   connectToDiscord() {
     window.open(this.url, '_self');
@@ -97,18 +94,6 @@ export class WelcomeComponent implements OnInit {
     } catch (error) {
       console.error(error, 'error');
     }
-    /*this.web3.connectAccount().then(response => {
-      this.data = response
-      // @ts-ignore
-      const walletAddr = this.data[0];
-      const blockchainName = 'polygon-mainnet';
-      this.coreService.getNonce(walletAddr, blockchainName)
-        .subscribe((result: any) => {
-          this.handleSignIn(result.message, walletAddr);
-        });
-    }).catch((error)=> {
-      console.log(error, 'error');
-    });*/
   }
 
   async handleSignIn(nonce: any, publicAddress: any) {
@@ -125,7 +110,7 @@ export class WelcomeComponent implements OnInit {
         .subscribe((result) => {
           console.log(result.message);
           this.toast.success('Wallet connected');
-          this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED)
+          this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
           this.storageService.set('lunar_user', {
             walletAddress: publicAddress,
             blockchainName,
@@ -184,5 +169,17 @@ export class WelcomeComponent implements OnInit {
 
   selectOption(type: string) {
     this.selectedWallet = type;
+  }
+
+  closeDiscordPopUp() {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParams: {code: null},
+        queryParamsHandling: 'merge', // remove to replace all query params by provided
+      });
+    this.modalService.close('successPopUp');
+    this.router.navigate(['/dashboard']);
   }
 }
