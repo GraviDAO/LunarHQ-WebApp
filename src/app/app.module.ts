@@ -9,8 +9,9 @@ import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
 import {SharedModule} from './shared/shared.module';
 import {ModalModule} from './shared/_modal/modal.module';
 import {LunarHqModule} from './modules/lunar-hq/lunar-hq.module';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
+import {JwtInterceptor} from './shared/services/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import {ToastrModule} from 'ngx-toastr';
     LunarHqModule
   ],
   providers: [
-    // {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

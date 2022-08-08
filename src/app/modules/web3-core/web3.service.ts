@@ -66,6 +66,7 @@ export class Web3Service {
 
   async connectAccount() {
     console.log(this.provider, 'prov', this.web3Modal);
+    // this.provider = await this.web3Modal.connectTo("walletconnect"); // set provider
     this.provider = await this.web3Modal.connect(); // set provider
     if (this.provider) {
       this.web3js = new Web3(this.provider);

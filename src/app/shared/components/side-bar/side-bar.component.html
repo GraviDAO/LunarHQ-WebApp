@@ -17,8 +17,6 @@
           <div class="d-flex flex-column" style="width: 100%">
             <div class="d-flex align-items-center"
                  [ngClass]="{'active-container': (activeTab === sideNav.title), 'justify-content-center': !isToggled}">
-              <!--<div class="active-selector" *ngIf="activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()">
-              </div>-->
               <ion-icon class="app-why-icon ic14 light-70"
                         [ngClass]="{'secondary-dark': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()}"
                         name="{{setIcon(sideNav.title)}}"></ion-icon>
@@ -38,9 +36,30 @@
               <ul *ngIf="sideNav.subMenu && isToggled" [ngClass]="toggle[i] ? 'show': 'hide'" class="pd-0 mr-top-8">
                 <li *ngFor="let subMenuObj of sideNav.subMenu"
                     class="submenu-list mr-bottom-8"
-                    (click)="subMenu(subMenuObj.title, i)">
-                  <span class="text-capitalize add--pd-left"
-                        [ngClass]="{'active-sub-menu': activeSubMenuTab === subMenuObj.title}">{{subMenuObj.title}}</span>
+                    (click)="subMenu($event,subMenuObj.title, i, '')">
+                  <article>
+                    <div>
+                      <label class="text-capitalize add--pd-left"
+                             [ngClass]="{'active-sub-menu': activeSubMenuTab === subMenuObj.title}">
+                        {{subMenuObj.title}}
+                      </label>
+                      <ion-icon class="add-pd-left-8 app-why-icon ic10"
+                                [ngClass]="{'light-50': subMenuObj.permissionType === getPermissionType.fullAccess,
+                            'error': subMenuObj.permissionType === getPermissionType.partialAccess}"
+                                name="{{getSubMenuIcon(subMenuObj.permissionType)}}"></ion-icon>
+                    </div>
+                    <div>
+                      <ul *ngIf="subMenuObj.nestedMenuList && activeSubMenuTab === subMenuObj.title"
+                          class="">
+                        <div class="pd-bottom-8"></div>
+                        <li *ngFor="let nestedMenu of subMenuObj.nestedMenuList"
+                            (click)="subMenu($event,subMenuObj.title, i, nestedMenu)">
+                          <label class="pd-bottom-4 add--pd-left-34 nest-label"
+                                 [ngClass]="{'active-sub-menu': nestedMenuSelected === nestedMenu}">- {{nestedMenu}}</label>
+                        </li>
+                      </ul>
+                    </div>
+                  </article>
                 </li>
               </ul>
             </div>
