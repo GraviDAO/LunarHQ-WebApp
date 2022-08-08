@@ -1,6 +1,46 @@
 <app-why-header-side-nav
   [activeTab]="'DASHBOARD'">
   <section>
-    <div>head</div>
+    <div class="d-flex">
+      <div>
+        <img class="discord-img-wrapper" src="/assets/img/png/nft-profile.jpeg" alt="">
+      </div>
+      <div class="pd-left-16">
+        <div>
+          <label class="app-why-lbl f28 light ft-bold">Dw00k #5732</label>
+        </div>
+        <div class="pd-top-8">
+          <label class="app-why-lbl f16 light-50 ft-lato">He is obsessed with socks</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex pd-top-16">
+      <div class="link-wallet-container">
+        <div class="d-flex justify-content-end">
+          <label class="app-why-lbl ft-lato light-50 text-uppercase">linked</label>
+        </div>
+        <div class="d-flex justify-content-end">
+          <label class="app-why-lbl ft-lato light-50 text-uppercase">wallets</label>
+        </div>
+      </div>
+      <div class="pd-left-16 d-flex align-items-center">
+        <label class="app-why-lbl f16 ft-lato light-50 text-uppercase">
+          1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+        </label>
+      </div>
+    </div>
+
+    <div class="pd-top-16">
+      <app-why-cta-three
+        [leftIconType]="'cog-outline'"
+        [btnLabel]="'MANAGE PROFILE'"></app-why-cta-three>
+    </div>
+
+    <div class="pd-top-40 pd-bottom-40">
+      <div class="horizontal-divider light-50"></div>
+    </div>
+
+    <div></div>
   </section>
 </app-why-header-side-nav>
