@@ -29,3 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Discord Client ID: 959099639309664266
 Discord Client Secret: faSDqlERiSFLh_M2zSC3KsPumITPAUiC
 
+MetaMask : QPjDZe9=XaIf
+
+right acquire denial wheel fade letter person ripple kick pizza tool alarm

@@ -1,19 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
+import { CssConstants } from 'src/app/shared/services/css-constants.service';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
-
 @Component({
-  selector: 'app-why-lunar-hq-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-why-lunar-hq-my-server',
+  templateUrl: './my-server.component.html',
+  styleUrls: ['./my-server.component.scss']
 })
-
-export class DashboardComponent implements OnInit {
-  profileObj = {
-    img: '../../../../assets/img/png/nft-profile.jpeg',
-    viewProfile: true,
-    viewSettings: true
-  };
+export class MyServerComponent implements OnInit {
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'
@@ -25,7 +20,10 @@ export class DashboardComponent implements OnInit {
           title: 'GraviDAO'
         },
         {
-          title: 'SockDao'
+          title: 'SockDAO'
+        },
+        {
+          title: 'Hubble Fan Club'
         }
       ]
     },
@@ -49,13 +47,18 @@ export class DashboardComponent implements OnInit {
       ]
     },
   ];
-
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+              public cssClass: CssConstants) { }
 
   ngOnInit(): void {
   }
 
-  navigateToProfile() {
-    this.router.navigate(['profile']);
+  navigateToMyServer() {
+    this.router.navigate(['my-server']);
   }
+
+  openModal() {
+    // this.modalService.open('popUpDemo');
+  }
+
 }

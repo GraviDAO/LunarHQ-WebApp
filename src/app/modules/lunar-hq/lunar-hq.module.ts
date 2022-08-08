@@ -6,11 +6,13 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyServerComponent } from './my-server/my-server.component';
 
 const commonModules = [
   WelcomeComponent,
   DashboardComponent,
-  ProfileComponent
+  ProfileComponent,
+  MyServerComponent
 ];
 
 @NgModule({
