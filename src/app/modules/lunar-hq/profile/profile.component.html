@@ -1,27 +1,64 @@
 <app-why-header
   [buttonLabel]="''"
-  [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
+  [profileObj]="profileObj"
   [title]="'Manage Profile'"
-  (click)="navigateToProfile()"
-  [subTitle]="''"></app-why-header>
+  (click)="navigateToProfile()">
+</app-why-header>
 <app-why-side-nav [sideNavList]="sideNavList">
   <div class="d-flex flex-nowrap profile-wrapper">
     <div class="profile-container">
       <div class="back-header">
         <div class="pd-left-24 pd-top-21 pd-bottom-21">
-          <app-why-cta-three
-            [btnClass]="cssClass.cta3Primary + ' backBtn'"
-            [btnLabel]="'Back'"
-            [leftIconType]="'chevron-back'"
-            [iconClass]="cssClass.cta3PrimaryIcon"
-            (click)="navigateBack()"
-          ></app-why-cta-three>
+          <app-why-cta-three [btnClass]="cssClass.cta3Primary + ' backBtn'" [btnLabel]="'Back'"
+            [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+          </app-why-cta-three>
         </div>
       </div>
       <div class="profile-content">
-        <div class="profile-widget mr-top-40"></div>
-        <div class="profile-widget"></div>
-        <div class="profile-widget"></div>
+        <div class="d-flex justify-content-center profile-widget widget_profile mr-top-40">
+          <div class="mr-left-40 mr-right-40 mr-top-24 profile-header">
+            <label class="app-why-lbl f16 ft-bold no-letter-spacing light">PROFILE</label>
+            <div class="divider mr-top-9"></div>
+          </div>
+          <div class="mr-top-48">
+
+          </div>
+          <div class="mr-top-8">
+
+          </div>
+          <div class="mr-top-48">
+
+          </div>
+        </div>
+        <div class="d-flex justify-content-center profile-widget widget_wallets mr-top-8">
+          <div class="mr-left-40 mr-right-40 mr-top-24 profile-header">
+            <label class="app-why-lbl f16 ft-bold no-letter-spacing light">WALLETS</label>
+            <div class="divider mr-top-9"></div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center profile-widget widget_licences mr-top-8 mr-bottom-80">
+          <div class="mr-left-40 mr-right-40 mr-top-24 profile-header">
+            <div class="d-flex flex-row justify-content-between">
+              <label class="app-why-lbl f16 ft-bold no-letter-spacing light">LICENCES</label>
+              <div>
+                  <app-why-cta-three
+                    [btnClass]="cssClass.cta3Primary + ' backBtn'"
+                    [btnLabel]="'BUY LICENCES'"
+                    [iconType]="'chevron-forward'"
+                    [iconClass]="cssClass.cta3PrimaryIcon"
+                    (click)="navigateBack()">
+                  </app-why-cta-three>
+              </div>
+            </div>
+            <div class="divider mr-top-9"></div>
+          </div>
+          <div class="mr-top-48">
+
+          </div>
+        </div>
+        <div class="pd-top-24 d-flex justify-content-end">
+          <app-why-lunar-hq-social-links></app-why-lunar-hq-social-links>
+        </div>
       </div>
     </div>
   </div>

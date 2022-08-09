@@ -10,6 +10,8 @@ import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 })
 
 export class ProfileComponent implements OnInit {
+  profileObj = {viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'};
+  walletValue = '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2';
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'
