@@ -24,12 +24,6 @@
   @include mixin.notch(16px);
   background: var(--tertiary);
 }
-.widget_profile {
-
-}
-.widget_wallets {
-  height: 16rem;
-}
 .widget_licences {
   height: 21.25rem;
 }
@@ -115,6 +109,13 @@
   @include mixin.notch(8px);
   background: var(--dark-50);
   margin:auto;
+  cursor: pointer;
+  &.walletSelected {
+    background: var(--dark) !important;
+    label {
+      color: var(--secondary);
+    }
+  }
 }
 
 .metamask-img {
@@ -123,7 +124,56 @@
   vertical-align: middle;
 }
 
-.nft-wallet {
+.metamask-wallet {
   width: mixin.toRem(137);
   height: mixin.toRem(32);
+}
+
+.wallet-connect {
+  width: mixin.toRem(193);
+  height: mixin.toRem(32);
+}
+
+.wallet-connect ion-icon {
+  color: var(--light-70);
+}
+
+.wallet-modal-content {
+  width: mixin.toRem(240);
+  margin: auto;
+}
+
+.other-wallets {
+  width: mixin.toRem(132);
+  height: mixin.toRem(24);
+}
+
+.buy-license-modal-content {
+  width: mixin.toRem(280);
+  height: mixin.toRem(306);
+  margin:auto;
+}
+
+.license-cards {
+  width: mixin.toRem(280);
+  height: mixin.toRem(108);
+  @include mixin.notch(8px);
+  background: var(--dark-50);
+  cursor: pointer;
+  &.licenseSelected {
+    background: var(--dark) !important;
+    label {
+      color: var(--secondary);
+    }
+  }
+}
+
+.license-container {
+  width: mixin.toRem(259);
+  height: mixin.toRem(40);
+}
+
+.license-container-poly {
+  width: mixin.toRem(81);
+  height: mixin.toRem(76);
 }

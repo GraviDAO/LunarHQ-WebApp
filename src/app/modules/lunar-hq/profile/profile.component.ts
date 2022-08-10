@@ -14,10 +14,14 @@ export class ProfileComponent implements OnInit {
   profileObj = {viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'};
   walletValue = '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2';
   discordUnLinked = false;
+  walletSelected = false;
+  selectedWallet = '';
+  licenseSelected = false;
+  selectedLicense = '';
+  walletRemovingIndex = 0;
   wallets = [{
     walletValue: this.walletValue,
-    icon: 'settings',
-    index: 1
+    icon: 'settings'
   }];
   sideNavList: Array<SideNavType> = [
     {
@@ -69,6 +73,14 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
+  resetStaticVars() {
+    this.selectedWallet = '';
+    this.walletSelected = false;
+    this.walletRemovingIndex = 0;
+    this.selectedLicense = '';
+    this.licenseSelected = false;
+  }
+
   confirmUnlinkDiscord() {
     this.modalService.close('unlinkDiscordModal');
     this.discordUnLinked = true;
@@ -76,18 +88,28 @@ export class ProfileComponent implements OnInit {
 
   openModal(id: string) {
     this.modalService.open(id);
+    this.resetStaticVars();
   }
 
   cancelModal(id: string) {
     this.modalService.close(id);
+    this.resetStaticVars();
   }
 
   connectWallet() {
-
+    console.log('Connect Wallet');
   }
 
   removeWallet(index: number) {
-    this.wallets = this.wallets.slice(1, index);
+    this.openModal('removeWalletModal');
+    this.walletRemovingIndex = index;
+  }
+
+  confirmRemoveWallet() {
+    this.wallets.forEach((element,index)=>{
+      if(index==this.walletRemovingIndex) this.wallets.splice(index,1);
+    });
+    this.cancelModal('removeWalletModal');
   }
 
   addWalletModal() {
@@ -95,7 +117,23 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmAddingWallet() {
+    this.wallets.push({... this.wallets[0]});
+    console.log(this.wallets);
+    this.cancelModal('addWalletModal');
+  }
 
+  selectWallet(walletId: string) {
+    this.selectedWallet = walletId;
+    this.walletSelected = true;
+  }
+
+  selectLicense(licenseId: string) {
+    this.selectedLicense = licenseId;
+    this.licenseSelected = true;
+  }
+
+  visitLicensePage() {
+    this.cancelModal('buyLicenseModal');
   }
 
  }
