@@ -13,7 +13,7 @@ export class CoreService {
   }
 
   getDiscordUser(data: any): Observable<any> {
-    const url = environment.server + 'linkDiscord/?discordAuthorizationCode=' + data.discordUserId + '&walletAddress=' + data.walletAddress + '&blockchainName=' + data.blockchainName;
+    const url = environment.server + 'linkDiscord/?discordAuthorizationCode=' + data.discordAuthorizationCode + '&walletAddress=' + data.walletAddress + '&blockchainName=' + data.blockchainName;
     return this.http.put<any>(url, {})
       .pipe(map((result) => {
         return result.data;
