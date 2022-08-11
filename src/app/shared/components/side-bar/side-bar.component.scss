@@ -188,7 +188,7 @@ h1, h2, h3, h4, h5,
       //padding-top: 20px;
       display: flex;
       align-items: center;
-      min-height: 24px;
+      min-height: 38px;
 
       > ul {
         margin-left: 10px;
@@ -285,8 +285,9 @@ a[data-toggle="collapse"] {
 .active-container {
   background: var(--light-20);
   box-shadow: 0 16px 20px -8px rgba(0, 0, 0, 0.04);
-  padding-bottom: 8px;
-  padding-top: 8px;
+  height: 38px;
+  //padding-bottom: 8px;
+  //padding-top: 8px;
 }
 
 .add-pd-lr-80 {

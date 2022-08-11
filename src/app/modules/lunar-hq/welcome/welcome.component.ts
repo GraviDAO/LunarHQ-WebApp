@@ -51,7 +51,7 @@ export class WelcomeComponent implements OnInit {
       console.log(params.code); // { order: "popular" }
       if (params.code) {
         this.coreService.getDiscordUser({
-          discordUserId: params.code,
+          discordAuthorizationCode: params.code,
           walletAddress: lunarUserObj.walletAddress,
           blockchainName: lunarUserObj.blockchainName
         }).subscribe((data) => {
