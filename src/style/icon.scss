@@ -104,6 +104,10 @@
     color: transparent;
   }
 
+  &.fill-dark::part(svg) {
+    fill: var(--dark);
+  }
+  
   &.success {
     color: var(--success);
   }

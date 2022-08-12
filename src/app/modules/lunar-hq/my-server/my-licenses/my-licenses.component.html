@@ -25,7 +25,7 @@
             <div class="buy-license d-flex- app-why-lbl f12 ft-bold primary">
                 <app-why-cta-three
                 [btnClass]="cssClass.cta3PrimaryNorm"
-                [iconClass]="cssClass.cta3PrimaryNorm"
+                [iconClass]="cssClass.cta3PrimaryMedium"
                 [iconType]="'chevron-forward-outline'"
                 (click)="navigateToBuyLicense()"
                 [btnLabel]="'BUY LICENSE'"></app-why-cta-three>
@@ -56,14 +56,28 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-                <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
-                    <div class="license-item-server d-flex justify-content-between app-why-lbl f12 ft-bold secondary letter-spacing-047">
-                        ASSIGNED [ GRAVIDAO ]
-                        <ion-icon name="caret-up" class="app-why-icon ic18 secondary pd-left-14"></ion-icon>
+                <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-8">
+                    <div  class="d-flex overflow-hidden">
+                        <div ngbDropdown container="body">
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold secondary letter-spacing-047" id="dropdownBasic"
+                                ngbDropdownToggle>ASSIGNED [ GRAVIDAO ]</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                                <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REASSIGN</button>
+                                <div class="dropdown-divider"></div>
+                                <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">REMOVE LICENSE</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="license-item-server d-flex justify-content-between pd-top-6 app-why-lbl f12 ft-bold light-50 letter-spacing-047">
-                        UNUSED
-                        <ion-icon name="caret-down" class="app-why-icon ic18 light-50 pd-left-14"></ion-icon>
+                    <div class="d-flex mr-top-6 overflow-hidden">
+                        <div ngbDropdown container="body">
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" id="dropdownBasic"
+                            ngbDropdownToggle>UNUSED</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">ASSIGN</button>
+                            <div class="dropdown-divider"></div>
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">REMOVE LICENSE</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,13 +97,37 @@
                 </div>
                 <div class="divider"></div>
                 <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
-                    <div class="license-item-server d-flex justify-content-between pd-top-6 app-why-lbl f12 ft-bold light-50 letter-spacing-047">
-                        UNUSED
-                        <ion-icon name="caret-down" class="app-why-icon ic18 light-50 pd-left-14"></ion-icon>
+                    <div  class="d-flex overflow-hidden">
+                        <div ngbDropdown container="body">
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" id="dropdownBasic" ngbDropdownToggle>
+                                UNUSED
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">
+                                ASSIGN
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">
+                                REMOVE LICENSE
+                            </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="license-item-server d-flex justify-content-between pd-top-6 app-why-lbl f12 ft-bold light-50 letter-spacing-047">
-                        UNUSED
-                        <ion-icon name="caret-down" class="app-why-icon ic18 light-50 pd-left-14"></ion-icon>
+                    <div class="d-flex mr-top-6 overflow-hidden">
+                        <div ngbDropdown container="body">
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" id="dropdownBasic" ngbDropdownToggle>
+                                UNUSED
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                            <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">
+                                ASSIGN
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">
+                                REMOVE LICENSE
+                            </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

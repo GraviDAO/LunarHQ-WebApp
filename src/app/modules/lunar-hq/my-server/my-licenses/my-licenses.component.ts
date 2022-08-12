@@ -67,4 +67,12 @@ export class MyLicensesComponent implements OnInit {
   navigateToBuyLicense() {
 
   }
+
+  assignLicense() {
+    //this.openModal('removeLicenseModal');
+  }
+  
+  removeLicense() {
+    //this.openModal('removeLicenseModal');
+  }
 }

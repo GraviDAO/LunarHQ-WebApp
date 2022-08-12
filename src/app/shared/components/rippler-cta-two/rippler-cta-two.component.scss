@@ -5,6 +5,7 @@
   width: var(--btn-md-width);
   height: var(--btn-md-height);
   background: var(--primary);
+  cursor: pointer;
   @include mixin.notch(8px);
 
   &.lg {
