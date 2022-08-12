@@ -17,7 +17,8 @@ export class ProfileComponent implements OnInit {
   walletSelected = false;
   selectedWallet = '';
   licenseSelected = false;
-  selectedLicense = '';
+  selectedLicenseId = '';
+  selectedLicense = 'UNUSED';
   walletRemovingIndex = 0;
   wallets = [{
     walletValue: this.walletValue,
@@ -77,7 +78,7 @@ export class ProfileComponent implements OnInit {
     this.selectedWallet = '';
     this.walletSelected = false;
     this.walletRemovingIndex = 0;
-    this.selectedLicense = '';
+    this.selectedLicenseId = '';
     this.licenseSelected = false;
   }
 
@@ -128,12 +129,20 @@ export class ProfileComponent implements OnInit {
   }
 
   selectLicense(licenseId: string) {
-    this.selectedLicense = licenseId;
+    this.selectedLicenseId = licenseId;
     this.licenseSelected = true;
   }
 
   visitLicensePage() {
     this.cancelModal('buyLicenseModal');
+  }
+
+  removeLicense() {
+    this.openModal('removeLicenseModal');
+  }
+
+  confirmRemoveLicense() {
+    this.cancelModal('removeLicenseModal');
   }
 
  }

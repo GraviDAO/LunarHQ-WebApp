@@ -154,7 +154,7 @@
   margin:auto;
 }
 
-.license-cards {
+.license-modal-cards {
   width: mixin.toRem(280);
   height: mixin.toRem(108);
   @include mixin.notch(8px);
@@ -162,7 +162,7 @@
   cursor: pointer;
   &.licenseSelected {
     background: var(--dark) !important;
-    label {
+    label.license-label {
       color: var(--secondary);
     }
   }
@@ -176,4 +176,85 @@
 .license-container-poly {
   width: mixin.toRem(81);
   height: mixin.toRem(76);
+}
+
+.license-labels {
+  width: mixin.toRem(640);
+}
+
+.nft-name {
+  width: mixin.toRem(340);
+  height: mixin.toRem(16);
+}
+
+.nft-status {
+  width: mixin.toRem(300);
+  height: mixin.toRem(16);
+}
+
+.license-cards {
+  width: mixin.toRem(640);
+  height: mixin.toRem(88);
+  background: var(--dark-50);
+  margin: auto;
+  @include mixin.notch(8px);
+}
+
+.img-55 {
+  width: mixin.toRem(56);
+  height: mixin.toRem(56);
+}
+
+.verical-divider {
+  box-sizing: border-box;
+  height: 56px;
+  width: 1px;
+  border: 1px solid var(--light-50);
+  opacity: 0.2;
+}
+.license-dropdow {
+  width: mixin.toRem(188);
+  height: mixin.toRem(20);
+}
+
+.link-dropdown {
+  background: none;
+  outline: none;
+  letter-spacing: 0.47px;
+  width: mixin.toRem(148);
+  height: mixin.toRem(20);
+  text-align: left;
+}
+
+#dropdownBasic1::after {
+  margin-left: 0.8em !important;
+  font-size: 20px;
+  vertical-align: 0.055em;
+}
+
+#dropdownBasic2::after {
+  margin-left: 5.5em !important;
+  font-size: 20px;
+  vertical-align: 0.055em;
+}
+
+.dropdown-menu.show {
+  background-color: var(--bg-light);
+  border-radius: 0;
+  padding: 0;
+}
+.dropdown-item {
+  padding: 0;
+  margin-left: 24px;
+  margin-top: 8px;
+  margin-right: 24px;
+  margin-bottom: 8px;
+  width: auto;
+}
+.dropdown-item:hover {
+  padding: 0;
+  width: auto;
+}
+.dropdown-divider {
+  border-top: 1px solid white;
 }

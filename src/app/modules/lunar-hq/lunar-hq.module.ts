@@ -7,6 +7,8 @@ import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 const commonModules = [
   WelcomeComponent,
@@ -14,6 +16,10 @@ const commonModules = [
   ProfileComponent
 ];
 
+const ngBootstrapModules = [
+  NgbModule,
+  NgbDropdownModule
+];
 @NgModule({
   declarations: commonModules,
   exports: commonModules,
@@ -23,7 +29,8 @@ const commonModules = [
     FormsModule,
     ReactiveFormsModule,
     ModalModule,
-    SharedModule
+    SharedModule,
+    ...ngBootstrapModules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
