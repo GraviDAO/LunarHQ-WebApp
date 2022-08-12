@@ -20,7 +20,7 @@ export class CssConstants {
   cta2 = 'app-why-btn cta2 full-width';
   cta3Primary = 'cta3 app-why-lbl f16 norm primary';
   cta3Primary14 = 'cta3 app-why-lbl f14 norm primary';
-  cta3BtnLabel = 'cta3 app-why-lbl f10 norm break-line light-70';
-  cta3Icon = 'app-why-icon pd-right-15 pd-left-15 ic14 light-70 norm';
+  cta3BtnLabel = 'cta3 app-why-lbl f10 norm light-70';
+  cta3Icon = 'app-why-icon ic20 light-70 norm';
   cta3PrimaryIcon = 'app-why-icon pd-right-6 ic20 primary-70';
 }
