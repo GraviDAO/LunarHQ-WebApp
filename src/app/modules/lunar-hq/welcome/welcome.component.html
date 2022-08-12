@@ -2,7 +2,7 @@
   [buttonLabel]="''"
   [profileObj]="{viewProfile: false, viewSettings: false}"
   [title]="'Welcome'"
-  [rightLabel]="selected === 'discord'? 'WALLET CONNECTED' : 'CONNECT WALLET'"
+  [rightLabel]="(selected === 'discord' || selected === 'done')? 'WALLET CONNECTED' : 'CONNECT WALLET'"
   [subTitle]="''"></app-why-header>
 
 <section>
@@ -25,7 +25,8 @@
         <app-why-cta-one
           [iconClass]="selected === 'connect' ? cssClass.cta1Icon : cssClass.cta1NormIcon"
           [iconType]="'file-tray-full'"
-          (click)="connectWallet()"
+          (clickEvent)="connectWallet()"
+          [isDisabled]="selected === 'discord' || selected === 'done' "
           [cssClass]="selected === 'connect' ? cssClass.cta1 : cssClass.cta1Norm"
           [btnLabel]="'Connect Wallet'"></app-why-cta-one>
       </div>
@@ -51,7 +52,8 @@
       <div class="pd-top-40">
         <app-why-cta-one
           [iconType]="'file-tray-full'"
-          (click)="connectToDiscord()"
+          (clickEvent)="connectToDiscord()"
+          [isDisabled]="selected === 'done' "
           [iconClass]="selected === 'discord' ? cssClass.cta1Icon : cssClass.cta1NormIcon"
           [cssClass]="selected === 'discord' ? cssClass.cta1 : cssClass.cta1Norm"
           [btnLabel]="'Connect Discord'"></app-why-cta-one>

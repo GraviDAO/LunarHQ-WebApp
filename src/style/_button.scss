@@ -57,6 +57,10 @@
     font-size: var(--font-size-12);
     height: var(--btn-sm-height);
     width: var(--btn-norm-width);
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 
   &:hover {

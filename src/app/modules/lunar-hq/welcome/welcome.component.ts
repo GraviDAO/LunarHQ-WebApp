@@ -45,8 +45,8 @@ export class WelcomeComponent implements OnInit {
               private router: Router) {
     this.progressStatus = this.storageService.get('user_progress');
     const lunarUserObj = this.storageService.get('lunar_user');
-    console.log(lunarUserObj, 'lunarUserObj');
-    this.selected = this.progressStatus === null ? 'connect' : 'discord';
+    console.log(lunarUserObj, 'lunarUserObj', this.progressStatus);
+    this.selected = this.progressStatus === null ? 'connect' : this.progressStatus === 'discord_connected' ? 'done' : 'discord';
     this.route.queryParams.subscribe((params: any) => {
       console.log(params.code); // { order: "popular" }
       if (params.code) {
@@ -181,6 +181,8 @@ export class WelcomeComponent implements OnInit {
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
     this.modalService.close('successPopUp');
-    this.router.navigate(['/dashboard']);
+    this.selected = 'done';
+    // commented for demo
+    // this.router.navigate(['/dashboard']);
   }
 }

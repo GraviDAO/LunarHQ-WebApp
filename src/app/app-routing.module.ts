@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent,
-    canActivate: [StateGuard]
+    // canActivate: [StateGuard] // commented for demo
   },
   {
     path: 'dashboard',
