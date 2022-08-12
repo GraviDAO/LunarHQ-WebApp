@@ -243,6 +243,21 @@
   border-radius: 0;
   padding: 0;
 }
+button[aria-expanded="true"] {
+  color: var(--secondary);
+  &::after {
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 2px;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    border-bottom: 4px dashed;
+    border-top: 0px solid transparent;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+}
 .dropdown-item {
   padding: 0;
   margin-left: 24px;
