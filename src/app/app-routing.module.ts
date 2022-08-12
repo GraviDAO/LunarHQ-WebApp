@@ -6,6 +6,8 @@ import {DashboardComponent} from './modules/lunar-hq/dashboard/dashboard.compone
 import {ProfileComponent} from './modules/lunar-hq/profile/profile.component';
 import {StateGuard} from './shared/services/state-guard';
 import { MyServerComponent } from './modules/lunar-hq/my-server/my-server.component';
+import { AddNewServerComponent } from './modules/lunar-hq/my-server/add-new-server/add-new-server.component';
+import { MyLicensesComponent } from './modules/lunar-hq/my-server/my-licenses/my-licenses.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,14 @@ const routes: Routes = [
   {
     path: 'my-server',
     component: MyServerComponent
+  },
+  {
+    path: 'my-server/add-new-server',
+    component: AddNewServerComponent
+  },
+  {
+    path: 'my-server/my-licenses',
+    component: MyLicensesComponent
   }
 ];
 

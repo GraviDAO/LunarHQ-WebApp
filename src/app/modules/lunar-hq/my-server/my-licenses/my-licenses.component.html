@@ -1,0 +1,99 @@
+<app-why-header
+  [buttonLabel]="''"
+  [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
+  [title]="'My Servers'"
+  (click)="navigateToMyServer()"
+  [subTitle]="''"></app-why-header>
+<app-why-side-nav
+  [sideNavList]="sideNavList"
+>
+<div class="flex flex-nowrap">
+    <div class="licenses-header">
+        <div class="back-button d-flex">
+            <div class="pd-left-24 pd-top-21 pd-bottom-21">
+                <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
+                [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+                </app-why-cta-three>
+            </div>
+        </div>
+    </div>
+    <div class="licenses-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40 pd-right-40 pd-bottom-48">
+        <div class="licenses-header-title d-flex flex-row justify-content-between">
+            <div class="app-why-lbl f16 ft-bold light">
+                MY LICENSES
+            </div>
+            <div class="buy-license d-flex- app-why-lbl f12 ft-bold primary">
+                <app-why-cta-three
+                [btnClass]="cssClass.cta3PrimaryNorm"
+                [iconClass]="cssClass.cta3PrimaryNorm"
+                [iconType]="'chevron-forward-outline'"
+                (click)="navigateToBuyLicense()"
+                [btnLabel]="'BUY LICENSE'"></app-why-cta-three>
+            </div>
+        </div>
+        <div class="title-underline mr-top-8"></div>
+        <div class="licenses-detail-title pd-top-16 pd-bottom-18 d-flex flex-row">
+            <div class="licenses-nft-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                NFT NAME
+            </div>
+            <div class="licenses-status-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                STATUS
+            </div>
+        </div>
+        <div class="licenses-detail d-flex flex-column justify-content-between">
+            <div class="license-item d-flex flex-row">
+                <div class="license-item-nft d-flex flex-row">
+                    <div class="pd-left-16 pd-right-16 pd-top-16 pd-bottom-16">
+                        <img class="license-item-img" src="/assets/img/png/nft-profile.jpeg" alt="">
+                    </div>
+                    <div class="license-item-desc d-flex flex-column pd-top-24 pd-bottom-8">
+                        <div class="license-item-name app-why-lbl f16 ft-bold light">
+                            The Giving #246
+                        </div>
+                        <div class="license-item-text app-why-lbl f10 ft-lato light-50">
+                            POLYGON
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
+                    <div class="license-item-server d-flex justify-content-between app-why-lbl f12 ft-bold secondary letter-spacing-047">
+                        ASSIGNED [ GRAVIDAO ]
+                        <ion-icon name="caret-up" class="app-why-icon ic18 secondary pd-left-14"></ion-icon>
+                    </div>
+                    <div class="license-item-server d-flex justify-content-between pd-top-6 app-why-lbl f12 ft-bold light-50 letter-spacing-047">
+                        UNUSED
+                        <ion-icon name="caret-down" class="app-why-icon ic18 light-50 pd-left-14"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="license-item d-flex mr-top-8">
+                <div class="license-item-nft d-flex flex-row">
+                    <div class="pd-left-16 pd-right-16 pd-top-16 pd-bottom-16">
+                        <img class="license-item-img" src="/assets/img/png/placeholder.png" alt="">
+                    </div>
+                    <div class="license-item-desc d-flex flex-column pd-top-24 pd-bottom-8">
+                        <div class="license-item-name app-why-lbl f16 ft-bold light">
+                            The Crazy Cat Club #0270
+                        </div>
+                        <div class="license-item-text app-why-lbl f10 ft-lato light-50">
+                            POLYGON
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
+                    <div class="license-item-server d-flex justify-content-between pd-top-6 app-why-lbl f12 ft-bold light-50 letter-spacing-047">
+                        UNUSED
+                        <ion-icon name="caret-down" class="app-why-icon ic18 light-50 pd-left-14"></ion-icon>
+                    </div>
+                    <div class="license-item-server d-flex justify-content-between pd-top-6 app-why-lbl f12 ft-bold light-50 letter-spacing-047">
+                        UNUSED
+                        <ion-icon name="caret-down" class="app-why-icon ic18 light-50 pd-left-14"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</app-why-side-nav>

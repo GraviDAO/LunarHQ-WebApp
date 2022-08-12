@@ -17,5 +17,6 @@ export class CssConstants {
   cta2 = 'app-why-btn cta2 full-width';
   cta3Primary = 'cta3 app-why-lbl f16 norm primary';
   cta3PrimaryNorm = 'cta3 app-why-lbl f12 primary';
+  cta3PrimaryMedium = 'cta3 app-why-lbl f14 primary';
   cta3PrimaryIcon = 'app-why-icon pd-right-6 ic20 primary-70';
 }

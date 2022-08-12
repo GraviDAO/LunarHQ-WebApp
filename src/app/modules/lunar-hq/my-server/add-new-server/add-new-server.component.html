@@ -1,0 +1,84 @@
+<app-why-header
+  [buttonLabel]="''"
+  [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
+  [title]="'My Servers'"
+  (click)="navigateToMyServer()"
+  [subTitle]="''"></app-why-header>
+<app-why-side-nav
+  [sideNavList]="sideNavList"
+>
+<div class="flex flex-nowrap">
+    <div class="add-new-server-header">
+        <div class="back-button">
+            <div class="pd-left-24 pd-top-21 pd-bottom-21">
+                <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
+                [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+                </app-why-cta-three>
+            </div>
+        </div>
+    </div>
+    <div class="add-new-server-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40 pd-right-40 pd-bottom-48">
+        <div class="add-new-server-title app-why-lbl f16 ft-bold light">
+            HOW TO ADD A NEW SERVER
+        </div>
+        <div class="title-underline mr-top-8"></div>
+        <div class="step-1 mr-top-48">
+            <div class="step-title app-why-lbl f10 light-50 ft-lato">
+                STEP 1
+            </div>
+            <div class="app-why-lbl f16 light ft-lato">
+                Install Lunar Assistant Discord bot
+            </div>
+            <div class="pd-top-8 app-why-lbl f14 light-70 ft-lato d-flex">
+                <app-why-cta-three [btnClass]="cssClass.cta3PrimaryMedium + ' f14 text-normal underline-primary pd-right-4'" [btnLabel]="'Click here'"
+                 (click)="navigateInstall()">
+                </app-why-cta-three> 
+                for Lunar Assistant's quick start guide.
+            </div>
+        </div>
+        <div class="step-2 mr-top-40">
+            <div class="step-title app-why-lbl f10 light-50 ft-lato">
+                STEP 2
+            </div>
+            <div class="app-why-lbl f16 light ft-lato">
+                Check you hold the Admin role
+            </div>
+            <div class="pd-top-8 app-why-lbl f14 light-70 ft-lato d-flex">
+                <app-why-cta-three [btnClass]="cssClass.cta3PrimaryMedium + ' f14 text-normal underline-primary pd-right-4'" [btnLabel]="'Click here'"
+                 (click)="navigateInstall()">
+                </app-why-cta-three> 
+                for Discord's documentation in configuring server roles.
+            </div>
+        </div>
+        <div class="step-3 mr-top-40">
+            <div class="step-title app-why-lbl f10 light-50 ft-lato">
+                STEP 3
+            </div>
+            <div class="app-why-lbl f16 light ft-lato">
+                Apply license
+            </div>
+            <div *ngIf="license" class="pd-top-8 app-why-lbl f14 light-70 ft-lato d-flex">
+                <ion-icon name="checkmark-circle" class="app-why-icon ic20 success pd-right-8"></ion-icon>
+                You have a license ready to be assigned.
+            </div>
+            <div *ngIf="!license" class="pd-top-8 app-why-lbl f14 error ft-lato">
+                <div class="d-flex">
+                    <ion-icon name="close-circle" class="app-why-icon ic20 error pd-right-8"></ion-icon>
+                    No licenses detected in your connected wallets.
+                </div>
+                <div class="pd-left-28 app-why-lbl f14 light-70 ft-lato d-flex">
+                    You must
+                    <app-why-cta-three [btnClass]="cssClass.cta3PrimaryMedium + ' f14 text-normal pd-left-4 pd-right-4'" [btnLabel]="'add a wallet'"
+                    (click)="addWallet()">
+                    </app-why-cta-three> 
+                    or
+                    <app-why-cta-three [btnClass]="cssClass.cta3PrimaryMedium + ' f14 text-normal pd-left-4 pd-right-4'" [btnLabel]="'buy a license'"
+                    (click)="buyLicense()">
+                    </app-why-cta-three>
+                    that would enable you to add a new server.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</app-why-side-nav>

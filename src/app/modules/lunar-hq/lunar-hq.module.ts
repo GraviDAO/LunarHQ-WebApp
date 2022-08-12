@@ -7,12 +7,16 @@ import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyServerComponent } from './my-server/my-server.component';
+import { AddNewServerComponent } from './my-server/add-new-server/add-new-server.component';
+import { MyLicensesComponent } from './my-server/my-licenses/my-licenses.component';
 
 const commonModules = [
   WelcomeComponent,
   DashboardComponent,
   ProfileComponent,
-  MyServerComponent
+  MyServerComponent,
+  AddNewServerComponent,
+  MyLicensesComponent
 ];
 
 @NgModule({
