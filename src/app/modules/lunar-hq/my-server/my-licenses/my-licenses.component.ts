@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SideNavType } from 'src/app/shared/components/side-bar/side.nav.type';
 import { CssConstants } from 'src/app/shared/services/css-constants.service';
+import { ModalService } from 'src/app/shared/_modal/modal.service';
 
 @Component({
   selector: 'app-why-lunar-hq-my-licenses',
@@ -51,7 +52,8 @@ export class MyLicensesComponent implements OnInit {
   ];
   constructor(private router: Router,
               private location: Location,
-              public cssClass: CssConstants) { }
+              public cssClass: CssConstants,
+              private modalService: ModalService) { }
 
   ngOnInit(): void {
   }
@@ -68,11 +70,27 @@ export class MyLicensesComponent implements OnInit {
 
   }
 
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  cancelModal(id: string) {
+    this.modalService.close(id);
+  }
+
   assignLicense() {
-    //this.openModal('removeLicenseModal');
+    this.openModal('addLicenseModal');
+  }
+
+  confirmAssignLicense() {
+    this.cancelModal('removeLicenseModal');
   }
   
   removeLicense() {
-    //this.openModal('removeLicenseModal');
+    this.openModal('removeLicenseModal');
+  }
+
+  confirmRemoveLicense() {
+    this.cancelModal('removeLicenseModal');
   }
 }

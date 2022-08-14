@@ -47,7 +47,7 @@
     width: mixin.toRem(1);
     background: var(--light-20);
   }
-  .link-dropdown {
+.link-dropdown {
     background: none;
     outline: none;
     width: mixin.toRem(180);
@@ -55,15 +55,15 @@
     text-align: left;
   }
   
-  .dropdown-menu{
+.dropdown-menu{
     margin-left: mixin.toRem(12);
     &.show {
         background-color: var(--bg-light);
         border-radius: 0;
         padding: 0;
     }
-  }
-  .dropdown{
+}
+.dropdown{
     .dropdown-toggle::after {
         right: 0 !important;
         font-size: var(--font-size-20);
@@ -83,14 +83,14 @@
         }
     }
 }
-  .dropdown-item {
+.dropdown-item {
     height: mixin.toRem(38);
     width: mixin.toRem(168);
     &:hover {
         background-color: var(--secondary);
     }
-  }
-  .dropdown-divider {
+}
+.dropdown-divider {
     border-top: mixin.toRem(1) solid var(--bg-light);
     margin: 0;
-  }
+}

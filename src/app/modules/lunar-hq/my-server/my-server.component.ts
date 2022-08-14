@@ -68,5 +68,9 @@ export class MyServerComponent implements OnInit {
     console.log('navigateToAddNewServer');
     this.router.navigate(['my-server/add-new-server']);
   }
+  navigateToAddLicense() {
+    console.log('navigateToAddLicense');
+    this.router.navigate(['my-server/my-licenses']);
+  }
 
 }

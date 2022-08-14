@@ -70,7 +70,7 @@
                     </div>
                     <div class="d-flex mr-top-6 overflow-hidden">
                         <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light"
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
                             ngbDropdownToggle>UNUSED</button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
                             <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">ASSIGN</button>
@@ -99,7 +99,7 @@
                 <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
                     <div  class="d-flex overflow-hidden">
                         <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" ngbDropdownToggle>
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
                                 UNUSED
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="d-flex mr-top-6 overflow-hidden">
                         <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" ngbDropdownToggle>
+                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
                                 UNUSED
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
@@ -135,3 +135,49 @@
     </div>
 </div>
 </app-why-side-nav>
+
+<!-- Remove License Confirmation Modal Stated -->
+<app-why-modal id="addLicenseModal" [popUpType]="'confirmation'">
+    <app-why-modal-wrapper>
+      <div class="app-why-lbl f22 ft-uni ft-medium light">add license</div>
+      <div class="pd-top-32">
+        <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
+          <div>Assigning a license to this server will enable the full range of Lunar HQ capabilities. You can reassign or remove the license at any time and even assign more than one license to the same server as a backup.</div>
+        </label>
+      </div>
+      <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+        <div>
+          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('addLicenseModal')">
+          </app-why-lunar-hq-cta-two>
+        </div>
+        <div>
+          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Assign'" (click)="confirmAssignLicense()">
+          </app-why-cta-one>
+        </div>
+      </div>
+    </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Remove License Conformation Modal Ended -->
+<!-- Remove License Confirmation Modal Stated -->
+<app-why-modal id="removeLicenseModal" [popUpType]="'confirmation'">
+    <app-why-modal-wrapper>
+      <div class="app-why-lbl f22 ft-uni ft-medium light">remove license</div>
+      <div class="pd-top-32">
+        <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
+          <div>Removing your license from this server will prevent administration through the Lunar HQ and its premium features unless
+          an alternative license is present.</div>
+        </label>
+      </div>
+      <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+        <div>
+          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('removeLicenseModal')">
+          </app-why-lunar-hq-cta-two>
+        </div>
+        <div>
+          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Remove'" (click)="confirmRemoveLicense()">
+          </app-why-cta-one>
+        </div>
+      </div>
+    </app-why-modal-wrapper>
+  </app-why-modal>
+  <!-- Remove License Conformation Modal Ended -->
