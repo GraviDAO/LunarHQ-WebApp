@@ -75,15 +75,9 @@ export class Web3Service {
     return this.accounts;
   }
 
-  async accountInfo(account: any[]) {
-    const initialValue = await this.web3js.eth.getBalance(account);
-    this.balance = this.web3js.utils.fromWei(initialValue, 'ether');
-    return this.balance;
-  }
-
   async signIn(data: any, address: string) {
     const msgHex = this.web3js.utils.sha3(data);
-    return await this.web3js.eth.personal.sign(msgHex, address, '');
+    return await this.web3js.eth.personal.sign(data, address, '');
   }
 
   async publicAddress() {

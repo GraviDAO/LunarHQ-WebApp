@@ -99,7 +99,8 @@ export class WelcomeComponent implements OnInit {
 
   async handleSignIn(nonce: any, publicAddress: any) {
     try {
-      let resultObj = await this.web3.signIn(`I am signing my one-time nonce: ${nonce}`, publicAddress);
+      const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
+      let resultObj = await this.web3.signIn(signInMessage, publicAddress);
       const blockchainName = 'polygon-mainnet';
       const payLoad = {
         type: 'Evm',
