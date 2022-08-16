@@ -25,4 +25,5 @@ export class CssConstants {
   cta3BtnLabel = 'cta3 app-why-lbl f10 norm light-70';
   cta3Icon = 'app-why-icon ic20 light-70 norm';
   cta3PrimaryIcon = 'app-why-icon pd-right-6 ic20 primary-70';
+  cta3PrimaryIconNorm = 'app-why-icon ic20 primary-70';
 }

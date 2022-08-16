@@ -12,6 +12,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MyServerComponent } from './my-server/my-server.component';
 import { AddNewServerComponent } from './my-server/add-new-server/add-new-server.component';
 import { MyLicensesComponent } from './my-server/my-licenses/my-licenses.component';
+import { DetailsComponent } from './my-server/details/details.component';
 
 const commonModules = [
   WelcomeComponent,
@@ -19,7 +20,8 @@ const commonModules = [
   ProfileComponent,
   MyServerComponent,
   AddNewServerComponent,
-  MyLicensesComponent
+  MyLicensesComponent,
+  DetailsComponent
 ];
 
 const ngBootstrapModules = [
