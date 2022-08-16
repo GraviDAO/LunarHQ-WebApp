@@ -53,6 +53,7 @@ $container-max-widths: (
   --bg-medium: #fafafa;
   --bg-white: #FFFFFF;
   --bg-dark: #{map-get($theme-colors, bg-dark)};
+  --bg-dark-90: #{map-get($theme-colors, bg-dark-90)};
   --bg-dark-50: #{map-get($theme-colors, bg-dark-50)};
 
   --btn-height: 40px;
@@ -73,6 +74,7 @@ $container-max-widths: (
   --pill-input-border-radius: 2.8125rem;
 
   --btn-letter-spacing: 0;
+  --label-letter-spacing: 0.2px;
 
 
   --font-size-64: 4rem;

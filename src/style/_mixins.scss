@@ -14,7 +14,7 @@ $unit: 'px'; // Feel free to change the unit.
         padding-left: #{$i + $unit};
         padding-right: #{$i + $unit};
       } @else {
-        #{$styleName}: #{$i + $unit};
+        #{$styleName}: #{$i + $unit} + ' !important';
       }
     }
     $i: $i + $offset;

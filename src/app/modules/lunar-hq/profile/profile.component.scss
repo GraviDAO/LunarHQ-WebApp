@@ -1,0 +1,129 @@
+@use "src/style/mixin-core" as mixin;
+.back-header {
+  position: fixed;
+  width: 100%;
+  height: 4rem;
+  @include mixin.bg--wrapper;
+  clip-path: none;
+  margin-top: -3.5rem;
+}
+
+.profile-wrapper {
+  margin-left: -3.75rem;
+}
+
+.profile-container {
+  flex: 1;
+  display:flex;
+  flex-direction:column;
+  height:100%
+}
+.profile-widget {
+  position: relative;
+  width: 45rem;
+  @include mixin.notch(16px);
+  background: var(--tertiary);
+}
+.widget_profile {
+
+}
+.widget_wallets {
+  height: 16rem;
+}
+.widget_licences {
+  height: 21.25rem;
+}
+.profile-content {
+  max-width: 45rem;
+  margin: auto;
+}
+.content-wrapper {
+  justify-content: left !important;
+}
+.backBtn {
+  width: 132px;
+  height: 24px;
+}
+.profile-header {
+  width: 640px;
+  height: 33px;
+  line-height: 24px;
+}
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--light);
+  opacity: 0.2;
+}
+.social-links {
+  position: fixed;
+  bottom: mixin.toRem(48);
+  right: mixin.toRem(48);
+}
+
+.widget_profile {
+  background: var(--dark-50);
+  margin: auto;
+  border-radius: 0 6.4px 0 6.4px;
+}
+
+.linked-profile {
+  width: mixin.toRem(484);
+  height: mixin.toRem(96);
+  @include mixin.notch(8px);
+}
+
+.profile-bio {
+  width: mixin.toRem(372);
+  height: mixin.toRem(80);
+}
+
+.profile-unlink {
+  width: mixin.toRem(44);
+  height: mixin.toRem(38);
+  margin: auto;
+}
+
+.profile-link {
+  width: mixin.toRem(240);
+  height: mixin.toRem(40);
+  margin: auto;
+}
+
+.profile-img {
+  width: mixin.toRem(96);
+  height: mixin.toRem(96);
+}
+
+.bg-dark-100 {
+  background: var(--dark);
+}
+
+.wallet-devider {
+  border-bottom: 1px solid var(--light-70);
+  opacity: 0.2;
+}
+
+.wallet-container {
+  width: mixin.toRem(454);
+  height: mixin.toRem(48);
+}
+
+.wallet-cards {
+  width: mixin.toRem(240);
+  height: mixin.toRem(50);
+  @include mixin.notch(8px);
+  background: var(--dark-50);
+  margin:auto;
+}
+
+.metamask-img {
+  width: mixin.toRem(32);
+  height: mixin.toRem(32);
+  vertical-align: middle;
+}
+
+.nft-wallet {
+  width: mixin.toRem(137);
+  height: mixin.toRem(32);
+}

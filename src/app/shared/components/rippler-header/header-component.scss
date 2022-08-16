@@ -3,7 +3,7 @@
 .header-container {
   height: mixin.toRem(64);
   width: 100%;
-  max-width: 1440px;
+  // max-width: 1440px;
   background: var(--bg-dark);
   display: flex;
   //position: fixed;
@@ -66,6 +66,7 @@
   align-items: center;
   justify-content: space-between;
   //margin-top: 4px;
+  cursor: pointer;
   @include mixin.notch(8px);
 }
 

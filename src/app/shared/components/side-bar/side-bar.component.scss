@@ -27,16 +27,13 @@ a {
 }
 
 .submenu-list {
-  height: 24px !important;
+  min-height: 24px !important;
 
-  span {
-    font-weight: 300 !important;
-  }
 }
 
 //
 .active-sub-menu {
-  color: var(--primary-dark) !important;
+  color: var(--secondary) !important;
 }
 
 .active-bg {
@@ -128,7 +125,7 @@ h1, h2, h3, h4, h5,
   margin-top: 64px;
   //max-width: 25vw;
   min-width: 240px;
-  background: var(--tertiary-70);
+  background: var(--dark-70);
   color: #fff;
   transition: all 0.4s;
 
@@ -152,7 +149,7 @@ h1, h2, h3, h4, h5,
           padding-left: 0;
         }
 
-        span {
+        span, label {
           margin-right: 0;
           display: none;
           font-size: 24px;
@@ -191,7 +188,7 @@ h1, h2, h3, h4, h5,
       //padding-top: 20px;
       display: flex;
       align-items: center;
-      height: 24px;
+      min-height: 38px;
 
       > ul {
         margin-left: 10px;
@@ -201,11 +198,11 @@ h1, h2, h3, h4, h5,
         }
       }
 
-      span {
+      span, label {
         padding-left: 8px;
         font-size: var(--font-size-14);
         line-height: var(--font-size-22);
-        color: var(--light-50);
+        color: var(--light-70);
         font-weight: 500;
         @include mixin.media-breakpoint-down(md) {
           display: block;
@@ -244,7 +241,7 @@ a[data-toggle="collapse"] {
 }
 
 #sidebarCollapse {
-  span {
+  span, label {
     @include mixin.media-breakpoint-down(md) {
       display: none;
     }
@@ -286,10 +283,11 @@ a[data-toggle="collapse"] {
 }
 
 .active-container {
-  background: var(--tertiary-50);
+  background: var(--light-20);
   box-shadow: 0 16px 20px -8px rgba(0, 0, 0, 0.04);
-  padding-bottom: 4px;
-  padding-top: 4px;
+  height: 38px;
+  //padding-bottom: 8px;
+  //padding-top: 8px;
 }
 
 .add-pd-lr-80 {
@@ -356,9 +354,12 @@ a[data-toggle="collapse"] {
 
 .content-wrapper {
   width: calc(100vw - 240px);
-  margin: auto;
-  display: flex;
-  justify-content: center;
+  padding-left: mixin.toRem(60);
+  padding-right: mixin.toRem(60);
+  padding-top: mixin.toRem(56);
+  //margin: auto;
+  //display: flex;
+  //justify-content: center;
 }
 
 .content-wrapper-toggled {
@@ -382,6 +383,21 @@ a[data-toggle="collapse"] {
   transform: rotate(180deg);
 }
 
-.pd-left-78 {
-  padding-left: 78px !important;
+.add--pd-left {
+  padding-left: 46px !important;
+}
+
+
+.add--pd-left-34 {
+  padding-left: 34px !important;
+}
+
+.add-pd-left-8 {
+  padding-left: 8px !important;
+}
+
+.nest-label {
+  color: var(--light-50);
+  font-size: var(--font-size-14);
+  line-height: var(--font-size-22);
 }

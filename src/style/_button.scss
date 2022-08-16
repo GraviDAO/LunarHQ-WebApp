@@ -38,7 +38,14 @@
       background: var(--dark);
       color: var(--light);
     }
+
+    &.active-state {
+      color: var(--secondary);
+    }
   }
+
+
+
 
   &.md {
     height: var(--btn-md-height);
@@ -50,6 +57,10 @@
     font-size: var(--font-size-12);
     height: var(--btn-sm-height);
     width: var(--btn-norm-width);
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
 
   &:hover {

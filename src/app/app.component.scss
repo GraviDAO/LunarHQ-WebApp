@@ -1,0 +1,8 @@
+.add-bg {
+  width: 100vw;
+  background: url("../assets/img/png/la-bg.png"), var(--bg-dark);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  //background-size: contain;
+}

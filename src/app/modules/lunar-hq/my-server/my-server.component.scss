@@ -1,0 +1,66 @@
+@use "src/style/mixin-core" as mixin;
+  .server-header {
+    height: mixin.toRem(64);
+    width: 100%;
+    background: var(--dark-20);
+  }
+  .back-button {
+    display: flex;
+    width: mixin.toRem(132);
+    float: left;
+  }
+  .add-server {
+    position: relative;
+    float: right;
+  }
+  .server-list {
+    width: mixin.toRem(1054);
+  }
+  .server-item {
+    height: mixin.toRem(90);
+    width: 100%;
+    @include mixin.bg--wrapper;
+    background: var(--dark-20);
+  }
+  .server-name-container {
+    width: mixin.toRem(388);
+  }
+  .server-logo {
+    height: 32px;
+    width: 32px;
+  }
+  .server-name-right-icon {
+      width: mixin.toRem(14);
+      height: mixin.toRem(14);
+  }
+  .server-details {
+    width: mixin.toRem(376);
+  }
+  .server-detail-item {
+      width: mixin.toRem(80);
+      height: mixin.toRem(42);
+  }
+  .server-icons {
+    width: mixin.toRem(184);
+  }
+  .server-icon-container {
+    width: mixin.toRem(20);
+    height: mixin.toRem(20);
+  }
+  .visit-button {
+    width: mixin.toRem(134);
+  }
+  .add-license-button {
+    width: mixin.toRem(134);
+  }
+  .add-license {
+    width: mixin.toRem(44);
+    height: mixin.toRem(34);
+  }
+.divider {
+    margin-top: 16px;
+    margin-bottom: auto;
+    height: 58px;
+    width: 1px;
+    background: var(--light-20);
+  }

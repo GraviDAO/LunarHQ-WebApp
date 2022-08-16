@@ -2,16 +2,20 @@
 
 .add-bg {
   width: 100vw;
-  height: 100vh;
   background: url("../../../../assets/img/png/la-bg.png"), var(--bg-dark);
-  background-position: inherit;
-  background-repeat: round;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .main-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.add-height {
+  height: 100vh;
 }
 
 .option-container {

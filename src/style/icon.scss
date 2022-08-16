@@ -69,12 +69,20 @@
     color: var(--light-50);
   }
 
+  &.light-20 {
+    color: var(--light-20);
+  }
+
   &.primary-70 {
     color: var(--primary-70);
   }
 
   &.primary-50 {
     color: var(--primary-50);
+  }
+
+  &.secondary-dark {
+    color: var(--secondary-dark) !important;
   }
 
   &.secondary {
@@ -89,9 +97,15 @@
     color: var(--secondary-50);
   }
 
+  &.error {
+    color: var(--error);
+  }
   &.transparent {
     color: transparent;
   }
 
+  &.error {
+    color: var(--error);
+  }
 
 }

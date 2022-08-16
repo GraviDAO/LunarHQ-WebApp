@@ -12,6 +12,7 @@ import {RipplerCtaTwoComponent} from './components/rippler-cta-two/rippler-cta-t
 import {ModalModule} from './_modal/modal.module';
 import {SideBarComponent} from './components/side-bar/side-bar.component';
 import {ModalWrapperComponent} from './components/modal-wrapper/modal-wrapper.component';
+import {RipplerHeaderSideNavComponent} from './components/rippler-header-side-nav/rippler-header-side-nav.component';
 
 const commonModules = [
   CtaOneComponent,
@@ -23,7 +24,8 @@ const commonModules = [
   ImgFallbackDirective,
   RipplerCtaTwoComponent,
   SideBarComponent,
-  ModalWrapperComponent
+  ModalWrapperComponent,
+  RipplerHeaderSideNavComponent
 ];
 
 @NgModule({

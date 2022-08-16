@@ -7,3 +7,7 @@
   height: 108px;
   @include mixin.bg--wrapper;
 }
+
+.no-boarder {
+  border: none;
+}
