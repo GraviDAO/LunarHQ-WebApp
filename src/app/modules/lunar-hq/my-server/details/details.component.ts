@@ -63,7 +63,14 @@ export class DetailsComponent implements OnInit {
   }
 
   navigateToRules() {
+
+  }
+
+  navigateToPolls() {
     
   }
 
+  navigateToViewInDiscord() {
+    
+  }
 }

@@ -61,7 +61,7 @@
     width: mixin.toRem(718);
     height: mixin.toRem(657);
     @include mixin.bg--wrapper;
-    background: var(--dark-10);
+    background: var(--tertiary);
   }
   .rule-name-title {
     width: mixin.toRem(272);
@@ -112,7 +112,7 @@
     width: mixin.toRem(354);
     height: mixin.toRem(657);
     @include mixin.bg--wrapper;
-    background: var(--dark-10);
+    background: var(--tertiary);
   }
   .license-item {
     height: mixin.toRem(144);
@@ -177,4 +177,50 @@
 .dropdown-divider {
     border-top: mixin.toRem(1) solid var(--bg-light);
     margin: 0;
+}
+.server-recent-polls {
+    width: mixin.toRem(1080);
+    height: mixin.toRem(353);
+    @include mixin.bg--wrapper;
+    background: var(--tertiary);
+}
+.poll-items {
+    width: mixin.toRem(822);
+    height: mixin.toRem(200);
+    margin-left: auto;
+    margin-right: auto;
+}
+.poll-item {
+    width: 100%;
+    height: mixin.toRem(96);
+    @include mixin.bg--wrapper;
+    background: var(--dark-20);
+    .divider {
+        height: mixin.toRem(64);
+    }
+    .poll-item-image-container {
+        width: mixin.toRem(88);
+    }
+    .poll-item-image {
+        width: mixin.toRem(40);
+        height: mixin.toRem(40);
+    }
+    .poll-item-desc {
+        width: mixin.toRem(393);
+        height: mixin.toRem(48);
+    }
+    .poll-item-name {
+        height: mixin.toRem(24);
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .poll-item-time-status {
+        width: mixin.toRem(112);
+    }
+    .poll-item-discord-button {
+        width: mixin.toRem(56);
+        height: mixin.toRem(54);
+    }
 }
