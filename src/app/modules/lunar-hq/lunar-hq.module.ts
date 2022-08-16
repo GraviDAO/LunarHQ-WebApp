@@ -7,6 +7,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyServerComponent } from './my-server/my-server.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 const commonModules = [
   WelcomeComponent,
@@ -19,6 +20,7 @@ const commonModules = [
   declarations: commonModules,
   exports: commonModules,
   imports: [
+    BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
