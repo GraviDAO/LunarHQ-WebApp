@@ -71,6 +71,14 @@ export class DetailsComponent implements OnInit {
   }
 
   navigateToViewInDiscord() {
+
+  }
+
+  navigateToAnnouncements() {
+
+  }
+
+  navigateToGoTo() {
     
   }
 }
