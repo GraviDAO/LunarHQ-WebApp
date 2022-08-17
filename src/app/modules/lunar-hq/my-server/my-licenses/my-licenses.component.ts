@@ -50,6 +50,7 @@ export class MyLicensesComponent implements OnInit {
       ]
     },
   ];
+  server: string = "GRAVIDAO";
   constructor(private router: Router,
               private location: Location,
               public cssClass: CssConstants,
@@ -78,14 +79,25 @@ export class MyLicensesComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  assignLicense() {
+  openAssignLicense() {
     this.openModal('addLicenseModal');
   }
 
-  confirmAssignLicense() {
-    this.cancelModal('removeLicenseModal');
+  assignLicense() {
+    this.openModal('assignLicenseModal');
+    this.cancelModal('addLicenseModal');
   }
-  
+
+  confirmAssignLicense() {
+    this.cancelModal('assignLicenseModal');
+  }
+
+  refreshServerList() {
+
+  }
+  onChangeServer(serverValue: string) {
+    this.server = serverValue;
+  }
   removeLicense() {
     this.openModal('removeLicenseModal');
   }

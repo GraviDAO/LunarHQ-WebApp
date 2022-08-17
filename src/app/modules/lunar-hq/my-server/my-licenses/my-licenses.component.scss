@@ -94,3 +94,11 @@
     border-top: mixin.toRem(1) solid var(--bg-light);
     margin: 0;
 }
+.server-list {
+    width: mixin.toRem(240);
+    height: mixin.toRem(192);
+    @include mixin.bg--wrapper;
+    background: var(--dark-50);
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -73,7 +73,7 @@
                             <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
                             ngbDropdownToggle>UNUSED</button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">ASSIGN</button>
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="openAssignLicense()">ASSIGN</button>
                             <div class="dropdown-divider"></div>
                             <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">REMOVE LICENSE</button>
                             </div>
@@ -103,7 +103,7 @@
                                 UNUSED
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="openAssignLicense()">
                                 ASSIGN
                             </button>
                             <div class="dropdown-divider"></div>
@@ -119,7 +119,7 @@
                                 UNUSED
                             </button>
                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                            <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="assignLicense()">
+                            <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="openAssignLicense()">
                                 ASSIGN
                             </button>
                             <div class="dropdown-divider"></div>
@@ -136,7 +136,7 @@
 </div>
 </app-why-side-nav>
 
-<!-- Remove License Confirmation Modal Stated -->
+<!-- Add License Confirmation Modal Stated -->
 <app-why-modal id="addLicenseModal" [popUpType]="'confirmation'">
     <app-why-modal-wrapper>
       <div class="app-why-lbl f22 ft-uni ft-medium light">add license</div>
@@ -151,13 +151,62 @@
           </app-why-lunar-hq-cta-two>
         </div>
         <div>
-          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Assign'" (click)="confirmAssignLicense()">
+          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Assign'" (click)="assignLicense()">
           </app-why-cta-one>
         </div>
       </div>
     </app-why-modal-wrapper>
 </app-why-modal>
-<!-- Remove License Conformation Modal Ended -->
+<!-- Add License Conformation Modal Ended -->
+<!-- Assign License Confirmation Modal Stated -->
+<app-why-modal id="assignLicenseModal" [popUpType]="'confirmation'">
+    <app-why-modal-wrapper>
+      <div class="app-why-lbl f22 ft-uni ft-medium light">assign license</div>
+      <div class="mr-top-8 app-why-lbl f16 ft-bold light">
+        The Giving #246 {{server}}
+            
+      </div>
+      <div class="server-list mr-top-32 d-flex flex-column pd-box-16">
+        <div class="server-list-item d-flex justify-content-between align-items-center">
+            <label class="app-why-lbl f16 ft-bold" [ngClass]="{'secondary': server === 'GRAVIDAO', 'light-50': server !== 'GRAVIDAO'}" for="gravidao">
+                GRAVIDAO
+            </label>
+            <input type="radio" class="radio-button-secondary" [checked]="server === 'GRAVIDAO'" id="gravidao" name="server" value="GRAVIDAO" (click)="onChangeServer('GRAVIDAO')">
+        </div>
+        <div class="server-list-item d-flex justify-content-between align-items-center pd-top-8">
+            <label class="app-why-lbl f16 ft-bold" [ngClass]="{'secondary': server === 'SOCKDAO', 'light-50': server !== 'SOCKDAO'}" for="sockdao">
+                SOCKDAO
+            </label>
+            <input type="radio" class="radio-button-secondary" [checked]="server === 'SOCKDAO'" id="sockdao" name="server" value="SOCKDAO" (click)="onChangeServer('SOCKDAO')">
+        </div>
+        <div class="server-list-item d-flex justify-content-between align-items-center pd-top-8">
+            <label class="app-why-lbl f16 ft-bold" [ngClass]="{'secondary': server === 'HUBBLE', 'light-50': server !== 'HUBBLE'}" for="hubble">
+                HUBBLE FAN CLUB
+            </label>
+            <input type="radio" class="radio-button-secondary" [checked]="server === 'HUBBLE'" id="hubble" name="server" value="HUBBLE" (click)="onChangeServer('HUBBLE')">
+        </div>
+      </div>
+      <div class="refresh-server-list pd-top-16 d-flex align-items-center justify-content-center">
+        <app-why-cta-three
+        [btnClass]="cssClass.cta3PrimaryNorm"
+        [iconClass]="cssClass.cta3PrimaryMedium"
+        [iconType]="'refresh'"
+        (click)="refreshServerList()"
+        [btnLabel]="'REFRESH SERVER LIST'"></app-why-cta-three>
+    </div>
+      <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+        <div>
+          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('assignLicenseModal')">
+          </app-why-lunar-hq-cta-two>
+        </div>
+        <div>
+          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'" (click)="confirmAssignLicense()">
+          </app-why-cta-one>
+        </div>
+      </div>
+    </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Assign License Conformation Modal Ended -->
 <!-- Remove License Confirmation Modal Stated -->
 <app-why-modal id="removeLicenseModal" [popUpType]="'confirmation'">
     <app-why-modal-wrapper>
