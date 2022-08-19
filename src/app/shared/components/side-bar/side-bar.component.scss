@@ -129,44 +129,6 @@ h1, h2, h3, h4, h5,
   color: #fff;
   transition: all 0.4s;
 
-  &.active {
-    min-width: 5.6vw !important;
-    text-align: center;
-
-    ul.components {
-
-      li {
-        font-size: 14px;
-        display: flex;
-        height: 24px;
-        align-items: center;
-
-        &:hover {
-          background: var(--primary);
-        }
-
-        ion-icon {
-          padding-left: 0;
-        }
-
-        span, label {
-          margin-right: 0;
-          display: none;
-          font-size: 24px;
-        }
-
-      }
-    }
-
-    .logo {
-      padding: 10px 0;
-    }
-
-    .footer {
-      display: none;
-    }
-  }
-
   .logo {
     display: block;
     color: $white;
@@ -320,6 +282,10 @@ a[data-toggle="collapse"] {
 
 .add-full-width {
   width: 94vw;
+}
+
+.width-100 {
+ width: 100%;
 }
 
 .toggle-width {

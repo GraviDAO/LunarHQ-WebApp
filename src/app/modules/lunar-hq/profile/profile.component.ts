@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   discordUnLinked = false;
   wallets = [{
     walletValue: this.walletValue,
-    icon: 'settings',
+    icon: '/assets/img/svg/matic.svg',
     index: 1
   }];
   walletSelected = false;
