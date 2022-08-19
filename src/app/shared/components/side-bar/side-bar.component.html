@@ -3,9 +3,9 @@
     <nav id="sidebar" class="active">
       <ul class="list-unstyled components mr-bottom-5 pd-top-36">
         <li *ngFor="let sideNav of sideNavList; let i = index;"
-            class="show-cursor mr-bottom-24" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
+            class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
             [ngClass]="{'no-height': sideNav.subMenu}">
-          <div class="d-flex flex-column" style="width: 100%">
+          <div class="d-flex flex-column width-100">
             <div class="d-flex align-items-center"
                  [ngClass]="{'active-container': (activeTab === sideNav.title), 'justify-content-center': !isToggled}">
               <ion-icon class="app-why-icon ic14 light-70"
@@ -56,32 +56,19 @@
             </div>
           </div>
         </li>
-
-
-        <!--<li class="log-out show-cursor">
-          <ion-icon class="icon light-70 pd-left-40"
-                    [ngClass]="{'primary': activeTab === 'log-out'}"
-                    name="{{setIcon('log-out')}}"></ion-icon>
-          <span class="input-text-label f14 light-50" (click)="showLogOut()">Log Out</span>
-        </li>-->
       </ul>
     </nav>
 
     <!-- Page Content  -->
     <div id="content" class="">
       <div class="d-flex justify-content-between align-items-center toggle-wrapper">
-        <div class="pd-left-24 toggle-container" (click)="toggleMenu()">
+        <div class="pd-left-24 toggle-container">
           <ion-icon *ngIf="isToggled" class="icon primary show-cursor"
                     name="chevron-back-circle-outline"></ion-icon>
           <ion-icon *ngIf="!isToggled" class="icon primary show-cursor"
                     name="chevron-forward-circle-outline"></ion-icon>
         </div>
         <div class="pd-right-16">
-          <!--<app&#45;&#45;why-cta-three
-            [btnLabel]="'switch theme'"
-            (click)="switch()"
-            [btnClass]="cssClass.cta3Underline">
-          </app&#45;&#45;why-cta-three>-->
         </div>
       </div>
       <section class="content-wrapper" [ngClass]="{'content-wrapper-toggled': !isToggled}">

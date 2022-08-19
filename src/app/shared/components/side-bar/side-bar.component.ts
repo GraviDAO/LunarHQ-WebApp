@@ -35,12 +35,6 @@ export class SideBarComponent implements OnInit {
     $('#sidebar').toggleClass('active');
   }
 
-  toggleMenu() {
-    console.log('click toggle');
-    this.isToggled = !this.isToggled;
-    $('#sidebar').toggleClass('active');
-  }
-
   setIcon(icon: string): any {
     if (icon === 'DASHBOARD') {
       return this.activeTab === icon ? 'home' : 'home-outline';
