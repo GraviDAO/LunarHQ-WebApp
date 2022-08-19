@@ -1,0 +1,22 @@
+@use "src/style/mixin-core" as mixin;
+  .add-new-server-header {
+    height: mixin.toRem(64);
+    width: 100%;
+    background: var(--dark-20);
+  }
+  .back-button {
+    display: flex;
+    width: mixin.toRem(132);
+    float: left;
+  }
+  .add-new-server-container {
+    width: mixin.toRem(720);
+    height: mixin.toRem(450);
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--tertiary);
+  }
+  .title-underline {
+    height: mixin.toRem(1);
+    background: var(--light-20);
+  }

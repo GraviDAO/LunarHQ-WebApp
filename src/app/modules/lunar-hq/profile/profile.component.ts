@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {ModalService} from '../../../shared/_modal/modal.service';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
@@ -19,6 +19,16 @@ export class ProfileComponent implements OnInit {
     icon: 'settings',
     index: 1
   }];
+  walletSelected = false;
+  selectedWallet = '';
+  licenseSelected = false;
+  selectedLicenseId = '';
+  selectedLicense = 'UNUSED';
+  walletRemovingIndex = 0;
+  /*wallets = [{
+    walletValue: this.walletValue,
+    icon: 'settings'
+  }];*/
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'
@@ -56,7 +66,8 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     public cssClass: CssConstants,
     private modalService: ModalService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -69,6 +80,14 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
+  resetStaticVars() {
+    this.selectedWallet = '';
+    this.walletSelected = false;
+    this.walletRemovingIndex = 0;
+    this.selectedLicenseId = '';
+    this.licenseSelected = false;
+  }
+
   confirmUnlinkDiscord() {
     this.modalService.close('unlinkDiscordModal');
     this.discordUnLinked = true;
@@ -76,18 +95,32 @@ export class ProfileComponent implements OnInit {
 
   openModal(id: string) {
     this.modalService.open(id);
+    this.resetStaticVars();
   }
 
   cancelModal(id: string) {
     this.modalService.close(id);
   }
 
-  connectWallet() {
-
-  }
-
   removeWallet(index: number) {
     this.wallets = this.wallets.slice(1, index);
+    this.resetStaticVars();
+  }
+
+  connectWallet() {
+    console.log('Connect Wallet');
+  }
+
+  /* removeWallet(index: number) {
+     this.openModal('removeWalletModal');
+     this.walletRemovingIndex = index;
+   }*/
+
+  confirmRemoveWallet() {
+    this.wallets.forEach((element, index) => {
+      if (index == this.walletRemovingIndex) this.wallets.splice(index, 1);
+    });
+    this.cancelModal('removeWalletModal');
   }
 
   addWalletModal() {
@@ -95,7 +128,31 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmAddingWallet() {
-
+    this.wallets.push({...this.wallets[0]});
+    console.log(this.wallets);
+    this.cancelModal('addWalletModal');
   }
 
- }
+  selectWallet(walletId: string) {
+    this.selectedWallet = walletId;
+    this.walletSelected = true;
+  }
+
+  selectLicense(licenseId: string) {
+    this.selectedLicenseId = licenseId;
+    this.licenseSelected = true;
+  }
+
+  visitLicensePage() {
+    this.cancelModal('buyLicenseModal');
+  }
+
+  removeLicense() {
+    this.openModal('removeLicenseModal');
+  }
+
+  confirmRemoveLicense() {
+    this.cancelModal('removeLicenseModal');
+  }
+
+}

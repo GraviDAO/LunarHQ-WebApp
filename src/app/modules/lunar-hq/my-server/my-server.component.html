@@ -9,16 +9,23 @@
 >
 <div class="flex flex-nowrap">
     <div class="server-header">
-        <div class="pd-top-20 pd-left-24 back-button">
+        <!-- <div class="pd-top-20 pd-left-24 back-button">
             <ion-icon name="chevron-back-outline" class="app-why-icon"></ion-icon>
             <div class="app-why-lbl f14 ft-bold primary">BACK</div>
+        </div> -->
+        <div class="back-button">
+            <div class="pd-left-24 pd-top-21 pd-bottom-21">
+                <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
+                [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+                </app-why-cta-three>
+            </div>
         </div>
         <div class="pd-top-20 mr-right-24 add-server app-why-lbl f12 ft-bold primary">
             <app-why-cta-three
-            [btnClass]="'app-why-lbl f12 primary ft-bold'"
+            [btnClass]="cssClass.cta3PrimaryNorm"
             [cssClass]="cssClass.cta3PrimaryNorm"
             [iconType]="'reader-outline'"
-            (click)="openModal()"
+            (click)="navigateToAddNewServer()"
             [btnLabel]="'HOW TO ADD A NEW SERVER'"></app-why-cta-three>
         </div>
     </div>
@@ -80,8 +87,12 @@
             </div>
             <div class="divider"></div>
             <div class="pd-top-34 visit-button d-flex justify-content-center">
-                <div class="app-why-lbl f12 ft-bold primary letter-spacing-047">VISIT</div>
-                <ion-icon name="chevron-forward-outline" class="app-why-icon ic20"></ion-icon>
+                <app-why-cta-three
+                    [btnClass]="cssClass.cta3PrimaryNorm + 'ft-bold letter-spacing-047'"
+                    [iconClass]="cssClass.cta3PrimaryIconNorm"
+                    [iconType]="'chevron-forward-outline'"
+                    (click)="navigateToDetails()"
+                    [btnLabel]="'VISIT'"></app-why-cta-three>
             </div>
         </div>
         <div class="server-item d-flex mr-top-8">
@@ -138,7 +149,7 @@
                 <img class="server-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
             </div>
             <div class="divider"></div>
-            <div class="add-license-button d-flex flex-column align-items-center justify-content-center pd-top-18 text-center">
+            <div class="add-license-button d-flex flex-column align-items-center justify-content-center text-center" (click)="navigateToAddLicense()">
                 <ion-icon name="add-circle-outline" class="app-why-icon ic18 error"></ion-icon>
                 <div class="add-license pd-top-8 app-why-lbl f10 letter-spacing-02 ft-bold error">ADD LICENSE</div>
             </div>
@@ -196,8 +207,12 @@
             </div>
             <div class="divider"></div>
             <div class="pd-top-34 visit-button d-flex justify-content-center">
-                <div class="app-why-lbl f12 ft-bold primary letter-spacing-047">VISIT</div>
-                <ion-icon name="chevron-forward-outline" class="app-why-icon ic20"></ion-icon>
+                <app-why-cta-three
+                    [btnClass]="cssClass.cta3PrimaryNorm + 'ft-bold letter-spacing-047'"
+                    [iconClass]="cssClass.cta3PrimaryIconNorm"
+                    [iconType]="'chevron-forward-outline'"
+                    (click)="navigateToDetails()"
+                    [btnLabel]="'VISIT'"></app-why-cta-three>
             </div>
         </div>
     </div>

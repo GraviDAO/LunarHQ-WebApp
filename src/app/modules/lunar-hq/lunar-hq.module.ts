@@ -6,16 +6,28 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {SharedModule} from '../../shared/shared.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
-import { MyServerComponent } from './my-server/my-server.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyServerComponent } from './my-server/my-server.component';
+import { AddNewServerComponent } from './my-server/add-new-server/add-new-server.component';
+import { MyLicensesComponent } from './my-server/my-licenses/my-licenses.component';
+import { DetailsComponent } from './my-server/details/details.component';
 
 const commonModules = [
   WelcomeComponent,
   DashboardComponent,
   ProfileComponent,
-  MyServerComponent
+  MyServerComponent,
+  AddNewServerComponent,
+  MyLicensesComponent,
+  DetailsComponent
 ];
 
+const ngBootstrapModules = [
+  NgbModule,
+  NgbDropdownModule
+];
 @NgModule({
   declarations: commonModules,
   exports: commonModules,
@@ -25,7 +37,8 @@ const commonModules = [
     FormsModule,
     ReactiveFormsModule,
     ModalModule,
-    SharedModule
+    SharedModule,
+    ...ngBootstrapModules
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

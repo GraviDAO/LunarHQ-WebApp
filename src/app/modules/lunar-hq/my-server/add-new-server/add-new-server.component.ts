@@ -1,15 +1,15 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { SideNavType } from 'src/app/shared/components/side-bar/side.nav.type';
 import { CssConstants } from 'src/app/shared/services/css-constants.service';
-import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
+
 @Component({
-  selector: 'app-why-lunar-hq-my-server',
-  templateUrl: './my-server.component.html',
-  styleUrls: ['./my-server.component.scss']
+  selector: 'app-why-lunar-hq-add-new-server',
+  templateUrl: './add-new-server.component.html',
+  styleUrls: ['./add-new-server.component.scss']
 })
-export class MyServerComponent implements OnInit {
+export class AddNewServerComponent implements OnInit {
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'
@@ -48,14 +48,14 @@ export class MyServerComponent implements OnInit {
       ]
     },
   ];
-  constructor(private route: ActivatedRoute,
-              private router: Router,
+  license = true;
+  constructor(private router: Router,
               private location: Location,
               public cssClass: CssConstants) { }
 
   ngOnInit(): void {
+    console.log('testing2')
   }
-
   navigateToMyServer() {
     this.router.navigate(['my-server']);
   }
@@ -64,17 +64,16 @@ export class MyServerComponent implements OnInit {
     this.location.back();
   }
 
-  navigateToAddNewServer() {
-    console.log('navigateToAddNewServer');
-    this.router.navigate(['my-server/add-new-server']);
+  navigateInstall() {
+
   }
-  navigateToDetails() {
-    console.log('navigateToDetails');
-    this.router.navigate(['my-server/details']);
+
+  addWallet() {
+
   }
-  navigateToAddLicense() {
-    console.log('navigateToAddLicense');
-    this.router.navigate(['my-server/my-licenses']);
+
+  buyLicense() {
+
   }
 
 }

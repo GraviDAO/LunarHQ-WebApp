@@ -1,4 +1,5 @@
 @use "src/style/mixin-core" as mixin;
+
 .back-header {
   position: fixed;
   width: 100%;
@@ -14,47 +15,58 @@
 
 .profile-container {
   flex: 1;
-  display:flex;
-  flex-direction:column;
-  height:100%
+  display: flex;
+  flex-direction: column;
+  height: 100%
 }
+
 .profile-widget {
   position: relative;
   width: 45rem;
   @include mixin.notch(16px);
   background: var(--tertiary);
 }
+
+
 .widget_profile {
 
 }
+
 .widget_wallets {
   height: 16rem;
 }
+
 .widget_licences {
   height: 21.25rem;
 }
+
 .profile-content {
   max-width: 45rem;
   margin: auto;
 }
+
 .content-wrapper {
   justify-content: left !important;
 }
+
 .backBtn {
   width: 132px;
   height: 24px;
 }
+
 .profile-header {
   width: 640px;
   height: 33px;
   line-height: 24px;
 }
+
 .divider {
   height: 1px;
   width: 100%;
   background-color: var(--light);
   opacity: 0.2;
 }
+
 .social-links {
   position: fixed;
   bottom: mixin.toRem(48);
@@ -80,6 +92,7 @@
 
 .profile-unlink {
   width: mixin.toRem(44);
+  //width: mixin.toRem(54);
   height: mixin.toRem(38);
   margin: auto;
 }
@@ -114,7 +127,16 @@
   height: mixin.toRem(50);
   @include mixin.notch(8px);
   background: var(--dark-50);
-  margin:auto;
+  margin: auto;
+  cursor: pointer;
+
+  &.walletSelected {
+    background: var(--dark) !important;
+
+    label {
+      color: var(--secondary);
+    }
+  }
 }
 
 .metamask-img {
@@ -126,4 +148,162 @@
 .nft-wallet {
   width: mixin.toRem(137);
   height: mixin.toRem(32);
+}
+
+.metamask-wallet {
+  width: mixin.toRem(137);
+  height: mixin.toRem(32);
+}
+
+.wallet-connect {
+  width: mixin.toRem(193);
+  height: mixin.toRem(32);
+}
+
+.wallet-connect ion-icon {
+  color: var(--light-70);
+}
+
+.wallet-modal-content {
+  width: mixin.toRem(240);
+  margin: auto;
+}
+
+.other-wallets {
+  width: mixin.toRem(132);
+  height: mixin.toRem(24);
+}
+
+.buy-license-modal-content {
+  width: mixin.toRem(280);
+  height: mixin.toRem(306);
+  margin: auto;
+}
+
+.license-modal-cards {
+  width: mixin.toRem(280);
+  height: mixin.toRem(108);
+  @include mixin.notch(8px);
+  background: var(--dark-50);
+  cursor: pointer;
+
+  &.licenseSelected {
+    background: var(--dark) !important;
+
+    label.license-label {
+      color: var(--secondary);
+    }
+  }
+}
+
+.license-container {
+  width: mixin.toRem(259);
+  height: mixin.toRem(40);
+}
+
+.license-container-poly {
+  width: mixin.toRem(81);
+  height: mixin.toRem(76);
+}
+
+.license-labels {
+  width: mixin.toRem(640);
+}
+
+.nft-name {
+  width: mixin.toRem(340);
+  height: mixin.toRem(16);
+}
+
+.nft-status {
+  width: mixin.toRem(300);
+  height: mixin.toRem(16);
+}
+
+.license-cards {
+  width: mixin.toRem(640);
+  height: mixin.toRem(88);
+  background: var(--dark-50);
+  margin: auto;
+  @include mixin.notch(8px);
+}
+
+.img-55 {
+  width: mixin.toRem(56);
+  height: mixin.toRem(56);
+}
+
+.verical-divider {
+  box-sizing: border-box;
+  height: 56px;
+  width: 1px;
+  border: 1px solid var(--light-50);
+  opacity: 0.2;
+}
+
+.license-dropdow {
+  width: mixin.toRem(188);
+  height: mixin.toRem(20);
+}
+
+.link-dropdown {
+  background: none;
+  outline: none;
+  letter-spacing: 0.47px;
+  width: mixin.toRem(148);
+  height: mixin.toRem(20);
+  text-align: left;
+}
+
+#dropdownBasic1::after {
+  margin-left: 0.8em !important;
+  font-size: 20px;
+  vertical-align: 0.055em;
+}
+
+#dropdownBasic2::after {
+  margin-left: 5.5em !important;
+  font-size: 20px;
+  vertical-align: 0.055em;
+}
+
+.dropdown-menu.show {
+  background-color: var(--bg-light);
+  border-radius: 0;
+  padding: 0;
+}
+
+button[aria-expanded="true"] {
+  color: var(--secondary);
+
+  &::after {
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 2px;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    border-bottom: 4px dashed;
+    border-top: 0 solid transparent;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+}
+
+.dropdown-item {
+  padding: 0;
+  margin-left: 24px;
+  margin-top: 8px;
+  margin-right: 24px;
+  margin-bottom: 8px;
+  width: auto;
+}
+
+.dropdown-item:hover {
+  padding: 0;
+  width: auto;
+}
+
+.dropdown-divider {
+  border-top: 1px solid white;
 }

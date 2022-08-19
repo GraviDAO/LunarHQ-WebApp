@@ -1,0 +1,532 @@
+<app-why-header
+  [buttonLabel]="''"
+  [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
+  [title]="'My Servers'"
+  [subTitle]="'GraviDAO'"
+  (click)="navigateToMyServer()"></app-why-header>
+<app-why-side-nav
+  [sideNavList]="sideNavList"
+>
+<div class="flex flex-nowrap">
+    <div class="server-details-header">
+        <div class="back-button">
+            <div class="pd-left-24 pd-top-21 pd-bottom-21">
+                <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
+                [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+                </app-why-cta-three>
+            </div>
+        </div>
+    </div>
+    <div class="server-details-container d-flex flex-column mr-top-56">
+        <div class="server-details-desc-area d-flex justify-content-between">
+            <div class="server-details-desc d-flex flex-column">
+                <div class="server-name-container d-flex align-items-center">
+                    <div class="server-logo">
+                        <img src="/assets/img/svg/gravidao-logo.svg" alt="logo" class="logo-wrapper">
+                    </div>
+                    <div class="server-name pd-left-16 app-why-lbl f28 ft-bold light">
+                        GraviDAO
+                    </div>
+                    <div class="server-name-right-icon pd-left-8 app-why-lbl f28">
+                        <ion-icon name="key" class="app-why-icon light-20 ic20"></ion-icon>
+                    </div>
+                </div>
+                <div class="server-chains d-flex mr-top-16">
+                    <div class="server-active-chains app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                        ACTIVE CHAINS
+                    </div>
+                    <div class="server-icons d-flex align-items-center pd-left-16 pd-right-16">
+                        <img class="server-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                        <img class="server-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                        <img class="server-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                        <img class="server-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                        <img class="server-icon-container" src="/assets/img/svg/atom.svg" alt="twitter">
+                    </div>
+                </div>
+            </div>
+            <div class="server-image-container d-flex align-items-center">
+                <img class="server-image" src="/assets/img/png/placeholder.png" alt="server-image">
+            </div>
+        </div>
+        <div class="title-underline mr-top-40"></div>
+        <div class="server-detail-items mr-top-40 d-flex">
+            <div class="server-detail-item d-flex flex-column align-items-center justify-content-center">
+                <div class="server-detail-item-number app-why-lbl f28 ft-bold success">
+                    334
+                </div>
+                <div class="server-detail-item-label pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 success">
+                    MEMBERS
+                </div>
+            </div>
+            <div class="server-detail-item mr-left-8 d-flex flex-column align-items-center justify-content-center">
+                <div class="server-detail-item-number app-why-lbl f28 ft-bold success">
+                    310
+                </div>
+                <div class="server-detail-item-label pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 success">
+                    LINKED DISCORD ACCOUNTS
+                </div>
+            </div>
+            <div class="server-detail-item mr-left-8 d-flex flex-column align-items-center justify-content-center">
+                <div class="server-detail-item-number app-why-lbl f28 ft-bold success">
+                    8
+                </div>
+                <div class="server-detail-item-label pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 success">
+                    RULES
+                </div>
+            </div>
+            <div class="server-detail-item mr-left-8 d-flex flex-column align-items-center justify-content-center">
+                <div class="server-detail-item-number app-why-lbl f28 ft-bold success">
+                    23<span class="app-why-lbl f28 light-50"> / 231 </span>
+                </div>
+                <div class="server-detail-item-label pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 success">
+                    POLLS
+                </div>
+            </div>
+        </div>
+        <div class="server-detail-rules-license mr-top-8 d-flex">
+            <div class="server-detail-rules d-flex flex-column pd-top-24 pd-left-40">
+                <div class="rules-header-title d-flex justify-content-between pd-right-40">
+                    <div class="app-why-lbl f16 ft-bold light">
+                        GRAVIDAO DISCORD RULES [ 8 ]
+                    </div>
+                    <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
+                        <app-why-cta-three
+                        [btnClass]="cssClass.cta3PrimaryNorm"
+                        [iconClass]="cssClass.cta3PrimaryIconNorm"
+                        [iconType]="'chevron-forward-outline'"
+                        (click)="navigateToRules()"
+                        [btnLabel]="'RULES'"></app-why-cta-three>
+                    </div>
+                </div>
+                <div class="title-underline mr-top-8 mr-right-40"></div>
+                <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40">
+                    <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                        RULE NAME
+                    </div>
+                    <div class="population-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                        POPULATION
+                    </div>
+                    <div class="chain-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                        CHAIN
+                    </div>
+                </div>
+                <div class="server-detail-rules-content mr-top-16 d-flex flex-column pd-right-40">
+                   <div class="rules-item d-flex flex-row align-items-center">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Shepards
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            8
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Algorand</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Watchers on the wall
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            15
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Chainlink</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            DAO Fellowship
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            9
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Polygon</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            X-Men 2.0
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            8
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Polygon</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            The Musketeers
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            7
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Solana</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Avengers
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            3
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Algorand</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Gryfyndoor
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            8
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Algorand</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Realworld
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            7
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Polygon</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            The Musketeers
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            7
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Solana</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Avengers
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            3
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Algorand</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/atom.svg" alt="atom">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                    <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                        <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            Gryfyndoor
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                            8
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-chain d-flex justify-content-between">
+                            <div class="pd-left-16 app-why-lbl f16 ft-bold light">Algorand</div>
+                            <div class="rules-item-chain-icon">
+                                <img class="rules-item-chain-icon-container mr-right-8" src="/assets/img/svg/drop.svg" alt="drop">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="rules-item-view visit-button d-flex justify-content-center">
+                            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
+                            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-effect mr-right-40"></div>
+            </div>
+            <div class="server-detail-license d-flex flex-column pd-top-24 mr-left-8">
+                <div class="rules-header-title d-flex flex-column justify-content-between pd-left-40 pd-right-40">
+                    <div class="app-why-lbl f16 ft-bold light">
+                        LICENSES IN GRAVIDAO [ 2 ]
+                    </div>
+                    <div class="title-underline mr-top-8 mr-right-40"></div>
+                </div>
+                <div class="license-items mr-top-48 pd-left-40 pd-right-40">
+                    <div class="license-item d-flex flex-column pd-box-8">
+                        <div>
+                            <img class="license-item-img" src="/assets/img/png/nft-profile.jpeg" alt="">
+                        </div>
+                        <div class="license-item-name app-why-lbl f16 ft-bold light pd-top-8">
+                            The Giving #246
+                        </div>
+                        <div class="license-item-text app-why-lbl f10 ft-lato light-70 letter-spacing-02 pd-top-8">
+                            POLYGON
+                        </div>
+                        <div class="license-item-actions d-flex pd-top-8">
+                            <div  class="d-flex overflow-hidden">
+                                <div ngbDropdown container="body">
+                                    <button type="button" class="link-dropdown app-why-lbl f10 ft-lato primary letter-spacing-02"
+                                        ngbDropdownToggle>OWNED BY DW00k #5732</button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                                        <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REASSIGN</button>
+                                        <div class="dropdown-divider"></div>
+                                        <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REMOVE LICENSE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="license-item d-flex flex-column mr-top-8 pd-box-8">
+                        <div>
+                            <img class="license-item-img" src="/assets/img/png/placeholder.png" alt="">
+                        </div>
+                        <div class="license-item-name app-why-lbl f16 ft-bold light pd-top-8">
+                            The Crazy Cat Club #0270
+                        </div>
+                        <div class="license-item-text app-why-lbl f10 ft-lato light-70 letter-spacing-02 pd-top-8">
+                            POLYGON
+                        </div>
+                        <div class="license-item-text app-why-lbl f10 ft-lato light-50 letter-spacing-02 pd-top-8">
+                            OWNED BY ILO
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="server-recent-polls mr-top-8 d-flex flex-column pd-lr-40 pd-top-24">
+            <div class="recent-poll-header-title d-flex justify-content-between">
+                <div class="app-why-lbl f16 ft-bold light">
+                    RECENT POLLS
+                </div>
+                <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
+                    <app-why-cta-three
+                    [btnClass]="cssClass.cta3PrimaryNorm"
+                    [iconClass]="cssClass.cta3PrimaryIconNorm"
+                    [iconType]="'chevron-forward-outline'"
+                    (click)="navigateToPolls()"
+                    [btnLabel]="'POLLS'"></app-why-cta-three>
+                </div>
+            </div>
+            <div class="title-underline mr-top-8"></div>
+            <div class="poll-items pd-top-48 pd-bottom-48 d-flex flex-column">
+                <div class="poll-item d-flex align-items-center pd-box-8">
+                    <div class="poll-item-image-container d-flex justify-content-center">
+                        <img class="poll-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="poll-item-desc d-flex flex-column pd-lr-24">
+                        <div class="poll-item-name app-why-lbl f16 ft-bold light">
+                            Monthly GraviDAO Comics for mass market related
+                        </div>
+                        <div class="poll-item-details pd-top-8 d-flex justify-content-between">
+                            <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                               GRAVIDAO
+                            </div>
+                            <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                                ID : 96   |   BY: 0X782L…B36BS1  |   29 JUL, 2022
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
+                        <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+                            00:08:37
+                        </div>
+                        <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary">
+                            ACTIVE
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="poll-item-discord-button pd-left-24 d-flex flex-column align-items-center text-center" (click)="navigateToViewInDiscord()">
+                        <ion-icon src="/assets/img/svg/discord-brands.svg" class="app-why-icon ic18 primary"></ion-icon>
+                        <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN DISCORD</div>
+                    </div>
+                </div>
+                <div class="poll-item d-flex align-items-center pd-box-8">
+                    <div class="poll-item-image-container d-flex justify-content-center">
+                        <img class="poll-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="poll-item-desc d-flex flex-column pd-lr-24">
+                        <div class="poll-item-name app-why-lbl f16 ft-bold light">
+                            Monthly DAO Payments - July 2022
+                        </div>
+                        <div class="poll-item-details pd-top-8 d-flex justify-content-between">
+                            <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                               GRAVIDAO
+                            </div>
+                            <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                                ID : 96   |   BY: GABRIELAYUSO.ETH  |   29 JUL, 2022
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
+                        <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+                            00:11:28
+                        </div>
+                        <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary">
+                            ACTIVE
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="poll-item-discord-button pd-left-24 d-flex flex-column align-items-center text-center" (click)="navigateToViewInDiscord()">
+                        <ion-icon src="/assets/img/svg/discord-brands.svg" class="app-why-icon ic18 primary"></ion-icon>
+                        <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN DISCORD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="server-announcements mr-top-8 d-flex flex-column pd-lr-40 pd-top-24">
+            <div class="recent-poll-header-title d-flex justify-content-between">
+                <div class="app-why-lbl f16 ft-bold light">
+                    ANNOUNCEMENTS
+                </div>
+                <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
+                    <app-why-cta-three
+                    [btnClass]="cssClass.cta3PrimaryNorm"
+                    [iconClass]="cssClass.cta3PrimaryIconNorm"
+                    [iconType]="'chevron-forward-outline'"
+                    (click)="navigateToAnnouncements()"
+                    [btnLabel]="'ANNOUNCEMENTS'"></app-why-cta-three>
+                </div>
+            </div>
+            <div class="title-underline mr-top-8"></div>
+            <div class="announcement-items pd-top-48 pd-bottom-48 d-flex flex-column">
+                <div class="announcement-item d-flex flex-column">
+                    <div class="announcement-item-date app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                        28 JUL, 2022
+                    </div>
+                    <div class="announcement-item-desc-container d-flex mr-top-8 pd-box-24">
+                        <div class="announcement-item-image-container d-flex justify-content-center pd-right-24">
+                            <img class="announcement-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
+                        </div>
+                        <div class="divider"></div>
+                        <div class="announcement-item-desc d-flex flex-column pd-left-24 pd-right-8">
+                            <div class="announcement-item-time app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                                JUST NOW
+                            </div>
+                            <div class="announcement-item-name app-why-lbl f14 secondary">
+                                @GraviDAO  |  Announcements
+                            </div>
+                            <div class="announcement-item-text pd-top-16 app-why-lbl f16 ft-lato light">
+                                GraviDAO's Motoko in line to preview a fresh look for Q4 2022. More details to follow including some brand new features that the majority of the community has been waiting for. Watch this space!
+                            </div>
+                            <div class="announcement-item-goto pd-top-16 d-flex flex-column align-items-end">
+                                <app-why-cta-three
+                                [btnClass]="cssClass.cta3PrimaryNorm"
+                                [iconClass]="cssClass.cta3PrimaryIconNorm + 'ic24'"
+                                [iconType]="'arrow-forward-outline'"
+                                (click)="navigateToGoTo()"
+                                [btnLabel]="'GO TO'"></app-why-cta-three>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</app-why-side-nav>
