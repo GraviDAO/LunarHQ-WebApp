@@ -102,19 +102,14 @@ export class ProfileComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  removeWallet(index: number) {
-    this.wallets = this.wallets.slice(1, index);
-    this.resetStaticVars();
-  }
-
   connectWallet() {
     console.log('Connect Wallet');
   }
 
-  /* removeWallet(index: number) {
+  removeWallet(index: number) {
      this.openModal('removeWalletModal');
      this.walletRemovingIndex = index;
-   }*/
+   }
 
   confirmRemoveWallet() {
     this.wallets.forEach((element, index) => {
@@ -155,4 +150,7 @@ export class ProfileComponent implements OnInit {
     this.cancelModal('removeLicenseModal');
   }
 
+  openAssignLicense() {
+    this.openModal('buyLicenseModal');
+  }
 }
