@@ -1,0 +1,19 @@
+.primary-hover:hover {
+  label {
+    color: var(--primary-dark) !important;
+  }
+
+  ion-icon {
+    color: var(--primary-dark) !important;
+  }
+}
+
+.light-70-hover:hover {
+  label {
+    color: var(--light-70) !important;
+  }
+
+  ion-icon {
+    color: var(--light-70) !important;
+  }
+}

@@ -1,9 +1,6 @@
 @use "src/style/mixin-core" as mixin;
 .tile-1 {
-  //width: 210px;
   max-width: 300px;
-  //width: 30%;
-  //min-width: 210px;
   height: 108px;
   @include mixin.bg--wrapper;
 }
