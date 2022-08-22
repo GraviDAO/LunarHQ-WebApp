@@ -66,6 +66,7 @@ export class RipplerHeaderSideNavComponent {
     },
   ];
   @Input() activeTab = '';
+  @Input() activeSubMenuTab = '';
   @Input() title = 'Dashboard';
   @Output() profileClick = new EventEmitter;
 

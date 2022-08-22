@@ -1,12 +1,8 @@
-<app-why-header
-  [buttonLabel]="''"
-  [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
-  [title]="'My Servers'"
-  [subTitle]="'GraviDAO'"
-  (click)="navigateToMyServer()"></app-why-header>
-<app-why-side-nav
-  [sideNavList]="sideNavList"
->
+<app-why-header-side-nav
+  [title]="'my servers'"
+  [activeTab]="'MY SERVERS'"
+  [activeSubMenuTab]="'GraviDAO'"
+  (profileClick)="navigateToMyServer()">
 <div class="flex flex-nowrap">
     <div class="server-details-header">
         <div class="back-button">
@@ -528,4 +524,5 @@
         </div>
     </div>
 </div>
-</app-why-side-nav>
+<!--</app-why-side-nav>-->
+</app-why-header-side-nav>
