@@ -41,10 +41,10 @@
             </div>
             <div class="mr-top-48 mr-bottom-24 profile-unlink">
               <app-why-cta-three
-                [btnClass]="cssClass.cta3BtnLabel"
+                [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
                 [btnLabel]="'UNLINK'"
                 [leftIconType]="'unlink'"
-                [iconClass]="cssClass.cta3Icon"
+                [iconClass]="cssClass.cta3Icon + ' btn-hover'"
                 [parentClass]="'flex-column'"
                 (click)="openModal('unlinkDiscordModal')">
               </app-why-cta-three>
@@ -305,7 +305,7 @@
            (click)="selectLicense('polygon')">
         <div class="license-container-poly mr-top-9 mr-bottom-9">
           <img class="metamask-img mr-top-16" [src]="'/assets/img/svg/metamask-icon.svg'" alt="metamask icon">
-          <label class="app-why-lbl f14 ft-bold no-letter-spacing wrap light mr-right-11 mr-left-10 mr-top-4 license-label">GRAVIANS</label>
+          <label class="app-why-lbl f14 ft-bold no-letter-spacing wrap light mr-right-11 mr-left-5 mr-top-4 license-label">GRAVIANS</label>
           <div><label class="app-why-lbl f10 ft-lato light-50">POLYGON</label></div>
         </div>
       </div>
