@@ -90,11 +90,12 @@
     margin-bottom: auto;
     height: mixin.toRem(42);
     width: mixin.toRem(1);
-    background: var(--light-20);
+    background: var(--light-10);
   }
   .server-detail-rules-content {
     height: mixin.toRem(504);
-    overflow-x: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   .rules-item {
     height: mixin.toRem(56);
