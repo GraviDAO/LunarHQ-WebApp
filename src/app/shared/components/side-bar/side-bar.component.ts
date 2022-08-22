@@ -33,6 +33,9 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit(): void {
     $('#sidebar').toggleClass('active');
+    let pos = this.sideNavList.findIndex((navObj: any) => navObj.title === this.activeTab);
+    this.toggle[pos] = true;
+    console.log(this.activeSubMenuTab, 'subMenu');
   }
 
   setIcon(icon: string): any {
@@ -52,16 +55,23 @@ export class SideBarComponent implements OnInit {
   }
 
   navigate(tab: string, pos: number, isSubMenu?: any) {
-    console.log(tab,'activeTab');
+    console.log(tab, 'activeTab');
     this.activeTab = tab;
     Object.keys(this.toggle).forEach((key: string, index: number) => this.toggle[key] = false);
     this.toggle[pos] = true;
+    if (tab === 'DASHBOARD') {
+      this.router.navigate(['dashboard']);
+    } else if (tab === 'MY SERVERS') {
+      this.router.navigate(['my-server']);
+    }
   }
 
   subMenu(event: any, tab: string, index: number, nestedMenu?: string) {
     console.log(tab, nestedMenu);
+    console.log(this.toggle);
     this.activeSubMenuTab = tab;
     this.toggle[index] = true;
+    console.log(this.toggle);
     this.selectedSubMenu.emit(tab);
     this.nestedMenuSelected = nestedMenu || '';
     event.stopPropagation();

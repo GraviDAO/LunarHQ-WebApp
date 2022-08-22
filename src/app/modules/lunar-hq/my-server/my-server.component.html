@@ -1,12 +1,6 @@
-<app-why-header
-  [buttonLabel]="''"
-  [profileObj]="{viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'}"
-  [title]="'My Servers'"
-  (click)="navigateToMyServer()"
-  [subTitle]="''"></app-why-header>
-<app-why-side-nav
-  [sideNavList]="sideNavList"
->
+<app-why-header-side-nav
+  [activeTab]="'MY SERVERS'"
+  (profileClick)="navigateToMyServer()">
 <div class="flex flex-nowrap">
     <div class="server-header">
         <!-- <div class="pd-top-20 pd-left-24 back-button">
@@ -216,4 +210,4 @@
         </div>
     </div>
 </div>
-</app-why-side-nav>
+</app-why-header-side-nav>
