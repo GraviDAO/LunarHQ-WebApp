@@ -167,6 +167,7 @@ h1, h2, h3, h4, h5,
         font-size: var(--font-size-14);
         line-height: var(--font-size-22);
         color: var(--light-70);
+        font-family: Jura, sans-serif;
         font-weight: 500;
         @include mixin.media-breakpoint-down(md) {
           display: block;

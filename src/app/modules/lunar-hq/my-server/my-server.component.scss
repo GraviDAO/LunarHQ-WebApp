@@ -3,7 +3,10 @@
 .server-header {
   height: mixin.toRem(64);
   width: 100%;
-  background: var(--dark-20);
+  background: var(--dark-50);
+  position: fixed;
+  margin-top: -112px;
+  margin-left: -3.75rem;
 }
 
 .back-button {
