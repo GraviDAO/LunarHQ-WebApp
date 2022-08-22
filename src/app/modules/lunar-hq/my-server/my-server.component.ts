@@ -1,9 +1,10 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { CssConstants } from 'src/app/shared/services/css-constants.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CssConstants} from 'src/app/shared/services/css-constants.service';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
+
 @Component({
   selector: 'app-why-lunar-hq-my-server',
   templateUrl: './my-server.component.html',
@@ -48,10 +49,12 @@ export class MyServerComponent implements OnInit {
       ]
     },
   ];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private location: Location,
-              public cssClass: CssConstants) { }
+              public cssClass: CssConstants) {
+  }
 
   ngOnInit(): void {
   }
@@ -68,10 +71,12 @@ export class MyServerComponent implements OnInit {
     console.log('navigateToAddNewServer');
     this.router.navigate(['my-server/add-new-server']);
   }
-  navigateToDetails() {
+
+  navigateToDetails(server) {
     console.log('navigateToDetails');
-    this.router.navigate(['my-server/details']);
+    this.router.navigate(['my-server/details'], {queryParams: {server}});
   }
+
   navigateToAddLicense() {
     console.log('navigateToAddLicense');
     this.router.navigate(['my-server/my-licenses']);

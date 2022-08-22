@@ -1,8 +1,8 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SideNavType } from 'src/app/shared/components/side-bar/side.nav.type';
-import { CssConstants } from 'src/app/shared/services/css-constants.service';
+import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SideNavType} from 'src/app/shared/components/side-bar/side.nav.type';
+import {CssConstants} from 'src/app/shared/services/css-constants.service';
 
 @Component({
   selector: 'app-why-lunar-hq-details',
@@ -10,50 +10,22 @@ import { CssConstants } from 'src/app/shared/services/css-constants.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
-  sideNavList: Array<SideNavType> = [
-    {
-      title: 'DASHBOARD'
-    },
-    {
-      title: 'MY SERVERS',
-      subMenu: [
-        {
-          title: 'GraviDAO'
-        },
-        {
-          title: 'SockDAO'
-        },
-        {
-          title: 'Hubble Fan Club'
-        }
-      ]
-    },
-    {
-      title: 'POLLS',
-      subMenu: [
-        {
-          title: 'Owner'
-        },
-        {
-          title: 'Participant'
-        }
-      ]
-    },
-    {
-      title: 'ANNOUNCEMENTS',
-      subMenu: [
-        {
-          title: 'Accordions'
-        }
-      ]
-    },
-  ];
+  activeSubMenu = '';
+
   constructor(private router: Router,
-    private location: Location,
-    public cssClass: CssConstants) { }
+              private location: Location,
+              private route: ActivatedRoute,
+              public cssClass: CssConstants) {
+    this.route.queryParams.subscribe((params: any) => {
+      console.log(params.server);
+      this.activeSubMenu = params.server;
+    });
+
+  }
 
   ngOnInit(): void {
   }
+
   navigateToMyServer() {
     this.router.navigate(['my-server']);
   }
@@ -67,7 +39,7 @@ export class DetailsComponent implements OnInit {
   }
 
   navigateToPolls() {
-    
+
   }
 
   navigateToViewInDiscord() {
@@ -79,6 +51,6 @@ export class DetailsComponent implements OnInit {
   }
 
   navigateToGoTo() {
-    
+
   }
 }
