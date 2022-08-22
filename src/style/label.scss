@@ -108,6 +108,15 @@
     --color: var(--primary) !important;
   }
 
+  &.primary-hover {
+    color: var(--primary) !important;
+    --color: var(--primary) !important;
+
+    &:hover {
+      color: var(--primary-dark) !important;
+    }
+  }
+
   &.primary-70 {
     color: var(--primary-70);
     --color: var(--primary-70);
@@ -174,7 +183,7 @@
     color: var(--light-10);
     --color: var(--light-10);
   }
-  
+
   &.error {
     color: var(--error);
     --color: var(--error);
@@ -270,6 +279,7 @@ input[type="radio"].radio-button-primary {
   color: var(--primary);
   border: 0.073em solid var(--dark-70);
   border-radius: 50%;
+
   &:checked {
     border: 0.255em solid var(--primary);
   }
@@ -286,6 +296,7 @@ input[type="radio"].radio-button-secondary {
   border: 0.073em solid var(--light-50);
   border-radius: 50%;
   cursor: pointer;
+
   &:checked {
     border: 0.255em solid var(--secondary);
   }

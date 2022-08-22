@@ -1,0 +1,40 @@
+@use "src/style/mixin-core" as mixin;
+
+.server-announcements {
+  width: mixin.toRem(1080);
+  height: mixin.toRem(383);
+  @include mixin.bg--wrapper;
+  background: var(--tertiary);
+}
+
+.announcement-items {
+  width: mixin.toRem(643);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.announcement-item {
+  width: mixin.toRem(643);
+  height: mixin.toRem(230);
+
+  .announcement-item-desc-container {
+    width: mixin.toRem(643);
+    height: mixin.toRem(206);
+    @include mixin.bg--wrapper;
+    background: var(--dark-20);
+  }
+
+  .divider {
+    height: mixin.toRem(126);
+    margin-top: 0;
+  }
+
+  .announcement-item-image {
+    width: mixin.toRem(32);
+    height: mixin.toRem(32);
+  }
+
+  .announcement-item-text {
+    height: auto;
+  }
+}

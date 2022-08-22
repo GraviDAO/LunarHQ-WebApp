@@ -13,6 +13,8 @@ import { MyServerComponent } from './my-server/my-server.component';
 import { AddNewServerComponent } from './my-server/add-new-server/add-new-server.component';
 import { MyLicensesComponent } from './my-server/my-licenses/my-licenses.component';
 import { DetailsComponent } from './my-server/details/details.component';
+import {RecentPollsComponent} from './common/recent-polls/recent-polls-component';
+import {RecentAnnouncementsComponent} from './common/recent-announcements/recent-announcements.component';
 
 const commonModules = [
   WelcomeComponent,
@@ -21,7 +23,9 @@ const commonModules = [
   MyServerComponent,
   AddNewServerComponent,
   MyLicensesComponent,
-  DetailsComponent
+  DetailsComponent,
+  RecentPollsComponent,
+  RecentAnnouncementsComponent
 ];
 
 const ngBootstrapModules = [

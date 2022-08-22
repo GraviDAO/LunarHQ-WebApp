@@ -1,7 +1,17 @@
+@use "src/style/mixin-core" as mixin;
+
 .vertical-divider {
   width: 1px;
-  height: 40px;
+  height: mixin.toRem(40);
   background: var(--primary);
+
+  .ht42 {
+    height: mixin.toRem(42);
+  }
+
+  &.light-20 {
+    background: var(--light-20);
+  }
 }
 
 .horizontal-divider {
