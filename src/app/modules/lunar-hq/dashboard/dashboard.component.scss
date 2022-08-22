@@ -52,6 +52,7 @@
   height: mixin.toRem(56);
   margin-bottom: mixin.toRem(8);
   align-items: center;
+
 }
 
 .server-logo-container {
@@ -74,4 +75,17 @@
 .chain-logo-container {
   width: 24px;
   height: 24px;
+}
+
+.server-list-wrapper {
+  height: mixin.toRem(504);
+  overflow: scroll;
+}
+
+.add-fade-effect {
+  background: linear-gradient(180deg, rgba(15, 12, 16, 0) 0%, #0F0C10 100%);
+  position: absolute;
+  height: 96px;
+  bottom: -410px;
+  width: 100%;
 }
