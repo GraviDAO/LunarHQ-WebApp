@@ -1,7 +1,7 @@
 <app-why-header-side-nav
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
-  [activeSubMenuTab]="'GraviDAO'"
+  [activeSubMenuTab]="activeSubMenu"
   (profileClick)="navigateToMyServer()">
 <div class="flex flex-nowrap">
     <div class="server-details-header">
@@ -21,7 +21,7 @@
                         <img src="/assets/img/svg/gravidao-logo.svg" alt="logo" class="logo-wrapper">
                     </div>
                     <div class="server-name pd-left-16 app-why-lbl f28 ft-bold light">
-                        GraviDAO
+                      GraviDAO
                     </div>
                     <div class="server-name-right-icon pd-left-8 app-why-lbl f28">
                         <ion-icon name="key" class="app-why-icon light-20 ic20"></ion-icon>

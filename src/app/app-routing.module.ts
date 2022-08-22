@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent,
-    // canActivate: [StateGuard] // commented for demo
+    canActivate: [StateGuard] // commented for demo
   },
   {
     path: 'dashboard',

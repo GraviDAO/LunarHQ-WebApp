@@ -184,6 +184,6 @@ export class WelcomeComponent implements OnInit {
     this.modalService.close('successPopUp');
     this.selected = 'done';
     // commented for demo
-    // this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
   }
 }
