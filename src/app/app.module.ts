@@ -13,6 +13,7 @@ import {LunarHqModule} from './modules/lunar-hq/lunar-hq.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {JwtInterceptor} from './shared/services/jwt.interceptor';
+import {AdminModule} from './modules/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {JwtInterceptor} from './shared/services/jwt.interceptor';
     HttpClientModule,
     SharedModule,
     ModalModule,
-    LunarHqModule
+    LunarHqModule,
+    AdminModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

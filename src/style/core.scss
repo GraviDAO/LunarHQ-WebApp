@@ -74,3 +74,106 @@ div::-webkit-scrollbar-thumb {
 div::-webkit-scrollbar-button {
   display: none;
 }
+
+.input-wrapper {
+  width: mixin.toRem(300);
+  //height: mixin.toRem(32);
+}
+
+.add-lbl-padding {
+  padding-left: 0 !important;
+  padding-top: 28px !important;
+}
+
+/*.app-why-input {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--light-50) !important;
+  border-radius: 0 !important;
+  color: var(--light-70) !important;
+  font-family: Lato, sans-serif;
+  padding-left: 0 !important;
+  //height: 38px !important;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:placeholder-shown {
+    color: var(--light-50) !important;
+  }
+
+  &:not(:placeholder-shown) {
+    color: var(--light-70);
+    padding-bottom: 0 !important;
+  }
+
+}*/
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-control-placeholder {
+  font-family: Lato, sans-serif;
+  position: absolute;
+  top: 0;
+  padding: 8px 0 0 0;
+  transition: all 200ms;
+  color: var(--light-50) !important;
+  pointer-events: none;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:not(:placeholder-shown) + .form-control-placeholder {
+  font-size: 10px;
+  transform: translate3d(0, -100%, 0);
+  color: var(--light-70);
+}
+
+.form-control:placeholder-shown {
+  color: var(--light-50) !important;
+  //padding-bottom: 6px !important;
+}
+
+.form-control {
+  width: 300px;
+  background: transparent !important;
+  color: var(--light-70) !important;
+  border: 0 !important;
+  //border-bottom: 1px solid var(--light-50) !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  font-family: Lato, sans-serif;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    color: var(--light-70) !important;
+  }
+}
+
+.form-group {
+  border-bottom: 1px solid var(--light-50) !important;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.admin-rippler-logo-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-rippler-logo-container {
+  width: mixin.toRem(90);
+  height: mixin.toRem(32);
+}
