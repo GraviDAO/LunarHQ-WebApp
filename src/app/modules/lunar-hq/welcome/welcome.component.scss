@@ -43,3 +43,27 @@
     }
   }
 }
+
+.logo-container {
+  width: mixin.toRem(120);
+  height: mixin.toRem(52);
+}
+
+.built-by-container {
+  width: mixin.toRem(150);
+  height: mixin.toRem(52);
+}
+
+.placeholder-wrapper {
+  position: absolute;
+  bottom: mixin.toRem(40);
+  left: 0;
+  right: 0;
+  justify-content: center;
+  display: flex;
+}
+
+.rippler-logo-container {
+  width: mixin.toRem(90);
+  height: mixin.toRem(30);
+}
