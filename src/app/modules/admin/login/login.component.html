@@ -1,0 +1,50 @@
+<section class="admin-container">
+
+  <div class="pd-top-112 header-container">
+    <div>
+      <img class="logo-container" src="/assets/img/svg/LAHQ_logo.svg" alt="">
+    </div>
+    <div>
+      <label class="app-why-lbl f16 ft-bold light-50">ADMIN</label>
+    </div>
+  </div>
+
+  <form [formGroup]="signInForm" (ngSubmit)="login()" class="d-flex justify-content-center">
+
+    <div class="pd-top-96 form-control-wrapper">
+      <div class="form-group">
+        <input type="text" id="name" class="form-control app-why-floating-input"
+               placeholder=" " formControlName="email">
+        <label class="app-why-floating-lbl" for="name">Email ID</label>
+      </div>
+      <div class="form-group mr-top-48">
+        <input type="password" id="password" class="form-control app-why-floating-input"
+               placeholder=" " formControlName="password">
+        <label class="app-why-floating-lbl" for="password">Password</label>
+      </div>
+      <div class="mr-top-24 d-flex justify-content-center">
+        <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Forgot password ?'"></app-why-cta-three>
+      </div>
+      <div class="mr-top-64 d-flex justify-content-center">
+        <app-why-cta-one
+          type="submit"
+          [cssClass]="(!this.signInForm.invalid) ? cssClass.cta1 : cssClass.cta1InActive"
+          [btnLabel]="'Login'"></app-why-cta-one>
+      </div>
+      <!--<div class="form-floating input-wrapper">
+        <input type="email" class="form-control app-why-input"
+               id="email" placeholder="Email Id">
+        <label class="app-why-lbl primary add-lbl-padding" for="email">Email Id</label>
+      </div>
+      <div class="form-floating input-wrapper mr-top-48">
+        <input type="password" class="form-control app-why-input"
+               id="password" placeholder="name@example.com">
+        <label class="app-why-lbl primary add-lbl-padding" for="password">Password</label>
+      </div>-->
+    </div>
+  </form>
+  <div class="admin-rippler-logo-wrapper">
+    <img class="admin-rippler-logo-container" src="/assets/img/svg/Rippler-colour.svg" alt="">
+  </div>
+</section>
+

@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class CssConstants {
   cta1 = 'app-why-btn full-width';
+  cta1InActive = 'app-why-btn full-width in-active';
   cta1Dark50 = 'app-why-btn dark-50 full-width';
   cta1Dark50Active = 'app-why-btn dark-50 active-state full-width';
   cta1Icon = 'ic20 pd-right-8';

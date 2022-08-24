@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-why-lunar-hq-logo',
   template: `
     <article class="gr-logo-container">
-      <div class="d-flex pd-bottom-12">
+      <div class="d-flex pd-bottom-12" *ngIf="showStats">
         <div class="info-container">
           <img class="app-why-icon ic17" src="../../../../assets/img/svg/user-group-solid.svg" alt="">
           <span class="pd-left-6 app-why-lbl f1418 secondary"> 75</span>
@@ -23,13 +23,13 @@ import {Component} from '@angular/core';
           <img class="img-2"
                src="../../../../assets/img/png/footer-label-2.png" alt="">
         </div>
-
       </div>
     </article>
   `,
   styleUrls: ['./gravidao-logo.component.scss']
 })
 export class GravidaoLogoComponent {
+  @Input() showStats = true;
   constructor() {
   }
 }
