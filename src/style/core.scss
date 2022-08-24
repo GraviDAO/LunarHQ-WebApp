@@ -116,7 +116,7 @@ div::-webkit-scrollbar-button {
   margin-bottom: 1.5rem;
 }
 
-.form-control-placeholder {
+.app-why-floating-lbl {
   font-family: Lato, sans-serif;
   position: absolute;
   top: 0;
@@ -126,24 +126,31 @@ div::-webkit-scrollbar-button {
   pointer-events: none;
 }
 
-.form-control:focus + .form-control-placeholder,
-.form-control:not(:placeholder-shown) + .form-control-placeholder {
+.app-why-floating-input:focus + .app-why-floating-lbl,
+.app-why-floating-input:not(:placeholder-shown) + .app-why-floating-lbl {
   font-size: 10px;
   transform: translate3d(0, -100%, 0);
   color: var(--light-70);
 }
 
-.form-control:placeholder-shown {
-  color: var(--light-50) !important;
-  //padding-bottom: 6px !important;
+.app-why-floating-input:focus + .app-why-floating-lbl {
+  color: var(--secondary) !important;
 }
 
-.form-control {
+.app-why-floating-input:placeholder-shown {
+  color: var(--light-50) !important;
+}
+
+.add-hover-primary:hover {
+  color: var(--primary-dark) !important;
+}
+
+.app-why-floating-input {
   width: 300px;
   background: transparent !important;
   color: var(--light-70) !important;
   border: 0 !important;
-  //border-bottom: 1px solid var(--light-50) !important;
+  border-bottom: 1px solid var(--light-50) !important;
   border-radius: 0 !important;
   padding-left: 0 !important;
   padding-top: 4px !important;
@@ -154,11 +161,8 @@ div::-webkit-scrollbar-button {
     outline: none !important;
     box-shadow: none !important;
     color: var(--light-70) !important;
+    border-bottom: 1px solid var(--secondary) !important;
   }
-}
-
-.form-group {
-  border-bottom: 1px solid var(--light-50) !important;
 }
 
 .text-align-center {

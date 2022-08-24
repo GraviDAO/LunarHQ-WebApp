@@ -13,22 +13,23 @@
 
     <div class="pd-top-96 form-control-wrapper">
       <div class="form-group">
-        <input type="text" id="name" class="form-control"
+        <input type="text" id="name" class="form-control app-why-floating-input"
                placeholder=" " formControlName="email">
-        <label class="form-control-placeholder" for="name">Email Id</label>
+        <label class="app-why-floating-lbl" for="name">Email ID</label>
       </div>
       <div class="form-group mr-top-48">
-        <input type="password" id="password" class="form-control"
+        <input type="password" id="password" class="form-control app-why-floating-input"
                placeholder=" " formControlName="password">
-        <label class="form-control-placeholder" for="password">Password</label>
+        <label class="app-why-floating-lbl" for="password">Password</label>
       </div>
-      <div class="mr-top-24 text-align-center">
-        <label class="app-why-lbl primary f12 ft-bold">FORGOT PASSWORD ?</label>
+      <div class="mr-top-24 d-flex justify-content-center">
+        <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Forgot password ?'"></app-why-cta-three>
       </div>
       <div class="mr-top-64 d-flex justify-content-center">
         <app-why-cta-one
           type="submit"
-          [cssClass]="(!this.signInForm.invalid) ? cssClass.cta1 : cssClass.cta1InActive" [btnLabel]="'Login'"></app-why-cta-one>
+          [cssClass]="(!this.signInForm.invalid) ? cssClass.cta1 : cssClass.cta1InActive"
+          [btnLabel]="'Login'"></app-why-cta-one>
       </div>
       <!--<div class="form-floating input-wrapper">
         <input type="email" class="form-control app-why-input"
