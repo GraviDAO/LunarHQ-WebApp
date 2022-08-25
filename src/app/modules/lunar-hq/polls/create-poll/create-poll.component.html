@@ -1,0 +1,18 @@
+<app-why-header-side-nav
+  [title]="'Create Poll'"
+  [activeTab]="'CREATE POLL'"
+  [activeSubMenuTab]="activeSubMenu"
+  (profileClick)="navigateToPolls()">
+
+  <div class="flex flex-nowrap">
+    <div class="create-poll-header">
+      <div class="back-button">
+        <div class="pd-left-24 pd-top-21 pd-bottom-21">
+          <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'" [leftIconType]="'chevron-back'"
+            [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+          </app-why-cta-three>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-why-header-side-nav>

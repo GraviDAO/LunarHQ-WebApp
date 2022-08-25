@@ -61,6 +61,11 @@
     &:hover {
       cursor: not-allowed;
     }
+    &.cursor-pointer {
+      &:hover {
+        cursor: pointer !important;
+      }
+    }
   }
 
   &:hover {

@@ -13,6 +13,8 @@ import {AdminLoginComponent} from './modules/admin/login/login.component';
 import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forgot-password.component';
 import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
 import {AdminMenuComponent} from './modules/admin/menu/menu.component';
+import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
+import {CreatePollComponent} from './modules/lunar-hq/polls/create-poll/create-poll.component';
 
 const routes: Routes = [
   {
@@ -52,6 +54,14 @@ const routes: Routes = [
   {
     path: 'my-server/details',
     component: DetailsComponent
+  },
+  {
+    path: 'polls',
+    component: PollsComponent
+  },
+  {
+    path: 'polls/create-poll',
+    component: CreatePollComponent
   },
   {
     path: 'admin',
