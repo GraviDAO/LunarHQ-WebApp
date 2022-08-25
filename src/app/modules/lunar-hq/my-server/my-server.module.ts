@@ -9,7 +9,7 @@ import { MyLicensesComponent } from './my-licenses/my-licenses.component';
 
 @NgModule({
   declarations: [
-    
+
   ],
   imports: [
     CommonModule,
