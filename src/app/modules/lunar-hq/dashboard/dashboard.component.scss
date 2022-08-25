@@ -79,7 +79,8 @@
 
 .server-list-wrapper {
   height: mixin.toRem(504);
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .add-fade-effect {
@@ -87,5 +88,5 @@
   position: absolute;
   height: 96px;
   bottom: -410px;
-  width: 100%;
+  width: mixin.toRem(638);
 }

@@ -98,8 +98,8 @@
   &.var-width {
     width: fit-content;
     height: var(--btn-md-height);
-    padding-left: toRem(16);
-    padding-right: toRem(16);
+    padding-left: mixin.toRem(16);
+    padding-right: mixin.toRem(16);
   }
 
 
@@ -182,8 +182,8 @@
 
     &.flex {
       width: fit-content;
-      padding-left: toRem(16);
-      padding-right: toRem(16);
+      padding-left: mixin.toRem(16);
+      padding-right: mixin.toRem(16);
     }
   }
 

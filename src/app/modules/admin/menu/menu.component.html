@@ -1,0 +1,50 @@
+<section>
+  <app-why-lunar-hq-admin-side-nav>
+    <div class="">
+      <label class="app-why-lbl f28 light-70 ft-bold">Organisations</label>
+    </div>
+    <div class="mr-top-28">
+      <div>
+        <app-why-search-component></app-why-search-component>
+      </div>
+      <div>
+      </div>
+    </div>
+    <article style="height: 61vh;">
+      <table class="table add-border-radius table-fixed header-fixed">
+        <thead class="table-header">
+        <tr class="align-middle table-row-data">
+          <th class="app-why-lbl ft-bold light text-uppercase wd-106">Org logo</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-290">Org name</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-120"># of Members</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-120">date created</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-150">org creator</th>
+          <th class="app-why-lbl ft-bold light text-uppercase">status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let obj of [0,1,2,3,4,5,6,7,8]" class="table-row-data add-br-btm">
+          <td class="wd-106 app-why-lbl f12 dark-70 ft-lato">
+            <img class="mr-left-16 logo-container" src="/assets/img/svg/gravidao-logo.svg">
+          </td>
+          <td class="wd-290 app-why-lbl f12 dark-70 ft-lato">
+            {{'GraviDAO'}}
+          </td>
+          <td class="wd-120 app-why-lbl f12 dark-70 ft-lato">
+            {{'8'}}
+          </td>
+          <td class="wd-120 app-why-lbl f12 dark-70 ft-lato">
+            {{today | date : 'd MMM y'}}
+          </td>
+          <td class="wd-150 app-why-lbl f12 dark-70 ft-lato">
+            {{longText.substring(0, 6) + '...' + longText.slice(longText.length - 6)}}
+          </td>
+          <td class="">
+            {{obj}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </article>
+  </app-why-lunar-hq-admin-side-nav>
+</section>
