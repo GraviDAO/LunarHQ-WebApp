@@ -1,0 +1,22 @@
+@use "src/style/mixin-core" as mixin;
+
+.wd-106 {
+  width: mixin.toRem(106);
+}
+
+.wd-290 {
+  width: mixin.toRem(290);
+}
+
+.wd-120 {
+  width: mixin.toRem(120);
+}
+
+.wd-150 {
+  width: mixin.toRem(150);
+}
+
+.logo-container {
+  width: 32px;
+  height: 32px;
+}

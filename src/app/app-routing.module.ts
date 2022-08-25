@@ -10,6 +10,9 @@ import {AddNewServerComponent} from './modules/lunar-hq/my-server/add-new-server
 import {MyLicensesComponent} from './modules/lunar-hq/my-server/my-licenses/my-licenses.component';
 import {DetailsComponent} from './modules/lunar-hq/my-server/details/details.component';
 import {AdminLoginComponent} from './modules/admin/login/login.component';
+import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forgot-password.component';
+import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
+import {AdminMenuComponent} from './modules/admin/menu/menu.component';
 
 const routes: Routes = [
   {
@@ -56,6 +59,18 @@ const routes: Routes = [
       {
         path: 'login',
         component: AdminLoginComponent
+      },
+      {
+        path: 'forgot-password',
+        component: AdminForgotPasswordComponent
+      },
+      {
+        path: 'reset-password',
+        component: AdminResetPasswordComponent
+      },
+      {
+        path: 'menu',
+        component: AdminMenuComponent
       }
     ]
   }

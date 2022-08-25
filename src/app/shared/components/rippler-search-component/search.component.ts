@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit {
   }
 
   lostFocus() {
-    this.isSearchSelected = this.searchText.length > 0;
+    this.isSearchSelected = false;
+    // this.isSearchSelected = this.searchText.length > 0;
   }
 }

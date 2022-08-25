@@ -18,7 +18,7 @@
       <use fill="#000" filter="url(#a)" xlink:href="#b"/>
       <use fill="#242D3D" fill-rule="evenodd" xlink:href="#b"/>
       <use fill="url(#c)" fill-rule="evenodd" style="mix-blend-mode:soft-light" xlink:href="#b"/>
-      <circle stroke-opacity=".097" stroke="#000" stroke-linejoin="square" cx="15" cy="15" r="14.5"/>
+      <circle stroke-opacity=".097" stroke="#000" cx="15" cy="15" r="14.5"/>
     </g>
     <g fill="#FFF">
       <path
