@@ -10,6 +10,7 @@ import {AddNewServerComponent} from './modules/lunar-hq/my-server/add-new-server
 import {MyLicensesComponent} from './modules/lunar-hq/my-server/my-licenses/my-licenses.component';
 import {DetailsComponent} from './modules/lunar-hq/my-server/details/details.component';
 import {AdminLoginComponent} from './modules/admin/login/login.component';
+import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path: 'my-server/details',
     component: DetailsComponent
+  },
+  {
+    path: 'my-server/rules',
+    component: RulesComponent
   },
   {
     path: 'admin',
