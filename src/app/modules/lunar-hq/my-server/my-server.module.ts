@@ -10,7 +10,7 @@ import { RulesComponent } from './rules/rules.component';
 
 @NgModule({
   declarations: [
-    
+
   ],
   imports: [
     CommonModule,

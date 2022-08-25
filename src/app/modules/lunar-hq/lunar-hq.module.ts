@@ -16,6 +16,8 @@ import { DetailsComponent } from './my-server/details/details.component';
 import {RecentPollsComponent} from './common/recent-polls/recent-polls-component';
 import {RecentAnnouncementsComponent} from './common/recent-announcements/recent-announcements.component';
 import { RulesComponent } from './my-server/rules/rules.component';
+import {PollsComponent} from './polls/polls.component';
+import {CreatePollComponent} from './polls/create-poll/create-poll.component';
 
 const commonModules = [
   WelcomeComponent,
@@ -27,7 +29,9 @@ const commonModules = [
   DetailsComponent,
   RulesComponent,
   RecentPollsComponent,
-  RecentAnnouncementsComponent
+  RecentAnnouncementsComponent,
+  PollsComponent,
+  CreatePollComponent
 ];
 
 const ngBootstrapModules = [

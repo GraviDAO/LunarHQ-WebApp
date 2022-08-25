@@ -1,0 +1,15 @@
+@use "src/style/mixin-core" as mixin;
+
+.create-poll-header {
+  height: mixin.toRem(64);
+  width: 100%;
+  background: var(--dark-50);
+  position: fixed;
+  margin-top: -54px;
+  margin-left: -3.75rem;
+  z-index: 10;
+}
+
+.back-button {
+  width: 85% !important;
+}

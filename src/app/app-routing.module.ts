@@ -10,7 +10,11 @@ import {AddNewServerComponent} from './modules/lunar-hq/my-server/add-new-server
 import {MyLicensesComponent} from './modules/lunar-hq/my-server/my-licenses/my-licenses.component';
 import {DetailsComponent} from './modules/lunar-hq/my-server/details/details.component';
 import {AdminLoginComponent} from './modules/admin/login/login.component';
-import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.component';
+import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forgot-password.component';
+import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
+import {AdminMenuComponent} from './modules/admin/menu/menu.component';
+import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
+import {CreatePollComponent} from './modules/lunar-hq/polls/create-poll/create-poll.component';
 
 const routes: Routes = [
   {
@@ -56,11 +60,31 @@ const routes: Routes = [
     component: RulesComponent
   },
   {
+    path: 'polls',
+    component: PollsComponent
+  },
+  {
+    path: 'polls/create-poll',
+    component: CreatePollComponent
+  },
+  {
     path: 'admin',
     children: [
       {
         path: 'login',
         component: AdminLoginComponent
+      },
+      {
+        path: 'forgot-password',
+        component: AdminForgotPasswordComponent
+      },
+      {
+        path: 'reset-password',
+        component: AdminResetPasswordComponent
+      },
+      {
+        path: 'menu',
+        component: AdminMenuComponent
       }
     ]
   }

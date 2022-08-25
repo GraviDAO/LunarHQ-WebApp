@@ -17,6 +17,20 @@
     color: var(--light-70) !important;
   }
 }
+
+.light-hover:hover {
+  label {
+    color: var(--light-70) !important;
+  }
+
+  ion-icon {
+    color: var(--light-70) !important;
+  }
+}
+
+.cta-three-wrapper {
+  width: fit-content;
+}
 /*=======
 .btn-hover:hover {
   color: var(--light);
