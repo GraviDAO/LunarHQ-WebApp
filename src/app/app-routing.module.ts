@@ -13,6 +13,9 @@ import {AdminLoginComponent} from './modules/admin/login/login.component';
 import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forgot-password.component';
 import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
 import {AdminMenuComponent} from './modules/admin/menu/menu.component';
+import {AdminListComponent} from './modules/admin/admin-list/admin-list.component';
+import {AdminUserListComponent} from './modules/admin/user-list/user-list.component';
+import {AdminWhitelistComponent} from './modules/admin/whitelist/whitelist.component';
 
 const routes: Routes = [
   {
@@ -71,6 +74,18 @@ const routes: Routes = [
       {
         path: 'menu',
         component: AdminMenuComponent
+      },
+      {
+        path: 'admin-list',
+        component: AdminListComponent
+      },
+      {
+        path: 'user-list',
+        component: AdminUserListComponent
+      },
+      {
+        path: 'whitelist',
+        component: AdminWhitelistComponent
       }
     ]
   }

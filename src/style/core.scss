@@ -149,7 +149,7 @@ div::-webkit-scrollbar-button {
 
 .app-why-floating-input:placeholder-shown,
 .app-why-floating-input:placeholder-shown + .app-why-floating-lbl {
-  color: var(--light-50) !important;
+  //color: var(--light-50) !important;
 }
 
 .add-hover-primary:hover {
@@ -192,4 +192,9 @@ div::-webkit-scrollbar-button {
 .admin-rippler-logo-container {
   width: mixin.toRem(90);
   height: mixin.toRem(32);
+}
+
+
+.add-cursor {
+  cursor: pointer;
 }

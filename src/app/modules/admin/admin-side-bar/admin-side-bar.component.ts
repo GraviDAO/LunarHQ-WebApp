@@ -32,13 +32,14 @@ export class AdminSideBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $('#sidebar').toggleClass('active');
   }
 
   toggleMenu() {
-    console.log('click toggle');
     this.isToggled = !this.isToggled;
     $('#sidebar').toggleClass('active');
+    console.log('click toggle');
+    /*
+   */
   }
 
   setIcon(icon: string): any {
@@ -64,12 +65,14 @@ export class AdminSideBarComponent implements OnInit {
     this.toggle[pos] = true;
 
     if (!this.isDisabled) {
-      if (tab === 'emailIntegration') {
-        window.open('https://mailchimp.com/en-gb/', '_blank');
-      } else if (tab === 'googleAnalytics') {
-        window.open('https://analytics.google.com/analytics/web/', '_blank');
-      } else if (tab === 'luckyOrange') {
-        window.open('https://www.luckyorange.com/', '_blank');
+      if (tab === 'Organisations') {
+        this.router.navigate(['admin/menu']);
+      } else if (tab === 'Users') {
+        this.router.navigate(['admin/user-list']);
+      } else if (tab === 'Admins') {
+        this.router.navigate(['admin/admin-list']);
+      } else if (tab === 'Whitelist') {
+        this.router.navigate(['admin/whitelist']);
       } else {
         this.activeTab = tab;
       }

@@ -44,7 +44,7 @@
       <div class="horizontal-divider light-50"></div>
     </div>
 
-    <div class="pd-top-24 d-flex flex-nowrap">
+    <div class="pd-top-24 d-flex">
       <div *ngFor="let obj of userDataObj" class="tile-wrapper">
         <div class="tile-container">
           <div class="app-why-lbl f28 ft-bold success">
@@ -76,7 +76,7 @@
         <div class="mr-top-8 horizontal-divider light-20 mr-bottom-48"></div>
 
         <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let server of serverArrayObj">
-          <div class="d-flex">
+          <div class="d-flex align-items-center">
             <div class="pd-left-4">
               <img class="server-logo-container" src="/assets/img/svg/gravidao-logo.svg" alt="server-logo">
             </div>
@@ -116,6 +116,7 @@
           <div class="width-270"><label class="app-why-lbl light-50 ft-lato text-uppercase">Rule name</label></div>
           <div class="width-94"><label class="app-why-lbl light-50 ft-lato text-uppercase">Population</label></div>
           <div class="width-178"><label class="app-why-lbl light-50 ft-lato text-uppercase">Chain</label></div>
+          <div class="width-94"></div>
         </div>
 
         <div class="server-list-wrapper">
@@ -135,7 +136,7 @@
               </div>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
-            <div class="pd-left-18">
+            <div class="pd-left-18 width-94">
               <app-why-cta-three
                 [parentClass]="'light-70-hover'"
                 [btnClass]="cssClass.cta3Light50F12"
@@ -144,8 +145,8 @@
                 [btnLabel]="'View'"></app-why-cta-three>
             </div>
           </div>
-          <div class="add-fade-effect">
           </div>
+        <div class="add-fade-effect">
         </div>
       </article>
     </article>
