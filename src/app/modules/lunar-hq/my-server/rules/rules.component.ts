@@ -11,6 +11,7 @@ import { CssConstants } from 'src/app/shared/services/css-constants.service';
 export class RulesComponent implements OnInit {
 
   activeSubMenu = '';
+  viewRule = false;
 
   constructor(private router: Router,
               private location: Location,
@@ -37,6 +38,14 @@ export class RulesComponent implements OnInit {
 
   }
   navigateToCreateRule() {
-    
+
+  }
+
+  showRule() {
+    this.viewRule = true;
+  }
+
+  closeView() {
+    this.viewRule = false;
   }
 }

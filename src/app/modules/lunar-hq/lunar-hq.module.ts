@@ -18,6 +18,7 @@ import {RecentAnnouncementsComponent} from './common/recent-announcements/recent
 import { RulesComponent } from './my-server/rules/rules.component';
 import {PollsComponent} from './polls/polls.component';
 import {CreatePollComponent} from './polls/create-poll/create-poll.component';
+import { RulesViewComponent } from './my-server/rules/view/view.component';
 
 const commonModules = [
   WelcomeComponent,
@@ -28,6 +29,7 @@ const commonModules = [
   MyLicensesComponent,
   DetailsComponent,
   RulesComponent,
+  RulesViewComponent,
   RecentPollsComponent,
   RecentAnnouncementsComponent,
   PollsComponent,

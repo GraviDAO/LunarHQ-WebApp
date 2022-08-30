@@ -6,11 +6,14 @@ import { MyServerComponent } from './my-server.component';
 import { AddNewServerComponent } from './add-new-server/add-new-server.component';
 import { MyLicensesComponent } from './my-licenses/my-licenses.component';
 import { RulesComponent } from './rules/rules.component';
+import { ViewComponent } from './rules/view/view.component';
 
 
 @NgModule({
   declarations: [
 
+  
+    ViewComponent
   ],
   imports: [
     CommonModule,

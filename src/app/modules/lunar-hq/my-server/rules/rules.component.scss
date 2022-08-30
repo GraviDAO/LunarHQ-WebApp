@@ -72,4 +72,17 @@
     width: 100%;
     @include mixin.bg--wrapper;
     background: var(--dark-20);
+    .rules-item-view {
+        cursor: pointer;
+    }
   }
+.rules-view{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: mixin.toRem(480);
+    z-index: 1000;
+    background-color: var(--tertiary);
+    box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
+}

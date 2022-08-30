@@ -1,0 +1,115 @@
+<div class="rules-view flex flex-nowrap">
+    <div class="rules-view-header">
+        <div class="close-button mr-top-36 mr-right-36 mr-right-24 pointer" (click)="closeView()">
+            <ion-icon name="close-outline" class="app-why-icon ic24 light-50"></ion-icon>
+        </div>
+    </div>
+    <div class="rules-view-container d-flex flex-column mr-left-40">
+        <div class="rules-name-container pd-box-24 d-flex flex-column">
+            <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                RULE NAME
+            </div>
+            <div class="rule-title-container pd-top-8 d-flex justify-content-between">
+                <div class="rule-title app-why-lbl f16 ft-bold light">
+                    Watchers on the wall
+                </div>
+                <div class="rule-title d-flex align-items-center">
+                    <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047">MORE</div>
+                    <ion-icon name="chevron-down-outline" class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <div class="rules-content pd-box-24 d-flex flex-column">
+            <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                Rules
+            </div>
+            <div class="rule-item d-flex flex-column mr-top-8">
+                <div class="rule-item-base-role-container d-flex">
+                    <div class="rule-item-base-role app-why-lbl f14 ft-lato light-50">
+                        Base Role : \ 
+                    </div>
+                    <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
+                        Watchers on the wall
+                    </div>
+                </div>
+                <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light-50">
+                    Existing Rule 
+                </div>
+                <div class="rule-item-existing-rule-container d-flex flex-column pd-left-26">
+                    <div class="rule-item-is-rule-container d-flex">
+                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                            [ is ] 
+                        </div>
+                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
+                            Watchers on the wall
+                        </div>
+                    </div>
+                    <div class="rule-item-and-rule-container d-flex">
+                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato success">
+                            [ and ] 
+                        </div>
+                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato success pd-left-4">
+                            Existing Rule
+                        </div>
+                    </div>
+                    <div class="rule-item-is-rule-container d-flex pd-left-24">
+                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                            [ is ] 
+                        </div>
+                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
+                            X-Men 2.0
+                        </div>
+                    </div>
+                    <div class="rule-item-and-rule-container d-flex">
+                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato success">
+                            [ and ] 
+                        </div>
+                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato success pd-left-4">
+                            NFT
+                        </div>
+                    </div>
+                    <div class="rule-item-is-rule-container d-flex pd-left-26">
+                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                            [ is ]
+                        </div>
+                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4 height-auto">
+                            9v0dnfv08nas8fnv9a8fhavm __ [ > ] [ = ]  __ 2
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
+                &lt;end&gt;
+            </div>
+        </div>
+    </div>
+    <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24">
+        <div class="rules-action-item">
+            <app-why-cta-three
+                [parentClass]="'flex-column'" 
+                [btnClass]="cssClass.cta3BtnLabel"
+                [btnLabel]="'Remove'"
+                [leftIconType]="'close-circle-outline'"
+                [iconClass]="cssClass.cta3Icon">
+            </app-why-cta-three>
+        </div>
+        <div class="rules-action-item mr-left-24">
+            <app-why-cta-three
+                [parentClass]="'flex-column'" 
+                [btnClass]="cssClass.cta3BtnLabel"
+                [btnLabel]="'Pause'"
+                [leftIconType]="'pause-circle-outline'"
+                [iconClass]="cssClass.cta3Icon">
+            </app-why-cta-three>
+        </div>
+        <div class="rules-action-item mr-left-24">
+            <app-why-cta-three
+                [parentClass]="'flex-column'" 
+                [btnClass]="cssClass.cta3BtnLabelPrimary"
+                [btnLabel]="'Edit'"
+                [leftIconType]="'pencil'"
+                [iconClass]="cssClass.cta3IconPrimary">
+            </app-why-cta-three>
+        </div>
+    </div>
+</div>
