@@ -17,7 +17,6 @@
 }
 
 .wd-135 {
-  padding-top: 4px !important;
   width: mixin.toRem(135);
 }
 
@@ -57,4 +56,11 @@
 
 .add-btm-br {
   border-bottom: 1px solid var(--light) !important;
+}
+
+.table-data-container {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }

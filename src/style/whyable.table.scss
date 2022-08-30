@@ -164,7 +164,7 @@ input:checked + .slider:before {
   width: 15.3% !important;
 }
 
-.table-row-data  {
+.table-row-data {
   height: 48px;
   width: 100%;
 
@@ -190,3 +190,10 @@ input:checked + .slider:before {
 .set-height {
   height: 48px !important;
 }
+
+.add-btm-br {
+  border-bottom: 1px solid var(--light) !important;
+}
+
+
+
