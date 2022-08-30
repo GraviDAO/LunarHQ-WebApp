@@ -159,6 +159,7 @@ h1, h2, h3, h4, h5,
           margin-right: 0;
           display: none;
           font-size: 24px;
+          //transition: all 0.4s;
         }
 
       }
@@ -275,7 +276,7 @@ a[data-toggle="collapse"] {
 */
 
 .add-transition {
-  transition: .3s all ease;
+  transition: .45s all ease;
 }
 
 .add-bg {
@@ -329,6 +330,10 @@ a[data-toggle="collapse"] {
   //width: 87vw;
   width: 94vw;
   //padding-left: 12vw;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .toggle-width {

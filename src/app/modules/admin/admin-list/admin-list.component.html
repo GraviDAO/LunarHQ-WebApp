@@ -1,0 +1,124 @@
+<section>
+  <app-why-lunar-hq-admin-side-nav [activeTab]="'Admins'">
+    <div class="">
+      <label class="app-why-lbl f28 light-70 ft-bold">Organisations</label>
+    </div>
+    <div class="mr-top-28 mr-bottom-24 d-flex justify-content-between wd-921">
+      <div>
+        <app-why-search-component></app-why-search-component>
+      </div>
+      <div>
+        <app-why-cta-one
+          [iconType]="'add-circle-outline'"
+          (click)="addAdminPopUp()"
+          [cssClass]="cssClass.cta1Md" [btnLabel]="'Add admin'"></app-why-cta-one>
+      </div>
+    </div>
+    <article class="table-wrapper">
+      <table class="table add-border-radius table-fixed header-fixed">
+        <thead class="table-header">
+        <tr class="align-middle table-row-data">
+          <th class="app-why-lbl ft-bold light text-uppercase wd-666">User</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-255">
+            <div class="d-flex justify-content-between">
+              <div>Role</div>
+              <div (click)="showRoles()">
+                <ion-icon class="app-why-icon ic18 light" name="information-circle-outline"></ion-icon>
+              </div>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let obj of [0,1,2,3,4,5]; let pos = index;" class="table-row-data add-br-btm add-btm-br">
+          <td class="wd-666 app-why-lbl f12 dark-70 ft-lato">
+            {{pos % 2 === 0 ? 'adam@gravidao.com' : 'ilo@gravidao.com'}}
+          </td>
+          <td class="wd-255" [ngClass]="{'select-container': isOpen && toggleId === pos}">
+            <div ngbDropdown container="body" (openChange)="openClose($event,pos)">
+              <button type="button" class="full-width app-why-lbl f12 ft-lato dark-70 no-bg"
+                      [ngClass]="{'select-container': isOpen && toggleId === pos}"
+                      id="dropdownBasic1" ngbDropdownToggle>
+                <div class="d-flex justify-content-between">
+                  <div>SUPER ADMIN</div>
+                  <div>
+                    <ion-icon class="app-why-icon ic10 dark-70"
+                              name="{{isOpen && toggleId === pos ? 'caret-up-outline' :'caret-down-outline'}}"></ion-icon>
+                  </div>
+                </div>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1"
+                   class="dropdown-container">
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bolt no-letter-spacing btn-container">
+                  ADMIN
+                </button>
+                <div class="divider"></div>
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bolt no-letter-spacing btn-container">
+                  REMOVE
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </article>
+  </app-why-lunar-hq-admin-side-nav>
+</section>
+
+<app-why-modal id="addAdmin" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">add new admin</div>
+    <div class="">
+      <div class="mr-top-32 form-group">
+        <input type="text" id="email" class="form-control app-why-floating-input"
+               placeholder=" " [(ngModel)]="emailId">
+        <label class="app-why-floating-lbl neg-mr-50" for="email">Email Id</label>
+      </div>
+    </div>
+    <div class="form-check pd-top-24 text-align-start d-flex align-items-center">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="admin">
+      <label class="app-why-lbl pd-top-2 pd-left-6 light-70 f12">
+        ADMIN
+      </label>
+    </div>
+    <div class="form-check pd-top-16 text-align-start d-flex align-items-center">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="super-admin">
+      <label class="pd-left-6 app-why-lbl pd-top-2 light-70 f12">SUPER ADMIN</label>
+    </div>
+
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="aboutRoles" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">about roles</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl f16 secondary">Super Admins</span><span class="app-why-lbl light-70 f16"> your
+      additional license from this server will not prevent
+      access to Lunar HQ</span>
+    </div>
+    <div class="mr-top-16">
+      <span class="app-why-lbl f16 secondary">Admins </span> <span class="app-why-lbl light-70 f16">your additional license from this server will not prevent access to
+        Lunar HQ</span>
+    </div>
+    <div class="pd-top-56 pd-bottom-40 d-flex justify-content-center">
+      <div>
+        <app-why-lunar-hq-cta-two
+          [btnLabel]="'Close'"
+          [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>

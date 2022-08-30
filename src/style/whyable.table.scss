@@ -164,9 +164,18 @@ input:checked + .slider:before {
   width: 15.3% !important;
 }
 
-.table-row-data {
+.table-row-data  {
   height: 48px;
   width: 100%;
+
+  &.no-height {
+    height: auto;
+    //min-height: 48px;
+  }
+
+  &.add-revert {
+    display: flex;
+  }
 }
 
 
@@ -176,4 +185,8 @@ input:checked + .slider:before {
 
 .table > :not(caption) > * > * {
   border: 0;
+}
+
+.set-height {
+  height: 48px !important;
 }

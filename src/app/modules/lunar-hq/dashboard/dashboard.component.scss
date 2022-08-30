@@ -4,6 +4,7 @@
   height: 64px;
   width: 64px;
   object-fit: cover;
+  @include mixin.notch(8px);
 }
 
 .link-wallet-container {
@@ -12,7 +13,8 @@
 }
 
 .tile-container {
-  max-width: mixin.toRem(300);
+  //max-width: mixin.toRem(300);
+  width: 100%;
   height: mixin.toRem(108);
   @include mixin.bg--wrapper;
   display: flex;
@@ -22,10 +24,19 @@
 }
 
 .tile-wrapper {
-  padding-right: mixin.toRem(8);
+  //padding-right: mixin.toRem(8);
   flex: 1;
-  max-width: mixin.toRem(300);
+  width: 20%;
+  //max-width: mixin.toRem(300);
   min-width: mixin.toRem(210);
+
+  &:not(:first-child) {
+    padding-left: mixin.toRem(4);
+  }
+
+  &:not(:last-child) {
+    padding-right: mixin.toRem(4);
+  }
 }
 
 .light-50 {
@@ -34,13 +45,16 @@
 
 .server-container {
   @include mixin.bg--wrapper;
-  width: mixin.toRem(354);
+  width: 40%;
+  min-width: mixin.toRem(354);
   height: mixin.toRem(658);
+  max-width: 30rem;
 }
 
 .rule-container {
   @include mixin.bg--wrapper;
-  width: mixin.toRem(718);
+  width: 100%;
+  min-width: mixin.toRem(718);
   height: mixin.toRem(658);
 }
 
@@ -48,7 +62,8 @@
   display: flex;
   @include mixin.notch(8px);
   background: var(--dark-20);
-  width: mixin.toRem(638);
+  width: 100%;
+  min-width: mixin.toRem(638);
   height: mixin.toRem(56);
   margin-bottom: mixin.toRem(8);
   align-items: center;
@@ -61,15 +76,18 @@
 }
 
 .width-270 {
-  width: mixin.toRem(240);
+  width: 40%;
+  min-width: mixin.toRem(240);
 }
 
 .width-94 {
-  width: mixin.toRem(94);
+  width: 10%;
+  min-width: mixin.toRem(94);
 }
 
 .width-178 {
-  width: mixin.toRem(178);
+  width: 40%;
+  min-width: mixin.toRem(178);
 }
 
 .chain-logo-container {
@@ -84,9 +102,13 @@
 }
 
 .add-fade-effect {
-  background: linear-gradient(180deg, rgba(15, 12, 16, 0) 0%, #0F0C10 100%);
+  /*background: linear-gradient(180deg, rgba(15, 12, 16, 0) 0%, #0F0C10 100%);
   position: absolute;
   height: 96px;
   bottom: -410px;
-  width: mixin.toRem(638);
+  width: mixin.toRem(638);*/
+  position: relative;
+  bottom: 5rem;
+  height: 6rem;
+  background: linear-gradient(180deg, rgba(15, 12, 16, 0) 0%, #0F0C10 100%);
 }

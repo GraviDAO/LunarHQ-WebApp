@@ -1,19 +1,19 @@
 @use "src/style/mixin-core" as mixin;
 
-.wd-106 {
-  width: mixin.toRem(106);
+.wd-10 {
+  width: 10%;
 }
 
-.wd-290 {
-  width: mixin.toRem(290);
+.wd-15 {
+  width: 15%;
 }
 
-.wd-120 {
-  width: mixin.toRem(120);
+.wd-20 {
+  width: 20%;
 }
 
-.wd-150 {
-  width: mixin.toRem(150);
+.wd-40 {
+  width: 40%;
 }
 
 .wd-135 {
@@ -57,4 +57,18 @@
 
 .add-btm-br {
   border-bottom: 1px solid var(--light) !important;
+}
+
+.add-br-btm {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--light) !important;
+}
+
+.wd-921 {
+  width: mixin.toRem(921);
+}
+
+.neg-mr-50 {
+  margin-left: -50%;
 }

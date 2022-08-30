@@ -1,9 +1,9 @@
 <section>
-  <app-why-lunar-hq-admin-side-nav>
+  <app-why-lunar-hq-admin-side-nav [activeTab]="'Organisations'">
     <div class="">
       <label class="app-why-lbl f28 light-70 ft-bold">Organisations</label>
     </div>
-    <div class="mr-top-28">
+    <div class="mr-top-28 mr-bottom-24">
       <div>
         <app-why-search-component></app-why-search-component>
       </div>
@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let obj of [0,1,2,3,4,5,6,7,8]" class="table-row-data add-br-btm">
+        <tr *ngFor="let obj of [0,1,2,3,4,5,6,7,8]; let pos = index;" class="table-row-data add-br-btm">
           <td class="wd-106 app-why-lbl f12 dark-70 ft-lato">
             <img class="mr-left-16 logo-container" src="/assets/img/svg/gravidao-logo.svg">
           </td>
@@ -39,8 +39,32 @@
           <td class="wd-150 app-why-lbl f12 dark-70 ft-lato">
             {{longText.substring(0, 6) + '...' + longText.slice(longText.length - 6)}}
           </td>
-          <td class="">
-            {{obj}}
+          <td class="wd-135" [ngClass]="{'select-container': isOpen && toggleId === pos}">
+            <div ngbDropdown container="body" (openChange)="openClose($event,pos)">
+              <button type="button" class="full-width app-why-lbl f12 ft-lato dark-70"
+                      [ngClass]="{'select-container': isOpen && toggleId === pos}"
+                      id="dropdownBasic1" ngbDropdownToggle>
+                <div class="d-flex justify-content-between">
+                  <div>Active</div>
+                  <div>
+                    <ion-icon class="app-why-icon ic10 dark-70"
+                              name="{{isOpen && toggleId === pos ? 'caret-up-outline' :'caret-down-outline'}}"></ion-icon>
+                  </div>
+                </div>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1"
+                   style="margin-left: -32px;padding-top: 0; padding-bottom: 0; margin-top: 8px">
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bolt no-letter-spacing btn-container"
+                        (click)="suspend()">
+                  SUSPEND
+                </button>
+                <div class="divider"></div>
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bolt no-letter-spacing btn-container"
+                        (click)="delete()">
+                  DELETE
+                </button>
+              </div>
+            </div>
           </td>
         </tr>
         </tbody>
@@ -48,3 +72,39 @@
     </article>
   </app-why-lunar-hq-admin-side-nav>
 </section>
+
+<app-why-modal id="deleteOrg" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">delete org</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Removing your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="pd-top-56 pd-bottom-40 d-flex justify-content-center">
+      <div>
+        <app-why-lunar-hq-cta-two
+          [btnLabel]="'Close'"
+          [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="activeOrg" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">suspend org</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Suspend your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>

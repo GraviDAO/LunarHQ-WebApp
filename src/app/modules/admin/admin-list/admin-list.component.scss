@@ -1,0 +1,92 @@
+@use "src/style/mixin-core" as mixin;
+
+.wd-666 {
+  width: mixin.toRem(666);
+}
+
+.wd-255 {
+  width: mixin.toRem(255);
+}
+
+.btn-container {
+  height: 36px;
+
+  &:hover, &:focus {
+    background: var(--secondary);
+    color: var(--dark);
+  }
+}
+
+.select-container {
+  background: var(--secondary);
+  color: var(--dark);
+}
+
+.wd-921 {
+  width: mixin.toRem(921);
+}
+
+.divider {
+  width: mixin.toRem(158);
+  height: 1px;
+  background: #F4F4F4;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.no-bg {
+  background: transparent;
+}
+
+.add-btm-br {
+  border-bottom: 1px solid var(--light) !important;
+}
+
+.neg-mr-50 {
+  margin-left: -50%;
+}
+
+.form-check-input {
+  background: var(--dark-20);
+  border-color: var(--light-70);
+  width: 12px;
+  height: 12px;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("/assets/img/svg/black-circle.svg");
+  border-width: 2px;
+  outline: none;
+  box-shadow: none;
+  //border-color: var(--primary)
+  + label {
+    color: var(--primary) !important;
+  }
+}
+
+/*.form-check-input:checked + div > label {
+  color: var(--secondary) !important;
+}*/
+
+.text-align-start {
+  text-align: start;
+}
+
+.dropdown-container {
+  margin-left: 87px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 8px
+}
+
+.table-wrapper {
+  height: 61vh;
+}
