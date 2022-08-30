@@ -149,7 +149,7 @@ div::-webkit-scrollbar-button {
 
 .app-why-floating-input:placeholder-shown,
 .app-why-floating-input:placeholder-shown + .app-why-floating-lbl {
-  color: var(--light-50) !important;
+  //color: var(--light-50) !important;
 }
 
 .add-hover-primary:hover {
@@ -194,10 +194,6 @@ div::-webkit-scrollbar-button {
   height: mixin.toRem(32);
 }
 
-.height-auto {
-  height: auto !important;
-}
-
-.pointer {
+.add-cursor {
   cursor: pointer;
 }

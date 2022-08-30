@@ -14,7 +14,7 @@ import {Component, Input} from '@angular/core';
           <span class="pd-left-6 app-why-lbl f1418 secondary">5000</span>
         </div>
       </div>
-      <div class="d-flex">
+      <div class="d-flex add-cursor" (click)="navigateToGravidao()">
         <div>
           <img class="img-1"
                src="../../../../assets/img/png/footer-label-1.png" alt="">
@@ -30,6 +30,11 @@ import {Component, Input} from '@angular/core';
 })
 export class GravidaoLogoComponent {
   @Input() showStats = true;
+
   constructor() {
+  }
+
+  navigateToGravidao() {
+    window.open('https://linktr.ee/gravidao', '_blank');
   }
 }

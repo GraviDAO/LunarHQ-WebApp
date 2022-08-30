@@ -16,6 +16,9 @@ import {AdminMenuComponent} from './modules/admin/menu/menu.component';
 import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
 import {CreatePollComponent} from './modules/lunar-hq/polls/create-poll/create-poll.component';
 import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.component';
+import { AdminListComponent } from './modules/admin/admin-list/admin-list.component';
+import { AdminUserListComponent } from './modules/admin/user-list/user-list.component';
+import { AdminWhitelistComponent } from './modules/admin/whitelist/whitelist.component';
 
 const routes: Routes = [
   {
@@ -86,6 +89,18 @@ const routes: Routes = [
       {
         path: 'menu',
         component: AdminMenuComponent
+      },
+      {
+        path: 'admin-list',
+        component: AdminListComponent
+      },
+      {
+        path: 'user-list',
+        component: AdminUserListComponent
+      },
+      {
+        path: 'whitelist',
+        component: AdminWhitelistComponent
       }
     ]
   }

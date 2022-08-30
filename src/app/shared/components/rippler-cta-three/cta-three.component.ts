@@ -10,7 +10,7 @@ export class CtaThreeComponent implements OnInit {
   @Input() iconType = '';
   @Input() leftIconType = '';
   @Input() parentClass = 'primary-hover';
-  @Input() btnClass = 'app-why-lbl f14 primary ft-bold';
+  @Input() btnClass = 'add-cursor app-why-lbl f14 primary ft-bold';
   @Input() iconClass = 'app-why-icon ic14 primary pd-right-8';
 
   constructor() {

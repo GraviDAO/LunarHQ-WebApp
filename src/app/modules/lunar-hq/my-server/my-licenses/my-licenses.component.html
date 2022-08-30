@@ -7,226 +7,248 @@
 <app-why-side-nav
   [sideNavList]="sideNavList"
 >
-<div class="flex flex-nowrap">
+  <div class="flex flex-nowrap">
     <div class="licenses-header">
-        <div class="back-button d-flex">
-            <div class="pd-left-24 pd-top-21 pd-bottom-21">
-                <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
-                [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
-                </app-why-cta-three>
-            </div>
+      <div class="back-button d-flex">
+        <div class="pd-left-24 pd-top-21 pd-bottom-21">
+          <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
+                             [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon"
+                             (click)="navigateBack()">
+          </app-why-cta-three>
         </div>
+      </div>
     </div>
     <div class="licenses-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40 pd-right-40 pd-bottom-48">
-        <div class="licenses-header-title d-flex flex-row justify-content-between">
-            <div class="app-why-lbl f16 ft-bold light">
-                MY LICENSES
-            </div>
-            <div class="buy-license d-flex- app-why-lbl f12 ft-bold primary">
-                <app-why-cta-three
-                [btnClass]="cssClass.cta3PrimaryNorm"
-                [iconClass]="cssClass.cta3PrimaryMedium"
-                [iconType]="'chevron-forward-outline'"
-                (click)="navigateToBuyLicense()"
-                [btnLabel]="'BUY LICENSE'"></app-why-cta-three>
-            </div>
+      <div class="licenses-header-title d-flex flex-row justify-content-between">
+        <div class="app-why-lbl f16 ft-bold light">
+          MY LICENSES
         </div>
-        <div class="title-underline mr-top-8"></div>
-        <div class="licenses-detail-title pd-top-16 pd-bottom-18 d-flex flex-row">
-            <div class="licenses-nft-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                NFT NAME
-            </div>
-            <div class="licenses-status-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                STATUS
-            </div>
+        <div class="buy-license d-flex- app-why-lbl f12 ft-bold primary">
+          <app-why-cta-three
+            [btnClass]="cssClass.cta3PrimaryNorm"
+            [iconClass]="cssClass.cta3PrimaryMedium"
+            [iconType]="'chevron-forward-outline'"
+            (click)="navigateToBuyLicense()"
+            [btnLabel]="'BUY LICENSE'"></app-why-cta-three>
         </div>
-        <div class="licenses-detail d-flex flex-column justify-content-between">
-            <div class="license-item d-flex flex-row">
-                <div class="license-item-nft d-flex flex-row">
-                    <div class="pd-left-16 pd-right-16 pd-top-16 pd-bottom-16">
-                        <img class="license-item-img" src="/assets/img/png/nft-profile.jpeg" alt="">
-                    </div>
-                    <div class="license-item-desc d-flex flex-column pd-top-24 pd-bottom-8">
-                        <div class="license-item-name app-why-lbl f16 ft-bold light">
-                            The Giving #246
-                        </div>
-                        <div class="license-item-text app-why-lbl f10 ft-lato light-50">
-                            POLYGON
-                        </div>
-                    </div>
-                </div>
-                <div class="divider"></div>
-                <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-8">
-                    <div  class="d-flex overflow-hidden">
-                        <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold secondary letter-spacing-047"
-                                ngbDropdownToggle>ASSIGNED [ GRAVIDAO ]</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                                <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REASSIGN</button>
-                                <div class="dropdown-divider"></div>
-                                <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">REMOVE LICENSE</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex mr-top-6 overflow-hidden">
-                        <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
-                            ngbDropdownToggle>UNUSED</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="openAssignLicense()">ASSIGN</button>
-                            <div class="dropdown-divider"></div>
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">REMOVE LICENSE</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="license-item d-flex mr-top-8">
-                <div class="license-item-nft d-flex flex-row">
-                    <div class="pd-left-16 pd-right-16 pd-top-16 pd-bottom-16">
-                        <img class="license-item-img" src="/assets/img/png/placeholder.png" alt="">
-                    </div>
-                    <div class="license-item-desc d-flex flex-column pd-top-24 pd-bottom-8">
-                        <div class="license-item-name app-why-lbl f16 ft-bold light">
-                            The Crazy Cat Club #0270
-                        </div>
-                        <div class="license-item-text app-why-lbl f10 ft-lato light-50">
-                            POLYGON
-                        </div>
-                    </div>
-                </div>
-                <div class="divider"></div>
-                <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
-                    <div  class="d-flex overflow-hidden">
-                        <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
-                                UNUSED
-                            </button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="openAssignLicense()">
-                                ASSIGN
-                            </button>
-                            <div class="dropdown-divider"></div>
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">
-                                REMOVE LICENSE
-                            </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex mr-top-6 overflow-hidden">
-                        <div ngbDropdown container="body">
-                            <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
-                                UNUSED
-                            </button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                            <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="openAssignLicense()">
-                                ASSIGN
-                            </button>
-                            <div class="dropdown-divider"></div>
-                            <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">
-                                REMOVE LICENSE
-                            </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="title-underline mr-top-8"></div>
+      <div class="licenses-detail-title pd-top-16 pd-bottom-18 d-flex flex-row">
+        <div class="licenses-nft-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          NFT NAME
         </div>
+        <div class="licenses-status-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          STATUS
+        </div>
+      </div>
+      <div class="licenses-detail d-flex flex-column justify-content-between">
+        <div class="license-item d-flex flex-row">
+          <div class="license-item-nft d-flex flex-row">
+            <div class="pd-left-16 pd-right-16 pd-top-16 pd-bottom-16">
+              <img class="license-item-img" src="/assets/img/png/nft-profile.jpeg" alt="">
+            </div>
+            <div class="license-item-desc d-flex flex-column pd-top-24 pd-bottom-8">
+              <div class="license-item-name app-why-lbl f16 ft-bold light">
+                The Giving #246
+              </div>
+              <div class="license-item-text app-why-lbl f10 ft-lato light-50">
+                POLYGON
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-8">
+            <div class="d-flex overflow-hidden">
+              <div ngbDropdown container="body">
+                <button type="button" class="link-dropdown app-why-lbl f12 ft-bold secondary letter-spacing-047"
+                        ngbDropdownToggle>ASSIGNED [ GRAVIDAO ]
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                  <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REASSIGN</button>
+                  <div class="dropdown-divider"></div>
+                  <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                          (click)="removeLicense()">REMOVE LICENSE
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex mr-top-6 overflow-hidden">
+              <div ngbDropdown container="body">
+                <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
+                        ngbDropdownToggle>UNUSED
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                  <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                          (click)="openAssignLicense()">ASSIGN
+                  </button>
+                  <div class="dropdown-divider"></div>
+                  <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                          (click)="removeLicense()">REMOVE LICENSE
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="license-item d-flex mr-top-8">
+          <div class="license-item-nft d-flex flex-row">
+            <div class="pd-left-16 pd-right-16 pd-top-16 pd-bottom-16">
+              <img class="license-item-img" src="/assets/img/png/placeholder.png" alt="">
+            </div>
+            <div class="license-item-desc d-flex flex-column pd-top-24 pd-bottom-8">
+              <div class="license-item-name app-why-lbl f16 ft-bold light">
+                The Crazy Cat Club #0270
+              </div>
+              <div class="license-item-text app-why-lbl f10 ft-lato light-50">
+                POLYGON
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
+            <div class="d-flex overflow-hidden">
+              <div ngbDropdown container="body">
+                <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
+                  UNUSED
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                  <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                          (click)="openAssignLicense()">
+                    ASSIGN
+                  </button>
+                  <div class="dropdown-divider"></div>
+                  <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                          (click)="removeLicense()">
+                    REMOVE LICENSE
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex mr-top-6 overflow-hidden">
+              <div ngbDropdown container="body">
+                <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
+                  UNUSED
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                  <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing"
+                          (click)="openAssignLicense()">
+                    ASSIGN
+                  </button>
+                  <div class="dropdown-divider"></div>
+                  <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing" (click)="removeLicense()">
+                    REMOVE LICENSE
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </app-why-side-nav>
 
 <!-- Add License Confirmation Modal Stated -->
 <app-why-modal id="addLicenseModal" [popUpType]="'confirmation'">
-    <app-why-modal-wrapper>
-      <div class="app-why-lbl f22 ft-uni ft-medium light">add license</div>
-      <div class="pd-top-32">
-        <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
-          <div>Assigning a license to this server will enable the full range of Lunar HQ capabilities. You can reassign or remove the license at any time and even assign more than one license to the same server as a backup.</div>
-        </label>
-      </div>
-      <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
-        <div>
-          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('addLicenseModal')">
-          </app-why-lunar-hq-cta-two>
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">add license</div>
+    <div class="pd-top-32">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
+        <div>Assigning a license to this server will enable the full range of Lunar HQ capabilities. You can reassign or
+          remove the license at any time and even assign more than one license to the same server as a backup.
         </div>
-        <div>
-          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Assign'" (click)="assignLicense()">
-          </app-why-cta-one>
-        </div>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('addLicenseModal')">
+        </app-why-lunar-hq-cta-two>
       </div>
-    </app-why-modal-wrapper>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Assign'" (click)="assignLicense()">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Add License Conformation Modal Ended -->
 <!-- Assign License Confirmation Modal Stated -->
 <app-why-modal id="assignLicenseModal" [popUpType]="'confirmation'">
-    <app-why-modal-wrapper>
-      <div class="app-why-lbl f22 ft-uni ft-medium light">assign license</div>
-      <div class="mr-top-8 app-why-lbl f16 ft-bold light">
-        The Giving #246 {{server}}
-            
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">assign license</div>
+    <div class="mr-top-8 app-why-lbl f16 ft-bold light">
+      The Giving #246 {{server}}
+
+    </div>
+    <div class="server-list mr-top-32 d-flex flex-column pd-box-16">
+      <div class="server-list-item d-flex justify-content-between align-items-center">
+        <label class="app-why-lbl f16 ft-bold"
+               [ngClass]="{'secondary': server === 'GRAVIDAO', 'light-50': server !== 'GRAVIDAO'}" for="gravidao">
+          GRAVIDAO
+        </label>
+        <input type="radio" class="radio-button-secondary" [checked]="server === 'GRAVIDAO'" id="gravidao" name="server"
+               value="GRAVIDAO" (click)="onChangeServer('GRAVIDAO')">
       </div>
-      <div class="server-list mr-top-32 d-flex flex-column pd-box-16">
-        <div class="server-list-item d-flex justify-content-between align-items-center">
-            <label class="app-why-lbl f16 ft-bold" [ngClass]="{'secondary': server === 'GRAVIDAO', 'light-50': server !== 'GRAVIDAO'}" for="gravidao">
-                GRAVIDAO
-            </label>
-            <input type="radio" class="radio-button-secondary" [checked]="server === 'GRAVIDAO'" id="gravidao" name="server" value="GRAVIDAO" (click)="onChangeServer('GRAVIDAO')">
-        </div>
-        <div class="server-list-item d-flex justify-content-between align-items-center pd-top-8">
-            <label class="app-why-lbl f16 ft-bold" [ngClass]="{'secondary': server === 'SOCKDAO', 'light-50': server !== 'SOCKDAO'}" for="sockdao">
-                SOCKDAO
-            </label>
-            <input type="radio" class="radio-button-secondary" [checked]="server === 'SOCKDAO'" id="sockdao" name="server" value="SOCKDAO" (click)="onChangeServer('SOCKDAO')">
-        </div>
-        <div class="server-list-item d-flex justify-content-between align-items-center pd-top-8">
-            <label class="app-why-lbl f16 ft-bold" [ngClass]="{'secondary': server === 'HUBBLE', 'light-50': server !== 'HUBBLE'}" for="hubble">
-                HUBBLE FAN CLUB
-            </label>
-            <input type="radio" class="radio-button-secondary" [checked]="server === 'HUBBLE'" id="hubble" name="server" value="HUBBLE" (click)="onChangeServer('HUBBLE')">
-        </div>
+      <div class="server-list-item d-flex justify-content-between align-items-center pd-top-8">
+        <label class="app-why-lbl f16 ft-bold"
+               [ngClass]="{'secondary': server === 'SOCKDAO', 'light-50': server !== 'SOCKDAO'}" for="sockdao">
+          SOCKDAO
+        </label>
+        <input type="radio" class="radio-button-secondary" [checked]="server === 'SOCKDAO'" id="sockdao" name="server"
+               value="SOCKDAO" (click)="onChangeServer('SOCKDAO')">
       </div>
-      <div class="refresh-server-list pd-top-16 d-flex align-items-center justify-content-center">
-        <app-why-cta-three
+      <div class="server-list-item d-flex justify-content-between align-items-center pd-top-8">
+        <label class="app-why-lbl f16 ft-bold"
+               [ngClass]="{'secondary': server === 'HUBBLE', 'light-50': server !== 'HUBBLE'}" for="hubble">
+          HUBBLE FAN CLUB
+        </label>
+        <input type="radio" class="radio-button-secondary" [checked]="server === 'HUBBLE'" id="hubble" name="server"
+               value="HUBBLE" (click)="onChangeServer('HUBBLE')">
+      </div>
+    </div>
+    <div class="refresh-server-list pd-top-16 d-flex align-items-center justify-content-center">
+      <app-why-cta-three
         [btnClass]="cssClass.cta3PrimaryNorm"
         [iconClass]="cssClass.cta3PrimaryMedium"
         [iconType]="'refresh'"
         (click)="refreshServerList()"
         [btnLabel]="'REFRESH SERVER LIST'"></app-why-cta-three>
     </div>
-      <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
-        <div>
-          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('assignLicenseModal')">
-          </app-why-lunar-hq-cta-two>
-        </div>
-        <div>
-          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'" (click)="confirmAssignLicense()">
-          </app-why-cta-one>
-        </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('assignLicenseModal')">
+        </app-why-lunar-hq-cta-two>
       </div>
-    </app-why-modal-wrapper>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'" (click)="confirmAssignLicense()">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Assign License Conformation Modal Ended -->
 <!-- Remove License Confirmation Modal Stated -->
 <app-why-modal id="removeLicenseModal" [popUpType]="'confirmation'">
-    <app-why-modal-wrapper>
-      <div class="app-why-lbl f22 ft-uni ft-medium light">remove license</div>
-      <div class="pd-top-32">
-        <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
-          <div>Removing your license from this server will prevent administration through the Lunar HQ and its premium features unless
-          an alternative license is present.</div>
-        </label>
-      </div>
-      <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
-        <div>
-          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('removeLicenseModal')">
-          </app-why-lunar-hq-cta-two>
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">remove license</div>
+    <div class="pd-top-32">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
+        <div>Removing your license from this server will prevent administration through the Lunar HQ and its premium
+          features unless
+          an alternative license is present.
         </div>
-        <div>
-          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Remove'" (click)="confirmRemoveLicense()">
-          </app-why-cta-one>
-        </div>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('removeLicenseModal')">
+        </app-why-lunar-hq-cta-two>
       </div>
-    </app-why-modal-wrapper>
-  </app-why-modal>
-  <!-- Remove License Conformation Modal Ended -->
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Remove'" (click)="confirmRemoveLicense()">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Remove License Conformation Modal Ended -->

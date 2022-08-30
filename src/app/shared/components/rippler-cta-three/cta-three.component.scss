@@ -30,6 +30,10 @@
 
 .cta-three-wrapper {
   width: fit-content;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 /*=======
 .btn-hover:hover {

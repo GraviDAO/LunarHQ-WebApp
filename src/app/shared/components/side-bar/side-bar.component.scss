@@ -371,3 +371,12 @@ a[data-toggle="collapse"] {
   font-size: var(--font-size-14);
   line-height: var(--font-size-22);
 }
+
+
+.lunar-hq-wrapper {
+  position: absolute;
+  bottom: 92px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

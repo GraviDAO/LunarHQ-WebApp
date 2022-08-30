@@ -186,4 +186,12 @@ export class WelcomeComponent implements OnInit {
     // commented for demo
     this.router.navigate(['/dashboard']);
   }
+
+  navigateToGravidao() {
+    window.open('https://linktr.ee/gravidao', '_blank');
+  }
+
+  navigateToRippler() {
+    window.open('https://whyable.com/rippler/', '_blank');
+  }
 }
