@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PollsRoutingModule } from './polls-routing.module';
 import { PollsComponent } from './polls.component';
-import { CreatePollComponent } from './create-poll/create-poll.component'
+import { CreatePollComponent } from './create-poll/create-poll.component';
 
 
 @NgModule({
@@ -15,4 +15,4 @@ import { CreatePollComponent } from './create-poll/create-poll.component'
     PollsRoutingModule
   ]
 })
-export class MyServerModule { }
+export class PollsModule { }

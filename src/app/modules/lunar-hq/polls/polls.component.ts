@@ -19,10 +19,10 @@ export class PollsComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
   ) {
-    this.route.queryParams.subscribe((params: any) => {
-      console.log(params.server);
-      this.activeSubMenu = params.server;
-    });
+    // this.route.queryParams.subscribe((params: any) => {
+    //   console.log(params.server);
+    //   this.activeSubMenu = params.server;
+    // });
   }
 
   ngOnInit(): void {
@@ -40,7 +40,8 @@ export class PollsComponent implements OnInit {
 
   }
 
-  createPolls() {
+  navigateToCreatePoll() {
+    console.log("Suspected");
     this.router.navigate(['polls/create-poll']);
   }
 }
