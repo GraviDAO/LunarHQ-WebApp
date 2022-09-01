@@ -19,6 +19,7 @@ import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.compone
 import { AdminListComponent } from './modules/admin/admin-list/admin-list.component';
 import { AdminUserListComponent } from './modules/admin/user-list/user-list.component';
 import { AdminWhitelistComponent } from './modules/admin/whitelist/whitelist.component';
+import { CreateRuleComponent } from './modules/lunar-hq/my-server/rules/create/create.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: 'my-server/rules',
     component: RulesComponent
+  },
+  {
+    path: 'my-server/rules/create',
+    component: CreateRuleComponent
   },
   {
     path: 'polls',

@@ -38,7 +38,7 @@ export class RulesComponent implements OnInit {
 
   }
   navigateToCreateRule() {
-
+    this.router.navigate(['my-server/rules/create']);
   }
 
   showRule() {

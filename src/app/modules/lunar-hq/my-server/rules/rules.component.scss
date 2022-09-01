@@ -26,6 +26,10 @@
   height: mixin.toRem(657);
   background: var(--tertiary);
 }
+.title-underline {
+    height: mixin.toRem(1);
+    background: var(--light-20);
+}
 .rule-name-title {
     width: mixin.toRem(272);
   }

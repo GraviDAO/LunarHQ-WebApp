@@ -68,7 +68,7 @@
 }
 
 div::-webkit-scrollbar {
-  width: mixin.toRem(6);
+  /* width: mixin.toRem(6); */
 }
 
 div::-webkit-scrollbar-thumb:hover {
