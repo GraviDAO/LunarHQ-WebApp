@@ -72,7 +72,7 @@ export class MyServerComponent implements OnInit {
     this.router.navigate(['my-server/add-new-server']);
   }
 
-  navigateToDetails(server) {
+  navigateToDetails(server: any) {
     console.log('navigateToDetails');
     this.router.navigate(['my-server/details'], {queryParams: {server}});
   }
