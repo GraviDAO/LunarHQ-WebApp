@@ -16,10 +16,11 @@ import { DetailsComponent } from './my-server/details/details.component';
 import {RecentPollsComponent} from './common/recent-polls/recent-polls-component';
 import {RecentAnnouncementsComponent} from './common/recent-announcements/recent-announcements.component';
 import { RulesComponent } from './my-server/rules/rules.component';
-import {PollsComponent} from './polls/polls.component';
-import {CreatePollComponent} from './polls/create-poll/create-poll.component';
 import { RulesViewComponent } from './my-server/rules/view/view.component';
 import { CreateRuleComponent } from './my-server/rules/create/create.component';
+import {PollsComponent} from './polls/polls.component';
+import {CreatePollComponent} from './polls/create-poll/create-poll.component';
+
 
 const commonModules = [
   WelcomeComponent,

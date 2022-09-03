@@ -3,10 +3,10 @@ import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CoreService} from '../../services/core.service';
 import {ModalService} from '../../../shared/_modal/modal.service';
-import {
-  getChainOptions, WalletController, WalletStatus, UserDenied,
-  ConnectType
-} from '@terra-money/wallet-provider';
+// import {
+//   getChainOptions, WalletController, WalletStatus, UserDenied,
+//   ConnectType
+// } from '@terra-money/wallet-provider';
 // import {Fee, MsgSend} from '@terra-money/terra.js';
 import {ToastrService} from 'ngx-toastr';
 import {Web3Service} from '../../web3-core/web3.service';
@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit {
   // url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   // url = 'https://discord.com/api/oauth2/authorize?client_id=959099639309664266&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   data: string[] | undefined;
-  terraController: WalletController | undefined;
+  //terraController: WalletController | undefined;
   walletConnected = false;
   walletAddress = '';
   selectedWallet = '';
@@ -82,19 +82,19 @@ export class WelcomeComponent implements OnInit {
   }
 
   async connectToMetaMask() {
-    try {
-      this.exitModal();
-      let response = await this.web3.connectAccount();
-      // @ts-ignore
-      const walletAddr = response[0];
-      const blockchainName = 'polygon-mainnet';
-      this.coreService.getNonce(walletAddr, blockchainName)
-        .subscribe((result) => {
-          this.handleSignIn(result.message, walletAddr);
-        });
-    } catch (error) {
-      console.error(error, 'error');
-    }
+    // try {
+    //   this.exitModal();
+    //   let response = await this.web3.connectAccount();
+    //   // @ts-ignore
+    //   const walletAddr = response[0];
+    //   const blockchainName = 'polygon-mainnet';
+    //   this.coreService.getNonce(walletAddr, blockchainName)
+    //     .subscribe((result) => {
+    //       this.handleSignIn(result.message, walletAddr);
+    //     });
+    // } catch (error) {
+    //   console.error(error, 'error');
+    // }
   }
 
   async handleSignIn(nonce: any, publicAddress: any) {
@@ -134,35 +134,35 @@ export class WelcomeComponent implements OnInit {
    }*/
 
   async terraWalletConnect() {
-    let connect = await this.terraController?.connect(ConnectType.EXTENSION);
-    this.toast.success('Connection established');
-    this.exitModal();
-    console.log(connect);
+    // let connect = await this.terraController?.connect(ConnectType.EXTENSION);
+    // this.toast.success('Connection established');
+    // this.exitModal();
+    // console.log(connect);
   }
 
   async walletInit() {
-    const chainOptions = await getChainOptions();
-    console.log(chainOptions, 'chainOptions');
+    // const chainOptions = await getChainOptions();
+    // console.log(chainOptions, 'chainOptions');
 
-    this.terraController = new WalletController({
-      ...chainOptions,
-    });
-    console.log(this.terraController, 'terraController');
+    // this.terraController = new WalletController({
+    //   ...chainOptions,
+    // });
+    // console.log(this.terraController, 'terraController');
 
-    this.terraController.states().subscribe(async (states) => {
-      console.log(states, 'states');
-      switch (states.status) {
-        case WalletStatus.WALLET_NOT_CONNECTED:
-          this.walletConnected = false
-          this.walletAddress = ''
-          break;
+    // this.terraController.states().subscribe(async (states) => {
+    //   console.log(states, 'states');
+    //   switch (states.status) {
+    //     case WalletStatus.WALLET_NOT_CONNECTED:
+    //       this.walletConnected = false
+    //       this.walletAddress = ''
+    //       break;
 
-        case WalletStatus.WALLET_CONNECTED:
-          this.walletConnected = true
-          this.walletAddress = states.wallets[0].terraAddress
-          break;
-      }
-    });
+    //     case WalletStatus.WALLET_CONNECTED:
+    //       this.walletConnected = true
+    //       this.walletAddress = states.wallets[0].terraAddress
+    //       break;
+    //   }
+    // });
   }
 
   exitModal() {

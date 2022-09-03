@@ -5,11 +5,57 @@
   width: 100%;
   background: var(--dark-50);
   position: fixed;
-  margin-top: -54px;
+  margin-top: mixin.toRem(-55);
   margin-left: -3.75rem;
   z-index: 10;
 }
 
 .back-button {
   width: 85% !important;
+}
+
+.step {
+  &.active {
+    span {
+      color: var(--secondary) !important;
+    }
+  }
+}
+.create-poll-container {
+  width: mixin.toRem(720);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-poll-widget {
+  width: mixin.toRem(720);
+  height: mixin.toRem(500);
+  @include mixin.bg--wrapper;
+  background: var(--tertiary);
+}
+
+.title-underline {
+  height: mixin.toRem(1);
+  background: var(--light-20);
+}
+
+.poll_name {
+  width: mixin.toRem(484);
+  height: mixin.toRem(32);
+}
+
+.description_area {
+  width: mixin.toRem(484);
+  height: mixin.toRem(200);
+  opacity: 0.2;
+  @include mixin.notch(8px);
+  background-color: var(--dark);
+  border: none;
+}
+
+.navigate-steps {
+  width: mixin.toRem(720);
+}
+.text-wrapper {
+  font-size: 12px !important;
 }

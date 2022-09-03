@@ -1,4 +1,4 @@
-<app-why-header-side-nav [title]="'polls'" [activeTab]="'POLLS'" [activeSubMenuTab]="activeSubMenu"
+<app-why-header-side-nav [title]="'MY SERVERS | GraviDAO Polls'" [activeTab]="'polls'" [activeSubMenuTab]="activeSubMenu"
   (profileClick)="navigateToPolls()">
   <div class="flex flex-nowrap">
     <div class="polls-header">
@@ -36,7 +36,7 @@
               [iconType]="'add-circle-outline'"
               [btnLabel]="'CREATE NEW POLL'"
               [iconClass]="cssClass.cta1IconDark"
-              [click]="createPolls()">
+              (click)="navigateToCreatePoll()">
             </app-why-cta-one>
           </div>
         </div>
