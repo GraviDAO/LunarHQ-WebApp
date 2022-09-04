@@ -109,6 +109,19 @@ export class CreateRuleComponent implements OnInit {
   public stepper!: Stepper;
   stepTitles = ['RULE DETAILS', 'CREATE RULES', 'PREVIEW']
   stepTitle: string = this.stepTitles[0];
+  defaultRuleItem = {
+    ruleTypeId: '',
+    ruleType: '',
+    ruleId: '',
+    rule: '',
+    condition: 'IS',
+    sections: [
+
+    ]
+  };
+  ruleItems:any = [
+    this.defaultRuleItem
+  ]
   constructor(private router: Router,
     private location: Location,
     private route: ActivatedRoute,
@@ -200,11 +213,25 @@ export class CreateRuleComponent implements OnInit {
     const maxCount = document.getElementById('maximum_count');
   }
 
-  selectRuleType(ruleType: any) {
+  selectRuleType(ruleItem: any, ruleType: any) {
     console.log('selectRuleType - ', ruleType);
+    ruleItem.ruleTypeId = ruleType.id;
+    ruleItem.ruleType = ruleType.name;
+    console.log('ruleItems  - ', this.ruleItems);
   }
 
-  selectRule(rule: any) {
+  selectRule(ruleItem: any, rule: any) {
     console.log('selectRule - ', rule);
+    ruleItem.ruleId = rule.id;
+    ruleItem.rule = rule.name;
+  }
+  addSection(ruleItemIndex: number) {
+    this.ruleItems[ruleItemIndex].sections.push({
+      condition: 'AND',
+      role: 'SELECT ROLE'
+    });
+  }
+  removeSection(ruleItemIndex: number, sectionIndex: number) {
+    this.ruleItems[ruleItemIndex].sections.splice(sectionIndex, 1);
   }
 }

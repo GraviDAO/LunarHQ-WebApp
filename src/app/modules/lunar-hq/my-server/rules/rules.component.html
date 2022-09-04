@@ -49,6 +49,28 @@
             <div class="rules-content mr-top-16 d-flex flex-column pd-right-40">
                 <div class="rules-item d-flex flex-row align-items-center">
                     <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                        Mystical Brings
+                        <span class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato success letter-spacing-02">New</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                        1
+                    </div>
+                    <div class="divider"></div>
+                    <div class="rules-item-chain d-flex justify-content-between">
+                        <div class="pd-left-16 app-why-lbl f16 ft-bold light">Chainlink</div>
+                        <div class="rules-item-chain-icon">
+                            <img class="rules-item-chain-icon-container mr-right-16" src="/assets/img/svg/atom.svg" alt="atom">
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="rules-item-view visit-button d-flex justify-content-center" (click)="showRule()">
+                        <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VIEW</div>
+                        <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
+                    </div>
+                </div>
+                <div class="rules-item d-flex flex-row align-items-center mr-top-8">
+                    <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
                         Shepards
                     </div>
                     <div class="divider"></div>
@@ -69,8 +91,9 @@
                     </div>
                 </div>
                 <div class="rules-item d-flex flex-row align-items-center mr-top-8">
-                    <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+                    <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light-50">
                         Watchers on the wall
+                        <span class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
                     </div>
                     <div class="divider"></div>
                     <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
@@ -84,7 +107,7 @@
                         </div>
                     </div>
                     <div class="divider"></div>
-                    <div class="rules-item-view visit-button d-flex justify-content-center">
+                    <div class="rules-item-view visit-button d-flex justify-content-center"(click)="showRule(true)">
                         <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VIEW</div>
                         <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
                     </div>
@@ -281,7 +304,7 @@
             </div>
     </div>
     <div class="rules-view" [hidden]="!viewRule">
-        <app-why-lunar-hq-rules-view (closeRule)="closeView()"></app-why-lunar-hq-rules-view>
+        <app-why-lunar-hq-rules-view [paused]="paused" (closeRule)="closeView()" (updateRole)="updateRole()"></app-why-lunar-hq-rules-view>
     </div>
 </div>
 <!--</app-why-side-nav>-->

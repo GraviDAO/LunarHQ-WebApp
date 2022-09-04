@@ -83,17 +83,17 @@
                         </div>
                         <div class="title-underline mr-top-8"></div>
                         <div class="create-rule-content">
-                            <div class="rule-item mr-top-24">
+                            <div class="rule-item mr-top-24" *ngFor="let ruleItem of ruleItems; let ruleItemIndex = index;">
                                 <div class="rule-item-detail pd-lr-16">
                                     <div class="d-flex overflow-hidden rule-item-type pd-top-16">
                                         <div ngbDropdown container="body">
                                             <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
-                                                    ngbDropdownToggle>SELECT RULE TYPE
+                                                    ngbDropdownToggle>{{ruleItem.ruleTypeId != '' ? ruleItem.ruleType : 'SELECT RULE TYPE'}}
                                             </button>
                                             <div ngbDropdownMenu aria-labelledby="dropdownBasic">
                                                 <ng-container *ngFor="let ruleType of ruleTypes">
                                                     <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
-                                                            (click)="selectRuleType(ruleType)">{{ruleType.name}}
+                                                            (click)="selectRuleType(ruleItem, ruleType)">{{ruleType.name}}
                                                     </button>
                                                     <div class="dropdown-divider"></div>
                                                 </ng-container>
@@ -105,12 +105,12 @@
                                         <div class="d-flex overflow-hidden rule-item-select-rule mr-left-24">
                                             <div ngbDropdown container="body">
                                                 <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
-                                                        ngbDropdownToggle>SELECT RULE
+                                                        ngbDropdownToggle>{{ruleItem.ruleId != '' ? ruleItem.rule : 'SELECT RULE'}}
                                                 </button>
                                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic">
                                                     <ng-container *ngFor="let rule of rules">
                                                         <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
-                                                                (click)="selectRule(rule)">{{rule.name}}
+                                                                (click)="selectRule(ruleItem, rule)">{{rule.name}}
                                                         </button>
                                                         <div class="dropdown-divider"></div>
                                                     </ng-container>
@@ -119,7 +119,32 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rule-item-add-section mr-top-24">
+                                <div class="rule-item-sections d-flex flex-column">
+                                    <div class="rule-item-section mr-top-8 pd-lr-16" *ngFor="let section of ruleItem.sections; let sectionIndex = index;">
+                                        <div class="section-close-button d-flex justify-content-end align-items-end mr-top-8 add-cursor" (click)="removeSection(ruleItemIndex, sectionIndex)">
+                                            <ion-icon name="close-outline" class="app-why-icon ic18 light-50"></ion-icon>
+                                        </div>
+                                        <div class="d-flex align-items-center mr-top-16 rule-item-rule">
+                                            <div class="rule-item-is-text app-why-lbl f12 ft-bold success letter-spacing-047">AND</div>
+                                            <div class="d-flex overflow-hidden rule-item-select-rule mr-left-24">
+                                                <div ngbDropdown container="body">
+                                                    <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
+                                                            ngbDropdownToggle>SELECT ROLE
+                                                    </button>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                                                        <ng-container *ngFor="let role of roles">
+                                                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                                                                    (click)="selectRole(role)">{{role.name}}
+                                                            </button>
+                                                            <div class="dropdown-divider"></div>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rule-item-add-section mr-top-24 add-cursor" (click)="addSection(ruleItemIndex)">
                                     <ion-icon name="add-circle-outline" class="app-why-icon ic12 light-50"></ion-icon>
                                     <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">ADD SECTION</label>
                                 </div>
@@ -132,7 +157,7 @@
                 </div>
             </form>
           <div class="d-flex navigate-steps mr-top-24">
-            <div class="col-3">
+            <div class="col-3 add-cursor">
                 <span *ngIf="stepperIndex == 1">
                     <ion-icon name="add-circle-outline" class="app-why-icon ic12 light-50"></ion-icon>
                     <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">ADD RULE</label>

@@ -120,3 +120,10 @@
 .rule-item-is-text {
     width: mixin.toRem(36);
 }
+.rule-item-section {
+    height: mixin.toRem(96);
+    background-color: var(--dark-20);
+}
+.section-close-button {
+    float: right;
+}

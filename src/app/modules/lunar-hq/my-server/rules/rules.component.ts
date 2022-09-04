@@ -12,6 +12,7 @@ export class RulesComponent implements OnInit {
 
   activeSubMenu = '';
   viewRule = false;
+  paused = false;
 
   constructor(private router: Router,
               private location: Location,
@@ -41,11 +42,16 @@ export class RulesComponent implements OnInit {
     this.router.navigate(['my-server/rules/create']);
   }
 
-  showRule() {
+  showRule(paused = false) {
     this.viewRule = true;
+    this.paused = paused;
   }
 
   closeView() {
     this.viewRule = false;
+  }
+
+  updateRole() {
+
   }
 }
