@@ -1,7 +1,7 @@
 <section>
   <app-why-lunar-hq-admin-side-nav [activeTab]="'Admins'">
     <div class="">
-      <label class="app-why-lbl f28 light-70 ft-bold">Organisations</label>
+      <label class="app-why-lbl f22 light-70 ft-uni ft-300">Admins</label>
     </div>
     <div class="mr-top-28 mr-bottom-24 d-flex justify-content-between wd-921">
       <div>
@@ -11,7 +11,7 @@
         <app-why-cta-one
           [iconType]="'add-circle-outline'"
           (click)="addAdminPopUp()"
-          [cssClass]="cssClass.cta1Md" [btnLabel]="'Add admin'"></app-why-cta-one>
+          [cssClass]="cssClass.cta1Admin" [btnLabel]="'Add admin'"></app-why-cta-one>
       </div>
     </div>
     <article class="table-wrapper">
@@ -21,7 +21,7 @@
           <th class="app-why-lbl ft-bold light text-uppercase wd-666">User</th>
           <th class="app-why-lbl ft-bold light text-uppercase wd-255">
             <div class="d-flex justify-content-between">
-              <div>Role</div>
+              <div class="pd-left-8">Role</div>
               <div (click)="showRoles()">
                 <ion-icon class="app-why-icon ic18 light" name="information-circle-outline"></ion-icon>
               </div>
@@ -31,16 +31,16 @@
         </thead>
         <tbody>
         <tr *ngFor="let obj of [0,1,2,3,4,5]; let pos = index;" class="table-row-data add-br-btm add-btm-br">
-          <td class="wd-666 app-why-lbl f12 dark-70 ft-lato">
+          <td class="wd-666 app-why-lbl f12 dark-70 ft-lato-400 d-flex align-items-center add-ht-48">
             {{pos % 2 === 0 ? 'adam@gravidao.com' : 'ilo@gravidao.com'}}
           </td>
-          <td class="wd-255" [ngClass]="{'select-container': isOpen && toggleId === pos}">
-            <div ngbDropdown container="body" (openChange)="openClose($event,pos)">
-              <button type="button" class="full-width app-why-lbl f12 ft-lato dark-70 no-bg"
+          <td class="wd-255 d-flex align-items-center add-ht-48" [ngClass]="{'select-container': isOpen && toggleId === pos}">
+            <div ngbDropdown class="full-width d-flex align-items-center" container="body" (openChange)="openClose($event,pos)">
+              <button type="button" class="full-width app-why-lbl f12 ft-lato-400 dark-70 no-bg"
                       [ngClass]="{'select-container': isOpen && toggleId === pos}"
                       id="dropdownBasic1" ngbDropdownToggle>
                 <div class="d-flex justify-content-between">
-                  <div>SUPER ADMIN</div>
+                  <div>Super Admin</div>
                   <div>
                     <ion-icon class="app-why-icon ic10 dark-70"
                               name="{{isOpen && toggleId === pos ? 'caret-up-outline' :'caret-down-outline'}}"></ion-icon>
@@ -48,12 +48,12 @@
                 </div>
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1"
-                   class="dropdown-container">
-                <button ngbDropdownItem class="app-why-lbl f12 ft-bolt no-letter-spacing btn-container">
+                   class="drop-down-container">
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing btn-container">
                   ADMIN
                 </button>
                 <div class="divider"></div>
-                <button ngbDropdownItem class="app-why-lbl f12 ft-bolt no-letter-spacing btn-container">
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing btn-container">
                   REMOVE
                 </button>
               </div>

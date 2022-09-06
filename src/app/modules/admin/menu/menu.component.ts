@@ -31,4 +31,8 @@ export class AdminMenuComponent {
   delete() {
     this.modalService.open('deleteOrg');
   }
+
+  close(modal: any) {
+    this.modalService.close(modal);
+  }
 }

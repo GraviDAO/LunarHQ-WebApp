@@ -129,7 +129,8 @@ h1, h2, h3, h4, h5,
 
 #sidebar {
   //max-width: 25vw;
-  min-width: mixin.toRem(280);
+  width: 18vw;
+  //min-width: mixin.toRem(280);
   background: var(--dark-70);
   color: #fff;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -149,6 +150,14 @@ h1, h2, h3, h4, h5,
 
         &:hover {
           background: var(--primary);
+
+          ion-icon {
+            color: var(--dark) !important;
+          }
+
+          .active-selector {
+            background: var(--dark);
+          }
         }
 
         ion-icon {
@@ -197,6 +206,22 @@ h1, h2, h3, h4, h5,
       align-items: center;
       height: mixin.toRem(64);
 
+      &:hover {
+        background: var(--primary);
+
+        ion-icon {
+          color: var(--dark) !important;
+        }
+
+        .active-selector {
+          background: var(--dark);
+        }
+
+        span {
+          color: var(--dark) !important;
+        }
+      }
+
       > ul {
         margin-left: 10px;
 
@@ -206,7 +231,7 @@ h1, h2, h3, h4, h5,
       }
 
       span {
-        padding-left: mixin.toRem(28);
+        padding-left: mixin.toRem(24);
         font-size: var(--font-size-14);
         line-height: var(--font-size-22);
         color: var(--light-70);
@@ -293,6 +318,7 @@ a[data-toggle="collapse"] {
   box-shadow: 0 16px 20px -8px rgba(0, 0, 0, 0.04);
   padding-bottom: mixin.toRem(21);
   padding-top: mixin.toRem(21);
+  height: 64px;
 }
 
 .add-pd-lr-80 {
@@ -367,7 +393,7 @@ a[data-toggle="collapse"] {
 .content-wrapper {
   //width: 94vw;
   //padding-left: 12vw;
-  width: 80.4vw;
+  width: 82vw;
   padding-left: 8vw;
   padding-right: 8vw;
   //width: calc(100vw - 280px);
@@ -402,4 +428,8 @@ a[data-toggle="collapse"] {
 
 .pd-left-78 {
   padding-left: 78px !important;
+}
+
+.ad-pd-left {
+  padding-left: 2vw;
 }
