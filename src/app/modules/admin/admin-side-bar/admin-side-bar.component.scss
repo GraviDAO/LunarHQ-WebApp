@@ -20,7 +20,7 @@ body {
 }
 
 a {
-  transition: .3s all ease;
+  //transition: .3s all ease;
   color: var(--primary);
 
   &:hover, &:focus {
@@ -47,7 +47,7 @@ a {
 }
 
 button {
-  transition: .3s all ease;
+  //transition: .3s all ease;
 
   &:hover, &:focus {
     text-decoration: none !important;
@@ -129,10 +129,12 @@ h1, h2, h3, h4, h5,
 
 #sidebar {
   //max-width: 25vw;
-  min-width: mixin.toRem(280);
+  width: 18vw;
+  //min-width: mixin.toRem(280);
   background: var(--dark-70);
   color: #fff;
-  transition: all 0.4s;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  //transition: 0.4s;
 
   &.active {
     min-width: 5.6vw !important;
@@ -148,6 +150,14 @@ h1, h2, h3, h4, h5,
 
         &:hover {
           background: var(--primary);
+
+          ion-icon {
+            color: var(--dark) !important;
+          }
+
+          .active-selector {
+            background: var(--dark);
+          }
         }
 
         ion-icon {
@@ -159,7 +169,6 @@ h1, h2, h3, h4, h5,
           margin-right: 0;
           display: none;
           font-size: 24px;
-          //transition: all 0.4s;
         }
 
       }
@@ -179,12 +188,12 @@ h1, h2, h3, h4, h5,
     color: $white;
     font-weight: 900;
     padding: 10px 30px;
-    transition: .4s all ease;
+    //transition: 1s all ease;
   }
 
   ul.components {
     padding-left: 0 !important;
-    transition: .4s all ease;
+    //transition: 1s all ease;
   }
 
   ul {
@@ -197,6 +206,22 @@ h1, h2, h3, h4, h5,
       align-items: center;
       height: mixin.toRem(64);
 
+      &:hover {
+        background: var(--primary);
+
+        ion-icon {
+          color: var(--dark) !important;
+        }
+
+        .active-selector {
+          background: var(--dark);
+        }
+
+        span {
+          color: var(--dark) !important;
+        }
+      }
+
       > ul {
         margin-left: 10px;
 
@@ -206,7 +231,7 @@ h1, h2, h3, h4, h5,
       }
 
       span {
-        padding-left: mixin.toRem(28);
+        padding-left: mixin.toRem(24);
         font-size: var(--font-size-14);
         line-height: var(--font-size-22);
         color: var(--light-70);
@@ -253,11 +278,12 @@ a[data-toggle="collapse"] {
 }
 
 #content {
-  width: calc(100vw - 280px);
+  //width: calc(100vw - 280px);
   //width: 100%;
+  width: 100%;
   padding: 0;
   min-height: 100vh;
-  transition: all 0.3s;
+  //transition: all 0.3s;
 }
 
 
@@ -265,7 +291,7 @@ a[data-toggle="collapse"] {
   width: 96px;
   height: 48px;
   padding: 0;
-  transition: .3s all ease;
+  //transition: 1s all ease;
 }
 
 
@@ -276,7 +302,7 @@ a[data-toggle="collapse"] {
 */
 
 .add-transition {
-  transition: .45s all ease;
+  //transition: 1s all ease;
 }
 
 .add-bg {
@@ -292,6 +318,7 @@ a[data-toggle="collapse"] {
   box-shadow: 0 16px 20px -8px rgba(0, 0, 0, 0.04);
   padding-bottom: mixin.toRem(21);
   padding-top: mixin.toRem(21);
+  height: 64px;
 }
 
 .add-pd-lr-80 {
@@ -364,8 +391,13 @@ a[data-toggle="collapse"] {
 }
 
 .content-wrapper {
-  width: calc(100vw - 280px);
-  padding-left: mixin.toRem(120);
+  //width: 94vw;
+  //padding-left: 12vw;
+  width: 82vw;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  //width: calc(100vw - 280px);
+  //padding-left: mixin.toRem(120);
   //margin: auto;
   //display: flex;
   //justify-content: center;
@@ -373,6 +405,8 @@ a[data-toggle="collapse"] {
 
 .content-wrapper-toggled {
   width: calc(100vw - 5.6vw);
+  padding-left: 15vw;
+  padding-right: 15vw;
 }
 
 .no-height {
@@ -394,4 +428,8 @@ a[data-toggle="collapse"] {
 
 .pd-left-78 {
   padding-left: 78px !important;
+}
+
+.ad-pd-left {
+  padding-left: 2vw;
 }

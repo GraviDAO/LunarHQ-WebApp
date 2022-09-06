@@ -197,4 +197,25 @@ div::-webkit-scrollbar-button {
 
 .add-cursor {
   cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
+
+
+.drop-down-container {
+  margin-left: -41px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 10px !important;
+  border-radius: 0 !important;
+  background: #E5E5E5 !important;
+  border: 0;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.5);
+}
+
+.no-bg {
+  background: transparent !important;
+}
+

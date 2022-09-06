@@ -45,8 +45,6 @@
   }
 
 
-
-
   &.md {
     height: var(--btn-md-height);
     width: var(--btn-md-width);
@@ -98,6 +96,16 @@
   &.var-width {
     width: fit-content;
     height: var(--btn-md-height);
+    padding-left: mixin.toRem(16);
+    padding-right: mixin.toRem(16);
+  }
+
+  &.admin-btn {
+    width: fit-content;
+    font-size: var(--font-size-12);
+    line-height: var(--font-size-20);
+    letter-spacing: 0.47px;
+    height: var(--btn-sm-height);
     padding-left: mixin.toRem(16);
     padding-right: mixin.toRem(16);
   }

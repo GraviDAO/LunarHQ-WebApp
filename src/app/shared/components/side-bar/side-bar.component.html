@@ -6,7 +6,7 @@
             class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
             [ngClass]="{'no-height': sideNav.subMenu}">
           <div class="d-flex flex-column width-100">
-            <div class="d-flex align-items-center"
+            <div class="d-flex align-items-center add-cursor"
                  [ngClass]="{'active-container': (activeTab === sideNav.title), 'justify-content-center': !isToggled}">
               <ion-icon class="app-why-icon ic14 light-70"
                         [ngClass]="{'secondary-dark': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()}"
@@ -29,8 +29,8 @@
                     class="submenu-list mr-bottom-8"
                     (click)="subMenu($event,subMenuObj.title, i, '')">
                   <article>
-                    <div>
-                      <label class="text-capitalize add--pd-left"
+                    <div class="add-cursor">
+                      <label class="text-capitalize add--pd-left add-cursor"
                              [ngClass]="{'active-sub-menu': activeSubMenuTab === subMenuObj.title}">
                         {{subMenuObj.title}}
                       </label>
@@ -43,9 +43,9 @@
                       <ul *ngIf="subMenuObj.nestedMenuList && activeSubMenuTab === subMenuObj.title"
                           class="">
                         <div class="pd-bottom-8"></div>
-                        <li *ngFor="let nestedMenu of subMenuObj.nestedMenuList"
+                        <li *ngFor="let nestedMenu of subMenuObj.nestedMenuList" class="min-ht-22"
                             (click)="subMenu($event,subMenuObj.title, i, nestedMenu)">
-                          <label class="pd-bottom-4 add--pd-left-34 nest-label"
+                          <label class="pd-bottom-4 add--pd-left-34 nest-label add-cursor"
                                  [ngClass]="{'active-sub-menu': nestedMenuSelected === nestedMenu}">- {{nestedMenu}}</label>
                         </li>
                       </ul>
@@ -66,9 +66,9 @@
     <div id="content" class="">
       <div class="d-flex justify-content-between align-items-center toggle-wrapper">
         <div class="pd-left-24 toggle-container">
-          <ion-icon *ngIf="isToggled" class="icon primary show-cursor"
+          <ion-icon *ngIf="isToggled" class="icon primary add-cursor"
                     name="chevron-back-circle-outline"></ion-icon>
-          <ion-icon *ngIf="!isToggled" class="icon primary show-cursor"
+          <ion-icon *ngIf="!isToggled" class="icon primary add-cursor"
                     name="chevron-forward-circle-outline"></ion-icon>
         </div>
         <div class="pd-right-16">
