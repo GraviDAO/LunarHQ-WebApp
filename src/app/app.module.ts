@@ -2,6 +2,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CdkStepperModule} from '@angular/cdk/stepper';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -31,7 +32,8 @@ import {AdminModule} from './modules/admin/admin.module';
     SharedModule,
     ModalModule,
     LunarHqModule,
-    AdminModule
+    AdminModule,
+    CdkStepperModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

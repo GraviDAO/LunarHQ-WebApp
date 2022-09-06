@@ -10,7 +10,7 @@
   // Size
 
   &.f6 {
-    font-size: var(--font-size-6);
+    font-size: var(--font-size-6) !important;
     line-height: var(--font-size-10);
     height: var(--font-size-10);
   }
@@ -28,7 +28,7 @@
   }
 
   &.f12 {
-    font-size: var(--font-size-12);
+    font-size: var(--font-size-12) !important;
     line-height: var(--font-size-20);
     height: var(--font-size-20);
   }

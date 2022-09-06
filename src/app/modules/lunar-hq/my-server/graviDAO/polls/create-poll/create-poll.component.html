@@ -1,0 +1,110 @@
+<app-why-header-side-nav
+  [title]="'Create Poll'"
+  [activeTab]="'CREATE POLL'"
+  [activeSubMenuTab]="activeSubMenu"
+  (profileClick)="navigateToPolls()">
+
+  <div class="flex flex-nowrap">
+    <div class="create-poll-header">
+      <div class="d-flex back-button">
+        <div class="col-3 pd-left-24 pd-top-21 pd-bottom-21">
+          <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'" [leftIconType]="'chevron-back'"
+            [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
+          </app-why-cta-three>
+        </div>
+        <div class="col-9 d-flex">
+          <div class="d-flex align-items-center pd-right-24">
+              <div id="stepper1" class="bs-stepper">
+                <div class="bs-stepper-header justify-content-center">
+                  <div class="step" id="1" data-target="#test-l-1">
+                    <a class="step-trigger">
+                      <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">POLL DETAILS</span>
+                    </a>
+                  </div>
+                  <div class="step" id="2" data-target="#test-l-2">
+                    <button class="step-trigger">
+                      <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">VOTING SYSTEM</span>
+                    </button>
+                  </div>
+                  <div class="step" id="3" data-target="#test-l-3">
+                    <button class="step-trigger">
+                      <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">TIMINGS</span>
+                    </button>
+                  </div>
+                  <div class="step" id="4" data-target="#test-l-4">
+                    <button class="step-trigger">
+                      <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">SELECT CHANNEL</span>
+                    </button>
+                  </div>
+                  <div class="step" id="5"  data-target="#test-l-5">
+                    <button class="step-trigger">
+                      <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">PREVIEW</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="bs-stepper-content create-poll-container d-flex flex-column mr-top-56">
+                  <div class="create-poll-widget mr-top-8 d-flex flex-column pd-lr-40 pd-top-24">
+                    <div class="recent-poll-header-title d-flex justify-content-between">
+                      <div class="app-why-lbl f16 ft-bold light no-letter-spacing">{{stepTitle}}</div>
+                    </div>
+                    <div class="title-underline mr-top-8"></div>
+                    <form [formGroup]="createPollForm" class="d-flex justify-content-center mr-top-48">
+                      <div id="test-l-1" class="content">
+                        <div class="form-group">
+                          <input type="text" id="poll_name" class="form-control app-why-floating-input poll_name" placeholder=" " formControlName="poll_name">
+                          <label class="app-why-floating-lbl" for="poll_name">Name</label>
+                        </div>
+                        <div class="form-group mr-top-24">
+                          <label class="d-flex app-why-lbl ft-lato f10 light-50" for="poll_discription">Description</label>
+                          <textarea name="poll_discription" class="app-why-lbl f16 ft-lato light mr-top-4 description_area no-letter-spacing pd-top-8 pd-bottom-8 pd-lr-16" formControlName="poll_discription" id="poll_discription" maxlength="2000" (keyup)="countCharacter()" placeholder="Enter description"></textarea>
+                          <div class="d-flex justify-content-end app-why-lbl f10 ft-lato light-50" id="poll_discription_count">
+                            <span id="current_count">0 &nbsp;</span>
+                            <span id="maximum_count"> / 2000</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="test-l-2" class="content">
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Description</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                        </div>
+                      </div>
+                      <div id="test-l-3" class="content text-center">
+                        <button (click)="next()" class="btn btn-primary mt-5">Next</button>
+                      </div>
+                      <div id="test-l-4" class="content text-center">
+                        <button (click)="next()" class="btn btn-primary mt-5">Next</button>
+                      </div>
+                      <div id="test-l-5" class="content text-center">
+                        <button (click)="next()" class="btn btn-primary mt-5">submit</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="d-flex navigate-steps mr-top-24">
+                    <div class="col-3">
+                      <ion-icon name="save-outline" class="app-why-icon ic12 light-50"></ion-icon>
+                      <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">SAVE DRAFT</label>
+                    </div>
+                    <div class="d-flex justify-content-end col-9">
+                      <app-why-lunar-hq-cta-two
+                        [btnLabel]="'BACK'"
+                        [btnTheme]="'bg--dark'"
+                        [buttonSize]="'sm'"
+                        (click)="previous()"
+                        [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
+                      </app-why-lunar-hq-cta-two>
+                      <app-why-cta-one
+                        (click)="next()"
+                        [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
+                        [btnLabel]="'NEXT'">
+                      </app-why-cta-one>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-why-header-side-nav>
