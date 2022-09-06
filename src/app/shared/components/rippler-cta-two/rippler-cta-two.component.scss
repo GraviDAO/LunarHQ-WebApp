@@ -17,6 +17,10 @@
     width: var(--btn-sm-width);
     height: var(--btn-sm-height);
   }
+
+  &:hover {
+    background: var(--primary);
+  }
 }
 
 .cta-two-inner {
@@ -44,5 +48,9 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
+
+  &:hover{
+    color: var(--primary-dark);
+  }
 
 }

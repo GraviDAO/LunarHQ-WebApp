@@ -1,7 +1,7 @@
 <section>
   <app-why-lunar-hq-admin-side-nav [activeTab]="'Users'">
     <div class="">
-      <label class="app-why-lbl f28 light-70 ft-bold">Organisations</label>
+      <label class="app-why-lbl f22 light-70 ft-uni ft-300">Users</label>
     </div>
     <div class="mr-top-28 mr-bottom-24 d-flex justify-content-between wd-921">
       <div>
@@ -12,36 +12,37 @@
       <table class="table add-border-radius table-fixed header-fixed">
         <thead class="table-header">
         <tr class="align-middle table-row-data add-revert">
-          <th class="app-why-lbl ft-bold light text-uppercase wd-20">Discord Profile</th>
-          <th class="app-why-lbl ft-bold light text-uppercase wd-10">Discord Link</th>
-          <th class="app-why-lbl ft-bold light text-uppercase wd-40">Wallet id</th>
-          <th class="app-why-lbl ft-bold light text-uppercase wd-10">Wallet link</th>
-          <th class="app-why-lbl ft-bold light text-uppercase wd-20">Add/Remove</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-20 pd-left-16">Discord Profile</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-12 text-center">Discord Link</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-38">Wallet id</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-15 text-center">Wallet link</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-15 text-center">Add / Remove</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let obj of [0,1,2,3,4,5]; let pos = index;"
             [ngClass]="{'set-height': walletAddress.length === 1}"
             class="table-row-data add-revert add-br-btm add-btm-br no-height">
-          <td class="d-flex align-items-center wd-20">
+          <td class="d-flex align-items-center wd-20 pd-lr-16">
             <img class="mr-left-16 logo-container" src="/assets/img/svg/gravidao-logo.svg">
-            <span class="app-why-lbl f12 dark-70 ft-lato ">{{pos % 2 === 0 ? 'adam' : 'ilo'}} </span>
+            <span class="app-why-lbl f12 dark-70 ft-lato-400 ">{{pos % 2 === 0 ? 'adam' : 'ilo'}} </span>
           </td>
-          <td class="d-flex align-items-center wd-10">
-            <div class="d-flex">
+          <td class="d-flex align-items-center wd-12 justify-content-center">
+            <div class="d-flex ">
               <label class="switch">
                 <input type="checkbox" checked="false" (change)="checkUncheck($event)">
                 <span class="toggle-switch round"></span>
               </label>
             </div>
           </td>
-          <td [ngClass]="{'no-pd': walletAddress.length >0}" class="wd-40">
-            <div *ngFor="let wallet of walletAddress" class="app-why-lbl f12 dark-70 col-span">
+          <td [ngClass]="{'no-pd': walletAddress.length >0}" class="wd-38">
+            <div *ngFor="let wallet of walletAddress"
+                 class="app-why-lbl f12 dark-70 col-span ft-lato-400 ad-left-pd-16">
               {{wallet}}
             </div>
           </td>
           <td class="wallet-address-action-container" [ngClass]="{'no-pd': walletAddress.length>1 }">
-            <div *ngFor="let wallet of walletAddress" class="col-span">
+            <div *ngFor="let wallet of walletAddress" class="col-span justify-content-center">
               <div class="d-flex">
                 <label class="switch">
                   <input type="checkbox" checked="false" (change)="checkUncheck($event)">
@@ -52,15 +53,15 @@
           </td>
           <td class="action-icon-container" [ngClass]="{'no-pd': walletAddress.length > 1}">
             <div *ngFor="let wallet of walletAddress" class="d-flex col-span">
-              <div class="d-flex">
-                <div class="wd-60">
+              <div class="d-flex" style="width: 100%;">
+                <div class="wd-50 d-flex align-items-center justify-content-center">
                   <ion-icon class="app-why-icon ic14 dark-50" name="add-outline"></ion-icon>
                 </div>
-                <div class="wd-60">
+                <!--<div class="wd-60">
                   <ion-icon class="app-why-icon ic14 dark-50" name="close-circle-outline"></ion-icon>
-                </div>
-                <div class="wd-60">
-                  <ion-icon class="app-why-icon ic14 dark-50" name="trash-outline"></ion-icon>
+                </div>-->
+                <div class="wd-50 d-flex align-items-center justify-content-center">
+                  <ion-icon class="app-why-icon ic14 dark-70" name="trash-outline"></ion-icon>
                 </div>
               </div>
             </div>
