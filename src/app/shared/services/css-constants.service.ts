@@ -30,7 +30,9 @@ export class CssConstants {
   cta3Primary14Icon = 'app-why-icon ic14 primary';
   cta3Light5014Icon = 'app-why-icon ic14 light-50';
   cta3BtnLabel = 'cta3 app-why-lbl f10 norm break-line light-70';
+  cta3BtnLabelPrimary = 'cta3 app-why-lbl f10 norm break-line primary';
   cta3Icon = 'app-why-icon pd-right-15 pd-left-15 ic14 light-70 norm';
+  cta3IconPrimary = 'app-why-icon pd-right-15 pd-left-15 ic14 primary norm';
 
   cta3PrimaryMedium = 'cta3 app-why-lbl f14 primary';
   // cta3Primary14 = 'cta3 app-why-lbl f14 norm primary';

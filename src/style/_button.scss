@@ -64,6 +64,9 @@
         cursor: pointer !important;
       }
     }
+    &.next-button {
+      width: mixin.toRem(96) !important;
+    }
   }
 
   &:hover {

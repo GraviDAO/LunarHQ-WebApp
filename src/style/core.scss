@@ -68,7 +68,7 @@
 }
 
 div::-webkit-scrollbar {
-  width: mixin.toRem(6);
+  /* width: mixin.toRem(6); */
 }
 
 div::-webkit-scrollbar-thumb:hover {
@@ -194,7 +194,6 @@ div::-webkit-scrollbar-button {
   height: mixin.toRem(32);
 }
 
-
 .add-cursor {
   cursor: pointer;
 
@@ -218,4 +217,3 @@ div::-webkit-scrollbar-button {
 .no-bg {
   background: transparent !important;
 }
-
