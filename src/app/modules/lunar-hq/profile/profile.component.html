@@ -1,10 +1,3 @@
-<!--<app-why-header
-  [buttonLabel]="''"
-  [profileObj]="profileObj"
-  [title]="'Manage Profile'"
-  (click)="navigateToProfile()">
-</app-why-header>
-<app-why-side-nav [sideNavList]="sideNavList">-->
 <app-why-header-side-nav
   (profileClick)="navigateToProfile()">
   <div class="d-flex flex-nowrap profile-wrapper">
@@ -211,9 +204,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="d-flex justified-content-end social-links">
-        <app-why-lunar-hq-social-links></app-why-lunar-hq-social-links>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@
   clip-path: none;
   margin-top: -3.5rem;
   z-index: 999;
+  backdrop-filter: blur(16px);
 }
 
 .profile-wrapper {
@@ -61,8 +62,8 @@
 
 .social-links {
   position: fixed;
-  bottom: mixin.toRem(48);
-  right: mixin.toRem(48);
+  bottom: mixin.toRem(24);
+  right: mixin.toRem(24);
 }
 
 .widget_profile {

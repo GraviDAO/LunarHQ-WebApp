@@ -3,18 +3,16 @@ import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CoreService} from '../../services/core.service';
 import {ModalService} from '../../../shared/_modal/modal.service';
-import {
+/*import {
   getChainOptions, WalletController, WalletStatus, UserDenied,
   ConnectType
-} from '@terra-money/wallet-provider';
+} from '@terra-money/wallet-provider';*/
 // import {Fee, MsgSend} from '@terra-money/terra.js';
 import {ToastrService} from 'ngx-toastr';
 import {Web3Service} from '../../web3-core/web3.service';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
 import {USER_AUTHENTICATED} from './type';
-import {query} from '@angular/animations';
 
-// import * as sigUtil from "eth-sig-util";
 
 @Component({
   selector: 'app-why-lunar-hq-welcome',
@@ -28,7 +26,7 @@ export class WelcomeComponent implements OnInit {
   // url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   // url = 'https://discord.com/api/oauth2/authorize?client_id=959099639309664266&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   data: string[] | undefined;
-  terraController: WalletController | undefined;
+  // terraController: WalletController | undefined;
   walletConnected = false;
   walletAddress = '';
   selectedWallet = '';
@@ -61,7 +59,7 @@ export class WelcomeComponent implements OnInit {
         });
       }
     });
-    this.walletInit().then(r => console.log(r));
+    // this.walletInit().then(r => console.log(r));
   }
 
   discordSuccess() {
@@ -133,14 +131,14 @@ export class WelcomeComponent implements OnInit {
        });
    }*/
 
-  async terraWalletConnect() {
+  /*async terraWalletConnect() {
     let connect = await this.terraController?.connect(ConnectType.EXTENSION);
     this.toast.success('Connection established');
     this.exitModal();
     console.log(connect);
-  }
+  }*/
 
-  async walletInit() {
+  /*async walletInit() {
     const chainOptions = await getChainOptions();
     console.log(chainOptions, 'chainOptions');
 
@@ -163,7 +161,7 @@ export class WelcomeComponent implements OnInit {
           break;
       }
     });
-  }
+  }*/
 
   exitModal() {
     this.modalService.close('connectWallet');

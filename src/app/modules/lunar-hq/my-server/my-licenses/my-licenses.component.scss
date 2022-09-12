@@ -1,8 +1,14 @@
 @use "src/style/mixin-core" as mixin;
   .licenses-header {
+    /*height: mixin.toRem(64);
+    width: 100%;
+    background: var(--dark-20);*/
     height: mixin.toRem(64);
     width: 100%;
-    background: var(--dark-20);
+    background: var(--dark-50);
+    position: fixed;
+    margin-top: -112px;
+    margin-left: -3.75rem;
   }
   .licenses-container {
     width: mixin.toRem(720);
@@ -30,14 +36,14 @@
     background: var(--dark-50);
   }
   .license-item-nft {
-    width: mixin.toRem(436);
+    width: mixin.toRem(400);
   }
   .license-item-img {
     width: mixin.toRem(56);
     height: mixin.toRem(56);
   }
   .license-item-actions {
-    width: mixin.toRem(204);
+    width: mixin.toRem(240);
   }
 
 .divider {

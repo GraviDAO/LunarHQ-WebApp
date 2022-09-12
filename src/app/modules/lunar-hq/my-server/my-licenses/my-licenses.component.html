@@ -5,8 +5,7 @@
   [subTitle]="'SockDAO'"
   (click)="navigateToMyServer()"></app-why-header>
 <app-why-side-nav
-  [sideNavList]="sideNavList"
->
+  [sideNavList]="sideNavList">
   <div class="flex flex-nowrap">
     <div class="licenses-header">
       <div class="back-button d-flex">
@@ -57,7 +56,7 @@
             </div>
           </div>
           <div class="divider"></div>
-          <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-8">
+          <div class="license-item-actions d-flex flex-column pd-lr-16 pd-top-20 pd-bottom-20">
             <div class="d-flex overflow-hidden">
               <div ngbDropdown container="body">
                 <button type="button" class="link-dropdown app-why-lbl f12 ft-bold secondary letter-spacing-047"
@@ -108,7 +107,8 @@
           <div class="license-item-actions d-flex flex-column pd-left-14 pd-top-20 pd-bottom-20 pd-right-10">
             <div class="d-flex overflow-hidden">
               <div ngbDropdown container="body">
-                <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50" ngbDropdownToggle>
+                <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light-50"
+                        ngbDropdownToggle>
                   UNUSED
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic">
