@@ -189,6 +189,8 @@ export class CreateRuleComponent implements OnInit {
     operator: '≥',
     quantity_held: '',
     filter: 'no_filter',
+    nft_id:'',
+    file:'',
     traits: [],
     criterias: [
 
@@ -384,6 +386,20 @@ export class CreateRuleComponent implements OnInit {
   onChangeFilter(ruleItem: any, filterValue: string) {
     console.log('onChangeFilter - ', filterValue);
     ruleItem.filter = filterValue;
+    console.log('ruleItems  - ', this.ruleItems);
+  }
+  uploadJsonFile(ruleItem: any) {
+    ruleItem.file='uploaded';
+  }
+  replaceJsonFile(ruleItem: any) {
+    ruleItem.file='';
+  }
+  removeJsonFile(ruleItem: any) {
+    ruleItem.file='';
+  }
+  updateNftId(ruleItem: any, value: any) {
+    console.log('updateNftId - ', ruleItem, value);
+    ruleItem.nft_id = value;
     console.log('ruleItems  - ', this.ruleItems);
   }
 }

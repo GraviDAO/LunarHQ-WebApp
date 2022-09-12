@@ -161,6 +161,12 @@
     height: auto;
     background-color: var(--dark-50);
 }
+.rule-item-nft-filter-nft-id {
+    width: mixin.toRem(420);
+}
+.opacity-20 {
+    opacity: 0.2;
+}
 .rule-item-is-text {
     width: mixin.toRem(48);
 }

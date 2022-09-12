@@ -162,15 +162,47 @@
                                               NO FILTERS
                                             </label>
                                           </div>
-                                          <div class="rule-item-nft-filter-item d-flex justify-content-between align-items-center mr-top-16">
-                                            <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'filter_nft'" id="filter_nft" name="filter"
-                                                   value="filter_nft" (click)="onChangeFilter(ruleItem, 'filter_nft')">
-                                            <label class="app-why-lbl f12 mr-left-8"
-                                                   [ngClass]="{'primary': ruleItem.filter === 'filter_nft', 'light-50': ruleItem.filter !== 'filter_nft'}" for="sockdao">
-                                              FILTER BY NFT ID
-                                            </label>
+                                          <div class="rule-item-nft-filter-item d-flex flex-column mr-top-16">
+                                            <div class="d-flex align-items-center">
+                                                <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'filter_nft'" id="filter_nft" name="filter"
+                                                    value="filter_nft" (click)="onChangeFilter(ruleItem, 'filter_nft')">
+                                                <label class="app-why-lbl f12 mr-left-8"
+                                                    [ngClass]="{'primary': ruleItem.filter === 'filter_nft', 'light-50': ruleItem.filter !== 'filter_nft'}" for="sockdao">
+                                                FILTER BY NFT ID
+                                                </label>
+                                            </div>
+                                            <div class="rule-item-nft-filter-nft-id mr-top-8 mr-left-22" *ngIf="ruleItem.filter === 'filter_nft'">
+                                                <div [ngClass]="{'opacity-20': ruleItem.file == 'uploaded'}">
+                                                    <label class="d-flex app-why-lbl ft-lato f10 light-50 letter-spacing-02" for="description">NFT ID</label>
+                                                    <textarea #nftId [attr.disabled]="ruleItem.file == 'uploaded' ? '' : null" (keyup)="updateNftId(ruleItem, nftId.value)" name="nft_id" class="app-why-lbl f16 ft-lato light mr-top-4 description_area no-letter-spacing pd-top-8 pd-bottom-8 pd-lr-16" id="nft_id" maxlength="2000" placeholder="e.g. 01827, 22344, ..."></textarea>
+                                                </div>
+                                                <div class="rule-item-nft-filter-nft-id-upload d-flex align-items-center mr-top-8 add-cursor" *ngIf="ruleItem.file != 'uploaded'" (click)="uploadJsonFile(ruleItem)">
+                                                    <ion-icon name="cloud-upload" class="app-why-icon ic14 light-50 add-cursor"></ion-icon>
+                                                    <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8 add-cursor">UPLOAD JSON FILE</label>
+                                                </div>
+                                                <div class="rule-item-nft-filter-nft-id-uploaded d-flex flex-column mr-top-8" *ngIf="ruleItem.file == 'uploaded'">
+                                                    <div class="rule-item-nft-filter-nft-file-uploaded d-flex align-items-center">
+                                                        <ion-icon name="checkmark-circle" class="app-why-icon ic14 success"></ion-icon>
+                                                        <label class="align-text-top app-why-lbl f12 ft-bold success mr-left-8 add-cursor">FILE UPLOADED</label>
+                                                    </div>
+                                                    <div class="app-why-lbl f16 ft-lato light mr-top-8">
+                                                        myrule_nftidcollection2022.json
+                                                    </div>
+                                                    <div class="rule-item-nft-filter-nft-id-action d-flex align-items-center mr-top-8">
+                                                        <div class="app-why-lbl f12 ft-bold light-70 add-cursor" (click)="replaceJsonFile(ruleItem)">
+                                                            REPLACE
+                                                        </div>
+                                                        <div class="app-why-lbl f12 ft-bold light-70 mr-lr-8">
+                                                            |
+                                                        </div>
+                                                        <div class="app-why-lbl f12 ft-bold light-70 add-cursor" (click)="removeJsonFile(ruleItem)">
+                                                            REMOVE
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                           </div>
-                                          <div class="rule-item-nft-filter-item d-flex justify-content-between align-items-center mr-top-16">
+                                          <div class="rule-item-nft-filter-item d-flex align-items-center mr-top-16">
                                             <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'filter_traits'" id="filter_traits" name="filter"
                                                    value="filter_traits" (click)="onChangeFilter(ruleItem, 'filter_traits')">
                                             <label class="app-why-lbl f12 mr-left-8"
