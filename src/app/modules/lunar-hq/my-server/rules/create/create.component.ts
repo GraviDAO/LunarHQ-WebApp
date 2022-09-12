@@ -119,28 +119,28 @@ export class CreateRuleComponent implements OnInit {
 
   operators = [
     {
-      id: 'greater_than',
-      name: 'GREATER THAN',
-    },
-    {
-      id: 'less_than',
-      name: 'LESS THAN',
-    },
-    {
       id: 'greater_than_equal',
-      name: 'GREATER THAN OR EQUAL TO',
+      name: '≥',
     },
     {
-      id: 'less_than_equal',
-      name: 'LESS THAN OR EQUAL TO',
+      id: 'greater_than',
+      name: '>',
     },
     {
       id: 'equals',
-      name: 'EQUALS',
+      name: '=',
+    },
+    {
+      id: 'less_than',
+      name: '<',
+    },
+    {
+      id: 'less_than_equal',
+      name: '≤',
     },
     {
       id: 'not_equals',
-      name: 'NOT EQUALS',
+      name: '!=',
     }
   ];
   traitTypes = [
@@ -184,6 +184,12 @@ export class CreateRuleComponent implements OnInit {
     ruleId: '',
     rule: '',
     condition: 'IS',
+    contract_address: '',
+    operatorId: 'greater_than_equal',
+    operator: '≥',
+    quantity_held: '',
+    filter: 'no_filter',
+    traits: [],
     criterias: [
 
     ]
@@ -303,6 +309,7 @@ export class CreateRuleComponent implements OnInit {
   addRule() {
     let ruleItem = Object.assign({}, this.defaultRuleItem);
     ruleItem.criterias = [];
+    ruleItem.traits = [];
     this.ruleItems.push(ruleItem);
   }
 
@@ -316,7 +323,7 @@ export class CreateRuleComponent implements OnInit {
       rule: '',
       contract_address: '',
       operatorId: 'greater_than_equal',
-      operator: 'GREATER THAN OR EQUAL TO',
+      operator: '≥',
       quantity_held: '',
       traits: []
     });
@@ -373,5 +380,10 @@ export class CreateRuleComponent implements OnInit {
   }
   removeTraitRow(trait: any, rowIndex: number) {
     trait.rows.splice(rowIndex, 1);
+  }
+  onChangeFilter(ruleItem: any, filterValue: string) {
+    console.log('onChangeFilter - ', filterValue);
+    ruleItem.filter = filterValue;
+    console.log('ruleItems  - ', this.ruleItems);
   }
 }

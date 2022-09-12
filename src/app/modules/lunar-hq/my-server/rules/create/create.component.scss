@@ -152,9 +152,20 @@
 .rule-item-detail {
     height: mixin.toRem(96);
     background-color: var(--dark);
+    &.rule-item-detail-nft {
+        height: mixin.toRem(180);
+    }
+}
+.rule-item-nft {
+    min-height: mixin.toRem(136);
+    height: auto;
+    background-color: var(--dark-50);
 }
 .rule-item-is-text {
     width: mixin.toRem(48);
+}
+.rule-item-and-text {
+    width: mixin.toRem(44);
 }
 .create-rule-content{
     overflow-y: scroll;
@@ -176,13 +187,13 @@
     float: right;
 }
 .rule-item-select-operator {
-    width: mixin.toRem(202);
+    width: mixin.toRem(56);
 }
 .rule-item-criteria-contact-addrress {
     width: mixin.toRem(282);
 }
 .rule-item-criteria-quantity-held {
-    width: mixin.toRem(64);
+    width: mixin.toRem(96);
 }
 .rule-item-criteria-trait-item {
     min-height: mixin.toRem(126);

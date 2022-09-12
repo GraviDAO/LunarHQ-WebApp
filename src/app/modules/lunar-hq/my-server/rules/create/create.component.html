@@ -84,7 +84,7 @@
                         <div class="title-underline mr-top-8"></div>
                         <div class="create-rule-content">
                             <div class="rule-item mr-top-24" *ngFor="let ruleItem of ruleItems; let ruleItemIndex = index;">
-                                <div class="rule-item-detail pd-lr-16">
+                                <div class="rule-item-detail pd-lr-16" [ngClass]="{'rule-item-detail-nft': ruleItem.ruleTypeId == 'nft'}">
                                     <div class="d-flex overflow-hidden rule-item-type pd-top-16">
                                         <div ngbDropdown container="body">
                                             <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': ruleItem.ruleTypeId == ''}"
@@ -117,6 +117,67 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="d-flex mr-top-16 rule-item-rule" *ngIf="ruleItem.ruleTypeId == 'nft'">
+                                        <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">IS</div>
+                                        <div class="rule-item-nft-container d-flex flex-column mr-left-24">
+                                            <div class="form-group rule-item-criteria-contact-addrress">
+                                                <input type="text" id="contractAddress-{{ruleItemIndex}}" class="form-control app-why-floating-input"
+                                                    placeholder=" " name="contractAddress" [value]="ruleItem.contract_address">
+                                                <label class="app-why-floating-lbl" for="contractAddress-{{ruleItemIndex}}">Contract address</label>
+                                            </div>
+                                            <div class="rule-item-criteria-operator d-flex align-items-center">
+                                                <div class="d-flex overflow-hidden rule-item-select-operator mr-top-28">
+                                                    <div ngbDropdown container="body">
+                                                        <button type="button" class="link-dropdown left-arrow app-why-lbl f16 ft-lato light-70" [ngClass]="{'highlight': ruleItem.ruleTypeId != '' && ruleItem.operatorId ==''}"
+                                                                ngbDropdownToggle>{{ruleItem.operatorId != '' ? '[ ' + ruleItem.operator + ' ]': 'SELECT OPERATOR'}}
+                                                        </button>
+                                                        <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
+                                                            <ng-container *ngFor="let operator of operators">
+                                                                <button ngbDropdownItem class="pd-left-24 app-why-lbl f16 ft-lato no-letter-spacing"
+                                                                        (click)="selectOperator(ruleItem, operator)">[ {{operator.name}} ]
+                                                                </button>
+                                                                <div class="dropdown-divider"></div>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mr-top-16 mr-left-24 rule-item-criteria-quantity-held">
+                                                    <input type="text" id="quantityHeld-{{ruleItemIndex}}" class="form-control app-why-floating-input"
+                                                        placeholder=" " name="quantityHeld" [value]="ruleItem.quantity_held">
+                                                    <label class="app-why-floating-lbl" for="quantityHeld-{{ruleItemIndex}}">Quantity held</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rule-item-nft d-flex mr-left-20 mr-top-8 pd-box-16" *ngIf="ruleItem.ruleTypeId == 'nft'">
+                                    <div class="rule-item-and-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">AND</div>
+                                    <div class="rule-item-nft-container d-flex flex-column mr-left-16">
+                                        <div class="rule-item-nft-filter-item d-flex align-items-center">
+                                            <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'no_filter'" id="nofilters" name="filter"
+                                                   value="no_filter" (click)="onChangeFilter(ruleItem, 'no_filter')">
+                                            <label class="app-why-lbl f12 mr-left-8"
+                                                [ngClass]="{'primary': ruleItem.filter === 'no_filter', 'light-50': ruleItem.filter !== 'no_filter'}" for="nofilters">
+                                              NO FILTERS
+                                            </label>
+                                          </div>
+                                          <div class="rule-item-nft-filter-item d-flex justify-content-between align-items-center mr-top-16">
+                                            <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'filter_nft'" id="filter_nft" name="filter"
+                                                   value="filter_nft" (click)="onChangeFilter(ruleItem, 'filter_nft')">
+                                            <label class="app-why-lbl f12 mr-left-8"
+                                                   [ngClass]="{'primary': ruleItem.filter === 'filter_nft', 'light-50': ruleItem.filter !== 'filter_nft'}" for="sockdao">
+                                              FILTER BY NFT ID
+                                            </label>
+                                          </div>
+                                          <div class="rule-item-nft-filter-item d-flex justify-content-between align-items-center mr-top-16">
+                                            <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'filter_traits'" id="filter_traits" name="filter"
+                                                   value="filter_traits" (click)="onChangeFilter(ruleItem, 'filter_traits')">
+                                            <label class="app-why-lbl f12 mr-left-8"
+                                                   [ngClass]="{'primary': ruleItem.filter === 'filter_traits', 'light-50': ruleItem.filter !== 'filter_traits'}" for="filter_traits">
+                                              FILTER BY TRAITS
+                                            </label>
+                                          </div>
                                     </div>
                                 </div>
                                 <div class="rule-item-criterias d-flex flex-column">
@@ -186,13 +247,13 @@
                                                     <div class="rule-item-criteria-operator d-flex align-items-center">
                                                         <div class="d-flex overflow-hidden rule-item-select-operator mr-top-28">
                                                             <div ngbDropdown container="body">
-                                                                <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': criteria.ruleTypeId != '' && criteria.operatorId ==''}"
-                                                                        ngbDropdownToggle>{{criteria.operatorId != '' ? criteria.operator : 'SELECT OPERATOR'}}
+                                                                <button type="button" class="link-dropdown left-arrow app-why-lbl f16 ft-lato light-70" [ngClass]="{'highlight': criteria.ruleTypeId != '' && criteria.operatorId ==''}"
+                                                                        ngbDropdownToggle>{{criteria.operatorId != '' ? '[ ' + criteria.operator + ' ]': 'SELECT OPERATOR'}}
                                                                 </button>
                                                                 <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
                                                                     <ng-container *ngFor="let operator of operators">
-                                                                        <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
-                                                                                (click)="selectOperator(criteria, operator)">{{operator.name}}
+                                                                        <button ngbDropdownItem class="pd-left-24 app-why-lbl f16 ft-lato no-letter-spacing"
+                                                                                (click)="selectOperator(criteria, operator)">[ {{operator.name}} ]
                                                                         </button>
                                                                         <div class="dropdown-divider"></div>
                                                                     </ng-container>
