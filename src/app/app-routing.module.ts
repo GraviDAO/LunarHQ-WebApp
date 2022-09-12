@@ -14,7 +14,6 @@ import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forg
 import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
 import {AdminMenuComponent} from './modules/admin/menu/menu.component';
 import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
-import {CreatePollComponent} from './modules/lunar-hq/polls/create-poll/create-poll.component';
 import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.component';
 import { AdminListComponent } from './modules/admin/admin-list/admin-list.component';
 import { AdminUserListComponent } from './modules/admin/user-list/user-list.component';
