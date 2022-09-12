@@ -25,6 +25,7 @@
   width: mixin.toRem(720);
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 
 .create-poll-widget {
@@ -47,7 +48,7 @@
 .description_area {
   width: mixin.toRem(484);
   height: mixin.toRem(200);
-  opacity: 0.2;
+  opacity: 0.4;
   @include mixin.notch(8px);
   background-color: var(--dark);
   border: none;
@@ -65,3 +66,108 @@
     color: var(--primary);
   }
 }
+.height-192 {
+  height: mixin.toRem(192) !important;
+}
+
+.link-dropdown {
+    background: none;
+    outline: none;
+    width: mixin.toRem(180);
+    text-align: end;
+    padding: 0;
+  }
+
+.dropdown-menu{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: mixin.toRem(8);
+    &.show {
+        background-color: var(--bg-light);
+        border-radius: 0;
+        padding: 0;
+    }
+
+}
+.dropdown{
+    .dropdown-toggle::after {
+        font-size: var(--font-size-20);
+        vertical-align: 0.055em;
+        margin-top: 0.55rem;
+        position: relative;
+    }
+    &.show {
+        .dropdown-toggle{
+            color: var(--primary);
+        }
+        .dropdown-toggle::after {
+            color: var(--primary);
+            margin-top: 0.15rem;
+            height: mixin.toRem(12);
+            border-bottom: 0.3em dashed;
+            border-top: 0em solid transparent;
+            border-right: 0.3em solid transparent;
+            border-left: 0.3em solid transparent;
+        }
+    }
+}
+.dropdown-item {
+    height: mixin.toRem(36);
+    width: mixin.toRem(168);
+    &:hover {
+        background-color: var(--secondary);
+    }
+}
+.dropdown-divider {
+    border-top: mixin.toRem(1) solid var(--bg-white);
+    margin: 0;
+}
+
+.form-check-input {
+  background: var(--dark-20);
+  border-color: var(--light-70);
+  width: 12px;
+  height: 12px;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("/assets/img/svg/black-circle.svg");
+  border-width: 4px;
+  outline: none;
+  box-shadow: none;
+  + label {
+    color: var(--primary) !important;
+  }
+}
+
+.poll-timing-content {
+  width: mixin.toRem(600);
+  height: mixin.toRem(152);
+}
+
+.date-time-input {
+    background: transparent !important;
+    color: var(--light) !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--secondary) !important;
+    border-radius: 0 !important;
+    font-family: Lato, sans-serif;
+    font-weight: 300 !important;
+}
+
+.date-time-input {
+  &::-webkit-datetime-edit-ampm-field {
+    display: none;
+  }
+  &::-webkit-calendar-picker-indicator {
+    color: var(--light) !important;
+  }
+ }
+ input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+ input[type="time"]::-webkit-datetime-edit-hour-field {
+     margin-right: 3px;
+ }

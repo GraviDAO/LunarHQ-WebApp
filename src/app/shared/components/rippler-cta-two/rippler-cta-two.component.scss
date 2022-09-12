@@ -17,9 +17,13 @@
     width: var(--btn-sm-width);
     height: var(--btn-sm-height);
   }
-
   &:hover {
     background: var(--primary);
+  }
+  &.disabled {
+    cursor: none !important;
+    pointer-events: none !important;
+    background: var(--primary-20);
   }
 }
 
@@ -48,9 +52,10 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-
   &:hover{
     color: var(--primary-dark);
   }
-
+  &.disabled {
+    color: var(--primary-20) !important;
+  }
 }

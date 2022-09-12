@@ -16,9 +16,14 @@ export class GravidaoCreatePollComponent implements OnInit {
   activeSubMenu = '';
   createPollsObj = {};
   createPollForm!: FormGroup;
+  ctiveSubMenu = '';
+  stepperIndex = 0;
+  selectedTimeZone = 'UTC';
   private stepper!: Stepper;
   stepTitles = ['POLL INFORMATION', 'VOTE WEIGHT', 'POLL TIMGINGS', 'POLL LOCATION']
   stepTitle: string = this.stepTitles[0];
+  timeZones = {utc: 'UTC'}
+  dateRadioSelected = '';
   constructor(
     private router: Router,
     public cssClass: CssConstants,
@@ -32,15 +37,16 @@ export class GravidaoCreatePollComponent implements OnInit {
     });
 
     this.createPollForm = new FormGroup({
-      poll_name: new FormControl('', [ Validators.required]),
-      poll_discription: new FormControl('', [ Validators.required ]),
+      name: new FormControl('', [ Validators.required]),
+      poll_description: new FormControl('', [ Validators.required ]),
+      dateSelected: new FormControl('')
     });
   }
 
   getActiveStep() {
     const elements2: any = document.querySelectorAll('.step.active');
-    console.log(elements2, elements2[0]?.id, this.stepTitles);
-    this.stepTitle = this.stepTitles[elements2[0].id - 1];
+    const id = elements2[0].id.split('-')[1]
+    this.stepTitle = this.stepTitles[id];
   }
 
   next() {
@@ -57,11 +63,17 @@ export class GravidaoCreatePollComponent implements OnInit {
     return false;
   }
 
+  getStepperIndex = (event: any) => {
+    this.stepperIndex = event.detail?.indexStep;
+  }
+
   ngOnInit(): void {
-    this.stepper = new Stepper(document.querySelector('#stepper1') as HTMLElement, {
+    const stepperEl = document.querySelector('#stepper1') as HTMLElement;
+    this.stepper = new Stepper(stepperEl, {
       linear: false,
       animation: true
     })
+    stepperEl.addEventListener('show.bs-stepper', this.getStepperIndex);
   }
 
   navigateToPolls() {
@@ -70,11 +82,26 @@ export class GravidaoCreatePollComponent implements OnInit {
 
   countCharacter() {
     const currentCount = document.getElementById('current_count');
+    const description = this.createPollForm.controls['poll_description'].value;
+    if (currentCount)
+      currentCount.innerHTML = description.length + '&nbsp;';
     const maxCount = document.getElementById('maximum_count');
-
   }
 
   navigateBack() {
     this.location.back();
+  }
+
+  preview() {
+
+  }
+
+  selectTimeZone(tz: string) {
+    this.selectedTimeZone = tz;
+  }
+
+  getDatePicker(date: string) {
+    console.log(date);
+    this.dateRadioSelected = date;
   }
 }
