@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
-import {CssConstants} from '../../../shared/services/css-constants.service';
-import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
+import {CssConstants} from '../../../../../shared/services/css-constants.service';
+import {SideNavType} from '../../../../../shared/components/side-bar/side.nav.type';
 
 @Component({
   selector: 'app-why-lunar-hq-polls',
@@ -10,7 +10,7 @@ import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
   styleUrls: ['./polls.component.scss']
 })
 
-export class PollsComponent implements OnInit {
+export class GravidaoPollsComponent implements OnInit {
   constructor(
     private router: Router,
     public cssClass: CssConstants,

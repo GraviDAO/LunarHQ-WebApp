@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
-import {CssConstants} from '../../../../shared/services/css-constants.service';
-import {SideNavType} from '../../../../shared/components/side-bar/side.nav.type';
+import {CssConstants} from '../../../../../../shared/services/css-constants.service';
+import {SideNavType} from '../../../../../../shared/components/side-bar/side.nav.type';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Stepper from 'bs-stepper';
 
@@ -12,7 +12,7 @@ import Stepper from 'bs-stepper';
   styleUrls: ['./create-poll.component.scss']
 })
 
-export class CreatePollComponent implements OnInit {
+export class GravidaoCreatePollComponent implements OnInit {
   activeSubMenu = '';
   createPollsObj = {};
   createPollForm!: FormGroup;
@@ -40,7 +40,7 @@ export class CreatePollComponent implements OnInit {
   getActiveStep() {
     const elements2: any = document.querySelectorAll('.step.active');
     console.log(elements2, elements2[0]?.id, this.stepTitles);
-    this.stepTitle = this.stepTitles[elements2[0].id];
+    this.stepTitle = this.stepTitles[elements2[0].id - 1];
   }
 
   next() {
@@ -50,6 +50,7 @@ export class CreatePollComponent implements OnInit {
 
   previous() {
     this.stepper.previous();
+    this.getActiveStep();
   }
 
   onSubmit() {

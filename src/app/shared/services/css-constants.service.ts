@@ -15,6 +15,7 @@ export class CssConstants {
   cta1NormIcon = 'ic16 pd-right-6';
   cta1Md = 'app-why-btn md';
   cta1Btn = 'app-why-btn var-width';
+  cta1Admin = 'app-why-btn admin-btn';
   cta1MdInActive = 'app-why-btn md in-active';
   cta1Sm = 'app-why-btn small'
   cta1SmFlex = 'app-why-btn transparent small flex'

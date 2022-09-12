@@ -1,11 +1,15 @@
 @use "src/style/mixin-core" as mixin;
 
 .wd-666 {
-  width: mixin.toRem(666);
+  width: 70%;
+  //min-width: mixin.toRem(666);
+  padding-left: 16px;
 }
 
 .wd-255 {
-  width: mixin.toRem(255);
+  width: 30%;
+  //min-width: mixin.toRem(255);
+  padding-right: 16px;
 }
 
 .btn-container {
@@ -23,7 +27,8 @@
 }
 
 .wd-921 {
-  width: mixin.toRem(921);
+  width: 100%;
+  //width: mixin.toRem(921);
 }
 
 .divider {
@@ -80,13 +85,30 @@
   text-align: start;
 }
 
-.dropdown-container {
+/*.dropdown-container {
   margin-left: 87px;
   padding-top: 0;
   padding-bottom: 0;
-  margin-top: 8px
-}
+  margin-top: 8px;
+  border-radius: 0 !important;
+  background: #E5E5E5 !important;
+  border: 0 !important;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.5);
+}*/
 
 .table-wrapper {
   height: 61vh;
 }
+
+.add-ht-48 {
+  height: 47px;
+}
+
+/*.drop-down-wrapper {
+  margin-left: -41px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 10px !important;
+  border-radius: 0 !important;
+  background: #E5E5E5 !important;
+}*/

@@ -20,6 +20,8 @@ import { AdminListComponent } from './modules/admin/admin-list/admin-list.compon
 import { AdminUserListComponent } from './modules/admin/user-list/user-list.component';
 import { AdminWhitelistComponent } from './modules/admin/whitelist/whitelist.component';
 import { CreateRuleComponent } from './modules/lunar-hq/my-server/rules/create/create.component';
+import {GravidaoPollsComponent} from './modules/lunar-hq/my-server/graviDAO/polls/polls.component';
+import {GravidaoCreatePollComponent} from './modules/lunar-hq/my-server/graviDAO/polls/create-poll/create-poll.component';
 
 const routes: Routes = [
   {
@@ -69,12 +71,16 @@ const routes: Routes = [
     component: CreateRuleComponent
   },
   {
-    path: 'polls',
-    component: PollsComponent
+    path: 'my-server/gravidao/polls',
+    component: GravidaoPollsComponent
   },
   {
-    path: 'polls/create-poll',
-    component: CreatePollComponent
+    path: 'my-server/gravidao/create-poll',
+    component: GravidaoCreatePollComponent
+  },
+  {
+    path: 'polls',
+    component: PollsComponent
   },
   {
     path: 'admin',

@@ -59,3 +59,9 @@
 .text-wrapper {
   font-size: 12px !important;
 }
+.a {
+  pointer-events: none;
+  &:visited {
+    color: var(--primary);
+  }
+}

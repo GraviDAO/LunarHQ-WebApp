@@ -2,6 +2,8 @@
 
 .wd-10 {
   width: 10%;
+  display: flex;
+  justify-content: center;
 }
 
 .wd-15 {
@@ -66,9 +68,15 @@
 }
 
 .wd-921 {
-  width: mixin.toRem(921);
+  width: 100%;
+  //width: mixin.toRem(921);
 }
 
 .neg-mr-50 {
   margin-left: -50%;
+}
+
+th {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
 }
