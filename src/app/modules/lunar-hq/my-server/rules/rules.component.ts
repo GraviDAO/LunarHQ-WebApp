@@ -13,6 +13,53 @@ export class RulesComponent implements OnInit {
   activeSubMenu = '';
   viewRule = false;
   paused = false;
+  ruleName = 'Watchers on the wall';
+  role = 'shepards';
+  ruleItems =[
+    {
+      ruleTypeId: 'existing_rule',
+      ruleType: '',
+      ruleId: 'watchers',
+      rule: '',
+      condition: 'is',
+      contractAddress: '',
+      operatorId: '',
+      operator: '',
+      quantityHeld: '',
+      filter: 'no_filter',
+      nft_id:'',
+      file:'',
+      traits: [],
+      criterias: [
+        {
+          condition: 'and',
+          ruleCondition: 'is',
+          ruleTypeId: 'existing_rule',
+          ruleType: '',
+          ruleId: 'x-men',
+          rule: '',
+          contractAddress: '',
+          operatorId: '',
+          operator: '',
+          quantityHeld: '',
+          traits: []
+        },
+        {
+          condition: 'and',
+          ruleCondition: 'is',
+          ruleTypeId: 'nft',
+          ruleType: '',
+          ruleId: '',
+          rule: '',
+          contractAddress: '9v0dnfv08nas8fnv9a8fhavm',
+          operatorId: 'greater_than_equal',
+          operator: '≥',
+          quantityHeld: '2',
+          traits: []
+        }
+      ]
+    }
+  ]
 
   constructor(private router: Router,
               private location: Location,
