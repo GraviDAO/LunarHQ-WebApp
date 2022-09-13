@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RulesService } from 'src/app/modules/services/rules.service';
 import { CssConstants } from 'src/app/shared/services/css-constants.service';
 import { ModalService } from 'src/app/shared/_modal/modal.service';
 
@@ -17,9 +18,11 @@ export class RulesViewComponent implements OnInit {
   @Output() closeRule: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateRole: EventEmitter<any> = new EventEmitter<any>();
   constructor(public cssClass: CssConstants,
+    public rulesService: RulesService,
     private modalService: ModalService) { }
 
   ngOnInit(): void {
+    console.log('RulesViewComponent - ', this.rules);
   }
 
   closeView() {

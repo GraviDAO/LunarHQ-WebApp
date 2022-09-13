@@ -30,54 +30,48 @@
                         Base Role : \ 
                     </div>
                     <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                        {{role}}
+                        {{rulesService.getRole(role)?.name}}
                     </div>
                 </div>
-                <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light-50">
-                    Existing Rule 
-                </div>
-                <div class="rule-item-existing-rule-container d-flex flex-column pd-left-26">
-                    <div class="rule-item-is-rule-container d-flex">
-                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                            [ is ] 
-                        </div>
-                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                            Watchers on the wall
-                        </div>
+                <ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
+                    <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light-50">
+                        {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}} 
                     </div>
-                    <div class="rule-item-and-rule-container d-flex">
-                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato success">
-                            [ and ] 
+                    <div class="rule-item-existing-rule-container d-flex flex-column pd-left-26">
+                        <div class="rule-item-is-rule-container d-flex">
+                            <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                                [ {{rulesService.getCondition(ruleItem.condition)?.name}} ] 
+                            </div>
+                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="ruleItem.ruleTypeId == 'existing_rule'">
+                                {{rulesService.getRule(ruleItem.ruleId)?.name}}
+                            </div>
+                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'">
+                                {{ruleItem.contractAddress}}__[ {{rulesService.getOperator(ruleItem.operatorId)?.name}} ]__{{ruleItem.quantityHeld}}
+                            </div>
                         </div>
-                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato success pd-left-4">
-                            Existing Rule
-                        </div>
+                        <ng-container *ngFor="let criteria of ruleItem.criterias; let criteriaIndex = index;">
+                            <div class="rule-item-and-rule-container d-flex">
+                                <div class="rule-item-is-rule app-why-lbl f14 ft-lato success">
+                                    [ {{rulesService.getCondition(criteria.condition)?.name}} ] 
+                                </div>
+                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato success pd-left-4">
+                                    {{rulesService.getRuleType(criteria.ruleTypeId)?.name}}
+                                </div>
+                            </div>
+                            <div class="rule-item-is-rule-container d-flex pd-left-24">
+                                <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                                    [ {{rulesService.getCondition(criteria.ruleCondition)?.name}} ] 
+                                </div>
+                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="criteria.ruleTypeId == 'existing_rule'">
+                                    {{rulesService.getRule(criteria.ruleId)?.name}}
+                                </div>
+                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="criteria.ruleTypeId == 'nft' || criteria.ruleTypeId == 'token'">
+                                    {{criteria.contractAddress}}__[ {{rulesService.getOperator(criteria.operatorId)?.name}} ]__{{criteria.quantityHeld}}
+                                </div>
+                            </div>
+                        </ng-container>
                     </div>
-                    <div class="rule-item-is-rule-container d-flex pd-left-24">
-                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                            [ is ] 
-                        </div>
-                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                            X-Men 2.0
-                        </div>
-                    </div>
-                    <div class="rule-item-and-rule-container d-flex">
-                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato success">
-                            [ and ] 
-                        </div>
-                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato success pd-left-4">
-                            NFT
-                        </div>
-                    </div>
-                    <div class="rule-item-is-rule-container d-flex pd-left-26">
-                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                            [ is ]
-                        </div>
-                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                            9v0dnfv08nas8fnv9a8fhavm __ [ > ] [ = ]  __ 2
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
             <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
                 &lt;end&gt;

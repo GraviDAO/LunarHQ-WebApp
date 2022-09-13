@@ -123,7 +123,7 @@
                                         <div class="rule-item-nft-container d-flex flex-column mr-left-24">
                                             <div class="form-group rule-item-criteria-contact-addrress">
                                                 <input type="text" id="contractAddress-{{ruleItemIndex}}" class="form-control app-why-floating-input"
-                                                    placeholder=" " name="contractAddress" [value]="ruleItem.contract_address">
+                                                    placeholder=" " name="contractAddress" [(ngModel)]="ruleItem.contractAddress" [ngModelOptions]="{standalone: true}">
                                                 <label class="app-why-floating-lbl" for="contractAddress-{{ruleItemIndex}}">Contract address</label>
                                             </div>
                                             <div class="rule-item-criteria-operator d-flex align-items-center">
@@ -144,7 +144,7 @@
                                                 </div>
                                                 <div class="form-group mr-top-16 mr-left-24 rule-item-criteria-quantity-held">
                                                     <input type="text" id="quantityHeld-{{ruleItemIndex}}" class="form-control app-why-floating-input"
-                                                        placeholder=" " name="quantityHeld" [value]="ruleItem.quantity_held">
+                                                        placeholder=" " name="quantityHeld" [(ngModel)]="ruleItem.quantityHeld" [ngModelOptions]="{standalone: true}">
                                                     <label class="app-why-floating-lbl" for="quantityHeld-{{ruleItemIndex}}">Quantity held</label>
                                                 </div>
                                             </div>
@@ -222,8 +222,8 @@
                                                 <div class="d-flex rule-item-criteria-trait-type-container">
                                                     <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047">
                                                         <div ngbDropdown container="body">
-                                                            <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': trait.condition == 'AND', 'error': trait.condition == 'NOT', 'warning': trait.condition == 'OR', 'light-50': trait.condition == 'IS'}"
-                                                                    ngbDropdownToggle>{{trait.condition}}
+                                                            <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}"
+                                                                    ngbDropdownToggle>{{rulesService.getCondition(trait.condition)?.name}}
                                                             </button>
                                                             <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
                                                                 <ng-container *ngFor="let condition of conditions">
@@ -255,11 +255,11 @@
                                                 <div class="d-flex flex-column rule-item-criteria-trait-rows-container mr-left-16">
                                                     <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
                                                         <div class="d-flex align-items-center mr-top-8 rule-item-criteria-trait-row">
-                                                            <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047" *ngIf="rowIndex == 0">{{row.condition}}</div>
+                                                            <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047" *ngIf="rowIndex == 0">{{rulesService.getCondition(row.condition)?.name}}</div>
                                                             <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047" *ngIf="rowIndex > 0">
                                                                 <div ngbDropdown container="body">
-                                                                    <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold"  [ngClass]="{'success': row.condition == 'AND', 'error': row.condition == 'NOT', 'warning': row.condition == 'OR', 'light-50': row.condition == 'IS'}"
-                                                                            ngbDropdownToggle>{{row.condition}}
+                                                                    <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold"  [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}"
+                                                                            ngbDropdownToggle>{{rulesService.getCondition(row.condition)?.name}}
                                                                     </button>
                                                                     <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
                                                                         <ng-container *ngFor="let condition of conditions">
@@ -313,8 +313,8 @@
                                             <div class="d-flex align-items-center mr-top-16 rule-item-rule">
                                                 <div class="d-flex overflow-hidden align-items-center rule-item-condition app-why-lbl f12 ft-bold letter-spacing-047">
                                                     <div ngbDropdown container="body">
-                                                        <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': criteria.condition == 'AND', 'error': criteria.condition == 'NOT', 'warning': criteria.condition == 'OR', 'light-50': criteria.condition == 'IS'}"
-                                                                ngbDropdownToggle>{{criteria.condition}}
+                                                        <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}"
+                                                                ngbDropdownToggle>{{rulesService.getCondition(criteria.condition)?.name}}
                                                         </button>
                                                         <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
                                                             <ng-container *ngFor="let condition of conditions">
@@ -365,7 +365,7 @@
                                                 <div class="rule-item-nft-container d-flex flex-column mr-left-24">
                                                     <div class="form-group rule-item-criteria-contact-addrress">
                                                         <input type="text" id="contractAddress-{{criteriaIndex}}" class="form-control app-why-floating-input"
-                                                            placeholder=" " name="contractAddress" [value]="criteria.contract_address">
+                                                            placeholder=" " name="contractAddress" [(ngModel)]="criteria.contractAddress" [ngModelOptions]="{standalone: true}">
                                                         <label class="app-why-floating-lbl" for="contractAddress-{{criteriaIndex}}">Contract address</label>
                                                     </div>
                                                     <div class="rule-item-criteria-operator d-flex align-items-center">
@@ -386,7 +386,7 @@
                                                         </div>
                                                         <div class="form-group mr-top-16 mr-left-24 rule-item-criteria-quantity-held">
                                                             <input type="text" id="quantityHeld-{{criteriaIndex}}" class="form-control app-why-floating-input"
-                                                                placeholder=" " name="quantityHeld" [value]="criteria.quantity_held">
+                                                                placeholder=" " name="quantityHeld" [(ngModel)]="criteria.quantityHeld" [ngModelOptions]="{standalone: true}">
                                                             <label class="app-why-floating-lbl" for="quantityHeld-{{criteriaIndex}}">Quantity held</label>
                                                         </div>
                                                     </div>
@@ -403,8 +403,8 @@
                                                         <div class="d-flex rule-item-criteria-trait-type-container">
                                                             <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047">
                                                                 <div ngbDropdown container="body">
-                                                                    <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': trait.condition == 'AND', 'error': trait.condition == 'NOT', 'warning': trait.condition == 'OR', 'light-50': trait.condition == 'IS'}"
-                                                                            ngbDropdownToggle>{{trait.condition}}
+                                                                    <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}"
+                                                                            ngbDropdownToggle>{{rulesService.getCondition(trait.condition)?.name}}
                                                                     </button>
                                                                     <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
                                                                         <ng-container *ngFor="let condition of conditions">
@@ -436,11 +436,11 @@
                                                         <div class="d-flex flex-column rule-item-criteria-trait-rows-container mr-left-16">
                                                             <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
                                                                 <div class="d-flex align-items-center mr-top-8 rule-item-criteria-trait-row">
-                                                                    <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047" *ngIf="rowIndex == 0">{{row.condition}}</div>
+                                                                    <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047" *ngIf="rowIndex == 0">{{rulesService.getCondition(row.condition)?.name}}</div>
                                                                     <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047" *ngIf="rowIndex > 0">
                                                                         <div ngbDropdown container="body">
                                                                             <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold"  [ngClass]="{'success': row.condition == 'AND', 'error': row.condition == 'NOT', 'warning': row.condition == 'OR', 'light-50': row.condition == 'IS'}"
-                                                                                    ngbDropdownToggle>{{row.condition}}
+                                                                                    ngbDropdownToggle>{{rulesService.getCondition(row.condition)?.name}}
                                                                             </button>
                                                                             <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
                                                                                 <ng-container *ngFor="let condition of conditions">
