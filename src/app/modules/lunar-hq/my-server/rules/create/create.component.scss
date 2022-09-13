@@ -152,7 +152,7 @@
 .rule-item-detail {
     height: mixin.toRem(96);
     background-color: var(--dark);
-    &.rule-item-detail-nft {
+    &.rule-item-detail-nft-token {
         height: mixin.toRem(180);
     }
 }
@@ -185,7 +185,7 @@
 .rule-item-criteria {
     height: mixin.toRem(96);
     background-color: var(--dark-50);
-    &.rule-item-criteria-nft {
+    &.rule-item-criteria-nft-token {
         height: mixin.toRem(192); 
     }
 }
@@ -217,4 +217,15 @@
 }
 .rule-item-criteria-trait-rows-container {
     width: mixin.toRem(296);
+}
+
+.rules-view{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: mixin.toRem(480);
+    z-index: 1000;
+    background-color: var(--tertiary);
+    box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
 }

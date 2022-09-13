@@ -176,6 +176,7 @@ export class CreateRuleComponent implements OnInit {
     }
   ]
   public stepper!: Stepper;
+  viewRule = false;
   stepTitles = ['RULE DETAILS', 'CREATE RULES', 'PREVIEW']
   stepTitle: string = this.stepTitles[0];
   defaultRuleItem = {
@@ -275,10 +276,6 @@ export class CreateRuleComponent implements OnInit {
 
   previous() {
     this.stepper.previous();
-  }
-
-  preview() {
-
   }
 
   countCharacter() {
@@ -401,5 +398,14 @@ export class CreateRuleComponent implements OnInit {
     console.log('updateNftId - ', ruleItem, value);
     ruleItem.nft_id = value;
     console.log('ruleItems  - ', this.ruleItems);
+  }
+  preview() {
+    this.viewRule = true;
+  }
+  closeView() {
+    this.viewRule = false;
+  }
+  updateRole() {
+
   }
 }

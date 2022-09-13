@@ -84,7 +84,7 @@
                         <div class="title-underline mr-top-8"></div>
                         <div class="create-rule-content">
                             <div class="rule-item mr-top-24" *ngFor="let ruleItem of ruleItems; let ruleItemIndex = index;">
-                                <div class="rule-item-detail pd-lr-16" [ngClass]="{'rule-item-detail-nft': ruleItem.ruleTypeId == 'nft'}">
+                                <div class="rule-item-detail pd-lr-16" [ngClass]="{'rule-item-detail-nft-token': ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'}">
                                     <div class="d-flex overflow-hidden rule-item-type pd-top-16">
                                         <div ngbDropdown container="body">
                                             <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': ruleItem.ruleTypeId == ''}"
@@ -118,7 +118,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex mr-top-16 rule-item-rule" *ngIf="ruleItem.ruleTypeId == 'nft'">
+                                    <div class="d-flex mr-top-16 rule-item-rule" *ngIf="ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'">
                                         <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">IS</div>
                                         <div class="rule-item-nft-container d-flex flex-column mr-left-24">
                                             <div class="form-group rule-item-criteria-contact-addrress">
@@ -212,9 +212,101 @@
                                           </div>
                                     </div>
                                 </div>
+                                <div *ngIf="ruleItem.filter === 'filter_traits'" class="d-flex flex-column mr-left-44">
+                                    <ng-container *ngFor="let trait of ruleItem.traits; let traitIndex = index;">
+                                        <div class="rule-item-criteria-trait-item mr-top-8 pd-lr-16">
+                                            <div class="trait-close-button d-flex justify-content-end align-items-end mr-top-8 add-cursor" (click)="removeTrait(ruleItem, traitIndex)">
+                                                <ion-icon name="close-outline" class="app-why-icon ic18 light-50"></ion-icon>
+                                            </div>
+                                            <div class="d-flex pd-top-16 rule-item-criteria-trait-container">
+                                                <div class="d-flex rule-item-criteria-trait-type-container">
+                                                    <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047">
+                                                        <div ngbDropdown container="body">
+                                                            <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold" [ngClass]="{'success': trait.condition == 'AND', 'error': trait.condition == 'NOT', 'warning': trait.condition == 'OR', 'light-50': trait.condition == 'IS'}"
+                                                                    ngbDropdownToggle>{{trait.condition}}
+                                                            </button>
+                                                            <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
+                                                                <ng-container *ngFor="let condition of conditions">
+                                                                    <button ngbDropdownItem class="condition-dropdown-item pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                                                                            (click)="selectCondition(trait, condition)">{{condition.name}}
+                                                                    </button>
+                                                                    <div class="dropdown-divider"></div>
+                                                                </ng-container>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex overflow-hidden rule-item-select-trait mr-left-24">
+                                                        <div ngbDropdown container="body">
+                                                            <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': trait.traitTypeId == ''}"
+                                                                    ngbDropdownToggle>{{trait.traitTypeId != '' ? trait.traitType : 'SELECT TRAIT TYPE'}}
+                                                            </button>
+                                                            <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
+                                                                <ng-container *ngFor="let traitType of traitTypes">
+                                                                    <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                                                                            (click)="selectTraitType(trait, traitType)">{{traitType.name}}
+                                                                    </button>
+                                                                    <div class="dropdown-divider"></div>
+                                                                </ng-container>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="rule-item-criteria-trait-divider"></div>
+                                                <div class="d-flex flex-column rule-item-criteria-trait-rows-container mr-left-16">
+                                                    <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
+                                                        <div class="d-flex align-items-center mr-top-8 rule-item-criteria-trait-row">
+                                                            <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047" *ngIf="rowIndex == 0">{{row.condition}}</div>
+                                                            <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047" *ngIf="rowIndex > 0">
+                                                                <div ngbDropdown container="body">
+                                                                    <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold"  [ngClass]="{'success': row.condition == 'AND', 'error': row.condition == 'NOT', 'warning': row.condition == 'OR', 'light-50': row.condition == 'IS'}"
+                                                                            ngbDropdownToggle>{{row.condition}}
+                                                                    </button>
+                                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">
+                                                                        <ng-container *ngFor="let condition of conditions">
+                                                                            <button ngbDropdownItem class="condition-dropdown-item pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                                                                                    (click)="selectCondition(row, condition)">{{condition.name}}
+                                                                            </button>
+                                                                            <div class="dropdown-divider"></div>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex overflow-hidden rule-item-select-rule mr-left-16">
+                                                                <div ngbDropdown container="body">
+                                                                    <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': row.rowId == '' && trait.traitTypeId != ''}"
+                                                                            ngbDropdownToggle>{{row.rowId != '' ? row.row : 'SELECT ROW'}}
+                                                                    </button>
+                                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
+                                                                        <ng-container *ngFor="let traitRow of traitRows">
+                                                                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                                                                                    (click)="selectTraitRow(row, traitRow)">{{traitRow.name}}
+                                                                            </button>
+                                                                            <div class="dropdown-divider"></div>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="trait-row-remove-button d-flex justify-content-end align-items-end mr-top-8 add-cursor" (click)="removeTraitRow(trait, rowIndex)" *ngIf="rowIndex > 0">
+                                                                <ion-icon name="remove-circle-outline" class="app-why-icon ic18 light-50"></ion-icon>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <div class="rule-item-criteria-add-row d-flex align-items-center mr-top-16 add-cursor" (click)="addTraitRow(trait)">
+                                                        <ion-icon name="add-circle-outline" class="app-why-icon ic16 light-50 add-cursor"></ion-icon>
+                                                        <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8 add-cursor">ADD ROW</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <div class="rule-item-criteria-add-trait d-flex align-items-center mr-top-8 add-cursor" (click)="addTrait(ruleItem)">
+                                        <ion-icon name="add-circle-outline" class="app-why-icon ic16 light-50 add-cursor"></ion-icon>
+                                        <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8 add-cursor">ADD TRAIT</label>
+                                    </div>
+                                </div>
                                 <div class="rule-item-criterias d-flex flex-column">
                                     <ng-container *ngFor="let criteria of ruleItem.criterias; let criteriaIndex = index;">
-                                        <div class="rule-item-criteria mr-left-20 mr-top-8 pd-lr-16" [ngClass]="{'rule-item-criteria-nft': criteria.ruleTypeId == 'nft'}">
+                                        <div class="rule-item-criteria mr-left-20 mr-top-8 pd-lr-16" [ngClass]="{'rule-item-criteria-nft-token': criteria.ruleTypeId == 'nft' || criteria.ruleTypeId == 'token'}">
                                             <div class="criteria-close-button d-flex justify-content-end align-items-end mr-top-8 add-cursor" (click)="removeCriteria(ruleItemIndex, criteriaIndex)">
                                                 <ion-icon name="close-outline" class="app-why-icon ic18 light-50"></ion-icon>
                                             </div>
@@ -268,7 +360,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mr-top-16 rule-item-rule" *ngIf="criteria.ruleTypeId == 'nft'">
+                                            <div class="d-flex mr-top-16 rule-item-rule" *ngIf="criteria.ruleTypeId == 'nft' || criteria.ruleTypeId == 'token'">
                                                 <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">IS</div>
                                                 <div class="rule-item-nft-container d-flex flex-column mr-left-24">
                                                     <div class="form-group rule-item-criteria-contact-addrress">
@@ -340,8 +432,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="rule-item-criteria-trait-divider">
-                                                        </div>
+                                                        <div class="rule-item-criteria-trait-divider"></div>
                                                         <div class="d-flex flex-column rule-item-criteria-trait-rows-container mr-left-16">
                                                             <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
                                                                 <div class="d-flex align-items-center mr-top-8 rule-item-criteria-trait-row">
@@ -363,7 +454,7 @@
                                                                     </div>
                                                                     <div class="d-flex overflow-hidden rule-item-select-rule mr-left-16">
                                                                         <div ngbDropdown container="body">
-                                                                            <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': row.rowId == ''}"
+                                                                            <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50" [ngClass]="{'highlight': row.rowId == '' && trait.traitTypeId != ''}"
                                                                                     ngbDropdownToggle>{{row.rowId != '' ? row.row : 'SELECT ROW'}}
                                                                             </button>
                                                                             <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
@@ -436,7 +527,10 @@
             </div>
           </div>
         </div>
-</div>
+    </div>
+    <div class="rules-view" [hidden]="!viewRule">
+        <app-why-lunar-hq-rules-view [update]="true" [ruleName]="createRuleForm.get('name').value" [role]="createRuleForm.get('role').value" [rules]="ruleItems"  (closeRule)="closeView()" (updateRole)="updateRole()"></app-why-lunar-hq-rules-view>
+    </div>
 </div>
 <!--</app-why-side-nav>-->
 </app-why-header-side-nav>

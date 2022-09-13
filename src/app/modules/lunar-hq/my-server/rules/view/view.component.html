@@ -11,7 +11,7 @@
             </div>
             <div class="rule-title-container pd-top-8 d-flex justify-content-between">
                 <div class="rule-title app-why-lbl f16 ft-bold light">
-                    Watchers on the wall
+                    {{ruleName}}
                     <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
                 </div>
                 <div class="rule-title d-flex align-items-center">
@@ -30,7 +30,7 @@
                         Base Role : \ 
                     </div>
                     <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                        Watchers on the wall
+                        {{role}}
                     </div>
                 </div>
                 <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light-50">
@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24" *ngIf="!paused">
+    <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24" *ngIf="!paused && !update">
         <div class="rules-action-item">
             <app-why-cta-three
                 [parentClass]="'flex-column'" 
@@ -115,7 +115,7 @@
             </app-why-cta-three>
         </div>
     </div>
-    <div class="rules-action-container justify-content-center d-flex pd-top-40" *ngIf="paused">
+    <div class="rules-action-container justify-content-center d-flex pd-top-40" *ngIf="paused || update">
         <app-why-cta-one
             [cssClass]="cssClass.cta1Md + ' cursor-pointer'"
             (click)="updatePauseRole()"
