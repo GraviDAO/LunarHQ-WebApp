@@ -7,6 +7,7 @@ import { GravidaoCreatePollComponent } from './graviDAO/polls/create-poll/create
 import { MyServerComponent } from './my-server.component';
 import { AddNewServerComponent } from './add-new-server/add-new-server.component';
 import { MyLicensesComponent } from './my-licenses/my-licenses.component';
+import { RulesComponent } from './rules/rules.component';
 
 
 @NgModule({

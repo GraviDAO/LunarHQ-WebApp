@@ -15,9 +15,14 @@ import { MyLicensesComponent } from './my-server/my-licenses/my-licenses.compone
 import { DetailsComponent } from './my-server/details/details.component';
 import {RecentPollsComponent} from './common/recent-polls/recent-polls-component';
 import {RecentAnnouncementsComponent} from './common/recent-announcements/recent-announcements.component';
+import { RulesComponent } from './my-server/rules/rules.component';
+import { RulesViewComponent } from './my-server/rules/view/view.component';
 import {GravidaoPollsComponent} from './my-server/graviDAO/polls/polls.component';
 import {GravidaoCreatePollComponent} from './my-server/graviDAO/polls/create-poll/create-poll.component';
+import { CreateRuleComponent } from './my-server/rules/create/create.component';
 import { PollsComponent } from './polls/polls.component';
+import {AnnouncementsComponent} from './announcement/announcements.component';
+
 
 const commonModules = [
   WelcomeComponent,
@@ -27,11 +32,15 @@ const commonModules = [
   AddNewServerComponent,
   MyLicensesComponent,
   DetailsComponent,
+  RulesComponent,
+  RulesViewComponent,
+  CreateRuleComponent,
   RecentPollsComponent,
   RecentAnnouncementsComponent,
   GravidaoPollsComponent,
   GravidaoCreatePollComponent,
-  PollsComponent
+  PollsComponent,
+  AnnouncementsComponent
 ];
 
 const ngBootstrapModules = [

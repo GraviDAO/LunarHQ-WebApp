@@ -18,6 +18,7 @@ export class CssConstants {
   cta1Admin = 'app-why-btn admin-btn';
   cta1MdInActive = 'app-why-btn md in-active';
   cta1Sm = 'app-why-btn small'
+  cta1SmDark50 = 'app-why-btn small dark-50'
   cta1SmFlex = 'app-why-btn transparent small flex'
   cta1SmFlexRemove = 'app-why-btn transparent small flex'
   cta2 = 'app-why-btn cta2 full-width';
@@ -30,7 +31,9 @@ export class CssConstants {
   cta3Primary14Icon = 'app-why-icon ic14 primary';
   cta3Light5014Icon = 'app-why-icon ic14 light-50';
   cta3BtnLabel = 'cta3 app-why-lbl f10 norm break-line light-70';
+  cta3BtnLabelPrimary = 'cta3 app-why-lbl f10 norm break-line primary';
   cta3Icon = 'app-why-icon pd-right-15 pd-left-15 ic14 light-70 norm';
+  cta3IconPrimary = 'app-why-icon pd-right-15 pd-left-15 ic14 primary norm';
 
   cta3PrimaryMedium = 'cta3 app-why-lbl f14 primary';
   // cta3Primary14 = 'cta3 app-why-lbl f14 norm primary';

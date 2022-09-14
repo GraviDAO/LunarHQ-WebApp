@@ -35,7 +35,7 @@ export class DetailsComponent implements OnInit {
   }
 
   navigateToRules() {
-
+    this.router.navigate(['my-server/rules']);
   }
 
   navigateToPolls() {

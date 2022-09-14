@@ -14,6 +14,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {JwtInterceptor} from './shared/services/jwt.interceptor';
 import {AdminModule} from './modules/admin/admin.module';
+import {CdkStepperModule} from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {AdminModule} from './modules/admin/admin.module';
     ModalModule,
     LunarHqModule,
     AdminModule,
+    CdkStepperModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

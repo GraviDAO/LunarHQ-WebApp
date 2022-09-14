@@ -13,12 +13,15 @@ import {AdminLoginComponent} from './modules/admin/login/login.component';
 import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forgot-password.component';
 import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
 import {AdminMenuComponent} from './modules/admin/menu/menu.component';
-import {AdminListComponent} from './modules/admin/admin-list/admin-list.component';
-import {AdminUserListComponent} from './modules/admin/user-list/user-list.component';
-import {AdminWhitelistComponent} from './modules/admin/whitelist/whitelist.component';
+import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
+import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.component';
+import { AdminListComponent } from './modules/admin/admin-list/admin-list.component';
+import { AdminUserListComponent } from './modules/admin/user-list/user-list.component';
+import { AdminWhitelistComponent } from './modules/admin/whitelist/whitelist.component';
+import { CreateRuleComponent } from './modules/lunar-hq/my-server/rules/create/create.component';
 import {GravidaoPollsComponent} from './modules/lunar-hq/my-server/graviDAO/polls/polls.component';
 import {GravidaoCreatePollComponent} from './modules/lunar-hq/my-server/graviDAO/polls/create-poll/create-poll.component';
-import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
+import {AnnouncementsComponent} from './modules/lunar-hq/announcement/announcements.component';
 
 const routes: Routes = [
   {
@@ -40,6 +43,10 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
+    path: 'announcement',
+    component: AnnouncementsComponent
+  },
+  {
     path: 'profile',
     component: ProfileComponent
   },
@@ -58,6 +65,14 @@ const routes: Routes = [
   {
     path: 'my-server/details',
     component: DetailsComponent
+  },
+  {
+    path: 'my-server/rules',
+    component: RulesComponent
+  },
+  {
+    path: 'my-server/rules/create',
+    component: CreateRuleComponent
   },
   {
     path: 'my-server/gravidao/polls',
