@@ -24,6 +24,7 @@ import { PollsComponent } from './polls/polls.component';
 import {AnnouncementsComponent} from './announcement/announcements.component';
 
 
+
 const commonModules = [
   WelcomeComponent,
   DashboardComponent,
