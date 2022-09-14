@@ -13,6 +13,7 @@ import {ModalModule} from './_modal/modal.module';
 import {SideBarComponent} from './components/side-bar/side-bar.component';
 import {ModalWrapperComponent} from './components/modal-wrapper/modal-wrapper.component';
 import {RipplerHeaderSideNavComponent} from './components/rippler-header-side-nav/rippler-header-side-nav.component';
+import {RipplerDropDownComponent} from './components/rippler-drop-down/rippler-drop-down.component';
 
 const commonModules = [
   CtaOneComponent,
@@ -25,7 +26,8 @@ const commonModules = [
   RipplerCtaTwoComponent,
   SideBarComponent,
   ModalWrapperComponent,
-  RipplerHeaderSideNavComponent
+  RipplerHeaderSideNavComponent,
+  RipplerDropDownComponent
 ];
 
 @NgModule({

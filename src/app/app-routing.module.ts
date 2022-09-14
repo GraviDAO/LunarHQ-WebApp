@@ -21,6 +21,7 @@ import { AdminWhitelistComponent } from './modules/admin/whitelist/whitelist.com
 import { CreateRuleComponent } from './modules/lunar-hq/my-server/rules/create/create.component';
 import {GravidaoPollsComponent} from './modules/lunar-hq/my-server/graviDAO/polls/polls.component';
 import {GravidaoCreatePollComponent} from './modules/lunar-hq/my-server/graviDAO/polls/create-poll/create-poll.component';
+import {AnnouncementsComponent} from './modules/lunar-hq/announcement/announcements.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'announcement',
+    component: AnnouncementsComponent
   },
   {
     path: 'profile',

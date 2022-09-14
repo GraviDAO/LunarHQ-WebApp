@@ -29,6 +29,10 @@
   background-size: contain;
 }
 
+.add-backdrop-filter {
+  backdrop-filter: blur(16px);
+}
+
 // modal background
 .modal-container {
   background-image: linear-gradient(rgb(35 31 32 / 10%), rgb(73 66 67 / 10%));
@@ -66,3 +70,4 @@ $grid-breakpoints: (
     @content;
   }
 }
+

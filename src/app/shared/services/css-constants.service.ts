@@ -18,6 +18,7 @@ export class CssConstants {
   cta1Admin = 'app-why-btn admin-btn';
   cta1MdInActive = 'app-why-btn md in-active';
   cta1Sm = 'app-why-btn small'
+  cta1SmDark50 = 'app-why-btn small dark-50'
   cta1SmFlex = 'app-why-btn transparent small flex'
   cta1SmFlexRemove = 'app-why-btn transparent small flex'
   cta2 = 'app-why-btn cta2 full-width';

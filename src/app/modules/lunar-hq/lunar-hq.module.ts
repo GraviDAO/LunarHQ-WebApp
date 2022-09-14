@@ -21,6 +21,8 @@ import {GravidaoPollsComponent} from './my-server/graviDAO/polls/polls.component
 import {GravidaoCreatePollComponent} from './my-server/graviDAO/polls/create-poll/create-poll.component';
 import { CreateRuleComponent } from './my-server/rules/create/create.component';
 import { PollsComponent } from './polls/polls.component';
+import {AnnouncementsComponent} from './announcement/announcements.component';
+
 
 
 const commonModules = [
@@ -38,7 +40,8 @@ const commonModules = [
   RecentAnnouncementsComponent,
   GravidaoPollsComponent,
   GravidaoCreatePollComponent,
-  PollsComponent
+  PollsComponent,
+  AnnouncementsComponent
 ];
 
 const ngBootstrapModules = [
