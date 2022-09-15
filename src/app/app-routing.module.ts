@@ -22,6 +22,7 @@ import { CreateRuleComponent } from './modules/lunar-hq/my-server/rules/create/c
 import {GravidaoPollsComponent} from './modules/lunar-hq/my-server/graviDAO/polls/polls.component';
 import {GravidaoCreatePollComponent} from './modules/lunar-hq/my-server/graviDAO/polls/create-poll/create-poll.component';
 import {AnnouncementsComponent} from './modules/lunar-hq/announcement/announcements.component';
+import {WelcomeV2Component} from './modules/lunar-hq/welcome-v2/welcome-v2.component';
 
 const routes: Routes = [
   {
@@ -35,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
-    component: WelcomeComponent,
+    component: WelcomeV2Component,
     canActivate: [StateGuard] // commented for demo
   },
   {

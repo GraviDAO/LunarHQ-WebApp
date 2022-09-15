@@ -14,3 +14,9 @@
   bottom: mixin.toRem(24);
   right: mixin.toRem(24);
 }
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  .social-links {
+    display: none !important;
+  }
+}

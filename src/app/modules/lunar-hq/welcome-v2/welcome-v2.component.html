@@ -1,0 +1,74 @@
+<app-why-header
+  [buttonLabel]="''"
+  [profileObj]="{viewProfile: false, viewSettings: false}"
+  [title]="currentStep"
+  [subTitle]="''"></app-why-header>
+
+<section class="wc-container">
+
+  <article class="option-main-wrapper">
+    <div class="option-container" [ngClass]="{'active-container': selected === 'connect'}">
+      <div class="text-center pd-bottom-8">
+        <label class="app-why-lbl f14 secondary ft-uni">connect wallet</label>
+      </div>
+      <div class="option-wrapper">
+        <div class="pd-bottom-32">
+          <label class="app-why-lbl f16 light-70 ft-lato">
+            Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.
+          </label>
+        </div>
+        <div class="d-flex justify-content-center">
+          <app-why-cta-one
+            [iconClass]="selected === 'connect' ? cssClass.cta1Icon : cssClass.cta1NormIcon"
+            [iconType]="'file-tray-full'"
+            (clickEvent)="connectWallet()"
+            [isDisabled]="selected === 'discord' || selected === 'done' "
+            [cssClass]="cssClass.cta1"
+            [btnLabel]="'Connect Wallet'"></app-why-cta-one>
+        </div>
+      </div>
+    </div>
+
+    <div class="pd-left-24 option-container" [ngClass]="{'active-container': selected === 'discord'}">
+      <div class="text-center pd-bottom-8">
+        <label class="app-why-lbl f14 secondary ft-uni">connect discord</label>
+      </div>
+      <div class="option-wrapper discord-container">
+        <div class="pd-bottom-32">
+          <label class="app-why-lbl f16 light-70 ft-lato">
+            Lunar HQ links Discord to your crypto wallet. Unlock the community potential of your crypto assets with server roles, token weighted voting and other powerful features.
+          </label>
+        </div>
+        <div class="d-flex justify-content-center">
+          <app-why-cta-one
+            [iconPath]="'/assets/img/svg/discord-brands-dark.svg'"
+            (clickEvent)="connectToDiscord()"
+            [isDisabled]="selected === 'done'"
+            [iconClass]="cssClass.cta1Icon"
+            [cssClass]="cssClass.cta1"
+            [btnLabel]="'Connect Discord'"></app-why-cta-one>
+        </div>
+      </div>
+    </div>
+  </article>
+
+
+  <div class="placeholder-wrapper">
+    <div>
+      <div class="d-flex add-cursor" (click)="navigateToGravidao()">
+        <div>
+          <img class="built-by-container"
+               src="../../../../assets/img/png/footer-label-1.png" alt="">
+        </div>
+        <div class="pd-left-2">
+          <img class="logo-container"
+               src="../../../../assets/img/png/footer-label-2.png" alt="">
+        </div>
+      </div>
+      <div class="d-flex mr-top-28 justify-content-center add-cursor" (click)="navigateToRippler()">
+        <img class="rippler-logo-container"
+             src="../../../../assets/img/svg/Rippler-grey.svg" alt="">
+      </div>
+    </div>
+  </div>
+</section>

@@ -13,6 +13,15 @@
   position: fixed;
 }
 
+.header-smd-container {
+  display: none;
+
+  .logo-smd-wrapper {
+    width: mixin.toRem(187);
+    height: mixin.toRem(36);
+  }
+}
+
 .logo-wrapper {
   width: 180px;
   height: 36px;
@@ -85,4 +94,18 @@
   display: flex;
   align-items: center;
   padding-right: 8px;
+}
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  .header-container {
+    display: none !important;
+  }
+
+  .header-smd-container {
+    display: block;
+    background: var(--bg-dark);
+    padding-top: mixin.toRem(14);
+    padding-left: mixin.toRem(24);
+    padding-bottom: mixin.toRem(12);
+  }
 }
