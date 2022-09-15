@@ -107,6 +107,11 @@
     color: var(--success) !important;
     --color: var(--success) !important;
   }
+  
+  &.warning {
+    --color: var(--warning);
+    color: var(--warning);
+  }
 
   &.primary {
     color: var(--primary) !important;

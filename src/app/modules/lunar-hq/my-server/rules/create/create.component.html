@@ -152,7 +152,7 @@
                                     </div>
                                 </div>
                                 <div class="rule-item-nft d-flex mr-left-20 mr-top-8 pd-box-16" *ngIf="ruleItem.ruleTypeId == 'nft'">
-                                    <div class="rule-item-and-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">AND</div>
+                                    <div class="rule-item-and-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">{{rulesService.getCondition(ruleItem.filterCondition)?.name}}</div>
                                     <div class="rule-item-nft-container d-flex flex-column mr-left-16">
                                         <div class="rule-item-nft-filter-item d-flex align-items-center">
                                             <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'no_filter'" id="nofilters" name="filter"
@@ -212,7 +212,7 @@
                                           </div>
                                     </div>
                                 </div>
-                                <div *ngIf="ruleItem.filter === 'filter_traits'" class="d-flex flex-column mr-left-44">
+                                <div *ngIf="ruleItem.ruleTypeId == 'nft' && ruleItem.filter === 'filter_traits'" class="d-flex flex-column mr-left-44">
                                     <ng-container *ngFor="let trait of ruleItem.traits; let traitIndex = index;">
                                         <div class="rule-item-criteria-trait-item mr-top-8 pd-lr-16">
                                             <div class="trait-close-button d-flex justify-content-end align-items-end mr-top-8 add-cursor" (click)="removeTrait(ruleItem, traitIndex)">
@@ -393,7 +393,68 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="criteria.ruleTypeId == 'nft'" class="d-flex flex-column mr-left-44">
+                                        <div class="rule-item-nft d-flex mr-left-20 mr-top-8 pd-box-16" *ngIf="criteria.ruleTypeId == 'nft'">
+                                            <div class="rule-item-and-text app-why-lbl f12 ft-bold light-50 letter-spacing-047">{{rulesService.getCondition(criteria.filterCondition)?.name}}</div>
+                                            <div class="rule-item-nft-container d-flex flex-column mr-left-16">
+                                                <div class="rule-item-nft-filter-item d-flex align-items-center">
+                                                    <input type="radio" class="radio-button-primary" [checked]="criteria.filter === 'no_filter'" id="nofilters" name="filter"
+                                                           value="no_filter" (click)="onChangeFilter(criteria, 'no_filter')">
+                                                    <label class="app-why-lbl f12 mr-left-8"
+                                                        [ngClass]="{'primary': criteria.filter === 'no_filter', 'light-50': criteria.filter !== 'no_filter'}" for="nofilters">
+                                                      NO FILTERS
+                                                    </label>
+                                                  </div>
+                                                  <div class="rule-item-nft-filter-item d-flex flex-column mr-top-16">
+                                                    <div class="d-flex align-items-center">
+                                                        <input type="radio" class="radio-button-primary" [checked]="criteria.filter === 'filter_nft'" id="filter_nft" name="filter"
+                                                            value="filter_nft" (click)="onChangeFilter(criteria, 'filter_nft')">
+                                                        <label class="app-why-lbl f12 mr-left-8"
+                                                            [ngClass]="{'primary': criteria.filter === 'filter_nft', 'light-50': criteria.filter !== 'filter_nft'}" for="sockdao">
+                                                        FILTER BY NFT ID
+                                                        </label>
+                                                    </div>
+                                                    <div class="rule-item-nft-filter-nft-id mr-top-8 mr-left-22" *ngIf="criteria.filter === 'filter_nft'">
+                                                        <div [ngClass]="{'opacity-20': criteria.file == 'uploaded'}">
+                                                            <label class="d-flex app-why-lbl ft-lato f10 light-50 letter-spacing-02" for="description">NFT ID</label>
+                                                            <textarea #criteriaNftId [attr.disabled]="criteria.file == 'uploaded' ? '' : null" (keyup)="updateNftId(criteria, criteriaNftId.value)" name="criteria_nft_id" class="app-why-lbl f16 ft-lato light mr-top-4 description_area no-letter-spacing pd-top-8 pd-bottom-8 pd-lr-16" id="criteria_nft_id" maxlength="2000" placeholder="e.g. 01827, 22344, ..."></textarea>
+                                                        </div>
+                                                        <div class="rule-item-nft-filter-nft-id-upload d-flex align-items-center mr-top-8 add-cursor" *ngIf="criteria.file != 'uploaded'" (click)="uploadJsonFile(criteria)">
+                                                            <ion-icon name="cloud-upload" class="app-why-icon ic14 light-50 add-cursor"></ion-icon>
+                                                            <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8 add-cursor">UPLOAD JSON FILE</label>
+                                                        </div>
+                                                        <div class="rule-item-nft-filter-nft-id-uploaded d-flex flex-column mr-top-8" *ngIf="criteria.file == 'uploaded'">
+                                                            <div class="rule-item-nft-filter-nft-file-uploaded d-flex align-items-center">
+                                                                <ion-icon name="checkmark-circle" class="app-why-icon ic14 success"></ion-icon>
+                                                                <label class="align-text-top app-why-lbl f12 ft-bold success mr-left-8 add-cursor">FILE UPLOADED</label>
+                                                            </div>
+                                                            <div class="app-why-lbl f16 ft-lato light mr-top-8">
+                                                                myrule_nftidcollection2022.json
+                                                            </div>
+                                                            <div class="rule-item-nft-filter-nft-id-action d-flex align-items-center mr-top-8">
+                                                                <div class="app-why-lbl f12 ft-bold light-70 add-cursor" (click)="replaceJsonFile(criteria)">
+                                                                    REPLACE
+                                                                </div>
+                                                                <div class="app-why-lbl f12 ft-bold light-70 mr-lr-8">
+                                                                    |
+                                                                </div>
+                                                                <div class="app-why-lbl f12 ft-bold light-70 add-cursor" (click)="removeJsonFile(criteria)">
+                                                                    REMOVE
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="rule-item-nft-filter-item d-flex align-items-center mr-top-16">
+                                                    <input type="radio" class="radio-button-primary" [checked]="criteria.filter === 'filter_traits'" id="filter_traits" name="filter"
+                                                           value="filter_traits" (click)="onChangeFilter(criteria, 'filter_traits')">
+                                                    <label class="app-why-lbl f12 mr-left-8"
+                                                           [ngClass]="{'primary': criteria.filter === 'filter_traits', 'light-50': criteria.filter !== 'filter_traits'}" for="filter_traits">
+                                                      FILTER BY TRAITS
+                                                    </label>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="criteria.ruleTypeId == 'nft' && criteria.filter === 'filter_traits'" class="d-flex flex-column mr-left-44">
                                             <ng-container *ngFor="let trait of criteria.traits; let traitIndex = index;">
                                                 <div class="rule-item-criteria-trait-item mr-top-8 pd-lr-16">
                                                     <div class="trait-close-button d-flex justify-content-end align-items-end mr-top-8 add-cursor" (click)="removeTrait(criteria, traitIndex)">
@@ -439,7 +500,7 @@
                                                                     <div class="rule-item-is-text app-why-lbl f12 ft-bold light-50 letter-spacing-047" *ngIf="rowIndex == 0">{{rulesService.getCondition(row.condition)?.name}}</div>
                                                                     <div class="d-flex overflow-hidden align-items-center mr-top-4 rule-item-condition app-why-lbl f12 ft-bold success letter-spacing-047" *ngIf="rowIndex > 0">
                                                                         <div ngbDropdown container="body">
-                                                                            <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold"  [ngClass]="{'success': row.condition == 'AND', 'error': row.condition == 'NOT', 'warning': row.condition == 'OR', 'light-50': row.condition == 'IS'}"
+                                                                            <button type="button" class="link-dropdown left-arrow condition-dropdown app-why-lbl f12 ft-bold"  [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}"
                                                                                     ngbDropdownToggle>{{rulesService.getCondition(row.condition)?.name}}
                                                                             </button>
                                                                             <div ngbDropdownMenu aria-labelledby="dropdownBasic"  class="left-dropdown-menu condition-dropdown-menu">

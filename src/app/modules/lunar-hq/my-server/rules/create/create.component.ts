@@ -38,6 +38,7 @@ export class CreateRuleComponent implements OnInit {
     operatorId: 'greater_than_equal',
     operator: '≥',
     quantityHeld: '',
+    filterCondition: 'and',
     filter: 'no_filter',
     nft_id:'',
     file:'',
@@ -182,6 +183,10 @@ export class CreateRuleComponent implements OnInit {
       operatorId: 'greater_than_equal',
       operator: '≥',
       quantityHeld: '',
+      filterCondition: 'and',
+      filter: 'no_filter',
+      nft_id:'',
+      file:'',
       traits: []
     });
   }
