@@ -33,10 +33,15 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  flex-direction: column;
 }
 
 .option-container {
   opacity: 0.2;
+}
+
+.add-left-pd {
+  padding-left: 24px;
 }
 
 .active-container {
@@ -45,7 +50,7 @@
 
 .option-wrapper {
   clip-path: polygon(0% 0px, 0px 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 100% 100%, 8px 100%, 0 calc(100% - 8px));
-  background: var(--tertiary);
+  background: var(--dark);
   min-height: mixin.toRem(224);
   width: mixin.toRem(327);
   padding: mixin.toRem(24) mixin.toRem(24) mixin.toRem(32);
@@ -53,12 +58,30 @@
   &.discord-container {
     height: mixin.toRem(248);
   }
+
+  &.on-done {
+    background: var(--tertiary);
+  }
+
+  &.on-connect {
+    background: transparent;
+    min-height: mixin.toRem(174);
+    padding: 0;
+  }
+}
+
+.light-text {
+  color: var(--light) !important;
+}
+
+.discord-con-text-container {
+  max-width: mixin.toRem(598);
 }
 
 @media only screen and (min-width: 321px) and (max-width: 768px) {
   .option-main-wrapper {
     flex-direction: column;
-    height: mixin.toRem(770);
+    height: auto;
   }
 
   .option-container {
@@ -67,8 +90,17 @@
 
   .placeholder-wrapper {
     margin-top: 56px;
-    position: relative;
+    position: revert;
     background: var(--bg-dark);
-    margin-bottom: mixin.toRem(40);
+    padding-bottom: mixin.toRem(56);
+  }
+
+  .wc-container {
+    padding-top: mixin.toRem(100);
+  }
+
+  .add-left-pd {
+    padding-left: 0 !important;
+    margin-bottom: 56px;
   }
 }

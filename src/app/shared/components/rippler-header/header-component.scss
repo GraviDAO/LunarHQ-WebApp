@@ -19,6 +19,7 @@
   .logo-smd-wrapper {
     width: mixin.toRem(187);
     height: mixin.toRem(36);
+    object-fit: cover;
   }
 }
 
@@ -96,16 +97,19 @@
   padding-right: 8px;
 }
 
-@media only screen and (min-width: 321px) and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .header-container {
     display: none !important;
   }
 
   .header-smd-container {
     display: block;
+    position: fixed;
+    width: 100%;
     background: var(--bg-dark);
     padding-top: mixin.toRem(14);
     padding-left: mixin.toRem(24);
     padding-bottom: mixin.toRem(12);
+    z-index: 999;
   }
 }

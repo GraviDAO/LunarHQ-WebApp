@@ -37,7 +37,7 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeV2Component,
-    canActivate: [StateGuard] // commented for demo
+    // canActivate: [StateGuard] // commented for demo
   },
   {
     path: 'dashboard',

@@ -25,9 +25,29 @@
   //border-radius: var(--selected-btn-border-radius);
   @include mixin.notch(8px);
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.dark {
+    justify-content: flex-start;
+    padding-left: 16px;
+    padding-right: 16px;
+    background: var(--dark);
+    --background: var(--dark);
+    --background-activated: var(--dark-70);
+    --background-hover: var(--dark-70);
+    color: var(--light);
+
+    &:hover {
+      background: var(--dark-50);
+    }
+  }
+
   &.dark-50 {
     justify-content: flex-start;
     padding-left: 16px;
+    padding-right: 16px;
     background: var(--dark-50);
     --background: var(--dark-50);
     --background-activated: var(--dark-50);
@@ -42,12 +62,22 @@
     &.active-state {
       color: var(--secondary);
     }
+
+    &.light {
+      color: var(--light);
+    }
   }
 
 
   &.md {
     height: var(--btn-md-height);
     width: var(--btn-md-width);
+  }
+
+  @media only screen and (max-width: 425px) {
+    &.md {
+      width: mixin.toRem(126) !important;
+    }
   }
 
   &.norm {
@@ -59,11 +89,13 @@
     &:hover {
       cursor: not-allowed;
     }
+
     &.cursor-pointer {
       &:hover {
         cursor: pointer !important;
       }
     }
+
     &.next-button {
       width: mixin.toRem(96) !important;
     }

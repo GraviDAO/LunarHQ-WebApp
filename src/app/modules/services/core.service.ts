@@ -17,7 +17,7 @@ export class CoreService {
     // const url = environment.server + 'linkDiscord/?discordAuthorizationCode=' + data.discordAuthorizationCode + '&walletAddress=' + data.walletAddress + '&blockchainName=' + data.blockchainName;
     return this.http.put<any>(url, {})
       .pipe(map((result) => {
-        return result.data;
+        return result;
       }));
   }
 

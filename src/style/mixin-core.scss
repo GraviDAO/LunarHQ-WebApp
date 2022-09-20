@@ -29,6 +29,12 @@
   background-size: contain;
 }
 
+/*@media only screen and (max-width:425px) {
+  .modal-wrapper {
+    background: url(../assets/img/png/popup-top-mobile.png) top no-repeat, url(../assets/img/png/popup-bottom-mobile.png) no-repeat bottom;
+  }
+}*/
+
 .add-backdrop-filter {
   backdrop-filter: blur(16px);
 }

@@ -7,47 +7,114 @@
 <section class="wc-container">
 
   <article class="option-main-wrapper">
-    <div class="option-container" [ngClass]="{'active-container': selected === 'connect'}">
-      <div class="text-center pd-bottom-8">
-        <label class="app-why-lbl f14 secondary ft-uni">connect wallet</label>
-      </div>
-      <div class="option-wrapper">
-        <div class="pd-bottom-32">
-          <label class="app-why-lbl f16 light-70 ft-lato">
-            Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.
+    <div class="d-flex flex-row">
+      <div class="option-container active-container">
+        <div class="d-flex justify-content-center pd-bottom-8"
+             *ngIf="selected === 'discord' || selected === 'discord_connected'">
+          <ion-icon class="app-why-icon ic20 light" name="checkmark-circle-outline"></ion-icon>
+        </div>
+        <div class="text-center pd-bottom-8">
+          <label class="app-why-lbl f14 secondary ft-uni"
+                 [ngClass]="{'light-text': (selected === 'discord' || selected === 'discord_connected')}">
+            {{walletTitle}}
           </label>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="option-wrapper"
+             [ngClass]="{'on-done': selected === 'discord', 'on-connect': selected === 'discord_connected'}">
+          <div class="pd-bottom-32" *ngIf="selected !== 'discord_connected'">
+            <label class="app-why-lbl f16 light-70 ft-lato">
+              {{walletDescription}}
+            </label>
+          </div>
+          <div class="d-flex justify-content-center"
+               *ngIf="selected !== 'discord' && selected !== 'discord_connected'">
+            <app-why-cta-one
+              [iconClass]="cssClass.cta1Icon"
+              [iconType]="'file-tray-full'"
+              (clickEvent)="connectWallet()"
+              [cssClass]="cssClass.cta1"
+              [btnLabel]="'Connect Wallet'"></app-why-cta-one>
+          </div>
+
+          <div class="d-flex justify-content-center flex-column"
+               *ngIf="selected === 'discord' || selected === 'discord_connected'">
+            <div class="d-flex justify-content-center">
+              <app-why-cta-one
+                [cssClass]="polygonAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('polygon')"
+                [rightIconType]="polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline'"
+                [rightIconClass]="polygonAddress.length< 20 ? 'ic20' : 'ic14'"
+                [iconPath]="'./assets/img/svg/matic-logo.svg'"
+                [btnLabel]="polygonAddress"></app-why-cta-one>
+            </div>
+
+            <div class="pd-top-16 d-flex justify-content-center">
+              <app-why-cta-one
+                [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('terra')"
+                [rightIconType]="terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline'"
+                [rightIconClass]="terraAddress.length< 20 ? 'ic20' : 'ic14'"
+                [iconPath]="'./assets/img/svg/terra_icon.svg'"
+                [btnLabel]="terraAddress"></app-why-cta-one>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option-container add-left-pd"
+           [ngClass]="{'active-container': (selected === 'discord' || selected === 'discord_connected')}">
+        <div class="d-flex justify-content-center pd-bottom-8"
+             *ngIf="selected === 'discord_connected'">
+          <ion-icon class="app-why-icon ic20 light" name="checkmark-circle-outline"></ion-icon>
+        </div>
+        <div class="text-center pd-bottom-8">
+          <label class="app-why-lbl f14 light-70 ft-uni"
+                 [ngClass]="{'secondary': (selected === 'discord')}">
+            {{discordTitle}}
+          </label>
+        </div>
+        <div *ngIf="selected === 'discord_connected'">
           <app-why-cta-one
-            [iconClass]="selected === 'connect' ? cssClass.cta1Icon : cssClass.cta1NormIcon"
-            [iconType]="'file-tray-full'"
-            (clickEvent)="connectWallet()"
-            [isDisabled]="selected === 'discord' || selected === 'done' "
-            [cssClass]="cssClass.cta1"
-            [btnLabel]="'Connect Wallet'"></app-why-cta-one>
+            [cssClass]="cssClass.cta1Dark100Active"
+            [btnImage]="discordProfileObj?.discordProfileImage"
+            [btnLabel]="discordProfileObj?.discordName"></app-why-cta-one>
+        </div>
+        <div class="option-wrapper discord-container" *ngIf="selected !== 'discord_connected'">
+          <div class="pd-bottom-32">
+            <label class="app-why-lbl f16 light-70 ft-lato">
+              Lunar HQ links Discord to your crypto wallet. Unlock the community potential of your crypto assets with
+              server roles, token weighted voting and other powerful features.
+            </label>
+          </div>
+          <div class="d-flex justify-content-center">
+            <app-why-cta-one
+              [iconPath]="'/assets/img/svg/discord-brands-dark.svg'"
+              (clickEvent)="connectToDiscord()"
+              [isDisabled]="selected === 'connect'"
+              [iconClass]="cssClass.cta1Icon"
+              [cssClass]="cssClass.cta1"
+              [btnLabel]="'Connect Discord'"></app-why-cta-one>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="pd-left-24 option-container" [ngClass]="{'active-container': selected === 'discord'}">
-      <div class="text-center pd-bottom-8">
-        <label class="app-why-lbl f14 secondary ft-uni">connect discord</label>
+    <div class="discord-con-text-container" *ngIf="selected === 'discord_connected'">
+      <div>
+        <label class="app-why-lbl f16 light-70 ft-lato">
+          You have now linked your Discord Profile to a wallet. Return to Discord to see your new communities.
+        </label>
       </div>
-      <div class="option-wrapper discord-container">
-        <div class="pd-bottom-32">
-          <label class="app-why-lbl f16 light-70 ft-lato">
-            Lunar HQ links Discord to your crypto wallet. Unlock the community potential of your crypto assets with server roles, token weighted voting and other powerful features.
-          </label>
-        </div>
-        <div class="d-flex justify-content-center">
-          <app-why-cta-one
-            [iconPath]="'/assets/img/svg/discord-brands-dark.svg'"
-            (clickEvent)="connectToDiscord()"
-            [isDisabled]="selected === 'done'"
-            [iconClass]="cssClass.cta1Icon"
-            [cssClass]="cssClass.cta1"
-            [btnLabel]="'Connect Discord'"></app-why-cta-one>
-        </div>
+      <div class="pd-top-24">
+        <label class="app-why-lbl f16 light-70 ft-lato">If you have a wallet on another supported chain you may add it
+          now. Support for multiple wallets per chain, and many other abilities, will arrive with Lunar HQ in the coming
+          months.</label>
+      </div>
+
+      <div class="pd-top-56 d-flex justify-content-center">
+        <app-why-cta-one
+          [cssClass]="cssClass.cta1"
+          [btnLabel]="'Go to discord'"></app-why-cta-one>
       </div>
     </div>
   </article>
@@ -72,3 +139,53 @@
     </div>
   </div>
 </section>
+
+<app-why-modal id="connectWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">Connect</div>
+
+    <div class="d-flex justify-content-center pd-top-48">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'polygon' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('polygon')"
+        [iconPath]="'./assets/img/svg/matic-logo.svg'"
+        [btnLabel]="'Polygon'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'terra' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('terra')"
+        [iconPath]="'./assets/img/svg/terra_icon.svg'"
+        [btnLabel]="'Terra'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two
+          (click)="exitModal()"
+          [btnTheme]="'bg--dark'"></app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one
+          (click)="createConnection()"
+          [cssClass]="selectedWallet === '' ? cssClass.cta1MdInActive : cssClass.cta1Md"
+          [btnLabel]="'Confirm'"></app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="terraWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Terra Wallet</div>
+
+    <div class="d-flex justify-content-center pd-top-16" *ngFor="let terraConnect of availableConnections">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="terraController.connect(terraConnect.type, terraConnect.identifier)"
+        [iconPath]="terraConnect.name === 'Terra Station Wallet' ? './assets/img/svg/terra-station-icon.svg' : terraConnect.icon"
+        [btnLabel]="terraConnect.name === 'Terra Station Wallet' ? 'Terra station' : terraConnect.name">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
