@@ -122,3 +122,13 @@ body.app-why-modal-open {
   position: absolute;
   top: 48px;
 }
+
+
+@media screen and (max-width: 768px)  {
+  .app-why-modal-body {
+
+    &__confirmation {
+      width: 343px !important;
+    }
+  }
+}

@@ -22,8 +22,8 @@ import {USER_AUTHENTICATED} from './type';
 export class WelcomeComponent implements OnInit {
   selected = 'connect';
   // selected = 'discord';
-  url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2F46.101.14.43%2Fwelcome&response_type=code&scope=identify%20email%20connections';
-  // url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
+  // url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2F46.101.14.43%2Fwelcome&response_type=code&scope=identify%20email%20connections';
+  url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   // url = 'https://discord.com/api/oauth2/authorize?client_id=959099639309664266&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   data: string[] | undefined;
   walletConnected = false;
@@ -43,7 +43,7 @@ export class WelcomeComponent implements OnInit {
               private modalService: ModalService,
               public coreService: CoreService,
               private router: Router) {
-    this.progressStatus = this.storageService.get('user_progress');
+    /*this.progressStatus = this.storageService.get('user_progress');
     const lunarUserObj = this.storageService.get('lunar_user');
     this.walletInit();
     this.selected = this.progressStatus === null ? 'connect' : this.progressStatus === 'discord_connected' ? 'done' : 'discord';
@@ -59,7 +59,7 @@ export class WelcomeComponent implements OnInit {
           this.discordSuccess();
         });
       }
-    });
+    });*/
   }
 
   discordSuccess() {
@@ -79,7 +79,7 @@ export class WelcomeComponent implements OnInit {
     this.modalService.open('connectWallet');
   }
 
-  async connectToMetaMask() {
+  /*async connectToMetaMask() {
     try {
       this.exitModal();
       let response = await this.web3.connectAccount();
@@ -93,9 +93,9 @@ export class WelcomeComponent implements OnInit {
     } catch (error) {
       console.error(error, 'error');
     }
-  }
+  }*/
 
-  async handleSignIn(nonce: any, publicAddress: any) {
+  /*async handleSignIn(nonce: any, publicAddress: any) {
     try {
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
@@ -106,11 +106,11 @@ export class WelcomeComponent implements OnInit {
         publicAddress: publicAddress,
         blockchainName
       }
-      this.authenticateWalletAddress(payLoad, publicAddress, blockchainName);
+      // this.authenticateWalletAddress(payLoad, publicAddress, blockchainName);
     } catch (e) {
       console.log(e);
     }
-  }
+  }*/
 
   exitModal() {
     this.modalService.close('connectWallet');
@@ -120,7 +120,7 @@ export class WelcomeComponent implements OnInit {
     this.selectedWallet = type;
   }
 
-  closeDiscordPopUp() {
+  /*closeDiscordPopUp() {
     this.router.navigate(
       [],
       {
@@ -132,7 +132,7 @@ export class WelcomeComponent implements OnInit {
     this.selected = 'done';
     // commented for demo
     this.router.navigate(['/dashboard']);
-  }
+  }*/
 
   navigateToGravidao() {
     window.open('https://linktr.ee/gravidao', '_blank');
@@ -142,7 +142,7 @@ export class WelcomeComponent implements OnInit {
     window.open('https://whyable.com/rippler/', '_blank');
   }
 
-  async walletInit() {
+  /*async walletInit() {
     const chainOptions = await getChainOptions();
 
     this.terraController = new WalletController({
@@ -166,9 +166,9 @@ export class WelcomeComponent implements OnInit {
           break;
       }
     });
-  }
+  }*/
 
-  async terraWalletConnect() {
+  /*async terraWalletConnect() {
     this.terraController?.connectedWallet()
       .subscribe(async (result: any) => {
         console.log(result, 'res');
@@ -185,9 +185,9 @@ export class WelcomeComponent implements OnInit {
           });
       })
     this.exitModal();
-  }
+  }*/
 
-  async signTerra(nonce: string, publicAddress: string) {
+  /*async signTerra(nonce: string, publicAddress: string) {
     const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
     console.log(res, 'res');
     let sigComp = {
@@ -206,12 +206,12 @@ export class WelcomeComponent implements OnInit {
       publicAddress: publicAddress,
       blockchainName
     };
-    this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
+    // this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     console.log(dataObject, 'dataObject');
 
-  }
+  }*/
 
-  authenticateWalletAddress(dataObject: any, publicAddress: string, blockchainName: string) {
+  /*authenticateWalletAddress(dataObject: any, publicAddress: string, blockchainName: string) {
     this.coreService.authenticate(dataObject)
       .subscribe((result) => {
         this.toast.success('Wallet connected');
@@ -224,13 +224,13 @@ export class WelcomeComponent implements OnInit {
         this.selected = 'discord';
         this.exitModal();
       });
-  }
+  }*/
 
-  createConnection() {
+  /*createConnection() {
     if (this.selectedWallet === 'polygon') {
       this.connectToMetaMask()
     } else {
       this.terraWalletConnect();
     }
-  }
+  }*/
 }

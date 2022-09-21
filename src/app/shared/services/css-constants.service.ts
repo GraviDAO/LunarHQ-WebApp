@@ -8,6 +8,9 @@ export class CssConstants {
   cta1InActive = 'app-why-btn full-width in-active';
   cta1Dark50 = 'app-why-btn dark-50 full-width';
   cta1Dark50Active = 'app-why-btn dark-50 active-state full-width';
+  cta1Dark100Active = 'app-why-btn dark full-width';
+  cta1LightActive = 'app-why-btn dark-50 light full-width';
+  cta1LgLightActive = 'app-why-btn lg dark-50 light full-width';
   cta1Icon = 'ic20 pd-right-8';
   cta1IconLight = 'ic20 pd-right-8 light';
   cta1IconDark = 'ic20 pd-right-8 dark';
