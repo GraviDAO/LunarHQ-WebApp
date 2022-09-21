@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // server: 'http://65.21.153.100:6060/'
-  server: 'http://localhost:6060/'
+  server: 'http://65.21.153.100:6060/'
+  // server: 'http://localhost:6060/'
 };
 
 /*
