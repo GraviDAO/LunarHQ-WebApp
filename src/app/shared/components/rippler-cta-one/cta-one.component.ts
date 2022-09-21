@@ -11,6 +11,7 @@ export class CtaOneComponent implements OnInit {
   @Input() btnLabel = '';
   @Input() iconType = '';
   @Input() btnImage = ''
+  @Input() walletIcon = ''
   @Input() rightIconType = '';
   @Input() iconPath = '';
   @Input() iconClass = 'ic20 pd-right-8';

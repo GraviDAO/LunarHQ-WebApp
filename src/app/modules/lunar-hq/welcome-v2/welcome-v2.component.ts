@@ -9,6 +9,8 @@ import {ToastrService} from 'ngx-toastr';
 import {ConnectType, getChainOptions, WalletController, WalletStatus} from '@terra-money/wallet-provider';
 import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Subscription} from 'rxjs';
+import {MsgSend} from '@terra-money/terra.js';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-why-lunar-hq-welcome-v2',
@@ -47,6 +49,7 @@ export class WelcomeV2Component {
               private toast: ToastrService,
               private route: ActivatedRoute,
               private router: Router,
+              private loaderService: NgxUiLoaderService,
               private storageService: LocalStorageService,
               public coreService: CoreService,
               private modalService: ModalService,) {
@@ -197,6 +200,7 @@ export class WelcomeV2Component {
       this.terraController.states(),
     ]).subscribe(
       ([_availableInstallTypes, _availableConnections, _states]) => {
+        this.storageService.delete('__terra_extension_router_session__');
         this.availableInstallTypes = _availableInstallTypes;
         const connections = _availableConnections;
         console.log(connections, 'connections');
@@ -206,16 +210,48 @@ export class WelcomeV2Component {
         this.modalService.open('terraWallet');
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
+          console.log(_states.wallets[0].connectType);
           const blockchainName = 'Terra';
+          const connectionType = _states.wallets[0].connectType;
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               console.log(nonceResult, 'nonce');
               this.modalService.close('terraWallet');
-              this.signTerra(nonceResult.message, walletAddr);
+              if (connectionType === 'EXTENSION') {
+                this.signTerra(nonceResult.message, walletAddr);
+              } else {
+                this.signTerraTx(walletAddr, nonceResult.message);
+              }
             });
         }
       });
     this.exitModal();
+  }
+
+  signTerraTx(terraAddress, nonce) {
+    this.loaderService.start();
+    const msg = new MsgSend(
+      terraAddress,
+      terraAddress,
+      {uluna: 1});
+    this.terraController
+      .post({
+        msgs: [msg],
+        feeDenoms: ['uluna'],
+        memo: 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet',
+      })
+      .then((res) => {
+        console.log(res);
+        const blockchainName = 'Terra';
+        const dataObject = {
+          type: 'TerraTx',
+          signature: res.result.txhash,
+          publicAddress: terraAddress,
+          blockchainName
+        };
+        this.loaderService.stop();
+        this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
+      });
   }
 
   async handleSignIn(nonce: any, publicAddress: any) {
@@ -265,21 +301,6 @@ export class WelcomeV2Component {
       ...chainOptions,
     });
 
-    this.terraController.states().subscribe(async (states) => {
-      switch (states.status) {
-        case WalletStatus.WALLET_NOT_CONNECTED:
-          this.walletConnected = false
-          this.walletAddress = ''
-          break;
-
-        case WalletStatus.WALLET_CONNECTED:
-          console.log(states, 'states');
-          this.teraObject = states;
-          this.walletConnected = true
-          this.walletAddress = states.wallets[0].terraAddress
-          break;
-      }
-    });
   }
 
   closeDiscordPopUp() {
@@ -298,6 +319,8 @@ export class WelcomeV2Component {
     if (chainType === 'polygon') {
       this.connectToMetaMask();
     } else {
+      this.availableInstallTypes = [];
+      this.availableConnections = [];
       this.terraWalletConnect();
     }
   }

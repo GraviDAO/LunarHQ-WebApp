@@ -103,6 +103,12 @@
     margin-top: 56px;
   }
 
+  .option-wrapper {
+    &.on-connect {
+      min-height: mixin.toRem(110);
+    }
+  }
+
   .placeholder-wrapper {
     width: 100%;
     position: revert;
@@ -130,7 +136,7 @@
     padding-left: 0 !important;
     margin-bottom: 56px;
 
-    margin-top: 56px!important;
+    margin-top: 56px !important;
   }
 
   .rippler-logo-container {
