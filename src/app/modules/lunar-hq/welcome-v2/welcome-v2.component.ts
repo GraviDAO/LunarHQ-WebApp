@@ -154,11 +154,8 @@ export class WelcomeV2Component {
     this.coreService.authenticate(dataObject)
       .subscribe((result) => {
         this.toast.success('Wallet connected');
-        this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
-        console.log(result, 'result');
-        console.log(blockchainName, 'blockchainName');
+        let userProgress = this.storageService.get('user_progress');
         let lunarObj: any = this.storageService.get('lunar_user');
-        console.log(lunarObj === null, 'lunarObj');
         if (blockchainName === 'polygon-mainnet') {
           this.polygonAddress = publicAddress;
         } else {
@@ -181,10 +178,14 @@ export class WelcomeV2Component {
         }
 
         this.storageService.set('lunar_user', lunarObj);
-        this.selected = 'discord';
-        this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
-        this.walletTitle = 'wallet connected';
-        this.currentStep = 'step 2 : connect discord';
+
+        if (userProgress !== 'discord_connected') {
+          this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
+          this.selected = 'discord';
+          this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
+          this.walletTitle = 'wallet connected';
+          this.currentStep = 'step 2 : connect discord';
+        }
         this.exitModal();
       });
   }
@@ -299,5 +300,9 @@ export class WelcomeV2Component {
     } else {
       this.terraWalletConnect();
     }
+  }
+
+  navigateToDiscord() {
+    window.open('https://discord.com/app', '_blank');
   }
 }

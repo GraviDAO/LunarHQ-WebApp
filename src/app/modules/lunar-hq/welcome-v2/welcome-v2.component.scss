@@ -1,12 +1,16 @@
 @use "src/style/mixin-core" as mixin;
 
 .placeholder-wrapper {
-  position: absolute;
-  bottom: mixin.toRem(40);
-  left: 0;
-  right: 0;
+  //position: fixed;
+  //bottom: mixin.toRem(40);
+  //left: 0;
+  //right: 0;
   justify-content: center;
   display: flex;
+
+  &.move-placeholder {
+    //position: relative;
+  }
 }
 
 .rippler-logo-container {
@@ -31,8 +35,9 @@
 .option-main-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 100vh;
   flex-direction: column;
 }
 
@@ -65,9 +70,15 @@
 
   &.on-connect {
     background: transparent;
-    min-height: mixin.toRem(174);
+    min-height: mixin.toRem(150);
     padding: 0;
   }
+}
+
+.option-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding-top: 120px;
 }
 
 .light-text {
@@ -76,6 +87,10 @@
 
 .discord-con-text-container {
   max-width: mixin.toRem(598);
+}
+
+.social-link-container {
+  display: none;
 }
 
 @media only screen and (min-width: 321px) and (max-width: 768px) {
@@ -89,10 +104,22 @@
   }
 
   .placeholder-wrapper {
-    margin-top: 56px;
+    width: 100%;
     position: revert;
-    background: var(--bg-dark);
+    background: var(--dark-20);
     padding-bottom: mixin.toRem(56);
+  }
+
+  .social-link-container {
+    display: block;
+    padding-top: 24px;
+    padding-bottom: 8px;
+  }
+
+  .option-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
   }
 
   .wc-container {
@@ -102,5 +129,35 @@
   .add-left-pd {
     padding-left: 0 !important;
     margin-bottom: 56px;
+    margin-top: 8px !important;
+  }
+
+  .rippler-logo-container {
+    width: mixin.toRem(36);
+    //height: mixin.toRem(86);
+  }
+
+  .logo-container {
+    width: mixin.toRem(102);
+    //height: mixin.toRem(86);
+  }
+
+  .rippler-logo-container {
+    width: mixin.toRem(90);
+    height: mixin.toRem(32);
+  }
+
+  .server-details-container {
+    height: mixin.toRem(33);
+    width: 48%;
+    background-color: var(--dark-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .discord-con-text-container {
+    max-width: mixin.toRem(278);
+    margin: auto;
   }
 }
