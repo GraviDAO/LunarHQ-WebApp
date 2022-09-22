@@ -36,10 +36,10 @@ export class CoreService {
       }));
   }
 
-  /*signUp(data: any): Observable<any> {
-    return this.http.post<any>(environment.server + 'api/auth/user/signUp', {data})
+  unLinkWallet(blockchainName: any, address: any): Observable<any> {
+    return this.http.put<any>(environment.server + 'unlinkWallet/' + address + '/' + blockchainName, {})
       .pipe(map((result) => {
-        return result.data;
+        return result;
       }));
-  }*/
+  }
 }

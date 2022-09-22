@@ -40,21 +40,23 @@
 
             <div class="d-flex justify-content-center flex-column"
                  *ngIf="selected === 'discord' || selected === 'discord_connected'">
-              <div class="d-flex justify-content-center" *ngIf="!(polygonAddress === 'polygon wallet' && selected === 'discord')">
+              <div class="d-flex justify-content-center"
+                   *ngIf="!(polygonAddress === 'polygon wallet' && selected === 'discord')">
                 <app-why-cta-one
                   [cssClass]="polygonAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('polygon')"
-                  [rightIconType]="polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline'"
+                  (click)="editConnection('polygon', polygonAddress)"
+                  [rightIconType]="terraAddress === 'terra wallet' ? '' : (polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="polygonAddress.length< 20 ? 'ic16' : 'ic16'"
                   [iconPath]="'./assets/img/svg/matic-logo.svg'"
                   [btnLabel]="polygonAddress"></app-why-cta-one>
               </div>
 
-              <div class="pd-top-16 d-flex justify-content-center" *ngIf="!(terraAddress === 'terra wallet' && selected === 'discord')">
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="!(terraAddress === 'terra wallet' && selected === 'discord')">
                 <app-why-cta-one
                   [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('terra')"
-                  [rightIconType]="terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline'"
+                  (click)="editConnection('terra', terraAddress)"
+                  [rightIconType]="polygonAddress === 'polygon wallet' ? '' : (terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="terraAddress.length< 20 ? 'ic16' : 'ic16'"
                   [iconPath]="'./assets/img/svg/terra_icon.svg'"
                   [btnLabel]="terraAddress"></app-why-cta-one>
