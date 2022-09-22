@@ -118,7 +118,7 @@
         <div class="pd-top-56 pd-bottom-80 d-flex justify-content-center">
           <app-why-cta-one
             [cssClass]="cssClass.cta1"
-            (clickEvent)="navigateToDiscord()"
+            (clickEvent)="gotToMyDiscord()"
             [btnLabel]="'Go to discord'"></app-why-cta-one>
         </div>
       </div>
@@ -209,5 +209,29 @@
       </app-why-cta-one>
     </div>
     <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="removeWalletModal" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium no-letter-spacing light">remove wallet ?</div>
+    <div class="pd-top-32">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70 text-center">
+        <div>Removing this wallet will remove it from your profile and you will lose access to any services requiring
+          assets held in
+          this wallet.
+        </div>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('removeWalletModal')">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Remove'" (click)="confirmRemoveWallet()">
+        </app-why-cta-one>
+      </div>
+    </div>
   </app-why-modal-wrapper>
 </app-why-modal>
