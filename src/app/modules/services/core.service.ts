@@ -37,7 +37,7 @@ export class CoreService {
   }
 
   unLinkWallet(blockchainName: any, address: any): Observable<any> {
-    return this.http.put<any>(environment.server + 'unlinkWallet?address=' + address + '/blockchainName=' + blockchainName, {})
+    return this.http.put<any>(environment.server + 'WAunlinkWallet?address=' + address + '/blockchainName=' + blockchainName, {})
       .pipe(map((result) => {
         return result;
       }));
