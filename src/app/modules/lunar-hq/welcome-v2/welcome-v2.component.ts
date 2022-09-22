@@ -419,7 +419,8 @@ export class WelcomeV2Component implements OnDestroy {
       this.selected = 'connect';
       this.polygonAddress = 'polygon wallet';
       this.terraAddress = 'terra wallet';
-      this.modalService.close('removeWalletModal')
+      this.modalService.close('removeWalletModal');
+      console.log((this.terraAddress === 'terra wallet' && this.selected !== 'discord') ? '' : (this.polygonAddress.length < 20 ? 'add-outline' : 'close-circle-outline'));
     } else {
       console.log(this.terraAddress, this.polygonAddress);
       const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';

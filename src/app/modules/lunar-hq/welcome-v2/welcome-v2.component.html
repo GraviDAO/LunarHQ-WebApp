@@ -56,7 +56,7 @@
                 <app-why-cta-one
                   [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('terra', terraAddress)"
-                  [rightIconType]="polygonAddress === 'polygon wallet' ? '' : (terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconType]="(polygonAddress === 'polygon wallet' && selected !== 'discord') ? '' : (terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="terraAddress.length< 20 ? 'ic16' : 'ic16'"
                   [iconPath]="'./assets/img/svg/terra_icon.svg'"
                   [btnLabel]="terraAddress"></app-why-cta-one>
