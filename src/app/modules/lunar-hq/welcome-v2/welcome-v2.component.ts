@@ -86,7 +86,8 @@ export class WelcomeV2Component {
 
   setDataObj(lunarUserObj: any) {
     if (this.progressStatus === 'wallet_connected' || this.progressStatus === 'discord_connected') {
-      this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
+      this.walletDescription = 'Lunar HQ can connect one wallet per supported chain. You can connect additional chains after linking your Discord.';
+      // this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
       this.walletTitle = 'wallet connected';
       this.selected = 'discord';
       this.currentStep = 'step 2 : connect discord';
@@ -115,6 +116,9 @@ export class WelcomeV2Component {
   }
 
   connectWallet() {
+    this.selectedWallet = '';
+    this.terraController.disconnect();
+    this.modalService.close('terraWallet');
     this.modalService.open('connectWallet');
   }
 
@@ -251,6 +255,10 @@ export class WelcomeV2Component {
         };
         this.loaderService.stop();
         this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
+      })
+      .catch((error) => {
+        this.loaderService.stop();
+        this.toast.error('Failed to connect');
       });
   }
 
@@ -301,6 +309,21 @@ export class WelcomeV2Component {
       ...chainOptions,
     });
 
+    this.terraController.states().subscribe(async (states) => {
+      switch (states.status) {
+        case WalletStatus.WALLET_NOT_CONNECTED:
+          this.walletConnected = false
+          this.walletAddress = ''
+          break;
+
+        case WalletStatus.WALLET_CONNECTED:
+          console.log(states, 'states');
+          this.teraObject = states;
+          this.walletConnected = true
+          this.walletAddress = states.wallets[0].terraAddress
+          break;
+      }
+    });
   }
 
   closeDiscordPopUp() {
@@ -316,16 +339,23 @@ export class WelcomeV2Component {
   }
 
   editConnection(chainType: string) {
-    if (chainType === 'polygon') {
-      this.connectToMetaMask();
+    if (this.selected === 'discord') {
+      this.storageService.delete('lunar_user');
+      this.storageService.delete('user_progress');
+      this.selected = 'connect';
+      this.polygonAddress = 'polygon wallet';
+      this.terraAddress = 'terra wallet';
     } else {
-      this.availableInstallTypes = [];
-      this.availableConnections = [];
-      this.terraWalletConnect();
+
     }
   }
 
   navigateToDiscord() {
     window.open('https://discord.com/app', '_blank');
+  }
+
+  async handleTerraConnection(type: any, identifier: any) {
+    this.walletInit();
+    let connect = await this.terraController.connect(type, identifier);
   }
 }

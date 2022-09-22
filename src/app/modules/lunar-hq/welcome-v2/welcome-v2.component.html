@@ -7,7 +7,7 @@
 <section class="wc-container">
 
   <article class="option-main-wrapper">
-    <div>
+    <div class="first-container">
 
       <div class="option-content-wrapper">
         <div class="option-container active-container">
@@ -40,7 +40,7 @@
 
             <div class="d-flex justify-content-center flex-column"
                  *ngIf="selected === 'discord' || selected === 'discord_connected'">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center" *ngIf="!(polygonAddress === 'polygon wallet' && selected === 'discord')">
                 <app-why-cta-one
                   [cssClass]="polygonAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('polygon')"
@@ -50,7 +50,7 @@
                   [btnLabel]="polygonAddress"></app-why-cta-one>
               </div>
 
-              <div class="pd-top-16 d-flex justify-content-center">
+              <div class="pd-top-16 d-flex justify-content-center" *ngIf="!(terraAddress === 'terra wallet' && selected === 'discord')">
                 <app-why-cta-one
                   [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('terra')"
@@ -201,7 +201,7 @@
     <div class="d-flex justify-content-center pd-top-16" *ngFor="let terraConnect of availableConnections">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"
-        (click)="terraController.connect(terraConnect.type, terraConnect.identifier)"
+        (click)="handleTerraConnection(terraConnect.type, terraConnect.identifier)"
         [walletIcon]="terraConnect.icon"
         [btnLabel]="terraConnect.name === 'Terra Station Wallet' ? 'Terra station' : terraConnect.name">
       </app-why-cta-one>
