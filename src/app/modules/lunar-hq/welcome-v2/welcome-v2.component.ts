@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ModalService} from '../../../shared/_modal/modal.service';
 import {Web3Service} from '../../web3-core/web3.service';
@@ -17,7 +17,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
   templateUrl: './welcome-v2.component.html',
   styleUrls: ['./welcome-v2.component.scss']
 })
-export class WelcomeV2Component {
+export class WelcomeV2Component implements OnDestroy {
   currentStep = 'step 1 : connect wallet';
   selected = 'connect';
   selectedWallet = '';
@@ -42,6 +42,7 @@ export class WelcomeV2Component {
   availableConnections: Array<any> = [];
   discordTitle = 'connect discord';
   discordProfileObj: any;
+  unlink: { chainType: string, address: string } = {chainType: '', address: ''};
 
 
   constructor(public cssClass: CssConstants,
@@ -55,6 +56,7 @@ export class WelcomeV2Component {
               private modalService: ModalService,) {
     this.progressStatus = this.storageService.get('user_progress');
     let lunarUserObj = this.storageService.get('lunar_user');
+    console.log(lunarUserObj, 'lunarUserObj');
     this.setDataObj(lunarUserObj);
     this.walletInit();
     this.route.queryParams.subscribe((params: any) => {
@@ -82,6 +84,10 @@ export class WelcomeV2Component {
         });
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   setDataObj(lunarUserObj: any) {
@@ -385,19 +391,15 @@ export class WelcomeV2Component {
       } else if (address === 'terra wallet') {
         this.terraWalletConnect();
       } else if (this.terraAddress !== 'terra wallet' && this.polygonAddress !== 'polygon wallet') {
-        console.log(this.terraAddress, this.polygonAddress);
-        const blockChainName = chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
-        this.coreService.unLinkWallet(blockChainName, address)
-          .subscribe((data) => {
-            console.log(data, 'data');
-            if (chainType === 'polygon') {
-              this.polygonAddress = 'polygon wallet'
-            } else {
-              this.terraAddress = 'terra wallet'
-            }
-          });
+        this.unlink.chainType = chainType;
+        this.unlink.address = address;
+        this.modalService.open('removeWalletModal');
       }
     }
+  }
+
+  gotToMyDiscord() {
+    window.open('https://discord.com/channels/@me', '_blank');
   }
 
   navigateToDiscord() {
@@ -407,5 +409,33 @@ export class WelcomeV2Component {
   async handleTerraConnection(type: any, identifier: any) {
     // this.walletInit();
     let connect = await this.terraController.connect(type, identifier);
+  }
+
+  cancelModal(id: string) {
+    this.modalService.close(id);
+  }
+
+  confirmRemoveWallet() {
+    console.log(this.terraAddress, this.polygonAddress);
+    const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
+    this.coreService.unLinkWallet(blockChainName, this.unlink.address)
+      .subscribe((data) => {
+        console.log(data, 'data');
+        if (this.unlink.chainType === 'polygon') {
+          this.polygonAddress = 'polygon wallet';
+        } else {
+          this.terraAddress = 'terra wallet';
+        }
+        let lunarObj = this.storageService.get('lunar_user');
+        let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockChainName);
+        if (index > -1) {
+          console.log('in');
+          lunarObj.walletAddress.splice(index, 1);
+        }
+        this.storageService.set('lunar_user', lunarObj);
+        this.modalService.close('removeWalletModal')
+        this.unlink.chainType = '';
+        this.unlink.address = '';
+      });
   }
 }
