@@ -32,10 +32,18 @@
   height: 100%;
 }
 
+.first-container {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .option-main-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  //justify-content: space-between;
   height: 100%;
   min-height: 100vh;
   flex-direction: column;
