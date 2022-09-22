@@ -380,11 +380,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   editConnection(chainType: string, address: string) {
     if (this.selected === 'discord') {
-      this.storageService.delete('lunar_user');
-      this.storageService.delete('user_progress');
-      this.selected = 'connect';
-      this.polygonAddress = 'polygon wallet';
-      this.terraAddress = 'terra wallet';
+      this.modalService.open('removeWalletModal');
     } else {
       if (address === 'polygon wallet') {
         this.connectToMetaMask();
@@ -416,26 +412,36 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   confirmRemoveWallet() {
-    console.log(this.terraAddress, this.polygonAddress);
-    const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
-    this.coreService.unLinkWallet(blockChainName, this.unlink.address)
-      .subscribe((data) => {
-        console.log(data, 'data');
-        if (this.unlink.chainType === 'polygon') {
-          this.polygonAddress = 'polygon wallet';
-        } else {
-          this.terraAddress = 'terra wallet';
-        }
-        let lunarObj = this.storageService.get('lunar_user');
-        let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockChainName);
-        if (index > -1) {
-          console.log('in');
-          lunarObj.walletAddress.splice(index, 1);
-        }
-        this.storageService.set('lunar_user', lunarObj);
-        this.modalService.close('removeWalletModal')
-        this.unlink.chainType = '';
-        this.unlink.address = '';
-      });
+    console.log(this.selected);
+    if (this.selected === 'discord') {
+      this.storageService.delete('lunar_user');
+      this.storageService.delete('user_progress');
+      this.selected = 'connect';
+      this.polygonAddress = 'polygon wallet';
+      this.terraAddress = 'terra wallet';
+      this.modalService.close('removeWalletModal')
+    } else {
+      console.log(this.terraAddress, this.polygonAddress);
+      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
+      this.coreService.unLinkWallet(blockChainName, this.unlink.address)
+        .subscribe((data) => {
+          console.log(data, 'data');
+          if (this.unlink.chainType === 'polygon') {
+            this.polygonAddress = 'polygon wallet';
+          } else {
+            this.terraAddress = 'terra wallet';
+          }
+          let lunarObj = this.storageService.get('lunar_user');
+          let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockChainName);
+          if (index > -1) {
+            console.log('in');
+            lunarObj.walletAddress.splice(index, 1);
+          }
+          this.storageService.set('lunar_user', lunarObj);
+          this.modalService.close('removeWalletModal')
+          this.unlink.chainType = '';
+          this.unlink.address = '';
+        });
+    }
   }
 }
