@@ -203,7 +203,8 @@ export class WelcomeV2Component {
             blockchainName: blockchainName,
             oldJWT
           }).subscribe((data) => {
-            this.toast.success('Wallet added successfully');
+            console.log('Wallet added successfully');
+            // this.toast.success('Wallet added successfully');
           });
         }
 
@@ -388,6 +389,7 @@ export class WelcomeV2Component {
         const blockChainName = chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
         this.coreService.unLinkWallet(blockChainName, address)
           .subscribe((data) => {
+            console.log(data, 'data');
             if (chainType === 'polygon') {
               this.polygonAddress = 'polygon wallet'
             } else {
