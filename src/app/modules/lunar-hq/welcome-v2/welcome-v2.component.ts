@@ -85,14 +85,25 @@ export class WelcomeV2Component {
   }
 
   setDataObj(lunarUserObj: any) {
+    /*if (typeof lunarUserObj.walletAddress === 'string') {
+      this.storageService.delete('lunar_user');
+      this.storageService.delete('user_progress');
+      return;
+    }*/
     if (this.progressStatus === 'wallet_connected' || this.progressStatus === 'discord_connected') {
       this.walletDescription = 'Lunar HQ can connect one wallet per supported chain. You can connect additional chains after linking your Discord.';
       // this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
       this.walletTitle = 'wallet connected';
       this.selected = 'discord';
       this.currentStep = 'step 2 : connect discord';
-      const tempPolygonObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
-      const tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
+      console.log(typeof lunarUserObj.walletAddress);
+      let tempPolygonObj: any;
+      let tempTerraObj: any;
+      if (typeof lunarUserObj.walletAddress !== 'string') {
+        tempPolygonObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
+        tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
+      }
+      console.log('tempPolygonObj', tempPolygonObj);
       this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.publicAddress;
       this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.publicAddress;
       if (this.progressStatus === 'discord_connected') {
@@ -232,7 +243,7 @@ export class WelcomeV2Component {
     this.exitModal();
   }
 
-  signTerraTx(terraAddress, nonce) {
+  signTerraTx(terraAddress: any, nonce: any) {
     this.loaderService.start();
     const msg = new MsgSend(
       terraAddress,
@@ -338,7 +349,7 @@ export class WelcomeV2Component {
     this.router.navigate(['/welcome']);
   }
 
-  editConnection(chainType: string) {
+  editConnection(chainType: string, address: string) {
     if (this.selected === 'discord') {
       this.storageService.delete('lunar_user');
       this.storageService.delete('user_progress');
@@ -346,7 +357,21 @@ export class WelcomeV2Component {
       this.polygonAddress = 'polygon wallet';
       this.terraAddress = 'terra wallet';
     } else {
-
+      if (address === 'polygon wallet') {
+        this.connectToMetaMask();
+      } else if (address === 'terra wallet') {
+        this.terraWalletConnect();
+      } else if (this.terraAddress !== 'terra wallet' && this.polygonAddress !== 'polygon wallet') {
+        const blockChainName = chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
+        this.coreService.unLinkWallet(blockChainName, address)
+          .subscribe((data) => {
+            if (chainType === 'polygon') {
+              this.polygonAddress = 'polygon wallet'
+            } else {
+              this.terraAddress = 'terra wallet'
+            }
+          });
+      }
     }
   }
 

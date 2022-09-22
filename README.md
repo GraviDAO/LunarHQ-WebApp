@@ -33,6 +33,9 @@ MetaMask : QPjDZe9=XaIf
 
 right acquire denial wheel fade letter person ripple kick pizza tool alarm
 
+Terra canary
+early come shift goddess ride poet figure drama jelly vehicle damp please parent universe oyster grid fog tail cradle nurse appear genius ladder field
+
 
 ```
 docker build -t rippler-core .
