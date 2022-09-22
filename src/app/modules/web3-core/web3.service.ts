@@ -74,6 +74,10 @@ export class Web3Service {
     return this.accounts;
   }
 
+  async disconnectAccount() {
+    this.web3Modal.clearCachedProvider();
+  }
+
   async signIn(data: any, address: string) {
     const msgHex = this.web3js.utils.sha3(data);
     return await this.web3js.eth.personal.sign(data, address, '');

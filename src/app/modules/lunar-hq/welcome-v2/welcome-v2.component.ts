@@ -85,11 +85,6 @@ export class WelcomeV2Component {
   }
 
   setDataObj(lunarUserObj: any) {
-    /*if (typeof lunarUserObj.walletAddress === 'string') {
-      this.storageService.delete('lunar_user');
-      this.storageService.delete('user_progress');
-      return;
-    }*/
     if (this.progressStatus === 'wallet_connected' || this.progressStatus === 'discord_connected') {
       this.walletDescription = 'Lunar HQ can connect one wallet per supported chain. You can connect additional chains after linking your Discord.';
       // this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
@@ -128,7 +123,7 @@ export class WelcomeV2Component {
 
   connectWallet() {
     this.selectedWallet = '';
-    this.terraController.disconnect();
+    // this.terraController.disconnect();
     this.modalService.close('terraWallet');
     this.modalService.open('connectWallet');
   }
@@ -186,6 +181,8 @@ export class WelcomeV2Component {
           tempObj.walletAddress = [];
           tempObj.walletAddress.push({blockchainName, publicAddress});
           lunarObj = tempObj;
+
+          this.storageService.set('lunar_user', lunarObj);
         } else {
           let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockchainName);
           if (index > -1) {
@@ -193,9 +190,23 @@ export class WelcomeV2Component {
           } else {
             lunarObj.walletAddress.push({blockchainName, publicAddress});
           }
+
+          const token = result.message;
+          const oldJWT = lunarObj.token;
+          lunarObj.token = token;
+
+          this.storageService.set('lunar_user', lunarObj);
+
+          this.coreService.getDiscordUser({
+            discordAuthorizationCode: '',
+            walletAddress: publicAddress,
+            blockchainName: blockchainName,
+            oldJWT
+          }).subscribe((data) => {
+            this.toast.success('Wallet added successfully');
+          });
         }
 
-        this.storageService.set('lunar_user', lunarObj);
 
         if (userProgress !== 'discord_connected') {
           this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
@@ -225,14 +236,16 @@ export class WelcomeV2Component {
         this.modalService.open('terraWallet');
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
-          console.log(_states.wallets[0].connectType);
+          console.log(_states);
           const blockchainName = 'Terra';
           const connectionType = _states.wallets[0].connectType;
+          const connectionName = _states.connection.name;
+          console.log(connectionName, connectionName === 'Terra Station Wallet')
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               console.log(nonceResult, 'nonce');
               this.modalService.close('terraWallet');
-              if (connectionType === 'EXTENSION') {
+              if (connectionName === 'Terra Station Wallet') {
                 this.signTerra(nonceResult.message, walletAddr);
               } else {
                 this.signTerraTx(walletAddr, nonceResult.message);
@@ -287,29 +300,36 @@ export class WelcomeV2Component {
       this.authenticateWalletAddress(payLoad, publicAddress, blockchainName);
     } catch (e) {
       console.log(e);
+      this.web3.disconnectAccount();
     }
   }
 
   async signTerra(nonce: string, publicAddress: string) {
-    const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
-    console.log(res, 'res');
-    let sigComp = {
-      recid: res.result.recid,
-      signature: res.result.signature.toString(),
-      public_key: res.result.public_key.key ?? null,
-    };
-    const blockchainName = 'Terra';
-    const dataObject = {
-      type: 'TerraArbitraryByte',
-      signature: {
+    console.log(this.terraController);
+    try {
+      const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
+      console.log(res, 'res');
+      let sigComp = {
         recid: res.result.recid,
         signature: res.result.signature.toString(),
-        public_key: res.result.public_key.key ?? null
-      },
-      publicAddress: publicAddress,
-      blockchainName
-    };
-    this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
+        public_key: res.result.public_key.key ?? null,
+      };
+      const blockchainName = 'Terra';
+      const dataObject = {
+        type: 'TerraArbitraryByte',
+        signature: {
+          recid: res.result.recid,
+          signature: res.result.signature.toString(),
+          public_key: res.result.public_key.key ?? null
+        },
+        publicAddress: publicAddress,
+        blockchainName
+      };
+      this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
+    } catch (e) {
+      console.log(e, 'e');
+      this.terraController.disconnect();
+    }
   }
 
 
@@ -320,7 +340,8 @@ export class WelcomeV2Component {
       ...chainOptions,
     });
 
-    this.terraController.states().subscribe(async (states) => {
+    /*this.terraController.states().subscribe(async (states) => {
+      console.log(states.status);
       switch (states.status) {
         case WalletStatus.WALLET_NOT_CONNECTED:
           this.walletConnected = false
@@ -328,13 +349,14 @@ export class WelcomeV2Component {
           break;
 
         case WalletStatus.WALLET_CONNECTED:
-          console.log(states, 'states');
-          this.teraObject = states;
-          this.walletConnected = true
-          this.walletAddress = states.wallets[0].terraAddress
+          // this.terraController.disconnect();
+          // console.log(states, 'states');
+          // this.teraObject = states;
+          // this.walletConnected = true
+          // this.walletAddress = states.wallets[0].terraAddress
           break;
       }
-    });
+    });*/
   }
 
   closeDiscordPopUp() {
@@ -362,6 +384,7 @@ export class WelcomeV2Component {
       } else if (address === 'terra wallet') {
         this.terraWalletConnect();
       } else if (this.terraAddress !== 'terra wallet' && this.polygonAddress !== 'polygon wallet') {
+        console.log(this.terraAddress, this.polygonAddress);
         const blockChainName = chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
         this.coreService.unLinkWallet(blockChainName, address)
           .subscribe((data) => {
@@ -380,7 +403,7 @@ export class WelcomeV2Component {
   }
 
   async handleTerraConnection(type: any, identifier: any) {
-    this.walletInit();
+    // this.walletInit();
     let connect = await this.terraController.connect(type, identifier);
   }
 }

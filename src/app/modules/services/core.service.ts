@@ -15,7 +15,7 @@ export class CoreService {
   getDiscordUser(data: any): Observable<any> {
     const url = environment.server + 'linkDiscord/?discordAuthorizationCode=' + data.discordAuthorizationCode;
     // const url = environment.server + 'linkDiscord/?discordAuthorizationCode=' + data.discordAuthorizationCode + '&walletAddress=' + data.walletAddress + '&blockchainName=' + data.blockchainName;
-    return this.http.put<any>(url, {})
+    return this.http.put<any>(url, {oldJWT: data.oldJWT || ''})
       .pipe(map((result) => {
         return result;
       }));
@@ -37,7 +37,7 @@ export class CoreService {
   }
 
   unLinkWallet(blockchainName: any, address: any): Observable<any> {
-    return this.http.put<any>(environment.server + 'unlinkWallet/' + address + '/' + blockchainName, {})
+    return this.http.put<any>(environment.server + 'unlinkWallet?address=' + address + '/blockchainName=' + blockchainName, {})
       .pipe(map((result) => {
         return result;
       }));
