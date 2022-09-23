@@ -289,21 +289,21 @@ export class WelcomeV2Component implements OnDestroy {
         this.storageService.delete('__terra_extension_router_session__');
         this.availableInstallTypes = _availableInstallTypes;
         const connections = _availableConnections;
-        console.log(connections, 'connections');
+        // console.log(connections, 'connections');
         const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
         if (i > -1) connections.splice(i, 1);
         this.availableConnections = connections;
         this.modalService.open('terraWallet');
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
-          console.log(_states);
+          // console.log(_states);
           const blockchainName = 'Terra';
           const connectionType = _states.wallets[0].connectType;
           const connectionName = _states.connection.name;
-          console.log(connectionName, connectionName === 'Terra Station Wallet')
+          // console.log(connectionName, connectionName === 'Terra Station Wallet')
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
-              console.log(nonceResult, 'nonce');
+              // console.log(nonceResult, 'nonce');
               this.modalService.close('terraWallet');
               if (connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') {
                 this.signTerra(nonceResult.message, walletAddr);
