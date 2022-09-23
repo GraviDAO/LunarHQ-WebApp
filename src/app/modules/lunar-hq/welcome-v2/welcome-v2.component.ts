@@ -116,6 +116,7 @@ export class WelcomeV2Component implements OnDestroy {
     let dataObj = data.message;
     this.progressStatus = 'discord_connected';
     this.selected = 'discord_connected';
+    this.currentStep = 'connection success!';
     const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
     const tempTerraObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra');
     this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.address;
