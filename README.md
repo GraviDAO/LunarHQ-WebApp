@@ -143,3 +143,5 @@ export NODE_OPTIONS="--max-old-space-size=2048"
 npm run build
 cp -r dist/lunar-hq-web-app/* ../server/public/www/
 ```
+
+\i /Users/srinivasbhandage/dev/gravidao/LunarHQ/db/deploy.sql

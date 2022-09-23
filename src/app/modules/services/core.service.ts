@@ -28,6 +28,13 @@ export class CoreService {
       }));
   }
 
+  getLiteProfileDetails(): Observable<any> {
+    return this.http.get<any>(environment.server + 'profileDetailsLight')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   authenticate(data: any): Observable<any> {
     return this.http.post<any>(environment.server + 'login', data)
       .pipe(map((result) => {
@@ -37,7 +44,7 @@ export class CoreService {
   }
 
   unLinkWallet(blockchainName: any, address: any): Observable<any> {
-    return this.http.put<any>(environment.server + 'WAunlinkWallet?address=' + address + '&blockchainName=' + blockchainName, {})
+    return this.http.put<any>(environment.server + 'WAunlinkWallet/?address=' + address + '&blockchainName=' + blockchainName, {})
       .pipe(map((result) => {
         return result;
       }));

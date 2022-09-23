@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // server: 'https://api.lunarassistant.io/'
-  server: 'http://localhost:6060/',
+  server: 'https://api.lunarassistant.io/'
+  // server: 'http://localhost:6060/',
 };
 
 /*
