@@ -63,7 +63,7 @@ export class WelcomeV2Component implements OnDestroy {
           walletAddress: lunarUserObj.walletAddress,
           blockchainName: lunarUserObj.blockchainName
         }).subscribe((data) => {
-          console.log(data, 'data');
+          // console.log(data, 'data');
           lunarUserObj.discordName = data.message.discordName;
           lunarUserObj.discordProfileImage = data.message.discordProfileImage;
           this.storageService.set('lunar_user', lunarUserObj);
@@ -112,7 +112,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   setUserProfile(data: any) {
-    console.log(data);
+    // console.log(data);
     let dataObj = data.message;
     this.progressStatus = 'discord_connected';
     this.selected = 'discord_connected';
@@ -486,7 +486,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
           let lunarObj = this.storageService.get('lunar_user');
-          console.log(data, 'data');
+          // console.log(data, 'data');
           const token = data.message;
           const oldJWT = lunarObj.token;
           lunarObj.token = token;
