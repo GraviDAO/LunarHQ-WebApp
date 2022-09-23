@@ -114,6 +114,11 @@
     color: var(--success) !important;
     --color: var(--success) !important;
   }
+  
+  &.warning {
+    --color: var(--warning);
+    color: var(--warning);
+  }
 
   &.primary {
     color: var(--primary) !important;
@@ -289,8 +294,9 @@ input[type="radio"].radio-button-primary {
   background-color: transparent;
   margin: 0;
   color: var(--primary);
-  border: 0.073em solid var(--dark-70);
+  border: 0.073em solid var(--light-50);
   border-radius: 50%;
+  cursor: pointer;
 
   &:checked {
     border: 0.255em solid var(--primary);

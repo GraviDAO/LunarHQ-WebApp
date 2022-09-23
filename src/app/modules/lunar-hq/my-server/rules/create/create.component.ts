@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Stepper from 'bs-stepper';
+import { RulesService } from 'src/app/modules/services/rules.service';
 import { CssConstants } from 'src/app/shared/services/css-constants.service';
 
 @Component({
@@ -16,166 +17,15 @@ export class CreateRuleComponent implements OnInit {
   stepperIndex = 0;
   createRuleForm: FormGroup;
   selectedRole = 'SELECT ROLE';
-  roles = [
-    {
-      id: 'shepards',
-      name: 'Shepards',
-    },
-    {
-      id: 'watchers',
-      name: 'Watchers on the wall',
-    },
-    {
-      id: 'dao',
-      name: 'DAO Fellowship',
-    },
-    {
-      id: 'x-men',
-      name: 'X-Men 2.0',
-    },
-    {
-      id: 'musketeers',
-      name: 'The Musketeers',
-    },
-    {
-      id: 'avengers',
-      name: 'Avengers',
-    },
-    {
-      id: 'gryfyndoor',
-      name: 'Gryfyndoor',
-    },
-    {
-      id: 'realworld',
-      name: 'Realworld',
-    }
-  ];
-  rules = [
-    {
-      id: 'shepards',
-      name: 'Shepards',
-    },
-    {
-      id: 'watchers',
-      name: 'Watchers on the wall',
-    },
-    {
-      id: 'dao',
-      name: 'DAO Fellowship',
-    },
-    {
-      id: 'x-men',
-      name: 'X-Men 2.0',
-    },
-    {
-      id: 'musketeers',
-      name: 'The Musketeers',
-    },
-    {
-      id: 'avengers',
-      name: 'Avengers',
-    },
-    {
-      id: 'gryfyndoor',
-      name: 'Gryfyndoor',
-    },
-    {
-      id: 'realworld',
-      name: 'Realworld',
-    }
-  ];
-  ruleTypes = [
-    {
-      id: 'existing_rule',
-      name: 'EXISTING RULE',
-    },
-    {
-      id: 'nft',
-      name: 'NFT',
-    },
-    {
-      id: 'token',
-      name: 'TOKEN',
-    }
-  ];
-  conditions = [
-    {
-      id: 'is',
-      name: 'IS',
-    },
-    {
-      id: 'not',
-      name: 'NOT',
-    },
-    {
-      id: 'and',
-      name: 'AND',
-    },
-    {
-      id: 'or',
-      name: 'OR',
-    }
-  ];
-
-  operators = [
-    {
-      id: 'greater_than',
-      name: 'GREATER THAN',
-    },
-    {
-      id: 'less_than',
-      name: 'LESS THAN',
-    },
-    {
-      id: 'greater_than_equal',
-      name: 'GREATER THAN OR EQUAL TO',
-    },
-    {
-      id: 'less_than_equal',
-      name: 'LESS THAN OR EQUAL TO',
-    },
-    {
-      id: 'equals',
-      name: 'EQUALS',
-    },
-    {
-      id: 'not_equals',
-      name: 'NOT EQUALS',
-    }
-  ];
-  traitTypes = [
-    {
-      id: 'headwear',
-      name: 'HEADWEAR',
-    },
-    {
-      id: 'clothes',
-      name: 'CLOTHES',
-    },
-    {
-      id: 'background',
-      name: 'BACKGROUND',
-    }
-  ];
-  traitRows = [
-    {
-      id: 'halo',
-      name: 'HALO',
-    },
-    {
-      id: 'sushi',
-      name: 'SUSHI',
-    },
-    {
-      id: 'gborg',
-      name: 'GBORG',
-    },
-    {
-      id: 'mars',
-      name: 'MARS',
-    }
-  ]
+  roles: any = [];
+  rules: any = [];
+  ruleTypes: any = [];
+  conditions: any = [];
+  operators: any = [];
+  traitTypes: any = [];
+  traitRows: any = [];
   public stepper!: Stepper;
+  viewRule = false;
   stepTitles = ['RULE DETAILS', 'CREATE RULES', 'PREVIEW']
   stepTitle: string = this.stepTitles[0];
   defaultRuleItem = {
@@ -183,7 +33,16 @@ export class CreateRuleComponent implements OnInit {
     ruleType: '',
     ruleId: '',
     rule: '',
-    condition: 'IS',
+    condition: 'is',
+    contractAddress: '',
+    operatorId: 'greater_than_equal',
+    operator: '≥',
+    quantityHeld: '',
+    filterCondition: 'and',
+    filter: 'no_filter',
+    nft_id:'',
+    file:'',
+    traits: [],
     criterias: [
 
     ]
@@ -192,11 +51,19 @@ export class CreateRuleComponent implements OnInit {
   constructor(private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    public cssClass: CssConstants) {
+    public cssClass: CssConstants,
+    public rulesService: RulesService) {
         this.route.queryParams.subscribe((params: any) => {
         console.log(params.server);
         this.activeSubMenu = params.server;
       }); 
+      this.roles = rulesService.getRoles();
+      this.rules = rulesService.getRules();
+      this.ruleTypes = rulesService.getRuleTypes();
+      this.conditions = rulesService.getConditions();
+      this.operators = rulesService.getOperators();
+      this.traitTypes = rulesService.getTraitTypes();
+      this.traitRows = rulesService.getTraitRows();
       this.createRuleForm = new FormGroup({
         name: new FormControl('',
           [
@@ -269,10 +136,6 @@ export class CreateRuleComponent implements OnInit {
     this.stepper.previous();
   }
 
-  preview() {
-
-  }
-
   countCharacter() {
     const currentCount = document.getElementById('current_count');
     const description = this.createRuleForm.controls['description'].value;
@@ -303,21 +166,27 @@ export class CreateRuleComponent implements OnInit {
   addRule() {
     let ruleItem = Object.assign({}, this.defaultRuleItem);
     ruleItem.criterias = [];
+    ruleItem.traits = [];
     this.ruleItems.push(ruleItem);
   }
 
   addCriteria(ruleItem: any) {
     console.log('addCriteria - ', ruleItem);
     ruleItem.criterias.push({
-      condition: 'AND',
+      condition: 'and',
+      ruleCondition: 'is',
       ruleTypeId: '',
       ruleType: '',
       ruleId: '',
       rule: '',
-      contract_address: '',
+      contractAddress: '',
       operatorId: 'greater_than_equal',
-      operator: 'GREATER THAN OR EQUAL TO',
-      quantity_held: '',
+      operator: '≥',
+      quantityHeld: '',
+      filterCondition: 'and',
+      filter: 'no_filter',
+      nft_id:'',
+      file:'',
       traits: []
     });
   }
@@ -325,12 +194,12 @@ export class CreateRuleComponent implements OnInit {
   addTrait(criteria: any) {
     console.log('addTrait - ', criteria);
     criteria.traits.push({
-      condition: 'NOT',
+      condition: 'not',
       traitTypeId: '',
       traitType: '',
       rows:[
         {
-          condition: 'IS',
+          condition: 'is',
           rowId: '',
           row: ''
         }
@@ -340,14 +209,14 @@ export class CreateRuleComponent implements OnInit {
   addTraitRow(trait: any) {
     console.log('addTraitRow - ', trait);
     trait.rows.push({
-      condition: 'OR',
+      condition: 'or',
       rowId: '',
       row: ''
     });
   }
   selectCondition(criteria: any, condition: any) {
     console.log('selectCondition - ', condition);
-    criteria.condition = condition.name;
+    criteria.condition = condition.id;
   }
   selectCriteriaRole(criteria: any, role: any) {
     console.log('selectCriteriaRole - ', role);
@@ -373,5 +242,33 @@ export class CreateRuleComponent implements OnInit {
   }
   removeTraitRow(trait: any, rowIndex: number) {
     trait.rows.splice(rowIndex, 1);
+  }
+  onChangeFilter(ruleItem: any, filterValue: string) {
+    console.log('onChangeFilter - ', filterValue);
+    ruleItem.filter = filterValue;
+    console.log('ruleItems  - ', this.ruleItems);
+  }
+  uploadJsonFile(ruleItem: any) {
+    ruleItem.file='uploaded';
+  }
+  replaceJsonFile(ruleItem: any) {
+    ruleItem.file='';
+  }
+  removeJsonFile(ruleItem: any) {
+    ruleItem.file='';
+  }
+  updateNftId(ruleItem: any, value: any) {
+    console.log('updateNftId - ', ruleItem, value);
+    ruleItem.nft_id = value;
+    console.log('ruleItems  - ', this.ruleItems);
+  }
+  preview() {
+    this.viewRule = true;
+  }
+  closeView() {
+    this.viewRule = false;
+  }
+  updateRole() {
+
   }
 }
