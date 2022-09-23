@@ -79,7 +79,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.getUserProfile();
         }, (error) => {
           console.log(error, 'error');
-          this.toast.error('Failed to connect Discord');
+          this.toast.error('Adding multiple wallets of one chain is not supported yet!');
         });
       }
     });
