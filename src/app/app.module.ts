@@ -15,6 +15,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {JwtInterceptor} from './shared/services/jwt.interceptor';
 import {AdminModule} from './modules/admin/admin.module';
 import {CdkStepperModule} from '@angular/cdk/stepper';
+import {ErrorInterceptor} from './shared/_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
