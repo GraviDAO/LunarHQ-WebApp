@@ -96,22 +96,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.coreService.getLiteProfileDetails()
         .subscribe({
           next: (data) => {
-            console.log(data);
-            let dataObj = data.message;
-            this.progressStatus = 'discord_connected';
-            this.selected = 'discord_connected';
-            const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
-            const tempTerraObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra');
-            // console.log('tempPolygonObj', tempPolygonObj);
-            // console.log('tempTerraObj', tempTerraObj);
-            this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.address;
-            this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.address;
-            // console.log('tempPolygonObj', this.polygonAddress);
-            // console.log('tempTerraObj', this.terraAddress);
-            this.discordProfileObj = {
-              discordName: dataObj.discordName,
-              discordProfileImage: dataObj.discordProfileImage
-            };
+            this.setUserProfile(data);
           },
           error: (error) => {
             console.log(error);
@@ -124,6 +109,21 @@ export class WelcomeV2Component implements OnDestroy {
       this.progressStatus = this.storageService.get('user_progress');
       this.setDataObj(lunarUserObj);
     }
+  }
+
+  setUserProfile(data: any) {
+    console.log(data);
+    let dataObj = data.message;
+    this.progressStatus = 'discord_connected';
+    this.selected = 'discord_connected';
+    const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
+    const tempTerraObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra');
+    this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.address;
+    this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.address;
+    this.discordProfileObj = {
+      discordName: dataObj.discordName,
+      discordProfileImage: dataObj.discordProfileImage
+    };
   }
 
   setDataObj(lunarUserObj: any) {
@@ -216,6 +216,19 @@ export class WelcomeV2Component implements OnDestroy {
           lunarObj = tempObj;
 
           this.storageService.set('lunar_user', lunarObj);
+
+          this.coreService.getLiteProfileDetails()
+            .subscribe({
+              next: (data) => {
+                this.setUserProfile(data);
+              },
+              error: (error) => {
+                console.log(error);
+                this.progressStatus = this.storageService.get('user_progress');
+                let lunarUserObj = this.storageService.get('lunar_user');
+                this.setDataObj(lunarUserObj);
+              }
+            });
         } else {
           let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockchainName);
           if (index > -1) {
@@ -227,20 +240,27 @@ export class WelcomeV2Component implements OnDestroy {
           const token = result.message;
           const oldJWT = lunarObj.token;
           lunarObj.token = token;
-
           this.storageService.set('lunar_user', lunarObj);
 
-          this.coreService.getDiscordUser({
-            discordAuthorizationCode: '',
-            walletAddress: publicAddress,
-            blockchainName: blockchainName,
-            oldJWT
-          }).subscribe((data) => {
-            console.log('Wallet added successfully');
-          }, (error) => {
-            console.log(error, 'Failed to connect Discord')
-            this.toast.error('Failed to connect Discord');
-          });
+          this.coreService.getLiteProfileDetails()
+            .subscribe({
+              next: (data) => {
+                this.setUserProfile(data);
+              },
+              error: (error) => {
+                this.coreService.getDiscordUser({
+                  discordAuthorizationCode: '',
+                  walletAddress: publicAddress,
+                  blockchainName: blockchainName,
+                  oldJWT
+                }).subscribe((data) => {
+                  this.getUserProfile();
+                }, (error) => {
+                  console.log(error, 'Failed to connect Discord')
+                  this.toast.error('Failed to connect Discord');
+                });
+              }
+            });
         }
 
 
@@ -269,7 +289,7 @@ export class WelcomeV2Component implements OnDestroy {
         this.availableInstallTypes = _availableInstallTypes;
         const connections = _availableConnections;
         console.log(connections, 'connections');
-        const i = connections.findIndex((e) => e.type === 'READONLY');
+        const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
         if (i > -1) connections.splice(i, 1);
         this.availableConnections = connections;
         this.modalService.open('terraWallet');
@@ -284,11 +304,13 @@ export class WelcomeV2Component implements OnDestroy {
             .subscribe((nonceResult) => {
               console.log(nonceResult, 'nonce');
               this.modalService.close('terraWallet');
-              if (connectionName === 'Terra Station Wallet') {
+              if (connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') {
                 this.signTerra(nonceResult.message, walletAddr);
               } else {
                 this.signTerraTx(walletAddr, nonceResult.message);
               }
+            }, (error) => {
+              console.log('error', error)
             });
         }
       });
@@ -322,6 +344,7 @@ export class WelcomeV2Component implements OnDestroy {
       .catch((error) => {
         this.loaderService.stop();
         this.toast.error('Failed to connect');
+        this.walletInit();
       });
   }
 
@@ -412,6 +435,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   editConnection(chainType: string, address: string) {
+    // this.walletInit();
     if (this.selected === 'discord') {
       this.modalService.open('removeWalletModal');
     } else {
@@ -436,7 +460,6 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   async handleTerraConnection(type: any, identifier: any) {
-    // this.walletInit();
     let connect = await this.terraController.connect(type, identifier);
   }
 
