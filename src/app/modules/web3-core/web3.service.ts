@@ -5,6 +5,9 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import {provider} from 'web3-core';
 import {WEB3} from './web3';
+import QRCodeModal from "@walletconnect/qrcode-modal";
+
+
 
 
 @Injectable({
@@ -26,16 +29,9 @@ export class Web3Service {
         options: {
           infuraId: 'env', // required change this with your own infura id
           description: 'Scan the qr code and sign in',
+          qrcodeModal: QRCodeModal,
           qrcodeModalOptions: {
-            mobileLinks: [
-              // 'terra',
-              'metamask'/*,
-              'rainbow',
-              'argent',
-              'trust',
-              'imtoken',
-              'pillar'*/
-            ]
+            mobileLinks: []
           }
         }
       },
@@ -51,7 +47,7 @@ export class Web3Service {
 
     this.web3Modal = new Web3Modal({
       network: 'mainnet', // optional change this with the net you want to use like rinkeby etc
-      cacheProvider: true, // optional
+      cacheProvider: false, // optional
       providerOptions, // required
       theme: {
         background: 'rgb(39, 49, 56)',
@@ -65,7 +61,6 @@ export class Web3Service {
 
 
   async connectAccount() {
-    console.log(this.provider, 'prov', this.web3Modal);
     this.provider = await this.web3Modal.connect(); // set provider
     if (this.provider) {
       this.web3js = new Web3(this.provider);

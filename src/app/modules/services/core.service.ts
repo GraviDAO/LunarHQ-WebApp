@@ -38,7 +38,6 @@ export class CoreService {
   authenticate(data: any): Observable<any> {
     return this.http.post<any>(environment.server + 'login', data)
       .pipe(map((result) => {
-        console.log(result, 'result');
         return result;
       }));
   }

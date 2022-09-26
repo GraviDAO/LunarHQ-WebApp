@@ -41,6 +41,7 @@ export class LocalStorageService {
       value = String.fromCharCode(16) + JSON.stringify(value);
     }
     if (!this.canLocalStore) {
+      // @ts-ignore
       this.fallbackStorage[key] = value;
       return true;
     }
@@ -70,6 +71,7 @@ export class LocalStorageService {
     // console.info('STORAGE | deleting key', key);
 
     if (!this.canLocalStore) {
+      // @ts-ignore
       delete this.fallbackStorage[key];
       return true;
     }

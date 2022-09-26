@@ -63,7 +63,6 @@ export class WelcomeV2Component implements OnDestroy {
           walletAddress: lunarUserObj.walletAddress,
           blockchainName: lunarUserObj.blockchainName
         }).subscribe((data) => {
-          // console.log(data, 'data');
           lunarUserObj.discordName = data.message.discordName;
           lunarUserObj.discordProfileImage = data.message.discordProfileImage;
           this.storageService.set('lunar_user', lunarUserObj);
@@ -78,7 +77,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
           this.getUserProfile();
         }, (error) => {
-          console.log(error, 'error');
+          console.error(error, 'error');
           this.toast.error('Adding multiple wallets of one chain is not supported yet!');
         });
       }
@@ -99,7 +98,7 @@ export class WelcomeV2Component implements OnDestroy {
             this.setUserProfile(data);
           },
           error: (error) => {
-            console.log(error);
+            console.error(error);
             this.progressStatus = this.storageService.get('user_progress');
             let lunarUserObj = this.storageService.get('lunar_user');
             this.setDataObj(lunarUserObj);
@@ -112,7 +111,6 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   setUserProfile(data: any) {
-    // console.log(data);
     let dataObj = data.message;
     this.progressStatus = 'discord_connected';
     this.selected = 'discord_connected';
@@ -224,19 +222,19 @@ export class WelcomeV2Component implements OnDestroy {
                 this.setUserProfile(data);
               },
               error: (error) => {
-                console.log(error);
+                console.error(error);
                 this.progressStatus = this.storageService.get('user_progress');
                 let lunarUserObj = this.storageService.get('lunar_user');
                 this.setDataObj(lunarUserObj);
               }
             });
         } else {
-          let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockchainName);
+          /*let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockchainName);
           if (index > -1) {
             lunarObj.walletAddress[index].publicAddress = publicAddress;
           } else {
             lunarObj.walletAddress.push({blockchainName, publicAddress});
-          }
+          }*/
 
           const token = result.message;
           const oldJWT = lunarObj.token;
@@ -257,8 +255,16 @@ export class WelcomeV2Component implements OnDestroy {
                 }).subscribe((data) => {
                   this.getUserProfile();
                 }, (error) => {
-                  console.log(error, 'Failed to connect Discord')
-                  this.toast.error('Failed to connect Discord');
+                  let tempObj: any = {};
+                  tempObj.token = result.message;
+                  tempObj.walletAddress = [];
+                  tempObj.walletAddress.push({blockchainName, publicAddress});
+                  lunarObj = tempObj;
+                  this.progressStatus = 'wallet_connected';
+                  this.storageService.set('lunar_user', lunarObj);
+                  this.setDataObj(lunarObj);
+                  console.error(error, 'Failed to connect Discord');
+                  // this.toast.error('Failed to connect Discord');
                 });
               }
             });
@@ -274,7 +280,7 @@ export class WelcomeV2Component implements OnDestroy {
         }
         this.exitModal();
       }, (error) => {
-        console.log('Failed to connect wallet', error);
+        console.error('Failed to connect wallet', error);
         this.toast.error('Failed to connect wallet');
       });
   }
@@ -289,21 +295,17 @@ export class WelcomeV2Component implements OnDestroy {
         this.storageService.delete('__terra_extension_router_session__');
         this.availableInstallTypes = _availableInstallTypes;
         const connections = _availableConnections;
-        // console.log(connections, 'connections');
         const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
         if (i > -1) connections.splice(i, 1);
         this.availableConnections = connections;
         this.modalService.open('terraWallet');
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
-          // console.log(_states);
           const blockchainName = 'Terra';
           const connectionType = _states.wallets[0].connectType;
           const connectionName = _states.connection.name;
-          // console.log(connectionName, connectionName === 'Terra Station Wallet')
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
-              // console.log(nonceResult, 'nonce');
               this.modalService.close('terraWallet');
               if (connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') {
                 this.signTerra(nonceResult.message, walletAddr);
@@ -311,7 +313,7 @@ export class WelcomeV2Component implements OnDestroy {
                 this.signTerraTx(walletAddr, nonceResult.message);
               }
             }, (error) => {
-              console.log('error', error)
+              console.error('error', error)
             });
         }
       });
@@ -331,7 +333,6 @@ export class WelcomeV2Component implements OnDestroy {
         memo: 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet',
       })
       .then((res) => {
-        console.log(res);
         const blockchainName = 'Terra';
         const dataObject = {
           type: 'TerraTx',
@@ -362,16 +363,14 @@ export class WelcomeV2Component implements OnDestroy {
       }
       this.authenticateWalletAddress(payLoad, publicAddress, blockchainName);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       this.web3.disconnectAccount();
     }
   }
 
   async signTerra(nonce: string, publicAddress: string) {
-    console.log(this.terraController);
     try {
       const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
-      console.log(res, 'res');
       let sigComp = {
         recid: res.result.recid,
         signature: res.result.signature.toString(),
@@ -390,7 +389,7 @@ export class WelcomeV2Component implements OnDestroy {
       };
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
-      console.log(e, 'e');
+      console.error(e, 'e');
       this.terraController.disconnect();
     }
   }
@@ -405,7 +404,6 @@ export class WelcomeV2Component implements OnDestroy {
     });
 
     /*this.terraController.states().subscribe(async (states) => {
-      console.log(states.status);
       switch (states.status) {
         case WalletStatus.WALLET_NOT_CONNECTED:
           this.walletConnected = false
@@ -414,7 +412,6 @@ export class WelcomeV2Component implements OnDestroy {
 
         case WalletStatus.WALLET_CONNECTED:
           // this.terraController.disconnect();
-          // console.log(states, 'states');
           // this.teraObject = states;
           // this.walletConnected = true
           // this.walletAddress = states.wallets[0].terraAddress
@@ -472,7 +469,6 @@ export class WelcomeV2Component implements OnDestroy {
     // this.terraController.disconnect();
     this.walletInit();
     await this.web3.disconnectAccount();
-    console.log(this.selected);
     if (this.selected === 'discord') {
       this.storageService.delete('lunar_user');
       this.storageService.delete('user_progress');
@@ -480,14 +476,12 @@ export class WelcomeV2Component implements OnDestroy {
       this.polygonAddress = 'polygon wallet';
       this.terraAddress = 'terra wallet';
       this.modalService.close('removeWalletModal');
-      console.log((this.terraAddress === 'terra wallet' && this.selected !== 'discord') ? '' : (this.polygonAddress.length < 20 ? 'add-outline' : 'close-circle-outline'));
+      this.currentStep = 'step 1 : connect wallet';
     } else {
-      console.log(this.terraAddress, this.polygonAddress);
       const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
           let lunarObj = this.storageService.get('lunar_user');
-          // console.log(data, 'data');
           const token = data.message;
           const oldJWT = lunarObj.token;
           lunarObj.token = token;
@@ -500,7 +494,6 @@ export class WelcomeV2Component implements OnDestroy {
           }
           let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockChainName);
           if (index > -1) {
-            console.log('in');
             lunarObj.walletAddress.splice(index, 1);
           }
           this.storageService.set('lunar_user', lunarObj);
