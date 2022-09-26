@@ -96,12 +96,6 @@ export class WelcomeV2Component implements OnDestroy {
         .subscribe({
           next: (data) => {
             this.setUserProfile(data);
-          },
-          error: (error) => {
-            console.error(error);
-            this.progressStatus = this.storageService.get('user_progress');
-            let lunarUserObj = this.storageService.get('lunar_user');
-            this.setDataObj(lunarUserObj);
           }
         });
     } else {
@@ -160,7 +154,6 @@ export class WelcomeV2Component implements OnDestroy {
 
   createConnection() {
     this.web3.disconnectAccount();
-    // this.terraController.disconnect();
     this.selectedWallet === 'polygon' ? this.connectToMetaMask() : this.terraWalletConnect();
   }
 
@@ -207,69 +200,41 @@ export class WelcomeV2Component implements OnDestroy {
           this.terraAddress = publicAddress;
         }
 
-        if (lunarObj === null) {
-          let tempObj: any = {};
-          tempObj.token = result.message;
-          tempObj.walletAddress = [];
-          tempObj.walletAddress.push({blockchainName, publicAddress});
-          lunarObj = tempObj;
-
-          this.storageService.set('lunar_user', lunarObj);
-
-          this.coreService.getLiteProfileDetails()
-            .subscribe({
-              next: (data) => {
-                this.setUserProfile(data);
-              },
-              error: (error) => {
-                console.error(error);
-                this.progressStatus = this.storageService.get('user_progress');
-                let lunarUserObj = this.storageService.get('lunar_user');
-                this.setDataObj(lunarUserObj);
-              }
-            });
+        let oldJWT = '';
+        if (lunarObj !== null) {
+          oldJWT = lunarObj.token;
         } else {
-          /*let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockchainName);
-          if (index > -1) {
-            lunarObj.walletAddress[index].publicAddress = publicAddress;
-          } else {
-            lunarObj.walletAddress.push({blockchainName, publicAddress});
-          }*/
-
-          const token = result.message;
-          const oldJWT = lunarObj.token;
-          lunarObj.token = token;
-          this.storageService.set('lunar_user', lunarObj);
-
-          this.coreService.getLiteProfileDetails()
-            .subscribe({
-              next: (data) => {
-                this.setUserProfile(data);
-              },
-              error: (error) => {
-                this.coreService.getDiscordUser({
-                  discordAuthorizationCode: '',
-                  walletAddress: publicAddress,
-                  blockchainName: blockchainName,
-                  oldJWT
-                }).subscribe((data) => {
-                  this.getUserProfile();
-                }, (error) => {
-                  let tempObj: any = {};
-                  tempObj.token = result.message;
-                  tempObj.walletAddress = [];
-                  tempObj.walletAddress.push({blockchainName, publicAddress});
-                  lunarObj = tempObj;
-                  this.progressStatus = 'wallet_connected';
-                  this.storageService.set('lunar_user', lunarObj);
-                  this.setDataObj(lunarObj);
-                  console.error(error, 'Failed to connect Discord');
-                  // this.toast.error('Failed to connect Discord');
-                });
-              }
-            });
+          lunarObj = {};
         }
 
+        lunarObj.token = result.message;
+        this.storageService.set('lunar_user', lunarObj);
+
+        this.coreService.getLiteProfileDetails()
+          .subscribe({
+            next: (data) => {
+              this.setUserProfile(data);
+            },
+            error: (error) => {
+              this.coreService.getDiscordUser({
+                discordAuthorizationCode: '',
+                walletAddress: publicAddress,
+                blockchainName: blockchainName,
+                oldJWT
+              }).subscribe((data) => {
+                this.getUserProfile();
+              }, error => {
+                let tempObj: any = {};
+                tempObj.token = result.message;
+                tempObj.walletAddress = [];
+                tempObj.walletAddress.push({blockchainName, publicAddress});
+                lunarObj = tempObj;
+                this.progressStatus = 'wallet_connected';
+                this.storageService.set('lunar_user', lunarObj);
+                this.setDataObj(lunarObj);
+              });
+            }
+          });
 
         if (userProgress !== 'discord_connected') {
           this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
@@ -402,22 +367,6 @@ export class WelcomeV2Component implements OnDestroy {
     this.terraController = new WalletController({
       ...chainOptions,
     });
-
-    /*this.terraController.states().subscribe(async (states) => {
-      switch (states.status) {
-        case WalletStatus.WALLET_NOT_CONNECTED:
-          this.walletConnected = false
-          this.walletAddress = ''
-          break;
-
-        case WalletStatus.WALLET_CONNECTED:
-          // this.terraController.disconnect();
-          // this.teraObject = states;
-          // this.walletConnected = true
-          // this.walletAddress = states.wallets[0].terraAddress
-          break;
-      }
-    });*/
   }
 
   closeDiscordPopUp() {
@@ -492,11 +441,7 @@ export class WelcomeV2Component implements OnDestroy {
           } else {
             this.terraAddress = 'terra wallet';
           }
-          let index = lunarObj.walletAddress.findIndex((obj: any) => obj.blockchainName === blockChainName);
-          if (index > -1) {
-            lunarObj.walletAddress.splice(index, 1);
-          }
-          this.storageService.set('lunar_user', lunarObj);
+          this.getUserProfile();
           this.modalService.close('removeWalletModal')
           this.unlink.chainType = '';
           this.unlink.address = '';
