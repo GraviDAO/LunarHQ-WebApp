@@ -79,6 +79,7 @@ export class WelcomeV2Component implements OnDestroy {
         }, (error) => {
           console.error(error, 'error');
           this.toast.error('Adding multiple wallets of one chain is not supported yet!');
+          this.closeDiscordPopUp();
         });
       }
     });
@@ -96,6 +97,11 @@ export class WelcomeV2Component implements OnDestroy {
         .subscribe({
           next: (data) => {
             this.setUserProfile(data);
+          },
+          error: (error) => {
+            console.error(error, 'error');
+            this.progressStatus = this.storageService.get('user_progress');
+            this.setDataObj(lunarUserObj);
           }
         });
     } else {
@@ -106,6 +112,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   setUserProfile(data: any) {
     let dataObj = data.message;
+    this.storageService.set('lunarUserObj', dataObj);
     this.progressStatus = 'discord_connected';
     this.selected = 'discord_connected';
     this.currentStep = 'connection success!';
@@ -278,7 +285,7 @@ export class WelcomeV2Component implements OnDestroy {
                 this.signTerraTx(walletAddr, nonceResult.message);
               }
             }, (error) => {
-              console.error('error', error)
+              console.error('error', error);
             });
         }
       });

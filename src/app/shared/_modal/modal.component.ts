@@ -79,7 +79,7 @@ export class ModalComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   outSide(): any {
-    console.log('out');
+    // console.log('out');
     this.clickEvent.emit(this.id);
   }
 

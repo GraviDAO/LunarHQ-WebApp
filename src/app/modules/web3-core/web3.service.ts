@@ -29,7 +29,6 @@ export class Web3Service {
         options: {
           infuraId: 'env', // required change this with your own infura id
           description: 'Scan the qr code and sign in',
-          qrcodeModal: QRCodeModal,
           qrcodeModalOptions: {
             mobileLinks: []
           }
