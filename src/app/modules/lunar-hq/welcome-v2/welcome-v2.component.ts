@@ -161,6 +161,8 @@ export class WelcomeV2Component implements OnDestroy {
 
   createConnection() {
     this.web3.disconnectAccount();
+    // this.subscription.unsubscribe();
+    // this.terraWalletConnect();
     this.selectedWallet === 'polygon' ? this.connectToMetaMask() : this.terraWalletConnect();
   }
 
@@ -198,6 +200,7 @@ export class WelcomeV2Component implements OnDestroy {
   authenticateWalletAddress(dataObject: any, publicAddress: string, blockchainName: string) {
     this.coreService.authenticate(dataObject)
       .subscribe((result) => {
+        this.loaderService.stop();
         this.toast.success('Wallet connected');
         let userProgress = this.storageService.get('user_progress');
         let lunarObj: any = this.storageService.get('lunar_user');
@@ -324,6 +327,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   async handleSignIn(nonce: any, publicAddress: any) {
     try {
+      this.loaderService.start();
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
       const blockchainName = 'polygon-mainnet';
@@ -342,6 +346,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   async signTerra(nonce: string, publicAddress: string) {
     try {
+      this.loaderService.start();
       const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
       let sigComp = {
         recid: res.result.recid,
@@ -362,6 +367,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
       console.error(e, 'e');
+      this.loaderService.stop();
       this.terraController.disconnect();
     }
   }
