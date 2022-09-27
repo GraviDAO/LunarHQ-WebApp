@@ -6,7 +6,7 @@ import {CoreService} from '../../services/core.service';
 import {USER_AUTHENTICATED} from '../welcome/type';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
 import {ToastrService} from 'ngx-toastr';
-import {ConnectType, getChainOptions, WalletController, WalletStatus} from '@terra-money/wallet-provider';
+import {getChainOptions, WalletController} from '@terra-money/wallet-provider';
 import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Subscription} from 'rxjs';
 import {MsgSend} from '@terra-money/terra.js';
@@ -135,7 +135,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.currentStep = 'step 2 : connect discord';
       let tempPolygonObj: any;
       let tempTerraObj: any;
-      if (typeof lunarUserObj.walletAddress !== 'string') {
+      if (typeof lunarUserObj.walletAddress !== 'string' && lunarUserObj.walletAddress !== undefined) {
         tempPolygonObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
         tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
       }
@@ -152,13 +152,15 @@ export class WelcomeV2Component implements OnDestroy {
     window.open('https://whyable.com/rippler/', '_blank');
   }
 
+
+  // function to open connect wallet modal
   connectWallet() {
     this.selectedWallet = '';
-    // this.terraController.disconnect();
     this.modalService.close('terraWallet');
     this.modalService.open('connectWallet');
   }
 
+  // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
     // this.subscription.unsubscribe();
@@ -171,6 +173,7 @@ export class WelcomeV2Component implements OnDestroy {
     window.open(this.url, '_self');
   }
 
+  //function to connect to metamask & get nonce
   async connectToMetaMask() {
     try {
       this.exitModal();
@@ -196,19 +199,13 @@ export class WelcomeV2Component implements OnDestroy {
     this.selectedWallet = chainType;
   }
 
-
+  //authenticate wallet address
   authenticateWalletAddress(dataObject: any, publicAddress: string, blockchainName: string) {
     this.coreService.authenticate(dataObject)
       .subscribe((result) => {
         this.loaderService.stop();
-        this.toast.success('Wallet connected');
         let userProgress = this.storageService.get('user_progress');
         let lunarObj: any = this.storageService.get('lunar_user');
-        if (blockchainName === 'polygon-mainnet') {
-          this.polygonAddress = publicAddress;
-        } else {
-          this.terraAddress = publicAddress;
-        }
 
         let oldJWT = '';
         if (lunarObj !== null) {
@@ -217,34 +214,71 @@ export class WelcomeV2Component implements OnDestroy {
           lunarObj = {};
         }
 
+        const prevToken = lunarObj.token;
         lunarObj.token = result.message;
         this.storageService.set('lunar_user', lunarObj);
 
-        this.coreService.getLiteProfileDetails()
-          .subscribe({
-            next: (data) => {
-              this.setUserProfile(data);
-            },
-            error: (error) => {
-              this.coreService.getDiscordUser({
-                discordAuthorizationCode: '',
-                walletAddress: publicAddress,
-                blockchainName: blockchainName,
-                oldJWT
-              }).subscribe((data) => {
-                this.getUserProfile();
-              }, error => {
-                let tempObj: any = {};
-                tempObj.token = result.message;
-                tempObj.walletAddress = [];
-                tempObj.walletAddress.push({blockchainName, publicAddress});
-                lunarObj = tempObj;
-                this.progressStatus = 'wallet_connected';
-                this.storageService.set('lunar_user', lunarObj);
-                this.setDataObj(lunarObj);
-              });
+        if (this.selected !== 'discord_connected') {
+          this.toast.success('Wallet connected');
+
+          if (blockchainName === 'polygon-mainnet') {
+            this.polygonAddress = publicAddress;
+          } else {
+            this.terraAddress = publicAddress;
+          }
+
+          this.coreService.getLiteProfileDetails()
+            .subscribe({
+              next: (data) => {
+                this.setUserProfile(data);
+              },
+              error: (error) => {
+                this.coreService.getDiscordUser({
+                  discordAuthorizationCode: '',
+                  walletAddress: publicAddress,
+                  blockchainName: blockchainName,
+                  oldJWT
+                }).subscribe((data) => {
+                  this.getUserProfile();
+                }, error => {
+                  let tempObj: any = {};
+                  tempObj.token = result.message;
+                  tempObj.walletAddress = [];
+                  tempObj.walletAddress.push({blockchainName, publicAddress});
+                  lunarObj = tempObj;
+                  this.progressStatus = 'wallet_connected';
+                  this.storageService.set('lunar_user', lunarObj);
+                  this.setDataObj(lunarObj);
+                });
+              }
+            });
+        } else {
+          this.coreService.getDiscordUser({
+            discordAuthorizationCode: '',
+            walletAddress: publicAddress,
+            blockchainName: blockchainName,
+            oldJWT
+          }).subscribe((data) => {
+            this.toast.success('Wallet connected and Discord linked!');
+
+            if (blockchainName === 'polygon-mainnet') {
+              this.polygonAddress = publicAddress;
+            } else {
+              this.terraAddress = publicAddress;
+            }
+
+            this.getUserProfile();
+          }, error => {
+            console.error(error, 'error');
+            this.progressStatus = 'discord_connected';
+            lunarObj.token = prevToken;
+            this.storageService.set('lunar_user', lunarObj);
+
+            if (error.status === 409) {
+              this.toast.error('Wallet is already linked to another account!');
             }
           });
+        }
 
         if (userProgress !== 'discord_connected') {
           this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
@@ -260,6 +294,7 @@ export class WelcomeV2Component implements OnDestroy {
       });
   }
 
+  // function to subscribe to terra list availableConnections & state
   async terraWalletConnect() {
     this.subscription = combineLatest([
       this.terraController.availableInstallTypes(),
@@ -295,6 +330,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.exitModal();
   }
 
+  // function to signIn with Terratx
   signTerraTx(terraAddress: any, nonce: any) {
     this.loaderService.start();
     const msg = new MsgSend(
@@ -320,11 +356,13 @@ export class WelcomeV2Component implements OnDestroy {
       })
       .catch((error) => {
         this.loaderService.stop();
+        this.terraController.disconnect();
         this.toast.error('Failed to connect');
         this.walletInit();
       });
   }
 
+  // To handle metamask sign in
   async handleSignIn(nonce: any, publicAddress: any) {
     try {
       this.loaderService.start();
@@ -344,6 +382,7 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
+  // function to signIn with TerraArbitraryByte
   async signTerra(nonce: string, publicAddress: string) {
     try {
       this.loaderService.start();
@@ -375,6 +414,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   async walletInit() {
     await this.web3.disconnectAccount();
+
     const chainOptions = await getChainOptions();
 
     this.terraController = new WalletController({
@@ -456,6 +496,7 @@ export class WelcomeV2Component implements OnDestroy {
           }
           this.getUserProfile();
           this.modalService.close('removeWalletModal')
+          this.toast.success('Wallet removed!');
           this.unlink.chainType = '';
           this.unlink.address = '';
         });
