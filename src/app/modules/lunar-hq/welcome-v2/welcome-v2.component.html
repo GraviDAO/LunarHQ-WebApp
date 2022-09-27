@@ -46,7 +46,7 @@
                 <app-why-cta-one
                   [cssClass]="polygonAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('polygon', polygonAddress)"
-                  [rightIconType]="terraAddress === 'terra wallet' ? '' : (polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconType]="(terraAddress === 'terra wallet' && selected !== 'discord') ? '' : (polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [iconPath]="'./assets/img/svg/matic-logo.svg'"
                   [btnLabel]="polygonAddress"></app-why-cta-one>
