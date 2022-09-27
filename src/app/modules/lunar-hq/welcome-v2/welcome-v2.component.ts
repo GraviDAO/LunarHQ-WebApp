@@ -386,6 +386,9 @@ export class WelcomeV2Component implements OnDestroy {
   async signTerra(nonce: string, publicAddress: string) {
     try {
       this.loaderService.start();
+      setTimeout(()=> {
+        this.loaderService.stop();
+      }, 15000);
       const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
       let sigComp = {
         recid: res.result.recid,
