@@ -22,6 +22,7 @@ export class WelcomeV2Component implements OnDestroy {
   selected = 'connect';
   selectedWallet = '';
   walletTitle = 'Connect wallet';
+  terraIcon = 'https://assets.terra.money/icon/station-extension/icon.png';
   // url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2F46.101.14.43%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
   // url = 'https://discord.com/api/oauth2/authorize?client_id=959099639309664266&redirect_uri=http%3A%2F%2Flocalhost%3A4401%2Fwelcome&response_type=code&scope=identify%20email%20connections';
@@ -36,6 +37,7 @@ export class WelcomeV2Component implements OnDestroy {
   walletDescription = 'Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.';
   polygonAddress = 'polygon wallet';
   terraAddress = 'terra wallet';
+  useLedgerStation: boolean | undefined = false;
   // @ts-ignore
   subscription: Subscription;
   availableInstallTypes: Array<any> = [];
@@ -201,6 +203,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   //authenticate wallet address
   authenticateWalletAddress(dataObject: any, publicAddress: string, blockchainName: string) {
+    this.loaderService.start();
     this.coreService.authenticate(dataObject)
       .subscribe((result) => {
         this.loaderService.stop();
@@ -317,7 +320,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               this.modalService.close('terraWallet');
-              if (connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') {
+              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
                 this.signTerra(nonceResult.message, walletAddr);
               } else {
                 this.signTerraTx(walletAddr, nonceResult.message);
@@ -351,6 +354,7 @@ export class WelcomeV2Component implements OnDestroy {
           publicAddress: terraAddress,
           blockchainName
         };
+        this.useLedgerStation = false;
         this.loaderService.stop();
         this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
       })
@@ -374,7 +378,8 @@ export class WelcomeV2Component implements OnDestroy {
         signature: resultObj,
         publicAddress: publicAddress,
         blockchainName
-      }
+      };
+      this.loaderService.stop();
       this.authenticateWalletAddress(payLoad, publicAddress, blockchainName);
     } catch (e) {
       console.error(e);
@@ -386,7 +391,7 @@ export class WelcomeV2Component implements OnDestroy {
   async signTerra(nonce: string, publicAddress: string) {
     try {
       this.loaderService.start();
-      setTimeout(()=> {
+      setTimeout(() => {
         this.loaderService.stop();
       }, 15000);
       const res: any = await this.terraController?.signBytes(Buffer.from(nonce));
@@ -406,6 +411,7 @@ export class WelcomeV2Component implements OnDestroy {
         publicAddress: publicAddress,
         blockchainName
       };
+      this.loaderService.stop();
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
       console.error(e, 'e');
@@ -462,7 +468,8 @@ export class WelcomeV2Component implements OnDestroy {
     window.open('https://discord.com/app', '_blank');
   }
 
-  async handleTerraConnection(type: any, identifier: any) {
+  async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
+    this.useLedgerStation = useLedgerStation;
     let connect = await this.terraController.connect(type, identifier);
   }
 

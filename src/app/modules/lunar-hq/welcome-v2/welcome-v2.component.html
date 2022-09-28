@@ -209,6 +209,14 @@
         [btnLabel]="terraConnect.name === 'Terra Station Wallet' ? 'Terra station' : terraConnect.name">
       </app-why-cta-one>
     </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="handleTerraConnection('EXTENSION', 'station', true)"
+        [walletIcon]="terraIcon"
+        [btnLabel]="'Ledger Station'">
+      </app-why-cta-one>
+    </div>
     <div class="mr-bottom-64"></div>
   </app-why-modal-wrapper>
 </app-why-modal>
