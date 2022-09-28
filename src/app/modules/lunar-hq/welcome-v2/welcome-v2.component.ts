@@ -362,7 +362,6 @@ export class WelcomeV2Component implements OnDestroy {
         this.loaderService.stop();
         this.terraController.disconnect();
         this.toast.error('Failed to connect');
-        this.walletInit();
       });
   }
 
