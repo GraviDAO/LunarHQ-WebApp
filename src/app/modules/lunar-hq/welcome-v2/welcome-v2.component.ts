@@ -437,7 +437,7 @@ export class WelcomeV2Component implements OnDestroy {
         this.connectToMetaMask();
       } else if (address === 'terra wallet') {
         this.terraWalletConnect();
-      } else if (this.terraAddress !== 'terra wallet' && this.polygonAddress !== 'polygon wallet') {
+      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
@@ -478,20 +478,29 @@ export class WelcomeV2Component implements OnDestroy {
       const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
-          let lunarObj = this.storageService.get('lunar_user');
-          const token = data.message;
-          const oldJWT = lunarObj.token;
-          lunarObj.token = token;
-          this.storageService.set('lunar_user', lunarObj);
-
           if (this.unlink.chainType === 'polygon') {
             this.polygonAddress = 'polygon wallet';
           } else {
             this.terraAddress = 'terra wallet';
           }
-          this.getUserProfile();
+          
+          if((this.polygonAddress == "polygon wallet" && this.terraAddress == "terra wallet") || ((data.message as string).toLowerCase().includes("no") && (data.message as string).toLowerCase().includes("remaining"))) {
+            this.selected = "connect"
+            this.storageService.set('user_progress', null);
+            this.progressStatus = this.storageService.get('user_progress');
+            this.toast.success('Last Wallet of Account removed!');
+          } else {
+            let lunarObj = this.storageService.get('lunar_user');
+            const token = data.message;
+            const oldJWT = lunarObj.token;
+            lunarObj.token = token;
+            this.storageService.set('lunar_user', lunarObj);
+            this.toast.success('Wallet removed!');
+
+            this.getUserProfile();
+          }
+
           this.modalService.close('removeWalletModal')
-          this.toast.success('Wallet removed!');
           this.unlink.chainType = '';
           this.unlink.address = '';
         });

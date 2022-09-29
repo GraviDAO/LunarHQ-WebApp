@@ -46,7 +46,7 @@
                 <app-why-cta-one
                   [cssClass]="polygonAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('polygon', polygonAddress)"
-                  [rightIconType]="(terraAddress === 'terra wallet' && selected !== 'discord') ? '' : (polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconType]="(polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [iconPath]="'./assets/img/svg/matic-logo.svg'"
                   [btnLabel]="polygonAddress"></app-why-cta-one>
@@ -57,7 +57,7 @@
                 <app-why-cta-one
                   [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('terra', terraAddress)"
-                  [rightIconType]="(polygonAddress === 'polygon wallet' && selected !== 'discord') ? '' : (terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconType]="(terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [iconPath]="'./assets/img/svg/terra_icon.svg'"
                   [btnLabel]="terraAddress"></app-why-cta-one>
