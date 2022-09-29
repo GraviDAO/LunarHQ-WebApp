@@ -14,3 +14,6 @@
 
 @import "src/style/index";
 
+
+#toast-container > div { z-index: 9999; }
+
