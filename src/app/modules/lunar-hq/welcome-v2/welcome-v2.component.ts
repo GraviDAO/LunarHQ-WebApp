@@ -118,6 +118,7 @@ export class WelcomeV2Component implements OnDestroy {
     let dataObj = data.message;
     this.storageService.set('lunarUserObj', dataObj);
     this.progressStatus = 'discord_connected';
+    this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
     this.selected = 'discord_connected';
     this.currentStep = 'connection success!';
     const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
@@ -236,6 +237,8 @@ export class WelcomeV2Component implements OnDestroy {
             .subscribe({
               next: (data) => {
                 this.setUserProfile(data);
+              }, error: (error) => {
+                this.progressStatus = 'wallet_connected';
               }
             });
         } else {
@@ -269,7 +272,7 @@ export class WelcomeV2Component implements OnDestroy {
         if (userProgress !== 'discord_connected') {
           this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
           this.selected = 'discord';
-          this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
+          this.walletDescription = 'Lunar Assistant currently supports one wallet per chain. Multi wallet support is coming with Lunar HQ. Watch this space';
           this.walletTitle = 'wallet connected';
           this.currentStep = 'step 2 : connect discord';
         }
