@@ -1,0 +1,179 @@
+@use "src/style/mixin-core" as mixin;
+
+.placeholder-wrapper {
+  //position: fixed;
+  //bottom: mixin.toRem(40);
+  //left: 0;
+  //right: 0;
+  justify-content: center;
+  display: flex;
+
+  &.move-placeholder {
+    //position: relative;
+  }
+}
+
+.rippler-logo-container {
+  width: mixin.toRem(90);
+  height: mixin.toRem(30);
+}
+
+.built-by-container {
+  width: mixin.toRem(150);
+  height: mixin.toRem(52);
+}
+
+.logo-container {
+  width: mixin.toRem(120);
+  height: mixin.toRem(52);
+}
+
+.wc-container {
+  height: 100%;
+}
+
+.first-container {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.option-main-wrapper {
+  display: flex;
+  align-items: center;
+  //justify-content: space-between;
+  height: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.option-container {
+  opacity: 0.2;
+  width: mixin.toRem(320);
+}
+
+.add-left-pd {
+  margin-left: 24px;
+}
+
+.active-container {
+  opacity: 1;
+}
+
+.option-wrapper {
+  clip-path: polygon(0% 0px, 0px 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  background: var(--dark);
+  min-height: mixin.toRem(224);
+  width: mixin.toRem(327);
+  padding: mixin.toRem(24) mixin.toRem(24) mixin.toRem(32);
+
+  &.discord-container {
+    height: mixin.toRem(248);
+  }
+
+  &.on-done {
+    background: var(--tertiary);
+  }
+
+  &.on-connect {
+    background: transparent;
+    min-height: mixin.toRem(150);
+    padding: 0;
+  }
+}
+
+.option-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding-top: 120px;
+}
+
+.light-text {
+  color: var(--light) !important;
+}
+
+.discord-con-text-container {
+  max-width: mixin.toRem(664);
+}
+
+.social-link-container {
+  display: none;
+}
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  .option-main-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .option-container {
+    margin-top: 56px;
+  }
+
+  .option-wrapper {
+    &.on-connect {
+      min-height: mixin.toRem(110);
+    }
+  }
+
+  .placeholder-wrapper {
+    width: 100%;
+    position: revert;
+    background: var(--dark-20);
+    padding-bottom: mixin.toRem(56);
+  }
+
+  .social-link-container {
+    display: block;
+    padding-top: 24px;
+    padding-bottom: 8px;
+  }
+
+  .option-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+  }
+
+  .wc-container {
+    padding-top: mixin.toRem(100);
+  }
+
+  .add-left-pd {
+    padding-left: 0 !important;
+    margin-bottom: 56px;
+    margin-left: 0;
+    margin-top: 56px !important;
+  }
+
+  .rippler-logo-container {
+    width: mixin.toRem(36);
+    //height: mixin.toRem(86);
+  }
+
+  .logo-container {
+    width: mixin.toRem(102);
+    //height: mixin.toRem(86);
+  }
+
+  .rippler-logo-container {
+    width: mixin.toRem(90);
+    height: mixin.toRem(32);
+  }
+
+  .server-details-container {
+    height: mixin.toRem(33);
+    width: 48%;
+    background-color: var(--dark-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .discord-con-text-container {
+    max-width: mixin.toRem(278);
+    margin: auto;
+  }
+}

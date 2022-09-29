@@ -1,0 +1,15 @@
+.block-container {
+  width: 320px;
+  margin: auto;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+@media screen and (max-width: 768px) {
+  .block-container {
+    width: 280px;
+  }
+}

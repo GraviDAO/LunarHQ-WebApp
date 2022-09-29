@@ -1,0 +1,134 @@
+<section>
+  <app-why-lunar-hq-admin-side-nav [activeTab]="'Users'">
+    <div class="">
+      <label class="app-why-lbl f22 light-20 ft-uni ft-300">Users</label>
+    </div>
+    <div class="mr-top-28 mr-bottom-24 d-flex justify-content-between wd-921">
+      <div>
+        <app-why-search-component></app-why-search-component>
+      </div>
+    </div>
+    <article class="table-wrapper">
+      <table class="table add-border-radius table-fixed header-fixed">
+        <thead class="table-header">
+        <tr class="align-middle table-row-data add-revert">
+          <th class="app-why-lbl ft-bold light text-uppercase wd-20 pd-left-16">Discord Profile</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-12 text-center">Discord Link</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-38">Wallet id</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-15 text-center">Wallet link</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-15 text-center">Add / Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let obj of [0,1,2,3,4,5]; let pos = index;"
+            [ngClass]="{'set-height': walletAddress.length === 1}"
+            class="table-row-data add-revert add-br-btm add-btm-br no-height">
+          <td class="d-flex align-items-center wd-20 pd-lr-16">
+            <img class="mr-left-16 logo-container" src="/assets/img/svg/gravidao-logo.svg">
+            <span class="app-why-lbl f12 dark-70 ft-lato-400 ">{{pos % 2 === 0 ? 'adam' : 'ilo'}} </span>
+          </td>
+          <td class="d-flex align-items-center wd-12 justify-content-center">
+            <div class="d-flex ">
+              <label class="switch">
+                <input type="checkbox" checked="false" (change)="checkUncheck($event)">
+                <span class="toggle-switch round"></span>
+              </label>
+            </div>
+          </td>
+          <td [ngClass]="{'no-pd': walletAddress.length >0}" class="wd-38">
+            <div *ngFor="let wallet of walletAddress"
+                 class="app-why-lbl f12 dark-70 col-span ft-lato-400 ad-left-pd-16">
+              {{wallet}}
+            </div>
+          </td>
+          <td class="wallet-address-action-container" [ngClass]="{'no-pd': walletAddress.length>1 }">
+            <div *ngFor="let wallet of walletAddress" class="col-span justify-content-center">
+              <div class="d-flex">
+                <label class="switch">
+                  <input type="checkbox" checked="false" (change)="checkUncheck($event)">
+                  <span class="toggle-switch round"></span>
+                </label>
+              </div>
+            </div>
+          </td>
+          <td class="action-icon-container" [ngClass]="{'no-pd': walletAddress.length > 1}">
+            <div *ngFor="let wallet of walletAddress" class="d-flex col-span">
+              <div class="d-flex" style="width: 100%;">
+                <div class="wd-50 d-flex align-items-center justify-content-center">
+                  <ion-icon class="app-why-icon ic14 dark-50" name="add-outline"></ion-icon>
+                </div>
+                <!--<div class="wd-60">
+                  <ion-icon class="app-why-icon ic14 dark-50" name="close-circle-outline"></ion-icon>
+                </div>-->
+                <div class="wd-50 d-flex align-items-center justify-content-center">
+                  <ion-icon class="app-why-icon ic14 dark-70" name="trash-outline"></ion-icon>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </article>
+  </app-why-lunar-hq-admin-side-nav>
+</section>
+
+<app-why-modal id="unLinkDiscord" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">unlink discord</div>
+    <div class="pd-top-8 app-why-lbl f16 ft-bold light">DaddyWookie</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Removing your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="unLinkWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">unlink wallet</div>
+    <div class="pd-top-8 app-why-lbl f16 ft-bold light">DaddyWookie</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Removing your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="deleteWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">delete wallet</div>
+    <div class="pd-top-8 app-why-lbl f16 ft-bold light">DaddyWookie</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Removing your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>

@@ -1,0 +1,219 @@
+@use "src/style/mixin-core" as mixin;
+
+.vertical-divider {
+  width: 1px;
+  height: mixin.toRem(40);
+  background: var(--primary);
+
+  .ht42 {
+    height: mixin.toRem(42);
+  }
+
+  &.light-20 {
+    background: var(--light-20);
+  }
+}
+
+.horizontal-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--primary);
+
+  &.dark {
+    background: var(--dark);
+  }
+
+  &.dark-70 {
+    background: var(--dark-70);
+  }
+
+  &.dark-50 {
+    background: var(--dark-50);
+  }
+
+  &.light {
+    background: var(--light);
+  }
+
+  &.light-70 {
+    background: var(--light-70);
+  }
+
+  &.light-50 {
+    background: var(--light-50);
+  }
+
+  &.light-20 {
+    background: var(--light-20);
+  }
+}
+
+.back-header {
+  position: fixed;
+  width: 100%;
+  height: 4rem;
+  @include mixin.bg--wrapper;
+  clip-path: none;
+  margin-top: -3.5rem;
+  z-index: 999;
+}
+
+.admin-back-container {
+  width: 100%;
+  height: mixin.toRem(64);
+  @include mixin.bg--wrapper;
+  clip-path: none;
+  display: flex;
+  align-items: center;
+}
+
+div::-webkit-scrollbar {
+  /* width: mixin.toRem(6); */
+}
+
+div::-webkit-scrollbar-thumb:hover {
+  background-color: var(--dark);
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: var(--dark);
+  border-radius: 10px;
+}
+
+div::-webkit-scrollbar-button {
+  display: none;
+}
+
+.input-wrapper {
+  width: mixin.toRem(300);
+  //height: mixin.toRem(32);
+}
+
+.add-lbl-padding {
+  padding-left: 0 !important;
+  padding-top: 28px !important;
+}
+
+/*.app-why-input {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--light-50) !important;
+  border-radius: 0 !important;
+  color: var(--light-70) !important;
+  font-family: Lato, sans-serif;
+  padding-left: 0 !important;
+  //height: 38px !important;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &:placeholder-shown {
+    color: var(--light-50) !important;
+  }
+
+  &:not(:placeholder-shown) {
+    color: var(--light-70);
+    padding-bottom: 0 !important;
+  }
+
+}*/
+
+.form-group {
+  position: relative;
+  //margin-bottom: 1.5rem;
+}
+
+.app-why-floating-lbl {
+  font-family: Lato, sans-serif;
+  position: absolute;
+  top: 0;
+  padding: 8px 0 0 0;
+  transition: all 200ms;
+  color: var(--light-50) !important;
+  pointer-events: none;
+  font-weight: 300 !important;
+}
+
+.app-why-floating-input:focus + .app-why-floating-lbl,
+.app-why-floating-input:not(:placeholder-shown) + .app-why-floating-lbl {
+  font-size: 10px;
+  transform: translate3d(0, -100%, 0);
+  color: var(--light-70);
+}
+
+.app-why-floating-input:focus + .app-why-floating-lbl {
+  color: var(--secondary) !important;
+}
+
+.app-why-floating-input:placeholder-shown,
+.app-why-floating-input:placeholder-shown + .app-why-floating-lbl {
+  //color: var(--light-50) !important;
+}
+
+.add-hover-primary:hover {
+  color: var(--primary-dark) !important;
+}
+
+.app-why-floating-input {
+  width: 300px;
+  background: transparent !important;
+  color: var(--light-70) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--light-50) !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  font-family: Lato, sans-serif;
+  font-weight: 300 !important;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    color: var(--light-70) !important;
+    border-bottom: 1px solid var(--secondary) !important;
+  }
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.admin-rippler-logo-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-rippler-logo-container {
+  width: mixin.toRem(90);
+  height: mixin.toRem(32);
+}
+
+.add-cursor {
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.drop-down-container {
+  margin-left: -41px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 10px !important;
+  border-radius: 0 !important;
+  background: #E5E5E5 !important;
+  border: 0;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.5);
+}
+
+.no-bg {
+  background: transparent !important;
+}

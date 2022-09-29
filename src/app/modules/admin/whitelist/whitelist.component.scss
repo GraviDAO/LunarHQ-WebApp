@@ -1,0 +1,82 @@
+@use "src/style/mixin-core" as mixin;
+
+.wd-10 {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.wd-15 {
+  width: 15%;
+}
+
+.wd-20 {
+  width: 20%;
+}
+
+.wd-40 {
+  width: 40%;
+}
+
+.wd-135 {
+  padding-top: 4px !important;
+  width: mixin.toRem(135);
+}
+
+.logo-container {
+  width: 32px;
+  height: 32px;
+}
+
+.btn-container {
+  height: 36px;
+
+  &:hover, &:focus {
+    background: var(--secondary);
+    color: var(--dark);
+  }
+}
+
+.select-container {
+  background: var(--secondary);
+  color: var(--dark);
+}
+
+
+.divider {
+  width: mixin.toRem(158);
+  height: 1px;
+  background: #F4F4F4;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.add-btm-br {
+  border-bottom: 1px solid var(--light) !important;
+}
+
+.add-br-btm {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--light) !important;
+}
+
+.wd-921 {
+  width: 100%;
+  //width: mixin.toRem(921);
+}
+
+.neg-mr-50 {
+  margin-left: -50%;
+}
+
+th {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}

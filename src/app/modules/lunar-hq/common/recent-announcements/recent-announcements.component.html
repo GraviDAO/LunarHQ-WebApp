@@ -1,0 +1,48 @@
+<div class="server-announcements mr-top-8 d-flex flex-column pd-lr-40 pd-top-24">
+  <div class="recent-poll-header-title d-flex justify-content-between">
+    <div class="app-why-lbl f16 ft-bold light">
+      RECENT ANNOUNCEMENTS
+    </div>
+    <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3PrimaryNorm"
+        [iconClass]="cssClass.cta3PrimaryIconNorm"
+        [iconType]="'chevron-forward-outline'"
+        (click)="navigateToAnnouncements()"
+        [btnLabel]="'ANNOUNCEMENTS'"></app-why-cta-three>
+    </div>
+  </div>
+  <div class="title-underline mr-top-8"></div>
+  <div class="announcement-items pd-top-48 pd-bottom-48 d-flex flex-column">
+    <div class="announcement-item d-flex flex-column">
+      <div class="announcement-item-date app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        28 JUL, 2022
+      </div>
+      <div class="announcement-item-desc-container d-flex mr-top-8 pd-box-24">
+        <div class="announcement-item-image-container d-flex justify-content-center pd-right-24">
+          <img class="announcement-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
+        </div>
+        <div class="divider"></div>
+        <div class="announcement-item-desc d-flex flex-column pd-left-24 pd-right-8">
+          <div class="announcement-item-time app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+            JUST NOW
+          </div>
+          <div class="announcement-item-name app-why-lbl f14 secondary">
+            @GraviDAO  |  Announcements
+          </div>
+          <div class="announcement-item-text pd-top-16 app-why-lbl f16 ft-lato light">
+            GraviDAO's Motoko in line to preview a fresh look for Q4 2022. More details to follow including some brand new features that the majority of the community has been waiting for. Watch this space!
+          </div>
+          <div class="announcement-item-goto pd-top-16 d-flex flex-column align-items-end">
+            <app-why-cta-three
+              [btnClass]="cssClass.cta3PrimaryNorm"
+              [iconClass]="cssClass.cta3PrimaryIconNorm + 'ic24'"
+              [iconType]="'arrow-forward-outline'"
+              (click)="navigateToGoTo()"
+              [btnLabel]="'GO TO'"></app-why-cta-three>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

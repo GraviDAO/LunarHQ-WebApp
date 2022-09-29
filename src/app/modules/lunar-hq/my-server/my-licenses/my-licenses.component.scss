@@ -1,0 +1,110 @@
+@use "src/style/mixin-core" as mixin;
+  .licenses-header {
+    /*height: mixin.toRem(64);
+    width: 100%;
+    background: var(--dark-20);*/
+    height: mixin.toRem(64);
+    width: 100%;
+    background: var(--dark-50);
+    position: fixed;
+    margin-top: -112px;
+    margin-left: -3.75rem;
+  }
+  .licenses-container {
+    width: mixin.toRem(720);
+    height: mixin.toRem(340);
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--tertiary);
+  }
+  .title-underline {
+    height: mixin.toRem(1);
+    background: var(--light-20);
+  }
+  .licenses-nft-name-title {
+    width: mixin.toRem(436);
+    height: mixin.toRem(16);
+  }
+  .licenses-status-title {
+    width: mixin.toRem(116);
+    height: mixin.toRem(16);
+  }
+  .license-item {
+    height: mixin.toRem(88);
+    width: 100%;
+    @include mixin.bg--wrapper;
+    background: var(--dark-50);
+  }
+  .license-item-nft {
+    width: mixin.toRem(400);
+  }
+  .license-item-img {
+    width: mixin.toRem(56);
+    height: mixin.toRem(56);
+  }
+  .license-item-actions {
+    width: mixin.toRem(240);
+  }
+
+.divider {
+    margin-top: mixin.toRem(16);
+    margin-bottom: auto;
+    height: mixin.toRem(56);
+    width: mixin.toRem(1);
+    background: var(--light-20);
+  }
+.link-dropdown {
+    background: none;
+    outline: none;
+    width: mixin.toRem(180);
+    height: mixin.toRem(20);
+    text-align: left;
+  }
+
+.dropdown-menu{
+    margin-left: mixin.toRem(12);
+    &.show {
+        background-color: var(--bg-light);
+        border-radius: 0;
+        padding: 0;
+    }
+}
+.dropdown{
+    .dropdown-toggle::after {
+        right: 0 !important;
+        font-size: var(--font-size-20);
+        vertical-align: 0.055em;
+        margin-top: 0.55rem;
+        position: absolute;
+    }
+    &.show {
+        .dropdown-toggle::after {
+            color: var(--secondary);
+            margin-top: 0.15rem;
+            height: mixin.toRem(12);
+            border-bottom: 0.3em dashed;
+            border-top: 0em solid transparent;
+            border-right: 0.3em solid transparent;
+            border-left: 0.3em solid transparent;
+        }
+    }
+}
+.dropdown-item {
+    height: mixin.toRem(38);
+    width: mixin.toRem(168);
+    &:hover {
+        background-color: var(--secondary);
+    }
+}
+.dropdown-divider {
+    border-top: mixin.toRem(1) solid var(--bg-light);
+    margin: 0;
+}
+.server-list {
+    width: mixin.toRem(240);
+    height: mixin.toRem(192);
+    @include mixin.bg--wrapper;
+    background: var(--dark-50);
+    margin-left: auto;
+    margin-right: auto;
+}

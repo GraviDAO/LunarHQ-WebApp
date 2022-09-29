@@ -1,0 +1,298 @@
+@use "src/style/mixin-core" as mixin;
+
+.back-header {
+  position: fixed;
+  width: 100%;
+  height: 4rem;
+  @include mixin.bg--wrapper;
+  clip-path: none;
+  margin-top: -3.5rem;
+  z-index: 999;
+  backdrop-filter: blur(16px);
+}
+
+.profile-wrapper {
+  margin-left: -3.75rem;
+}
+
+.profile-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+.profile-widget {
+  position: relative;
+  width: 45rem;
+  @include mixin.notch(16px);
+  background: var(--tertiary);
+}
+
+.widget_licences {
+  height: 21.25rem;
+}
+
+.profile-content {
+  max-width: 45rem;
+  margin: auto;
+}
+
+.content-wrapper {
+  justify-content: left !important;
+}
+
+.backBtn {
+  width: 132px;
+  height: 24px;
+}
+
+.profile-header {
+  width: 640px;
+  height: 33px;
+  line-height: 24px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--light);
+  opacity: 0.2;
+}
+
+.social-links {
+  position: fixed;
+  bottom: mixin.toRem(24);
+  right: mixin.toRem(24);
+}
+
+.widget_profile {
+  background: var(--dark-50);
+  margin: auto;
+  border-radius: 0 6.4px 0 6.4px;
+}
+
+.linked-profile {
+  width: mixin.toRem(484);
+  height: mixin.toRem(96);
+  @include mixin.notch(8px);
+}
+
+.profile-bio {
+  width: mixin.toRem(372);
+  height: mixin.toRem(80);
+}
+
+.profile-unlink {
+  width: mixin.toRem(44);
+  //width: mixin.toRem(54);
+  height: mixin.toRem(38);
+  margin: auto;
+}
+
+.profile-link {
+  width: mixin.toRem(240);
+  height: mixin.toRem(40);
+  margin: auto;
+}
+
+.profile-img {
+  width: mixin.toRem(96);
+  height: mixin.toRem(96);
+}
+
+.bg-dark-100 {
+  background: var(--dark);
+}
+
+.wallet-devider {
+  border-bottom: 1px solid var(--light-70);
+  opacity: 0.2;
+}
+
+.wallet-container {
+  width: mixin.toRem(454);
+  height: mixin.toRem(48);
+}
+
+.wallet-cards {
+  width: mixin.toRem(240);
+  height: mixin.toRem(50);
+  @include mixin.notch(8px);
+  background: var(--dark-50);
+  margin: auto;
+  cursor: pointer;
+
+  &.walletSelected {
+    background: var(--dark-70) !important;
+
+    label {
+      color: var(--secondary);
+    }
+  }
+}
+
+.metamask-img {
+  width: mixin.toRem(24);
+  height: mixin.toRem(24);
+  vertical-align: middle;
+}
+
+.nft-wallet {
+  width: mixin.toRem(137);
+  height: mixin.toRem(32);
+}
+
+.metamask-wallet {
+  width: mixin.toRem(137);
+  height: mixin.toRem(32);
+}
+
+.wallet-connect {
+  width: mixin.toRem(193);
+  height: mixin.toRem(32);
+}
+
+.wallet-connect ion-icon {
+  color: var(--light-70);
+}
+
+.wallet-modal-content {
+  width: mixin.toRem(240);
+  margin: auto;
+}
+
+.other-wallets {
+  width: mixin.toRem(132);
+  height: mixin.toRem(24);
+}
+
+.buy-license-modal-content {
+  width: mixin.toRem(280);
+  height: mixin.toRem(306);
+  margin: auto;
+}
+
+.license-modal-cards {
+  width: mixin.toRem(280);
+  height: mixin.toRem(108);
+  @include mixin.notch(8px);
+  background: var(--dark-50);
+  cursor: pointer;
+
+  &.licenseSelected {
+    background: var(--dark-70) !important;
+
+    label.license-label {
+      color: var(--secondary);
+    }
+  }
+}
+.dropdown{
+    .dropdown-toggle::after {
+        right: 0 !important;
+        font-size: var(--font-size-20);
+        vertical-align: 0.055em;
+        margin-top: 0.55rem;
+        position: absolute;
+    }
+    &.show {
+        .dropdown-toggle {
+          color: var(--secondary) !important;
+        }
+        .dropdown-toggle::after {
+            color: var(--secondary) !important;
+            margin-top: 0.15rem;
+            height: mixin.toRem(12);
+            border-bottom: 0.3em dashed;
+            border-top: 0em solid transparent;
+            border-right: 0.3em solid transparent;
+            border-left: 0.3em solid transparent;
+        }
+    }
+}
+.license-container {
+  width: mixin.toRem(259);
+  height: mixin.toRem(40);
+}
+
+.license-container-poly {
+  width: mixin.toRem(81);
+  height: mixin.toRem(76);
+}
+
+.license-labels {
+  width: mixin.toRem(640);
+}
+
+.nft-name {
+  width: mixin.toRem(340);
+  height: mixin.toRem(16);
+}
+
+.nft-status {
+  width: mixin.toRem(300);
+  height: mixin.toRem(16);
+}
+
+.license-cards {
+  width: mixin.toRem(640);
+  height: mixin.toRem(88);
+  background: var(--dark-50);
+  margin: auto;
+  @include mixin.notch(8px);
+}
+
+.img-55 {
+  width: mixin.toRem(56);
+  height: mixin.toRem(56);
+}
+
+.verical-divider {
+  box-sizing: border-box;
+  height: 56px;
+  width: 1px;
+  border: 1px solid var(--light-50);
+  opacity: 0.2;
+}
+
+.license-dropdown {
+  width: mixin.toRem(188);
+  height: mixin.toRem(20);
+}
+
+.link-dropdown {
+  background: none;
+  outline: none;
+  letter-spacing: 0.47px;
+  width: mixin.toRem(180);
+  height: mixin.toRem(20);
+  text-align: left;
+}
+
+.dropdown-menu.show {
+  background-color: var(--bg-light);
+  border-radius: 0;
+  padding: 0;
+}
+
+.dropdown-item {
+  padding: 0;
+  margin: 8px 24px;
+  width: auto;
+}
+
+.dropdown-item:hover {
+  padding: 0;
+  width: auto;
+}
+
+.dropdown-divider {
+  border-top: 1px solid white;
+}
+
+.btn-hover {
+  &:hover {
+    color: var(--light);
+  }
+}

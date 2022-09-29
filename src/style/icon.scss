@@ -1,0 +1,123 @@
+
+.app-why-icon {
+  height: 24px;
+  width: 24px;
+  color: var(--primary);
+
+  &.small {
+    width: 14px;
+    height: 16px;
+  }
+
+  //10,12,14,18,20
+
+  &.ic10 {
+    width: 10px;
+    height: 10px;
+  }
+
+  &.ic12 {
+    width: 12px;
+    height: 12px;
+  }
+
+  &.ic14 {
+    width: 14px;
+    height: 14px;
+  }
+
+  &.ic16 {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.ic18 {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.ic20 {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.pd-2-5 {
+    padding: 2.5px;
+  }
+
+  &.dark {
+    color: var(--dark);
+  }
+
+  &.dark-70 {
+    color: var(--dark-70);
+  }
+
+  &.dark-50 {
+    color: var(--dark-50);
+  }
+
+  &.light {
+    color: var(--light);
+  }
+
+  &.light-70 {
+    color: var(--light-70);
+  }
+
+  &.light-50 {
+    color: var(--light-50);
+  }
+
+  &.light-20 {
+    color: var(--light-20);
+  }
+
+  &.primary-70 {
+    color: var(--primary-70);
+  }
+
+  &.primary-50 {
+    color: var(--primary-50);
+  }
+
+  &.secondary-dark {
+    color: var(--secondary-dark) !important;
+  }
+
+  &.secondary {
+    color: var(--secondary) !important;
+  }
+
+  &.secondary-70 {
+    color: var(--secondary-70);
+  }
+
+  &.secondary-50 {
+    color: var(--secondary-50);
+  }
+
+  &.error {
+    color: var(--error);
+  }
+  &.transparent {
+    color: transparent;
+  }
+
+  &.fill-dark::part(svg) {
+    fill: var(--dark);
+  }
+  
+  &.success {
+    color: var(--success);
+  }
+
+  &.warning {
+    color: var(--warning);
+  }
+
+  &.error {
+    color: var(--error);
+  }
+
+}

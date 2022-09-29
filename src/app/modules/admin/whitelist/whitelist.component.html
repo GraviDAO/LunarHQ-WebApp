@@ -1,0 +1,90 @@
+<section>
+  <app-why-lunar-hq-admin-side-nav [activeTab]="'Whitelist'">
+    <div class="">
+      <label class="app-why-lbl f22 light-20 ft-uni ft-300">Whitelist</label>
+    </div>
+    <div class="mr-top-28 mr-bottom-24 d-flex justify-content-between wd-921">
+      <div>
+        <app-why-search-component></app-why-search-component>
+      </div>
+      <div>
+        <app-why-cta-one
+          [iconType]="'add-circle-outline'"
+          (click)="addWalletId()"
+          [cssClass]="cssClass.cta1Admin" [btnLabel]="'Add wallet id'"></app-why-cta-one>
+      </div>
+    </div>
+    <article style="height: 61vh;">
+      <table class="table add-border-radius table-fixed header-fixed">
+        <thead class="table-header">
+        <tr class="align-middle table-row-data">
+          <th class="app-why-lbl ft-bold light text-uppercase wd-15">Name</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-15">Business name</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-40">Wallet Id</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-20">Additional Info</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-10">Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let obj of [0,1,2,3,4,5,6,7,8]; let pos = index;" class="table-row-data add-br-btm">
+          <td class="wd-15 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            {{'Lulu McBride'}}
+          </td>
+          <td class="wd-15 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            Sony
+          </td>
+          <td class="wd-40 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+            <!--            {{longText.substring(0, 6) + '...' + longText.slice(longText.length - 6)}}-->
+          </td>
+          <td class="wd-20 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            Prospective business
+          </td>
+          <td class="wd-10 table-data-container to-center">
+            <ion-icon class="app-why-icon ic14 dark-70" name="trash-outline"></ion-icon>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </article>
+  </app-why-lunar-hq-admin-side-nav>
+</section>
+
+
+<app-why-modal id="addWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">add wallet id</div>
+    <div class="mr-top-48 form-group">
+      <input type="text" id="name" class="form-control app-why-floating-input"
+             placeholder=" " [(ngModel)]="name">
+      <label class="app-why-floating-lbl neg-mr-50" for="email">Name</label>
+    </div>
+    <div class="mr-top-40 form-group">
+      <input type="text" id="email" class="form-control app-why-floating-input"
+             placeholder=" " [(ngModel)]="businessName">
+      <label class="app-why-floating-lbl neg-mr-50" for="email">Business Name</label>
+    </div>
+    <div class="mr-top-40 form-group">
+      <input type="text" id="walletAddress" class="form-control app-why-floating-input"
+             placeholder=" " [(ngModel)]="walletAddress">
+      <label class="app-why-floating-lbl neg-mr-50" for="email">wallet address</label>
+    </div>
+    <div class="mr-top-40 form-group">
+      <input type="text" id="additionalInfo" class="form-control app-why-floating-input"
+             placeholder=" " [(ngModel)]="additionalInfo">
+      <label class="app-why-floating-lbl neg-mr-50" for="email">additional info</label>
+    </div>
+
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+

@@ -1,0 +1,55 @@
+@use "src/style/mixin-core" as mixin;
+
+.server-recent-polls {
+  width: 100%;
+  min-width: mixin.toRem(1080);
+  height: mixin.toRem(353);
+  @include mixin.bg--wrapper;
+  background: var(--tertiary);
+}
+.poll-items {
+  min-width: mixin.toRem(822);
+  width: 80%;
+  height: mixin.toRem(200);
+  margin-left: auto;
+  margin-right: auto;
+}
+.poll-item {
+  width: 100%;
+  margin-bottom: 8px;
+  height: mixin.toRem(96);
+  @include mixin.bg--wrapper;
+  background: var(--dark-20);
+  .divider {
+    height: mixin.toRem(64);
+  }
+  .poll-item-image-container {
+    min-width: mixin.toRem(88);
+    width: 10%;
+  }
+  .poll-item-image {
+    width: mixin.toRem(40);
+    height: mixin.toRem(40);
+  }
+  .poll-item-desc {
+    min-width: mixin.toRem(393);
+    width: 55%;
+    height: mixin.toRem(48);
+  }
+  .poll-item-name {
+    height: mixin.toRem(24);
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .poll-item-time-status {
+    min-width: mixin.toRem(112);
+    width: 15%;
+  }
+  .poll-item-discord-button {
+    min-width: mixin.toRem(72);
+    width: 10%;
+    height: mixin.toRem(54);
+  }
+}

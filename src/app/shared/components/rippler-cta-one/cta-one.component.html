@@ -1,0 +1,17 @@
+<div>
+  <button [type]="buttonType"
+          (click)="onCLick()"
+          [disabled]="isDisabled"
+          [class]="cssClass + ' ' + transform">
+    <ion-icon class="app-why-icon {{iconClass}} dark"
+              src="{{iconPath}}"
+              *ngIf="iconType !== '' || iconPath !== ''" name="{{iconType}}"></ion-icon>
+    <img class="profile-img" [src]="btnImage" *ngIf="btnImage" alt="">
+    <img class="app-why-icon ic20 mr-right-8" [src]="walletIcon" *ngIf="walletIcon" alt="">
+    <div class="d-flex justify-content-start" [ngClass]="{'add-label-width': rightIconType !== ''}">
+      {{btnLabel | longTextPipe}}
+    </div>
+    <ion-icon class="app-why-icon  light {{rightIconClass}}"
+              *ngIf="rightIconType !== ''" name="{{rightIconType}}"></ion-icon>
+  </button>
+</div>

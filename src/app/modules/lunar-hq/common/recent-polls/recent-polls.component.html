@@ -1,0 +1,97 @@
+<div class="server-recent-polls mr-top-8 d-flex flex-column pd-lr-40 pd-top-24">
+  <div class="recent-poll-header-title d-flex justify-content-between">
+    <div class="app-why-lbl f16 ft-bold light">
+      RECENT POLLS
+    </div>
+    <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3PrimaryNorm"
+        [iconClass]="cssClass.cta3PrimaryIconNorm"
+        [iconType]="'chevron-forward-outline'"
+        (click)="navigateToPolls()"
+        [btnLabel]="'POLLS'"></app-why-cta-three>
+    </div>
+  </div>
+  <div class="horizontal-divider light-20 mr-top-8"></div>
+  <div class="poll-items pd-top-48 d-flex flex-column">
+    <div class="poll-item d-flex align-items-center">
+      <div class="poll-item-image-container d-flex justify-content-center">
+        <img class="poll-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
+      </div>
+      <div class="divider"></div>
+      <div class="poll-item-desc d-flex flex-column pd-lr-24">
+        <div class="poll-item-name app-why-lbl f16 ft-bold light">
+          Monthly GraviDAO Comics for mass market related
+        </div>
+        <div class="poll-item-details pd-top-8 d-flex justify-content-between">
+          <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+            GRAVIDAO
+          </div>
+          <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+            ID : 96 | BY: 0X782L…B36BS1 | 29 JUL, 2022
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
+        <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+          00:08:37
+        </div>
+        <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary">
+          ACTIVE
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="poll-item-discord-button pd-left-24 d-flex flex-column align-items-center text-center"
+           (click)="navigateToViewInDiscord()">
+        <ion-icon src="/assets/img/svg/discord-brands-primary.svg" class="app-why-icon ic18 primary"></ion-icon>
+        <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN
+          DISCORD
+        </div>
+      </div>
+    </div>
+    <div class="poll-item d-flex align-items-center">
+      <div class="poll-item-image-container d-flex justify-content-center">
+        <img class="poll-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
+      </div>
+      <div class="divider"></div>
+      <div class="poll-item-desc d-flex flex-column pd-lr-24">
+        <div class="poll-item-name app-why-lbl f16 ft-bold light">
+          Monthly DAO Payments - July 2022
+        </div>
+        <div class="poll-item-details pd-top-8 d-flex justify-content-between">
+          <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+            GRAVIDAO
+          </div>
+          <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+            ID : 96 | BY: GABRIELAYUSO.ETH | 29 JUL, 2022
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
+        <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+          00:11:28
+        </div>
+        <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary">
+          ACTIVE
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="poll-item-discord-button pd-left-24 d-flex flex-column align-items-center text-center"
+           (click)="navigateToViewInDiscord()">
+        <ion-icon src="/assets/img/svg/discord-brands-primary.svg" class="app-why-icon ic18 primary"></ion-icon>
+        <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN
+          DISCORD
+        </div>
+      </div>
+      <div class="poll-item-discord-button pd-left-24 pd-right-24 d-flex flex-column align-items-center text-center"
+           (click)="navigateToViewInDiscord()">
+        <ion-icon src="/assets/img/svg/discord-brands-primary.svg" class="app-why-icon ic18 primary"></ion-icon>
+        <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN
+          DISCORD
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

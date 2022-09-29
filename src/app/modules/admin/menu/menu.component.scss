@@ -1,0 +1,66 @@
+@use "src/style/mixin-core" as mixin;
+
+.wd-106 {
+  width: mixin.toRem(106);
+}
+
+.wd-290 {
+  width: mixin.toRem(290);
+}
+
+.wd-120 {
+  width: mixin.toRem(120);
+}
+
+.wd-150 {
+  width: mixin.toRem(150);
+}
+
+.wd-135 {
+  width: mixin.toRem(135);
+}
+
+.logo-container {
+  width: 32px;
+  height: 32px;
+}
+
+.btn-container {
+  height: 36px;
+
+  &:hover, &:focus {
+    background: var(--secondary);
+    color: var(--dark);
+  }
+}
+
+.select-container {
+  background: var(--secondary);
+  color: var(--dark);
+}
+
+
+.divider {
+  width: mixin.toRem(158);
+  height: 1px;
+  background: #F4F4F4;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.add-btm-br {
+  border-bottom: 1px solid var(--light) !important;
+}
+
+/*.table-data-container {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}*/

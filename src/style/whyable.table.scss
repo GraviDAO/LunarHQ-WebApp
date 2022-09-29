@@ -1,0 +1,209 @@
+
+.table-header {
+  height: 48px;
+  background-color: var(--dark-70);
+}
+
+.add-border-radius {
+  //border-top-left-radius: 8px;
+  //border-top-right-radius: 8px;
+  overflow: hidden;
+}
+
+.table-height {
+  height: 462px;
+  overflow: scroll;
+}
+
+.table-fixed {
+  min-width: 921px !important;
+  width: 100%;
+  background-color: #f3f3f3;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.08);
+
+  tbody {
+    height: 65vh;
+    overflow-y: auto;
+    width: 100%;
+  }
+}
+
+
+.ad-pd-22 {
+  padding-top: 18px !important;
+  padding-bottom: 5px;
+}
+
+.header-fixed {
+  width: 100%;
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+  display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.header-fixed > tbody {
+  overflow-y: auto;
+  height: 54vh;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.08);
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+  //width: 12.5%;
+  min-height: 36px;
+  float: left;
+}
+
+.header-fixed > thead > tr > th {
+  padding-top: 16px;
+}
+
+.header-fixed > tbody > tr > td.small {
+  padding-left: 12px;
+}
+
+.header-fixed > thead > tr > th.small {
+  padding-top: 9px;
+}
+
+
+// toggle button
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 14px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 1px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--ion-color-primary-shade);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--ion-color-primary-shade);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 12px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+//
+.pd-left-16i {
+  padding-left: 16px !important;
+}
+
+
+.col8 {
+  width: 8.75% !important;
+}
+
+.col9 {
+  width: 9.35% !important;
+}
+
+.col18 {
+  width: 18% !important;
+}
+
+.col15 {
+  width: 15.3% !important;
+}
+
+.table-row-data {
+  height: 48px;
+  width: 100%;
+
+  &.no-height {
+    height: auto;
+    //min-height: 48px;
+  }
+
+  &.add-revert {
+    display: flex;
+  }
+}
+
+
+.table > :not(:first-child) {
+  border: 0;
+}
+
+.table > :not(caption) > * > * {
+  border: 0;
+}
+
+.set-height {
+  height: 48px !important;
+}
+
+.add-btm-br {
+  border-bottom: 1px solid var(--light) !important;
+}
+
+
+.table-data-container {
+  padding: 0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+
+  &.to-center {
+    justify-content: center;
+  }
+}

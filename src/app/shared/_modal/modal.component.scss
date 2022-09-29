@@ -1,0 +1,134 @@
+/* MODAL STYLES
+-------------------------------*/
+@use "src/style/mixin-core" as mixin;
+
+app-why-modal {
+  /* modals are hidden by default */
+  display: none;
+
+  .no-border {
+    border: none;
+  }
+
+  .app-why-modal {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: var(--bg-dark-90);
+    backdrop-filter: blur(16px);
+    //backdrop-filter: blur(4px);
+
+
+    /* z-index must be higher than .app-why-modal-background */
+    z-index: 1000;
+
+    /* enables scrolling for tall modals */
+    overflow: auto;
+
+    .app-why-modal-body {
+      //border-radius: 15px;
+      //padding: 25px;
+      //background: var(--bg-white);
+      //background: var(--bg-dark);
+      /* margin exposes part of the modal background */
+      margin: 10%;
+
+      &.module {
+        @include mixin.notch(16px);
+      }
+
+      &.center {
+        transform: translate(-50%, -50%);
+        top: 50%;
+        position: absolute;
+        left: 50%;
+      }
+
+      &__confirmation {
+        width: 408px;
+        margin: auto;
+        //height: 580px;
+        //min-height: 480px;
+        //border-radius: 8px;
+      }
+
+      &__side-nav {
+        width: 33vw;
+        height: 100vh;
+        margin: 0;
+        //border-radius: 0 0 0 8px;
+        box-shadow: 0 -3px 16px 0 rgba(0, 0, 0, 0.5);
+        float: right;
+      }
+
+      @media screen and (min-width: 425px) and (max-width: 1024px) {
+        &__group {
+          margin: 8% 20% !important;
+        }
+      }
+    }
+  }
+
+  .app-why-modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* semi-transparent black  */
+    background-color: #000;
+    opacity: 0.75;
+
+    /* z-index must be below .app-why-modal and above everything else  */
+    z-index: 900;
+  }
+}
+
+body.app-why-modal-open {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  overflow: hidden;
+}
+
+
+.modal-footer {
+  border-top: none !important;
+}
+
+.top-container {
+  height: 200px;
+  background: url("../../../assets/img/png/popup-top.png") no-repeat;
+  background-size: contain;
+}
+
+.bottom-container {
+  height: 200px;
+  background: url("../../../assets/img/png/popup-bottom.png") no-repeat;
+  background-size: contain;
+  //position: absolute;
+  //width: 408px;
+  //bottom: 4px;
+}
+
+.mid-container {
+  margin-left: 40px;
+  margin-right: 40px;
+  text-align: center;
+  position: absolute;
+  top: 48px;
+}
+
+
+@media screen and (max-width: 768px)  {
+  .app-why-modal-body {
+
+    &__confirmation {
+      width: 343px !important;
+    }
+  }
+}

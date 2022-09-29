@@ -1,0 +1,26 @@
+@use "src/style/mixin-core" as mixin;
+
+.transform-sm {
+  transform: scale(0.8);
+}
+
+.remove-wallet-btn {
+ position: relative;
+ bottom: 2.1rem;
+ left: 30rem;
+}
+
+.add-label-width {
+  width: 166px;
+}
+
+.profile-img {
+  width: mixin.toRem(20);
+  height: mixin.toRem(20);
+  @include mixin.notch(8px);
+  margin-right: mixin.toRem(8);
+
+  &.add-notch {
+    opacity: 0.5;
+  }
+}

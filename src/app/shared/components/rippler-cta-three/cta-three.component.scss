@@ -1,0 +1,43 @@
+.primary-hover:hover {
+  label {
+    color: var(--primary-dark) !important;
+  }
+
+  ion-icon {
+    color: var(--primary-dark) !important;
+  }
+}
+
+.light-70-hover:hover {
+  label {
+    color: var(--light-70) !important;
+  }
+
+  ion-icon {
+    color: var(--light-70) !important;
+  }
+}
+
+.light-hover:hover {
+  label {
+    color: var(--light-70) !important;
+  }
+
+  ion-icon {
+    color: var(--light-70) !important;
+  }
+}
+
+.cta-three-wrapper {
+  width: fit-content;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+/*=======
+.btn-hover:hover {
+  color: var(--light);
+  cursor: pointer;
+>>>>>>> 2e85ee1ba9f82f4b18ba732f16a36d64d273d88a
+}*/

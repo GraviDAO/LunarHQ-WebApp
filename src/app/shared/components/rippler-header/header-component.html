@@ -1,0 +1,67 @@
+<section class="header-container">
+  <div class="d-flex justify-content-start lg-container">
+    <div class="pd-top-14">
+      <img src="/assets/img/svg/logo.svg" alt="logo" class="logo-wrapper">
+    </div>
+    <div class="mr-left-36 divider"></div>
+    <div class="d-flex align-items-center">
+      <div class="pd-right-8">
+        <span class="pd-left-24 app-why-lbl f1632 light ft-uni">{{title}}</span>
+      </div>
+      <div class="divider sm" *ngIf="subTitle"></div>
+      <div class="pd-left-8" *ngIf="subTitle">
+        <span class="app-why-lbl f16 light-70 ft-bold">{{subTitle}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center sm-container" *ngIf="showMidContainer">
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" style="height: 64px">
+        <img class="logo-container" src="/assets/img/svg/logo.svg" alt="logo">
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end lg-container" *ngIf="showSearchBar && showLastDivider && buttonLabel &&
+  profileObj?.viewProfile && profileObj?.viewSettings && rightLabel">
+    <div class="d-flex align-items-center right-wrapper">
+
+      <div *ngIf="showSearchBar">
+        <app-why-search-component></app-why-search-component>
+      </div>
+
+      <div class="mr-left-16 divider" *ngIf="showLastDivider"></div>
+      <div class="pd-left-8 pd-top-4" *ngIf="buttonLabel">
+        <app-why-cta-one
+          [cssClass]="cssClass.cta1SmFlex" [btnLabel]="buttonLabel"></app-why-cta-one>
+      </div>
+
+      <div class="profile-container" *ngIf="profileObj?.viewProfile">
+        <div class="d-flex align-items-center">
+          <img class="profile-img" [src]="profileObj?.img"
+               [ngClass]="{'add-notch': profileObj?.img === ''}"
+               alt="" imgFallback>
+          <div class="pd-left-8 app-why-lbl f14 ft-bold light">Dw00k #5732</div>
+        </div>
+        <div class="settings-container" *ngIf="profileObj?.viewSettings">
+          <ion-icon class="app-why-icon ic14 light" name="cog-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div *ngIf="rightLabel">
+        <span class="app-why-lbl f12 light-20 ft-bold">{{rightLabel}}</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="header-smd-container">
+  <div class="">
+    <img src="/assets/img/svg/logo.svg" alt="logo" class="logo-smd-wrapper">
+  </div>
+  <div class="pd-top-12">
+    <span class="app-why-lbl f14 light ft-uni">{{title}}</span>
+  </div>
+</section>

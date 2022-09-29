@@ -1,0 +1,27 @@
+@use "src/style/mixin-core" as mixin;
+
+.add-bg {
+  width: 100vw;
+  background: url("../assets/img/png/la-bg.png"), var(--bg-dark);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  //background-size: contain;
+}
+
+.social-links {
+  position: fixed;
+  bottom: mixin.toRem(24);
+  right: mixin.toRem(24);
+}
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+
+  .add-bg {
+    width: revert;
+  }
+
+  .social-links {
+    display: none !important;
+  }
+}

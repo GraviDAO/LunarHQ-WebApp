@@ -1,0 +1,159 @@
+<app-why-header-side-nav
+  [activeTab]="'DASHBOARD'"
+  (profileClick)="navigateToProfile()">
+  <section class="pd-bottom-48">
+    <div class="d-flex">
+      <div>
+        <img class="discord-img-wrapper" src="/assets/img/png/nft-profile.jpeg" alt="">
+      </div>
+      <div class="pd-left-16">
+        <div>
+          <label class="app-why-lbl f28 light ft-bold">Dw00k #5732</label>
+        </div>
+        <div class="pd-top-8">
+          <label class="app-why-lbl f16 light-50 ft-lato">He is obsessed with socks</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex pd-top-16">
+      <div class="link-wallet-container">
+        <div class="d-flex justify-content-end">
+          <label class="app-why-lbl ft-lato light-50 text-uppercase">linked</label>
+        </div>
+        <div class="d-flex justify-content-end">
+          <label class="app-why-lbl ft-lato light-50 text-uppercase">wallets</label>
+        </div>
+      </div>
+      <div class="pd-left-16 d-flex align-items-center">
+        <label class="app-why-lbl f16 ft-lato light-50 text-uppercase">
+          1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+        </label>
+      </div>
+    </div>
+
+    <div class="pd-top-16">
+      <app-why-cta-three
+        [leftIconType]="'cog-outline'"
+        [btnLabel]="'MANAGE PROFILE'"
+        (click)="navigateToProfile()">
+      </app-why-cta-three>
+    </div>
+
+    <div class="pd-top-40 pd-bottom-40">
+      <div class="horizontal-divider light-50"></div>
+    </div>
+
+    <div class="pd-top-24 d-flex">
+      <div *ngFor="let obj of userDataObj" class="tile-wrapper">
+        <div class="tile-container">
+          <div class="app-why-lbl f28 ft-bold success">
+            {{obj.value[0]}} <span *ngIf="obj.value[1]" class="light-50">of {{obj.value[1]}}</span>
+          </div>
+          <div class="app-why-lbl ft-lato  success">
+            {{obj.label}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class="mr-top-8 d-flex mr-bottom-80">
+      <article class="server-container pd-top-24 pd-lr-40">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <label class="app-why-lbl f16 ft-bold light">YOUR SERVERS [{{serverArrayObj.length}}]</label>
+          </div>
+          <div>
+            <app-why-cta-three
+              [btnClass]="cssClass.cta3PrimaryNorm"
+              [iconClass]="cssClass.cta3Primary14Icon"
+              [iconType]="'chevron-forward-outline'"
+              [btnLabel]="'ADMIN'"></app-why-cta-three>
+          </div>
+        </div>
+
+        <div class="mr-top-8 horizontal-divider light-20 mr-bottom-48"></div>
+
+        <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let server of serverArrayObj">
+          <div class="d-flex align-items-center">
+            <div class="pd-left-4">
+              <img class="server-logo-container" src="/assets/img/svg/gravidao-logo.svg" alt="server-logo">
+            </div>
+            <div class="pd-left-20">
+              <label class="app-why-lbl f16 light-70">GraviDao</label>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <app-why-cta-three
+              [parentClass]="'light-70-hover'"
+              [btnClass]="cssClass.cta3Light50F12"
+              [iconClass]="cssClass.cta3Light5014Icon"
+              [iconType]="'chevron-forward-circle-outline'"
+              [btnLabel]="'View'"></app-why-cta-three>
+          </div>
+        </div>
+      </article>
+
+      <article class="rule-container mr-left-8 pd-top-24 pd-lr-40">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <label class="app-why-lbl f16 ft-bold light">GRAVIDAO Discord rules [{{myServerCount}}]</label>
+          </div>
+          <div>
+            <app-why-cta-three
+              [btnClass]="cssClass.cta3PrimaryNorm"
+              [iconClass]="cssClass.cta3Primary14Icon"
+              [iconType]="'chevron-forward-outline'"
+              [btnLabel]="'ADMIN'"></app-why-cta-three>
+          </div>
+        </div>
+
+        <div class="mr-top-8 horizontal-divider light-20 mr-bottom-16"></div>
+
+        <div class="d-flex mr-bottom-16">
+          <div class="width-270"><label class="app-why-lbl light-50 ft-lato text-uppercase">Rule name</label></div>
+          <div class="width-94"><label class="app-why-lbl light-50 ft-lato text-uppercase">Population</label></div>
+          <div class="width-178"><label class="app-why-lbl light-50 ft-lato text-uppercase">Chain</label></div>
+          <div class="width-94"></div>
+        </div>
+
+        <div class="server-list-wrapper">
+          <div class="rule-details-wrapper" *ngFor="let ruleObj of rulesArrayObj">
+            <div class="width-270 pd-left-16"><label class="app-why-lbl f16 light ft-bold">{{ruleObj.ruleName}}</label>
+            </div>
+            <div class="vertical-divider ht42 light-20"></div>
+            <div class="width-94 pd-left-15"><label class="app-why-lbl f16 light ft-bold">{{ruleObj.population}}</label>
+            </div>
+            <div class="vertical-divider ht42 light-20"></div>
+            <div class="width-178 pd-left-15 d-flex justify-content-between">
+              <div>
+                <label class="app-why-lbl f16 light ft-bold">{{ruleObj.chainName}}</label>
+              </div>
+              <div class="pd-right-15">
+                <img class="chain-logo-container" src="/assets/img/svg/drop.svg" alt="chain-logo">
+              </div>
+            </div>
+            <div class="vertical-divider ht42 light-20"></div>
+            <div class="pd-left-18 width-94">
+              <app-why-cta-three
+                [parentClass]="'light-70-hover'"
+                [btnClass]="cssClass.cta3Light50F12"
+                [iconClass]="cssClass.cta3Light5014Icon"
+                [iconType]="'chevron-forward-outline'"
+                [btnLabel]="'View'"></app-why-cta-three>
+            </div>
+          </div>
+          </div>
+        <div class="add-fade-effect">
+        </div>
+      </article>
+    </article>
+
+    <app-why-lunar-hq-recent-polls></app-why-lunar-hq-recent-polls>
+
+    <app-why-lunar-hq-recent-announcements class="mr-top-8"></app-why-lunar-hq-recent-announcements>
+
+  </section>
+</app-why-header-side-nav>

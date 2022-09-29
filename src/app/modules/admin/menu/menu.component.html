@@ -1,0 +1,122 @@
+<section>
+  <app-why-lunar-hq-admin-side-nav [activeTab]="'Organisations'">
+    <div class="">
+      <label class="app-why-lbl f22 light-20 ft-uni ft-300">Organisations</label>
+    </div>
+    <div class="mr-top-28 mr-bottom-24">
+      <div>
+        <app-why-search-component></app-why-search-component>
+      </div>
+      <div>
+      </div>
+    </div>
+    <article style="height: 61vh;">
+      <table class="table add-border-radius table-fixed header-fixed">
+        <thead class="table-header">
+        <tr class="align-middle table-row-data">
+          <th class="app-why-lbl ft-bold light text-uppercase wd-106 justify-content-center table-data-container">Org
+            logo
+          </th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-290 table-data-container">Org name</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-120 table-data-container"># of Members</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-120 table-data-container">date created</th>
+          <th class="app-why-lbl ft-bold light text-uppercase wd-150 table-data-container">org creator</th>
+          <th class="app-why-lbl ft-bold light text-uppercase">
+            <div class="pd-left-12">status</div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let obj of [0,1,2,3,4,5,6,7,8]; let pos = index;"
+            class="table-row-data add-btm-br">
+          <td class="wd-106 table-data-container justify-content-center">
+            <img class="logo-container" src="/assets/img/svg/gravidao-logo.svg">
+          </td>
+          <td class="wd-290 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            {{'GraviDAO'}}
+          </td>
+          <td class="wd-120 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            {{'8'}}
+          </td>
+          <td class="wd-120 app-why-lbl f12 dark-70 ft-lato-400 table-data-container">
+            {{today | date : 'd MMM y'}}
+          </td>
+          <td class="wd-150 table-data-container">
+            <div class="app-why-lbl f12 dark-70 ft-lato-400">
+              {{longText.substring(0, 6) + '...' + longText.slice(longText.length - 6)}}
+            </div>
+          </td>
+          <td class="wd-135 table-data-container"
+              [ngClass]="{'select-container': isOpen && toggleId === pos}">
+            <div style="width: 100%; padding-bottom: 4px;" ngbDropdown container="body"
+                 (openChange)="openClose($event,pos)">
+              <button type="button" class="full-width app-why-lbl f12 ft-lato-400 dark-70 no-bg"
+                      [ngClass]="{'select-container': isOpen && toggleId === pos}"
+                      id="dropdownBasic1" ngbDropdownToggle>
+                <div class="d-flex justify-content-between align-items-center no-bg">
+                  <div>Active</div>
+                  <div>
+                    <ion-icon class="app-why-icon ic10 dark-70"
+                              name="{{isOpen && toggleId === pos ? 'caret-up-outline' :'caret-down-outline'}}"></ion-icon>
+                  </div>
+                </div>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1"
+                   class="drop-down-container">
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing btn-container"
+                        (click)="suspend()">
+                  SUSPEND
+                </button>
+                <div class="divider"></div>
+                <button ngbDropdownItem class="app-why-lbl f12 ft-bold no-letter-spacing btn-container"
+                        (click)="delete()">
+                  DELETE
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </article>
+  </app-why-lunar-hq-admin-side-nav>
+</section>
+
+<app-why-modal id="deleteOrg" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">delete org</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Removing your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="pd-top-56 pd-bottom-40 d-flex justify-content-center">
+      <div>
+        <app-why-lunar-hq-cta-two
+          (click)="close('deleteOrg')"
+          [btnLabel]="'Close'"
+          [btnTheme]="'bg--dark'">
+        </app-why-lunar-hq-cta-two>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+
+<app-why-modal id="activeOrg" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">suspend org</div>
+    <div class="mr-top-32">
+      <span class="app-why-lbl light-70 f16"> Suspend your additional license from this server will not prevent access to Lunar HQ premium features. You can restore your license at any time. Do you wish to remove it?</span>
+    </div>
+    <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'"
+                                  (click)="close('activeOrg')">
+        </app-why-lunar-hq-cta-two>
+      </div>
+      <div>
+        <app-why-cta-one (click)="close('activeOrg')"
+                         [cssClass]="cssClass.cta1Md" [btnLabel]="'confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>

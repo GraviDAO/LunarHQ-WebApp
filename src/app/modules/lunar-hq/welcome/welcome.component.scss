@@ -1,0 +1,79 @@
+@use "src/style/mixin-core" as mixin;
+
+.add-bg {
+  width: 100vw;
+  background: url("../../../../assets/img/png/la-bg.png"), var(--bg-dark);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.main-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-height {
+  height: 100vh;
+}
+
+.option-container {
+  padding: mixin.toRem(32) mixin.toRem(44);
+  width: mixin.toRem(346);
+  height: mixin.toRem(272);
+  @include mixin.notch(8px);
+  background: var(--tertiary);
+  opacity: 0.5;
+
+  &.active {
+    padding: mixin.toRem(40) mixin.toRem(56) mixin.toRem(50) mixin.toRem(56);
+    width: mixin.toRem(432);
+    height: mixin.toRem(350);
+    @include mixin.notch(8px);
+    background: var(--tertiary);
+    opacity: 1;
+  }
+}
+
+.transform-sm {
+  :host(app-why-cta-one) {
+    div > button {
+      transform: scale(0.8);
+    }
+  }
+}
+
+.logo-container {
+  width: mixin.toRem(120);
+  height: mixin.toRem(52);
+}
+
+.built-by-container {
+  width: mixin.toRem(150);
+  height: mixin.toRem(52);
+}
+
+.placeholder-wrapper {
+  position: absolute;
+  bottom: mixin.toRem(40);
+  left: 0;
+  right: 0;
+  justify-content: center;
+  display: flex;
+}
+
+.rippler-logo-container {
+  width: mixin.toRem(90);
+  height: mixin.toRem(30);
+}
+
+@media only screen and (min-width:321px) and (max-width:768px) {
+  .main-wrapper {
+    flex-direction: column;
+  }
+
+  .add-pd-top {
+    padding-top: 24px;
+  }
+}

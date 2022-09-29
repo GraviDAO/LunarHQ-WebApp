@@ -1,0 +1,348 @@
+.app-why-lbl {
+  height: var(--font-size-16);
+  color: var(--dark-70);
+  font-family: Jura, sans-serif;
+  font-size: var(--font-size-10);
+  --font-size: var(--font-size-10);
+  letter-spacing: var(--label-letter-spacing);
+  line-height: var(--font-size-16);
+
+  // Size
+
+  &.f6 {
+    font-size: var(--font-size-6) !important;
+    line-height: var(--font-size-10);
+    height: var(--font-size-10);
+  }
+
+  &.f8 {
+    font-size: var(--font-size-8);
+    line-height: var(--font-size-12);
+    height: var(--font-size-12);
+  }
+
+  &.f10 {
+    font-size: var(--font-size-10);
+    line-height: var(--font-size-16);
+    height: var(--font-size-16);
+  }
+
+  &.f12 {
+    font-size: var(--font-size-12) !important;
+    line-height: var(--font-size-20);
+    height: var(--font-size-20);
+  }
+
+  &.f14 {
+    font-size: var(--font-size-14);
+    line-height: var(--font-size-22);
+    height: var(--font-size-22);
+  }
+
+  &.f1418 {
+    font-size: var(--font-size-14);
+    line-height: var(--font-size-18);
+    height: var(--font-size-18);
+  }
+
+
+  &.f16 {
+    font-size: var(--font-size-16);
+    line-height: var(--font-size-24);
+    height: var(--font-size-24);
+  }
+
+  &.f1632 {
+    font-size: var(--font-size-16);
+    line-height: var(--font-size-32);
+    height: var(--font-size-32);
+    letter-spacing: 1px;
+  }
+
+  &.f22_28 {
+    font-size: var(--font-size-22);
+    line-height: var(--font-size-28);
+    height: var(--font-size-28);
+  }
+
+  &.f22 {
+    font-size: var(--font-size-22);
+    line-height: var(--font-size-32);
+    height: var(--font-size-32);
+  }
+
+  &.f28 {
+    font-size: var(--font-size-28);
+    line-height: var(--font-size-36);
+    height: var(--font-size-36);
+  }
+
+  &.ft-uni {
+    font-family: Uniwars, sans-serif;
+  }
+
+  &.ft-lato {
+    font-family: Lato, sans-serif;
+    font-weight: 300;
+  }
+
+  &.ft-lato-400 {
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+  }
+
+  &.ft-bold {
+    font-weight: bold;
+  }
+
+  &.ft-500 {
+    font-weight: 500;
+  }
+
+  &.ft-300 {
+    font-weight: 300;
+  }
+
+  // label color
+
+  &.error {
+    --color: var(--error);
+    color: var(--error);
+  }
+
+  &.success {
+    color: var(--success) !important;
+    --color: var(--success) !important;
+  }
+  
+  &.warning {
+    --color: var(--warning);
+    color: var(--warning);
+  }
+
+  &.primary {
+    color: var(--primary) !important;
+    --color: var(--primary) !important;
+  }
+
+  &.primary-hover {
+    color: var(--primary) !important;
+    --color: var(--primary) !important;
+
+    &:hover {
+      color: var(--primary-dark) !important;
+    }
+  }
+
+  &.primary-70 {
+    color: var(--primary-70);
+    --color: var(--primary-70);
+  }
+
+  &.primary-50 {
+    color: var(--primary-50);
+    --color: var(--primary-50);
+  }
+
+
+  &.secondary {
+    color: var(--secondary) !important;
+    --color: var(--secondary) !important;
+  }
+
+  &.secondary-70 {
+    color: var(--secondary-70);
+    --color: var(--secondary-70);
+  }
+
+  &.secondary-50 {
+    color: var(--secondary-50);
+    --color: var(--secondary-50);
+  }
+
+
+  &.dark {
+    color: var(--dark);
+    --color: var(--dark);
+  }
+
+  &.dark-70 {
+    color: var(--dark-70);
+    --color: var(--dark-70);
+  }
+
+  &.dark-50 {
+    color: var(--dark-50);
+    --color: var(--dark-50);
+  }
+
+  &.light {
+    color: var(--light);
+    --color: var(--light);
+  }
+
+  &.light-70 {
+    color: var(--light-70);
+    --color: var(--light-70);
+  }
+
+  &.light-50 {
+    color: var(--light-50);
+    --color: var(--light-50);
+  }
+
+  &.light-20 {
+    color: var(--light-20);
+    --color: var(--light-20);
+  }
+
+  &.light-10 {
+    color: var(--light-10);
+    --color: var(--light-10);
+  }
+
+  &.error {
+    color: var(--error);
+    --color: var(--error);
+  }
+
+  &.white {
+    color: var(--bg-white);
+  }
+
+  // Etc
+  &.no_margin {
+    margin: 0;
+  }
+
+  &.underline {
+    text-decoration: underline;
+  }
+
+  &.break-line {
+    white-space: pre-line
+  }
+
+  &.wrap {
+    white-space: nowrap;
+  }
+
+  &.float-left {
+    float: left;
+  }
+
+  &.float-right {
+    float: right;
+  }
+
+  &.float-text-right {
+    display: block;
+    text-align: right;
+  }
+
+  &.no-letter-spacing {
+    letter-spacing: 0;
+  }
+
+  &.letter-spacing-02 {
+    letter-spacing: 0.2px;
+  }
+
+  &.letter-spacing-047 {
+    letter-spacing: 0.47px;
+  }
+
+  &.text-center {
+    text-align: center;
+  }
+}
+
+
+.app-lbl_normal {
+  --color: var(--primary);
+  color: var(--primary);
+  font-family: Sora, sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-14);
+  letter-spacing: 0;
+  line-height: var(--font-size-22);
+  text-align: center;
+
+  &.light {
+    color: var(--light);
+  }
+
+  &.description {
+    text-align: start;
+    --color: var(--light-50) !important;
+    color: var(--light-50) !important;
+  }
+}
+
+.radio-button {
+  width: var(--font-size-16);
+  height: var(--font-size-16);
+  --color: var(--dark-70);
+  --color-checked: var(--primary);
+}
+
+input[type="radio"].radio-button-primary {
+  width: var(--font-size-14);
+  height: var(--font-size-14);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  color: var(--primary);
+  border: 0.073em solid var(--light-50);
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:checked {
+    border: 0.255em solid var(--primary);
+  }
+}
+
+input[type="radio"].radio-button-secondary {
+  width: var(--font-size-14);
+  height: var(--font-size-14);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  color: var(--secondary);
+  border: 0.073em solid var(--light-50);
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:checked {
+    border: 0.255em solid var(--secondary);
+  }
+}
+
+.cta3 {
+  cursor: pointer;
+  font-size: var(--font-size-12);
+  line-height: var(--font-size-20);
+  height: var(--font-size-20);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--primary);
+
+  &.underline {
+    text-decoration: underline;
+    text-decoration-color: var(--tertiary);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px; //to rem
+  }
+
+  &.underline-primary {
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+  }
+
+  &.text-normal {
+    text-transform: none;
+  }
+}

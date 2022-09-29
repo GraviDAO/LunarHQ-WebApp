@@ -1,0 +1,85 @@
+<section>
+  <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar" class="active">
+      <ul class="list-unstyled components mr-bottom-5 pd-top-36">
+        <li *ngFor="let sideNav of sideNavList; let i = index;"
+            class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
+            [ngClass]="{'no-height': sideNav.subMenu}">
+          <div class="d-flex flex-column width-100">
+            <div class="d-flex align-items-center add-cursor"
+                 [ngClass]="{'active-container': (activeTab === sideNav.title), 'justify-content-center': !isToggled}">
+              <ion-icon class="app-why-icon ic14 light-70"
+                        [ngClass]="{'secondary-dark': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()}"
+                        name="{{setIcon(sideNav.title)}}"></ion-icon>
+              <span class="text-capitalize text-container"
+                    [ngClass]="{'active-color': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()}">
+                {{sideNav.title}}
+              </span>
+              <div>
+                <ion-icon class="app-why-icon ic12 light-70 pd-0 mr-left-16"
+                          *ngIf="sideNav.subMenu && isToggled"
+                          [ngClass]="{'secondary': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase(), 'reverse-icon': !toggle[i]}"
+                          name="caret-up-outline"></ion-icon>
+              </div>
+
+            </div>
+            <div>
+              <ul *ngIf="sideNav.subMenu && isToggled" [ngClass]="toggle[i] ? 'show': 'hide'" class="pd-0 mr-top-8">
+                <li *ngFor="let subMenuObj of sideNav.subMenu"
+                    class="submenu-list mr-bottom-8"
+                    (click)="subMenu($event,subMenuObj.title, i, '')">
+                  <article>
+                    <div class="add-cursor">
+                      <label class="text-capitalize add--pd-left add-cursor"
+                             [ngClass]="{'active-sub-menu': activeSubMenuTab === subMenuObj.title}">
+                        {{subMenuObj.title}}
+                      </label>
+                      <ion-icon class="add-pd-left-8 app-why-icon ic10"
+                                [ngClass]="{'light-50': subMenuObj.permissionType === getPermissionType.fullAccess,
+                            'error': subMenuObj.permissionType === getPermissionType.partialAccess}"
+                                name="{{getSubMenuIcon(subMenuObj.permissionType)}}"></ion-icon>
+                    </div>
+                    <div>
+                      <ul *ngIf="subMenuObj.nestedMenuList && activeSubMenuTab === subMenuObj.title"
+                          class="">
+                        <div class="pd-bottom-8"></div>
+                        <li *ngFor="let nestedMenu of subMenuObj.nestedMenuList" class="min-ht-22"
+                            (click)="subMenu($event,subMenuObj.title, i, nestedMenu)">
+                          <label class="pd-bottom-4 add--pd-left-34 nest-label add-cursor"
+                                 [ngClass]="{'active-sub-menu': nestedMenuSelected === nestedMenu}">- {{nestedMenu}}</label>
+                        </li>
+                      </ul>
+                    </div>
+                  </article>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="lunar-hq-wrapper">
+        <app-why-lunar-hq-logo></app-why-lunar-hq-logo>
+      </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="">
+      <div class="d-flex justify-content-between align-items-center toggle-wrapper">
+        <div class="pd-left-24 toggle-container">
+          <ion-icon *ngIf="isToggled" class="icon primary add-cursor"
+                    name="chevron-back-circle-outline"></ion-icon>
+          <ion-icon *ngIf="!isToggled" class="icon primary add-cursor"
+                    name="chevron-forward-circle-outline"></ion-icon>
+        </div>
+        <div class="pd-right-16">
+        </div>
+      </div>
+      <section class="content-wrapper" [ngClass]="{'content-wrapper-toggled': !isToggled}">
+        <ng-content></ng-content>
+      </section>
+    </div>
+  </div>
+</section>
+
+
+

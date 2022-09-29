@@ -1,0 +1,71 @@
+@use "src/style/mixin-core" as mixin;
+
+@media only screen and (max-width: 425px) {
+  .cta-two {
+    width: mixin.toRem(126) !important;
+  }
+}
+
+.cta-two {
+  position: relative;
+  width: var(--btn-md-width);
+  height: var(--btn-md-height);
+  background: var(--primary);
+  cursor: pointer;
+  @include mixin.notch(8px);
+
+  &.lg {
+    width: var(--btn-lg-width);
+    height: var(--btn-height);
+  }
+
+  &.sm {
+    width: var(--btn-sm-width);
+    height: var(--btn-sm-height);
+  }
+
+  &:hover {
+    background: var(--primary);
+  }
+
+  &.disabled {
+    cursor: none !important;
+    pointer-events: none !important;
+    background: var(--primary-20);
+  }
+}
+
+.cta-two-inner {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  background: var(--dark);
+  @include mixin.notch(8px);
+
+  &.bg--dark {
+    background: var(--bg-dark);
+  }
+}
+
+.text-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--primary);
+  justify-content: center;
+  font-family: Jura, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+
+  &:hover {
+    color: var(--primary-dark);
+  }
+
+  &.disabled {
+    color: var(--primary-20) !important;
+  }
+}

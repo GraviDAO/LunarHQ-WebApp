@@ -1,0 +1,56 @@
+@use "src/style/mixin-core" as mixin;
+
+.search-container {
+  height: mixin.toRem(32);
+  width: mixin.toRem(240);
+  //border-radius: var(--selected-input-border-radius);
+  border-bottom: 1px solid var(--light-50);
+
+  &.full-width {
+    width: mixin.toRem(300);
+  }
+
+  .search-icon-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    //padding-left: 8px;
+
+    &.text {
+      width: calc(100% - 26px);
+      //width: 76%;
+    }
+  }
+
+  .search-box {
+    font-family: Lato, sans-serif;
+    font-weight: 300;
+    color: var(--light-70);
+    font-size: var(--font-size-16);
+    letter-spacing: 0;
+    line-height: var(--font-size-24);
+    border: 0;
+    background: transparent;
+
+    &:placeholder-shown {
+      color: var(--light-50) !important;
+    }
+  }
+
+  .full-height {
+    height: 100%;
+  }
+}
+
+
+.is-active {
+  z-index: 999;
+  border-bottom: 1px solid var(--secondary) !important;
+  //@include mx-box-shadow-16;
+}
+
+
+.search-box:focus + .search-container {
+  border-bottom: 1px solid var(--secondary) !important;
+}
