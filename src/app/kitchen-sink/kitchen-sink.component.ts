@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CssConstants} from '../shared/services/css-constants.service';
 import {ModalService} from '../shared/_modal/modal.service';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-why-lunar-hq-kitchen-sink',
@@ -17,11 +18,16 @@ export class KitchenSinkComponent {
 
   constructor(public cssClass: CssConstants,
               private router: Router,
+              private toast: ToastrService,
               private modalService: ModalService) {
   }
 
   openModal() {
     this.modalService.open('popUpDemo');
+  }
+
+  showToast() {
+    this.toast.success('Show');
   }
 
   navigateToWelcome() {
