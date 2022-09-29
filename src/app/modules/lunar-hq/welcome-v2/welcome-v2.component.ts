@@ -80,7 +80,9 @@ export class WelcomeV2Component implements OnDestroy {
           this.getUserProfile();
         }, (error) => {
           console.error(error, 'error');
-          this.toast.error('Adding multiple wallets of one chain is not supported yet!');
+          if (error.status === 403) {
+            this.toast.error('You already have a wallet of that chain connected to this Discord account.');
+          }
           this.closeDiscordPopUp();
         });
       }
