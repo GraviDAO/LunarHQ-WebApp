@@ -236,25 +236,6 @@ export class WelcomeV2Component implements OnDestroy {
             .subscribe({
               next: (data) => {
                 this.setUserProfile(data);
-              },
-              error: (error) => {
-                this.coreService.getDiscordUser({
-                  discordAuthorizationCode: '',
-                  walletAddress: publicAddress,
-                  blockchainName: blockchainName,
-                  oldJWT
-                }).subscribe((data) => {
-                  this.getUserProfile();
-                }, error => {
-                  let tempObj: any = {};
-                  tempObj.token = result.message;
-                  tempObj.walletAddress = [];
-                  tempObj.walletAddress.push({blockchainName, publicAddress});
-                  lunarObj = tempObj;
-                  this.progressStatus = 'wallet_connected';
-                  this.storageService.set('lunar_user', lunarObj);
-                  this.setDataObj(lunarObj);
-                });
               }
             });
         } else {
