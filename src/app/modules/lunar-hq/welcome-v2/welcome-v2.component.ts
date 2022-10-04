@@ -401,7 +401,10 @@ export class WelcomeV2Component implements OnDestroy {
 
   async walletInit() {
     await this.web3.disconnectAccount();
+    await this.initTerraLogic();
+  }
 
+  async initTerraLogic() {
     const chainOptions = await getChainOptions();
 
     this.terraController = new WalletController({
