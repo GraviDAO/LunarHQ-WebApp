@@ -85,6 +85,25 @@ export class WelcomeV2Component implements OnDestroy {
           }
           this.closeDiscordPopUp();
         });
+      } else {
+        // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
+        let currTry = 0;   
+        const interv = setInterval(() => {
+          if(this.progressStatus === 'wallet_connected') {
+            this.selected = "connect"
+            this.storageService.set('user_progress', null);
+            this.progressStatus = this.storageService.get('user_progress');
+            console.log("1");
+            
+            clearInterval(interv);
+          } else if(this.progressStatus !== '') {
+            console.log("2");
+            clearInterval(interv);
+          } else if(currTry++ > 20) {
+            console.log("3");
+            clearInterval(interv);
+          }
+        }, 50)
       }
     });
     this.getUserProfile();
