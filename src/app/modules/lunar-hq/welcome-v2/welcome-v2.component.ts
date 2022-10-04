@@ -31,6 +31,7 @@ export class WelcomeV2Component implements OnDestroy {
   terraController: WalletController;
   walletConnected = false;
   walletAddress = '';
+  walletChainId = '';
   progressStatus = '';
   lunarUserObj = {};
   teraObject: any;
@@ -85,6 +86,17 @@ export class WelcomeV2Component implements OnDestroy {
           }
           this.closeDiscordPopUp();
         });
+      } else {
+        // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
+        let currTry = 0;   
+        const interv = setInterval(() => {
+          if(this.progressStatus === 'wallet_connected') {
+            this.resetSteps();
+            clearInterval(interv);
+          } else if(this.progressStatus !== '' || currTry++ > 20) {
+            clearInterval(interv);
+          }
+        }, 50)
       }
     });
     this.getUserProfile();
@@ -285,70 +297,48 @@ export class WelcomeV2Component implements OnDestroy {
 
   // function to subscribe to terra list availableConnections & state
   async terraWalletConnect() {
-    this.subscription = combineLatest([
-      this.terraController.availableInstallTypes(),
-      this.terraController.availableConnections(),
-      this.terraController.states(),
-    ]).subscribe(
-      ([_availableInstallTypes, _availableConnections, _states]) => {
-        this.storageService.delete('__terra_extension_router_session__');
-        this.availableInstallTypes = _availableInstallTypes;
-        const connections = _availableConnections;
-        const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
-        if (i > -1) connections.splice(i, 1);
-        this.availableConnections = connections;
-        this.modalService.open('terraWallet');
-        if (_states.status === 'WALLET_CONNECTED') {
-          const walletAddr = _states.wallets[0].terraAddress;
-          const blockchainName = 'Terra';
-          const connectionType = _states.wallets[0].connectType;
-          const connectionName = _states.connection.name;
-          this.coreService.getNonce(walletAddr, blockchainName)
-            .subscribe((nonceResult) => {
-              this.modalService.close('terraWallet');
-              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
-                this.signTerra(nonceResult.message, walletAddr);
-              } else {
-                this.signTerraTx(walletAddr, nonceResult.message);
-              }
-            }, (error) => {
-              console.error('error', error);
-            });
-        }
-      });
     this.exitModal();
+    this.modalService.open('terraWallet');
   }
 
   // function to signIn with Terratx
-  signTerraTx(terraAddress: any, nonce: any) {
-    this.loaderService.start();
-    const msg = new MsgSend(
-      terraAddress,
-      terraAddress,
-      {uluna: 1});
-    this.terraController
-      .post({
-        msgs: [msg],
-        feeDenoms: ['uluna'],
-        memo: 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet',
-      })
-      .then((res) => {
-        const blockchainName = 'Terra';
-        const dataObject = {
-          type: 'TerraTx',
-          signature: res.result.txhash,
-          publicAddress: terraAddress,
-          blockchainName
-        };
-        this.useLedgerStation = false;
-        this.loaderService.stop();
-        this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
-      })
-      .catch((error) => {
-        this.loaderService.stop();
-        this.terraController.disconnect();
-        this.toast.error('Failed to connect');
-      });
+  signTerraTx(terraAddress: any, nonce: any, classic: boolean = false) {
+    if(this.walletChainId !== (classic ? 'columbus-5' : 'phoenix-1')) {
+      this.resetSteps();
+      this.terraController.disconnect();
+      this.modalService.open('terraWallet');
+      this.toast.error('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'));
+    } else {
+      this.loaderService.start();
+      const msg = new MsgSend(
+        terraAddress,
+        terraAddress,
+        {uluna: 1});
+      this.terraController
+        .post({
+          msgs: [msg],
+          feeDenoms: ['uluna'],
+          memo: 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet',
+        })
+        .then((res) => {
+          const blockchainName = 'Terra';
+          const dataObject = {
+            type: 'TerraTx',
+            signature: res.result.txhash,
+            publicAddress: terraAddress,
+            blockchainName
+          };
+          this.useLedgerStation = false;
+          this.loaderService.stop();
+          this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
+        })
+        .catch((error) => {
+          this.loaderService.stop();
+          this.terraController.disconnect();
+          this.toast.error('Failed to connect');
+          this.modalService.open('terraWallet');
+        });
+    }
   }
 
   // To handle metamask sign in
@@ -369,6 +359,7 @@ export class WelcomeV2Component implements OnDestroy {
     } catch (e) {
       console.error(e);
       this.web3.disconnectAccount();
+      this.toast.error('Failed to connect');
     }
   }
 
@@ -402,18 +393,55 @@ export class WelcomeV2Component implements OnDestroy {
       console.error(e, 'e');
       this.loaderService.stop();
       this.terraController.disconnect();
+      this.toast.error('Failed to connect');
+      this.modalService.open('terraWallet');
     }
   }
 
 
   async walletInit() {
     await this.web3.disconnectAccount();
+    await this.initTerraLogic();
+  }
 
+  async initTerraLogic() {
     const chainOptions = await getChainOptions();
 
     this.terraController = new WalletController({
       ...chainOptions,
     });
+
+    this.subscription = combineLatest([
+      this.terraController.availableInstallTypes(),
+      this.terraController.availableConnections(),
+      this.terraController.states(),
+    ]).subscribe(
+      ([_availableInstallTypes, _availableConnections, _states]) => {        
+        this.storageService.delete('__terra_extension_router_session__');
+        this.availableInstallTypes = _availableInstallTypes;
+        const connections = _availableConnections;
+        const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
+        if (i > -1) connections.splice(i, 1);
+        this.availableConnections = connections;
+        if (_states.status === 'WALLET_CONNECTED') {
+          const walletAddr = _states.wallets[0].terraAddress;
+          this.walletChainId = _states.network.chainID;
+          const blockchainName = 'Terra';
+          const connectionType = _states.wallets[0].connectType;
+          const connectionName = _states.connection.name;
+          this.coreService.getNonce(walletAddr, blockchainName)
+            .subscribe((nonceResult) => {
+              this.modalService.close('terraWallet');
+              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
+                this.signTerra(nonceResult.message, walletAddr);
+              } else {
+                this.signTerraTx(walletAddr, nonceResult.message);
+              }
+            }, (error) => {
+              console.error('error', error);
+            });
+        }
+      });
   }
 
   closeDiscordPopUp() {
@@ -485,9 +513,7 @@ export class WelcomeV2Component implements OnDestroy {
           }
           
           if((this.polygonAddress == "polygon wallet" && this.terraAddress == "terra wallet") || ((data.message as string).toLowerCase().includes("no") && (data.message as string).toLowerCase().includes("remaining"))) {
-            this.selected = "connect"
-            this.storageService.set('user_progress', null);
-            this.progressStatus = this.storageService.get('user_progress');
+            this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {
             let lunarObj = this.storageService.get('lunar_user');
@@ -505,5 +531,11 @@ export class WelcomeV2Component implements OnDestroy {
           this.unlink.address = '';
         });
     }
+  }
+
+  resetSteps() {
+    this.selected = "connect"
+    this.storageService.set('user_progress', null);
+    this.progressStatus = this.storageService.get('user_progress');
   }
 }
