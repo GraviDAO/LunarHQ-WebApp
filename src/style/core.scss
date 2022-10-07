@@ -5,6 +5,10 @@
   height: mixin.toRem(40);
   background: var(--primary);
 
+  &.ht64 {
+    height: mixin.toRem(64);
+  }
+
   .ht42 {
     height: mixin.toRem(42);
   }
@@ -216,4 +220,8 @@ div::-webkit-scrollbar-button {
 
 .no-bg {
   background: transparent !important;
+}
+
+.show-cursor {
+  cursor: pointer;
 }

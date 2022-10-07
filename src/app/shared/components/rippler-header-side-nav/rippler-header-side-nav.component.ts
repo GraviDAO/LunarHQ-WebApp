@@ -1,5 +1,6 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PermissionType, SideNavType} from '../side-bar/side.nav.type';
+import {LunarHqAPIServices} from '../../../modules/services/lunar-hq.services';
 
 @Component({
   selector: 'app-why-header-side-nav',
@@ -7,18 +8,15 @@ import {PermissionType, SideNavType} from '../side-bar/side.nav.type';
   styleUrls: ['./rippler-header-side-nav.component.scss']
 })
 export class RipplerHeaderSideNavComponent {
-  profileObj = {
-    img: '../../../../assets/img/png/nft-profile.jpeg',
-    viewProfile: true,
-    viewSettings: true
-  };
+  @Input() profileObj: { img: string, viewProfile: boolean, viewSettings: boolean, userName: string };
   sideNavList: Array<SideNavType> = [
     {
       title: 'DASHBOARD'
     },
     {
       title: 'MY SERVERS',
-      subMenu: [
+      subMenu: []
+      /*subMenu: [
         {
           title: 'GraviDAO',
           permissionType: PermissionType.fullAccess,
@@ -43,7 +41,7 @@ export class RipplerHeaderSideNavComponent {
             'Polls'
           ]
         }
-      ]
+      ]*/
     },
     {
       title: 'POLLS',
@@ -71,12 +69,37 @@ export class RipplerHeaderSideNavComponent {
   @Input() subTitle = '';
   @Output() profileClick = new EventEmitter;
 
-  constructor() {
+  constructor(private lunarHqService: LunarHqAPIServices,) {
+    this.getMyServers()
   }
 
   profileClickEmitter(event: MouseEvent) {
     if (this.profileObj.viewProfile) {
       this.profileClick.emit(event);
     }
+  }
+
+  getMyServers() {
+    this.lunarHqService.getMyServers()
+      .subscribe({
+        next: (data) => {
+          let resultObj = data.message;
+          if (data.message.length > 0) {
+            for (let obj of resultObj) {
+              this.sideNavList[1].subMenu.push({
+                title: obj.discordServerName,
+                permissionType: obj.userIsAdmin ? PermissionType.fullAccess : ((!obj?.userIsAdmin && !obj?.userOwnsLicense) ? PermissionType.noAccess : PermissionType.partialAccess),
+                nestedMenuList: [
+                  'Rules',
+                  'Polls'
+                ]
+              });
+            }
+          }
+        },
+        error: (error) => {
+          console.error(error, 'error');
+        }
+      })
   }
 }

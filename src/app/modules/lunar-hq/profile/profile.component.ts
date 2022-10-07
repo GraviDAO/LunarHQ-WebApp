@@ -124,7 +124,6 @@ export class ProfileComponent implements OnInit {
 
   confirmAddingWallet() {
     this.wallets.push({...this.wallets[0]});
-    console.log(this.wallets);
     this.cancelModal('addWalletModal');
   }
 

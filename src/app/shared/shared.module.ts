@@ -15,6 +15,7 @@ import {ModalWrapperComponent} from './components/modal-wrapper/modal-wrapper.co
 import {RipplerHeaderSideNavComponent} from './components/rippler-header-side-nav/rippler-header-side-nav.component';
 import {RipplerDropDownComponent} from './components/rippler-drop-down/rippler-drop-down.component';
 import {LongTextPipe} from './_helpers/long-text.pipe';
+import {TimerCounterPipe} from './_helpers/timer-counter.pipe';
 
 const commonModules = [
   CtaOneComponent,
@@ -29,7 +30,8 @@ const commonModules = [
   ModalWrapperComponent,
   RipplerHeaderSideNavComponent,
   RipplerDropDownComponent,
-  LongTextPipe
+  LongTextPipe,
+  TimerCounterPipe
 ];
 
 @NgModule({

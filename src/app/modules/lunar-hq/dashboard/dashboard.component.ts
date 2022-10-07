@@ -1,8 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PermissionType, SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ModalService} from '../../../shared/_modal/modal.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LunarHqAPIServices} from '../../services/lunar-hq.services';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {Observable, Subscription} from 'rxjs';
+import {timer} from 'rxjs';
+
 
 @Component({
   selector: 'app-why-lunar-hq-dashboard',
@@ -10,59 +15,48 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
-  userDataObj: Array<any> = [
-    {
-      value: [21],
-      label: 'MY SERVERS'
-    },
-    {
-      value: [21, 4],
-      label: 'LICENSES APPLIED VS HELD'
-    },
-    {
-      value: [30],
-      label: 'DISCORD RULES'
-    },
-    {
-      value: [14],
-      label: 'POLLS'
-    },
-    {
-      value: [3],
-      label: 'NEW ANNOUNCEMENTS'
-    }
-  ];
-  myServerCount = 3;
-  serverArrayObj = [1, 2, 3];
-  rulesArrayObj = [
-    {ruleName:'Shepards', population:8,chainName:'Algorand',icon:''},
-    {ruleName:'Watchers on the wall', population:15,chainName:'Chainlink',icon:''},
-    {ruleName:'DAO Fellowship', population:7,chainName:'Polygon',icon:''},
-    {ruleName:'X-Men 2.0', population:9,chainName:'Solana',icon:''},
-    {ruleName:'The Musketeers', population:5,chainName:'Polygon',icon:''},
-    {ruleName:'Avengers', population:22,chainName:'Algorand',icon:''},
-    {ruleName:'Lord of rings', population:22,chainName:'Chainlink',icon:''},
-    {ruleName:'Shepards', population:8,chainName:'Algorand',icon:''},
-    {ruleName:'Watchers on the wall', population:15,chainName:'Chainlink',icon:''},
-    {ruleName:'DAO Fellowship', population:7,chainName:'Polygon',icon:''},
-    {ruleName:'X-Men 2.0', population:9,chainName:'Solana',icon:''},
-  ];
-
+export class DashboardComponent implements OnInit, OnDestroy {
+  userDataObj: Array<any> = [];
+  profileObj: any;
+  currentDateTime: Date;
+  private _clockSubscription: Subscription;
+  everyFiveSeconds: Observable<number> = timer(0, 3000);
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
+              private lunarHqService: LunarHqAPIServices,
               private router: Router,
+              private loaderService: NgxUiLoaderService,
               private modalService: ModalService) {
-    /*this.route.queryParams.subscribe((params: any) => {
-      if (params.displayPopUp) {
-        console.log(this.modalService);
-        this.modalService.open('successPopUp')
-      }
-    });*/
   }
 
   ngOnInit(): void {
+    this.getProfileDetails();
+    this._clockSubscription = this.everyFiveSeconds.subscribe(() => {
+      this.currentDateTime = new Date();
+    });
+  }
+
+  getProfileDetails() {
+    this.loaderService.start();
+    this.lunarHqService.getProfileDetails()
+      .subscribe({
+        next: (data) => {
+          this.profileObj = data.message;
+          this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});
+          this.userDataObj.push({
+            label: 'LICENSES APPLIED VS HELD', value: [this.profileObj.licensesApplied, this.profileObj.licensesHeld]
+          });
+          this.userDataObj.push({label: 'DISCORD RULES', value: [this.profileObj.rules.length]});
+          this.userDataObj.push({label: 'POLLS', value: [this.profileObj.proposals.length]});
+          this.userDataObj.push({label: 'NEW ANNOUNCEMENTS', value: [this.profileObj.announcements.length]});
+          this.loaderService.stop();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loaderService.stop();
+        }
+      });
   }
 
   close() {
@@ -73,4 +67,25 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['profile']);
   }
 
+  goToTop() {
+    console.log('in top');
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  setHeaderValue() {
+    return {
+      img: this.profileObj?.discordProfileImage,
+      viewProfile: true,
+      viewSettings: true,
+      userName: this.profileObj?.discordName
+    };
+  }
+
+  ngOnDestroy(): void {
+    this._clockSubscription.unsubscribe();
+  }
 }

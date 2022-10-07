@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
 
 @Component({
@@ -8,6 +8,7 @@ import {CssConstants} from '../../../../shared/services/css-constants.service';
 })
 
 export class RecentAnnouncementsComponent {
+  @Input() announcementArrayObj: any;
   constructor(public cssClass: CssConstants) {
   }
 
@@ -17,5 +18,9 @@ export class RecentAnnouncementsComponent {
 
   navigateToGoTo() {
 
+  }
+
+  openAnnouncement(link) {
+    window.open(link, '_blank')
   }
 }

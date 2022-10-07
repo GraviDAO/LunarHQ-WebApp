@@ -1,8 +1,9 @@
 @use "src/style/mixin-core" as mixin;
+@import "src/app/modules/lunar-hq/announcement/announcements.component";
 
 .server-announcements {
-  width: mixin.toRem(1080);
-  height: mixin.toRem(383);
+  width: 100%;
+  height: mixin.toRem(535);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
 }
@@ -37,4 +38,8 @@
   .announcement-item-text {
     height: auto;
   }
+}
+
+.content-container {
+  width: 96%;
 }

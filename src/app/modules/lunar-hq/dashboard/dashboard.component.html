@@ -1,17 +1,18 @@
 <app-why-header-side-nav
   [activeTab]="'DASHBOARD'"
+  [profileObj]="setHeaderValue()"
   (profileClick)="navigateToProfile()">
-  <section class="pd-bottom-48">
+  <section class="pd-bottom-48" id="dashboardContainer" #dashboardContainer>
     <div class="d-flex">
-      <div>
-        <img class="discord-img-wrapper" src="/assets/img/png/nft-profile.jpeg" alt="">
+      <div *ngIf="profileObj?.discordProfileImage">
+        <img class="discord-img-wrapper" [src]="profileObj?.discordProfileImage" alt="" imgFallback>
       </div>
       <div class="pd-left-16">
         <div>
-          <label class="app-why-lbl f28 light ft-bold">Dw00k #5732</label>
+          <label class="app-why-lbl f28 light ft-bold">{{profileObj?.discordName}}</label>
         </div>
         <div class="pd-top-8">
-          <label class="app-why-lbl f16 light-50 ft-lato">He is obsessed with socks</label>
+          <label class="app-why-lbl f16 light-50 ft-lato">{{profileObj?.discordStatus}}</label>
         </div>
       </div>
     </div>
@@ -25,10 +26,13 @@
           <label class="app-why-lbl ft-lato light-50 text-uppercase">wallets</label>
         </div>
       </div>
-      <div class="pd-left-16 d-flex align-items-center">
-        <label class="app-why-lbl f16 ft-lato light-50 text-uppercase">
-          1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+      <div class="pd-left-16 d-flex align-items-center"
+           *ngFor="let walletObj of profileObj?.accountWallets; let isLast = last ">
+        <img [src]="walletObj?.blockchainImageUrl" alt="blockchainImage" class="app-why-icon ic20 mr-right-8">
+        <label class="app-why-lbl f14 ft-lato light-50">
+          {{walletObj?.address | longTextPipe}}
         </label>
+        <div [ngClass]="{'wallet-divider': !isLast}"></div>
       </div>
     </div>
 
@@ -48,7 +52,7 @@
       <div *ngFor="let obj of userDataObj" class="tile-wrapper">
         <div class="tile-container">
           <div class="app-why-lbl f28 ft-bold success">
-            {{obj.value[0]}} <span *ngIf="obj.value[1]" class="light-50">of {{obj.value[1]}}</span>
+            {{obj.value[0]}} <span *ngIf="obj.value[1] >=0" class="light-50">of {{obj.value[1]}}</span>
           </div>
           <div class="app-why-lbl ft-lato  success">
             {{obj.label}}
@@ -62,7 +66,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <label class="app-why-lbl f16 ft-bold light">YOUR SERVERS [{{serverArrayObj.length}}]</label>
+            <label class="app-why-lbl f16 ft-bold light">YOUR SERVERS [{{profileObj?.discordServers.length}}]</label>
           </div>
           <div>
             <app-why-cta-three
@@ -75,13 +79,18 @@
 
         <div class="mr-top-8 horizontal-divider light-20 mr-bottom-48"></div>
 
-        <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let server of serverArrayObj">
+        <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let serverObj of profileObj?.discordServers">
           <div class="d-flex align-items-center">
             <div class="pd-left-4">
-              <img class="server-logo-container" src="/assets/img/svg/gravidao-logo.svg" alt="server-logo">
+              <img class="server-logo-container" [src]="serverObj?.discordServerImage" alt="server-logo">
             </div>
             <div class="pd-left-20">
-              <label class="app-why-lbl f16 light-70">GraviDao</label>
+              <label class="app-why-lbl f16 light-70">{{serverObj?.discordServerName}}</label>
+            </div>
+            <div class="pd-left-4">
+              <ion-icon *ngIf="serverObj?.userIsAdmin" class="app-why-icon ic10 light-70" name="key"></ion-icon>
+              <ion-icon *ngIf="!serverObj?.userIsAdmin && !serverObj?.userOwnsLicense" class="app-why-icon ic10 error"
+                        name="warning"></ion-icon>
             </div>
           </div>
           <div class="d-flex align-items-center">
@@ -99,7 +108,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <label class="app-why-lbl f16 ft-bold light">GRAVIDAO Discord rules [{{myServerCount}}]</label>
+            <label class="app-why-lbl f16 ft-bold light">GRAVIDAO Discord rules [{{profileObj?.rules.length}}]</label>
           </div>
           <div>
             <app-why-cta-three
@@ -120,19 +129,19 @@
         </div>
 
         <div class="server-list-wrapper">
-          <div class="rule-details-wrapper" *ngFor="let ruleObj of rulesArrayObj">
-            <div class="width-270 pd-left-16"><label class="app-why-lbl f16 light ft-bold">{{ruleObj.ruleName}}</label>
+          <div class="rule-details-wrapper" *ngFor="let ruleObj of profileObj?.rules">
+            <div class="width-270 pd-left-16"><label class="app-why-lbl f16 light ft-bold">{{ruleObj?.roleName}}</label>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
-            <div class="width-94 pd-left-15"><label class="app-why-lbl f16 light ft-bold">{{ruleObj.population}}</label>
+            <div class="width-94 pd-left-15"><label class="app-why-lbl f16 light ft-bold">{{ruleObj?.quantity}}</label>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
             <div class="width-178 pd-left-15 d-flex justify-content-between">
               <div>
-                <label class="app-why-lbl f16 light ft-bold">{{ruleObj.chainName}}</label>
+                <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.blockchainName}}</label>
               </div>
               <div class="pd-right-15">
-                <img class="chain-logo-container" src="/assets/img/svg/drop.svg" alt="chain-logo">
+                <img class="chain-logo-container" [src]="ruleObj?.discordServerImage" alt="chain-logo">
               </div>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
@@ -145,15 +154,28 @@
                 [btnLabel]="'View'"></app-why-cta-three>
             </div>
           </div>
-          </div>
+        </div>
         <div class="add-fade-effect">
         </div>
       </article>
     </article>
 
-    <app-why-lunar-hq-recent-polls></app-why-lunar-hq-recent-polls>
+    <app-why-lunar-hq-recent-polls
+      [currentDateTime]="currentDateTime"
+      [pollArrayObj]="profileObj?.proposals"></app-why-lunar-hq-recent-polls>
 
-    <app-why-lunar-hq-recent-announcements class="mr-top-8"></app-why-lunar-hq-recent-announcements>
+    <app-why-lunar-hq-recent-announcements
+      [announcementArrayObj]="profileObj?.announcements"
+      class="mr-top-8"></app-why-lunar-hq-recent-announcements>
+
+    <div class="mr-top-40 mr-bottom-80 show-cursor" (click)="goToTop()">
+      <div class="text-center">
+        <ion-icon class="app-why-icon ic16 light-70" name="chevron-up-outline"></ion-icon>
+      </div>
+      <div class="text-center">
+        <span class="app-why-lbl light-70">BACK TO TOP</span>
+      </div>
+    </div>
 
   </section>
 </app-why-header-side-nav>

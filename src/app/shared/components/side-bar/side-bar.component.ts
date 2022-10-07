@@ -35,7 +35,6 @@ export class SideBarComponent implements OnInit {
     $('#sidebar').toggleClass('active');
     let pos = this.sideNavList.findIndex((navObj: any) => navObj.title === this.activeTab);
     this.toggle[pos] = true;
-    console.log(this.activeSubMenuTab, 'subMenu');
   }
 
   setIcon(icon: string): any {

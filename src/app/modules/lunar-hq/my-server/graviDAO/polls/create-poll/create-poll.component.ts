@@ -101,7 +101,6 @@ export class GravidaoCreatePollComponent implements OnInit {
   }
 
   getDatePicker(date: string) {
-    console.log(date);
     this.dateRadioSelected = date;
   }
 }
