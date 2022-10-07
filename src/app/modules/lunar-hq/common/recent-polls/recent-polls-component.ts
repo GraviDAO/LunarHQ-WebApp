@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
 
 @Component({
@@ -7,6 +7,9 @@ import {CssConstants} from '../../../../shared/services/css-constants.service';
   styleUrls: ['./recent-polls-component.scss']
 })
 export class RecentPollsComponent {
+  @Input() pollArrayObj: any;
+  @Input() currentDateTime: Date;
+
   constructor(public cssClass: CssConstants) {
   }
 
@@ -14,7 +17,7 @@ export class RecentPollsComponent {
 
   }
 
-  navigateToViewInDiscord() {
-
+  navigateToViewInDiscord(obj) {
+    window.open(`https://discord.com/channels/${obj.discordServerId}/${obj.discordChannelId}/${obj.discordMessageId}`, '_blank');
   }
 }

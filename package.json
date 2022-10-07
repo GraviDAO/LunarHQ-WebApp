@@ -30,6 +30,7 @@
     "buffer": "^6.0.3",
     "ionicons": "^6.0.2",
     "jquery": "^3.6.0",
+    "moment": "^2.29.4",
     "ngx-toastr": "^14.1.4",
     "ngx-ui-loader": "^13.0.0",
     "rxjs": "~7.5.0",

@@ -2,7 +2,9 @@
 
 .announcement-container {
   max-width: 68rem;
-  margin: auto;
+  @include mixin.bg--wrapper;
+  background: var(--dark);
+  margin: 4px auto;
 }
 
 .announcement-wrapper {
@@ -25,7 +27,7 @@
 
 .announcement-container-two {
   @include mixin.bg--wrapper;
-  width: mixin.toRem(780);
+  min-width: mixin.toRem(702);
   height: mixin.toRem(122);
   background: var(--dark-50) !important;
 }

@@ -23,8 +23,8 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-end lg-container" *ngIf="showSearchBar && showLastDivider && buttonLabel &&
-  profileObj?.viewProfile && profileObj?.viewSettings && rightLabel">
+  <div class="d-flex justify-content-end lg-container" *ngIf="showSearchBar || showLastDivider || buttonLabel ||
+  profileObj?.viewProfile || profileObj?.viewSettings && rightLabel">
     <div class="d-flex align-items-center right-wrapper">
 
       <div *ngIf="showSearchBar">
@@ -42,7 +42,7 @@
           <img class="profile-img" [src]="profileObj?.img"
                [ngClass]="{'add-notch': profileObj?.img === ''}"
                alt="" imgFallback>
-          <div class="pd-left-8 app-why-lbl f14 ft-bold light">Dw00k #5732</div>
+          <div class="pd-left-8 app-why-lbl f14 ft-bold light">{{profileObj?.userName}}</div>
         </div>
         <div class="settings-container" *ngIf="profileObj?.viewSettings">
           <ion-icon class="app-why-icon ic14 light" name="cog-outline"></ion-icon>

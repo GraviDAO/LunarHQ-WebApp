@@ -17,7 +17,6 @@ export class DetailsComponent implements OnInit {
               private route: ActivatedRoute,
               public cssClass: CssConstants) {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params.server);
       this.activeSubMenu = params.server;
     });
 

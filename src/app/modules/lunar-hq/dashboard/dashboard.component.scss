@@ -102,13 +102,15 @@
 }
 
 .add-fade-effect {
-  /*background: linear-gradient(180deg, rgba(15, 12, 16, 0) 0%, #0F0C10 100%);
-  position: absolute;
-  height: 96px;
-  bottom: -410px;
-  width: mixin.toRem(638);*/
   position: relative;
   bottom: 5rem;
   height: 6rem;
   background: linear-gradient(180deg, rgba(15, 12, 16, 0) 0%, #0F0C10 100%);
+}
+
+.wallet-divider {
+  width: 1px;
+  height: mixin.toRem(20);
+  background: var(--light-50);
+  margin-left: 16px;
 }

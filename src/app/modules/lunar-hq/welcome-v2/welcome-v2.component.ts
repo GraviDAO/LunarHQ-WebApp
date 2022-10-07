@@ -88,12 +88,12 @@ export class WelcomeV2Component implements OnDestroy {
         });
       } else {
         // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
-        let currTry = 0;   
+        let currTry = 0;
         const interv = setInterval(() => {
-          if(this.progressStatus === 'wallet_connected') {
+          if (this.progressStatus === 'wallet_connected') {
             this.resetSteps();
             clearInterval(interv);
-          } else if(this.progressStatus !== '' || currTry++ > 20) {
+          } else if (this.progressStatus !== '' || currTry++ > 20) {
             clearInterval(interv);
           }
         }, 50)
@@ -303,7 +303,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   // function to signIn with Terratx
   signTerraTx(terraAddress: any, nonce: any, classic: boolean = false) {
-    if(this.walletChainId !== (classic ? 'columbus-5' : 'phoenix-1')) {
+    if (this.walletChainId !== (classic ? 'columbus-5' : 'phoenix-1')) {
       this.resetSteps();
       this.terraController.disconnect();
       this.modalService.open('terraWallet');
@@ -416,7 +416,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.terraController.availableConnections(),
       this.terraController.states(),
     ]).subscribe(
-      ([_availableInstallTypes, _availableConnections, _states]) => {        
+      ([_availableInstallTypes, _availableConnections, _states]) => {
         this.storageService.delete('__terra_extension_router_session__');
         this.availableInstallTypes = _availableInstallTypes;
         const connections = _availableConnections;
@@ -474,7 +474,8 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   gotToMyDiscord() {
-    window.open('https://discord.com/channels/@me', '_blank');
+    this.router.navigate(['/dashboard']);
+    // window.open('https://discord.com/channels/@me', '_blank');
   }
 
   navigateToDiscord() {
@@ -511,8 +512,8 @@ export class WelcomeV2Component implements OnDestroy {
           } else {
             this.terraAddress = 'terra wallet';
           }
-          
-          if((this.polygonAddress == "polygon wallet" && this.terraAddress == "terra wallet") || ((data.message as string).toLowerCase().includes("no") && (data.message as string).toLowerCase().includes("remaining"))) {
+
+          if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
             this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {
@@ -534,7 +535,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   resetSteps() {
-    this.selected = "connect"
+    this.selected = 'connect'
     this.storageService.set('user_progress', null);
     this.progressStatus = this.storageService.get('user_progress');
   }
