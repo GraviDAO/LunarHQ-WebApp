@@ -60,6 +60,9 @@ export class WelcomeV2Component implements OnDestroy {
     this.walletInit();
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
+        this.selected = 'discord_connected';
+        this.discordTitle = 'discord connected';
+        this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
         let lunarUserObj = this.storageService.get('lunar_user');
         this.coreService.getDiscordUser({
           discordAuthorizationCode: params.code,
@@ -80,9 +83,10 @@ export class WelcomeV2Component implements OnDestroy {
           this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
           this.getUserProfile();
         }, (error) => {
+          this.resetSteps();
           console.error(error, 'error');
           if (error.status === 403) {
-            this.toast.error('You already have a wallet of that chain connected to this Discord account.');
+            this.toast.error('You already have the wallet ' + error.error.wallet.substring(0,8) + '...' + error.error.wallet.substring(error.error.wallet.length - 4) + ' of that chain connected to this Discord account.');
           }
           this.closeDiscordPopUp();
         });
