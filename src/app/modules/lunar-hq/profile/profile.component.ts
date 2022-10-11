@@ -3,6 +3,11 @@ import {Router} from '@angular/router';
 import {ModalService} from '../../../shared/_modal/modal.service';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
+import {LunarHqAPIServices} from '../../services/lunar-hq.services';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {CoreService} from '../../services/core.service';
+import {LocalStorageService} from '../../../shared/services/local.storage.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-why-lunar-hq-profile',
@@ -11,66 +16,65 @@ import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 })
 
 export class ProfileComponent implements OnInit {
-  profileObj = {viewProfile: true, viewSettings: true, img: '../../../../assets/img/png/nft-profile.jpeg'};
-  walletValue = '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2';
   discordUnLinked = false;
-  wallets = [{
-    walletValue: this.walletValue,
-    icon: '/assets/img/svg/matic.svg',
-    index: 1
-  }];
   walletSelected = false;
   selectedWallet = '';
+  licenseList = [];
   licenseSelected = false;
   selectedLicenseId = '';
-  selectedLicense = 'UNUSED';
   walletRemovingIndex = 0;
-  /*wallets = [{
-    walletValue: this.walletValue,
-    icon: 'settings'
-  }];*/
-  sideNavList: Array<SideNavType> = [
-    {
-      title: 'DASHBOARD'
-    },
-    {
-      title: 'MY SERVERS',
-      subMenu: [
-        {
-          title: 'Accordions'
-        }
-      ]
-    },
-    {
-      title: 'POLLS',
-      subMenu: [
-        {
-          title: 'Owner'
-        },
-        {
-          title: 'Participant'
-        }
-      ]
-    },
-    {
-      title: 'ANNOUNCEMENTS',
-      subMenu: [
-        {
-          title: 'Accordions'
-        }
-      ]
-    },
-  ];
+  profileObj: any;
+  unlink: any;
 
   constructor(
     private router: Router,
+    private lunarHqService: LunarHqAPIServices,
+    private loaderService: NgxUiLoaderService,
+    private coreService: CoreService,
+    private toast: ToastrService,
+    private storageService: LocalStorageService,
     public cssClass: CssConstants,
-    private modalService: ModalService
-  ) {
+    private modalService: ModalService) {
   }
 
   ngOnInit(): void {
+    this.getProfileDetails();
   }
+
+
+  getProfileDetails() {
+    this.loaderService.start();
+    this.lunarHqService.getProfileDetails()
+      .subscribe({
+        next: (data) => {
+          this.profileObj = data.message;
+          this.profileObj?.discordServers.forEach((discordObj: any) => {
+            if (discordObj.licences.length > 0) {
+              this.licenseList.push(...discordObj.licences)
+            }
+          });
+          this.loaderService.stop();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loaderService.stop();
+        }
+      });
+  }
+
+  /*getMyLicenses() {
+    this.lunarHqService.getMyLicenses()
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.loaderService.stop();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loaderService.stop();
+        }
+      });
+  }*/
 
   navigateToProfile() {
     this.router.navigate(['profile']);
@@ -106,15 +110,30 @@ export class ProfileComponent implements OnInit {
     console.log('Connect Wallet');
   }
 
-  removeWallet(index: number) {
-     this.openModal('removeWalletModal');
-     this.walletRemovingIndex = index;
-   }
+  removeWallet(accountObj: any) {
+    this.openModal('removeWalletModal');
+    console.log(accountObj, 'accountObj');
+    this.unlink = accountObj;
+  }
 
   confirmRemoveWallet() {
-    this.wallets.forEach((element, index) => {
-      if (index == this.walletRemovingIndex) this.wallets.splice(index, 1);
-    });
+    this.loaderService.start();
+    this.coreService.unLinkWallet(this.unlink.blockchainName, this.unlink.address)
+      .subscribe({
+        next: (data) => {
+          this.loaderService.stop();
+          let lunarObj = this.storageService.get('lunar_user');
+          const token = data.message;
+          const oldJWT = lunarObj.token;
+          lunarObj.token = token;
+          this.storageService.set('lunar_user', lunarObj);
+          this.toast.success('Wallet removed!');
+          this.getProfileDetails();
+        },
+        error: (error) => {
+
+        }
+      });
     this.cancelModal('removeWalletModal');
   }
 
@@ -123,7 +142,7 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmAddingWallet() {
-    this.wallets.push({...this.wallets[0]});
+    // this.wallets.push({...this.wallets[0]});
     this.cancelModal('addWalletModal');
   }
 
@@ -151,5 +170,14 @@ export class ProfileComponent implements OnInit {
 
   openAssignLicense() {
     this.openModal('buyLicenseModal');
+  }
+
+  setHeaderValue() {
+    return {
+      img: this.profileObj?.discordProfileImage,
+      viewProfile: true,
+      viewSettings: true,
+      userName: this.profileObj?.discordName
+    };
   }
 }

@@ -18,6 +18,13 @@ export class LunarHqAPIServices {
       }));
   }
 
+  getMyLicenses(): Observable<any> {
+    return this.http.get<any>(environment.server + 'myLicenses')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   getMyServers(): Observable<any> {
     return this.http.get<any>(environment.server + 'servers')
       .pipe(map((result) => {
