@@ -208,8 +208,6 @@ export class WelcomeV2Component implements OnDestroy {
   // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
-    // this.subscription.unsubscribe();
-    // this.terraWalletConnect();
     this.selectedWallet === 'polygon' ? this.connectToMetaMask() : this.terraWalletConnect();
   }
 

@@ -4,6 +4,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CssConstants} from 'src/app/shared/services/css-constants.service';
 import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
+import {LunarHqAPIServices} from '../../services/lunar-hq.services';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-why-lunar-hq-my-server',
@@ -11,52 +13,33 @@ import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
   styleUrls: ['./my-server.component.scss']
 })
 export class MyServerComponent implements OnInit {
-  sideNavList: Array<SideNavType> = [
-    {
-      title: 'DASHBOARD'
-    },
-    {
-      title: 'MY SERVERS',
-      subMenu: [
-        {
-          title: 'GraviDAO'
-        },
-        {
-          title: 'SockDAO'
-        },
-        {
-          title: 'Hubble Fan Club'
-        }
-      ]
-    },
-    {
-      title: 'POLLS',
-      subMenu: [
-        {
-          title: 'Owner'
-        },
-        {
-          title: 'Participant'
-        }
-      ]
-    },
-    {
-      title: 'ANNOUNCEMENTS',
-      subMenu: [
-        {
-          title: 'Accordions'
-        }
-      ]
-    },
-  ];
-
+  myServerList = [];
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private loader: NgxUiLoaderService,
+              private lunarHqService: LunarHqAPIServices,
               private location: Location,
               public cssClass: CssConstants) {
   }
 
   ngOnInit(): void {
+    this.getMyServers();
+  }
+
+  getMyServers() {
+    this.loader.start();
+    this.lunarHqService.getMyServers()
+      .subscribe({
+        next: (data) => {
+          console.log(data.message, 'data');
+          this.myServerList = data.message;
+          this.loader.stop();
+        },
+        error: (err) => {
+          console.error(err, 'err');
+          this.loader.stop();
+        }
+      });
   }
 
   navigateToMyServer() {
