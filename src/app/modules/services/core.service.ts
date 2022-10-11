@@ -21,6 +21,14 @@ export class CoreService {
       }));
   }
 
+  changeDiscord(data: any): Observable<any> {
+    const url = environment.server + 'changeDiscord/?discordAuthorizationCode=' + data.discordAuthorizationCode;
+    return this.http.put<any>(url, {})
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   getNonce(walletAddr: string, blockchainName: string): Observable<any> {
     return this.http.get<any>(environment.server + 'getNonce/' + walletAddr + '?blockchainName=' + blockchainName)
       .pipe(map((result) => {

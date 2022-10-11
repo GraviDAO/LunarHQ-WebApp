@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ModalService} from '../../../shared/_modal/modal.service';
 import {Web3Service} from '../../web3-core/web3.service';
@@ -38,6 +38,7 @@ export class WelcomeV2Component implements OnDestroy {
   walletDescription = 'Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.';
   polygonAddress = 'polygon wallet';
   terraAddress = 'terra wallet';
+  terraClassicAddress = 'terra classic wallet';
   useLedgerStation: boolean | undefined = false;
   // @ts-ignore
   subscription: Subscription;
@@ -56,36 +57,63 @@ export class WelcomeV2Component implements OnDestroy {
               private loaderService: NgxUiLoaderService,
               private storageService: LocalStorageService,
               public coreService: CoreService,
-              private modalService: ModalService,) {
+              private modalService: ModalService) {
     this.walletInit();
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
+        this.selected = 'discord_connected';
+        this.discordTitle = 'discord connected';
+        this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
         let lunarUserObj = this.storageService.get('lunar_user');
-        this.coreService.getDiscordUser({
-          discordAuthorizationCode: params.code,
-          walletAddress: lunarUserObj.walletAddress,
-          blockchainName: lunarUserObj.blockchainName
-        }).subscribe((data) => {
-          lunarUserObj.discordName = data.message.discordName;
-          lunarUserObj.discordProfileImage = data.message.discordProfileImage;
-          this.storageService.set('lunar_user', lunarUserObj);
-          this.selected = 'discord_connected';
-          this.discordTitle = 'discord connected';
-          this.currentStep = 'connection success!';
-          this.discordProfileObj = {
-            discordName: lunarUserObj.discordName,
-            discordProfileImage: lunarUserObj.discordProfileImage
-          };
-          this.closeDiscordPopUp();
-          this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
-          this.getUserProfile();
-        }, (error) => {
-          console.error(error, 'error');
-          if (error.status === 403) {
-            this.toast.error('You already have a wallet of that chain connected to this Discord account.');
-          }
-          this.closeDiscordPopUp();
-        });
+        let changeWallet = this.storageService.get('change_wallet');
+        if (changeWallet !== null) {
+          this.loaderService.start();
+          this.coreService.changeDiscord({
+            discordAuthorizationCode: params.code
+          }).subscribe({
+            next: (data) => {
+              this.loaderService.stop();
+              this.storageService.delete('change_wallet');
+              this.getUserProfile();
+              this.closeDiscordPopUp();
+            },
+            error: (error) => {
+              this.resetSteps();
+              this.loaderService.stop();
+              this.closeDiscordPopUp();
+            }
+          });
+        } else {
+          this.loaderService.start();
+          this.coreService.getDiscordUser({
+            discordAuthorizationCode: params.code,
+            walletAddress: lunarUserObj.walletAddress,
+            blockchainName: lunarUserObj.blockchainName
+          }).subscribe((data) => {
+            lunarUserObj.discordName = data.message.discordName;
+            lunarUserObj.discordProfileImage = data.message.discordProfileImage;
+            this.storageService.set('lunar_user', lunarUserObj);
+            this.selected = 'discord_connected';
+            this.discordTitle = 'discord connected';
+            this.currentStep = 'connection success!';
+            this.discordProfileObj = {
+              discordName: lunarUserObj.discordName,
+              discordProfileImage: lunarUserObj.discordProfileImage
+            };
+            this.loaderService.stop();
+            this.closeDiscordPopUp();
+            this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
+            this.getUserProfile();
+          }, (error) => {
+            this.resetSteps();
+            console.error(error, 'error');
+            this.loaderService.stop();
+            if (error.status === 403) {
+              this.toast.error('You already have the wallet ' + error.error.wallet.substring(0,8) + '...' + error.error.wallet.substring(error.error.wallet.length - 4) + ' of that chain connected to this Discord account.');
+            }
+            this.closeDiscordPopUp();
+          });
+        }
       } else {
         // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
         let currTry = 0;
@@ -538,5 +566,10 @@ export class WelcomeV2Component implements OnDestroy {
     this.selected = 'connect'
     this.storageService.set('user_progress', null);
     this.progressStatus = this.storageService.get('user_progress');
+  }
+
+  changeDiscord() {
+    this.storageService.set('change_wallet', {changeWallet: true});
+    this.modalService.open('changeDiscordModal');
   }
 }
