@@ -336,10 +336,13 @@ export class WelcomeV2Component implements OnDestroy {
   // function to signIn with Terratx
   signTerraTx(terraAddress: any, nonce: any, classic: boolean = false) {
     if (this.walletChainId !== (classic ? 'columbus-5' : 'phoenix-1')) {
-      this.resetSteps();
-      this.terraController.disconnect();
       this.modalService.open('terraWallet');
       this.toast.error('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'));
+
+      if(!this.progressStatus) { //Means we are at beginning of flow
+        this.resetSteps();
+        this.terraController.disconnect();
+        }
     } else {
       this.loaderService.start();
       const msg = new MsgSend(
@@ -365,7 +368,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
-          console.log(error, 'error');
+          console.error(error, 'error');
           this.loaderService.stop();
           this.terraController.disconnect();
           this.toast.error('Failed to connect');
@@ -397,7 +400,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   // function to signIn with TerraArbitraryByte
-  async signTerra(nonce: string, publicAddress: string) {
+  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {    
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -409,7 +412,6 @@ export class WelcomeV2Component implements OnDestroy {
         signature: res.result.signature.toString(),
         public_key: res.result.public_key.key ?? null,
       };
-      const blockchainName = 'Terra';
       const dataObject = {
         type: 'TerraArbitraryByte',
         signature: {
@@ -459,16 +461,14 @@ export class WelcomeV2Component implements OnDestroy {
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
           this.walletChainId = _states.network.chainID;
-          console.log(this.selectedWallet);
           const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
-          console.log(blockchainName, 'block');
           const connectionType = _states.wallets[0].connectType;
           const connectionName = _states.connection.name;
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               this.modalService.close('terraWallet');
-              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation && this.selectedWallet !== 'terraClassic') {
-                this.signTerra(nonceResult.message, walletAddr);
+              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
+                this.signTerra(nonceResult.message, walletAddr, blockchainName);
               } else {
                 this.signTerraTx(walletAddr, nonceResult.message, this.selectedWallet === 'terraClassic');
               }
@@ -539,7 +539,6 @@ export class WelcomeV2Component implements OnDestroy {
       this.modalService.close('removeWalletModal');
       this.currentStep = 'step 1 : connect wallet';
     } else {
-      console.log(this.unlink);
       const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : 'Terra Classic');
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
