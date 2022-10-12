@@ -19,7 +19,7 @@
 }
 
 .server-name-container {
-  width: mixin.toRem(272);
+  min-width: mixin.toRem(272);
 }
 
 .server-logo {
@@ -306,3 +306,15 @@
     height: auto;
   }
 }
+
+
+.server-text-container {
+  overflow: scroll;
+  white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+

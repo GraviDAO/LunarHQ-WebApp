@@ -14,6 +14,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 })
 export class MyServerComponent implements OnInit {
   myServerList = [];
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private loader: NgxUiLoaderService,
@@ -56,7 +57,7 @@ export class MyServerComponent implements OnInit {
   }
 
   navigateToDetails(server: any) {
-    console.log('navigateToDetails');
+    console.log('navigateToDetails', server);
     this.router.navigate(['my-server/details'], {queryParams: {server}});
   }
 

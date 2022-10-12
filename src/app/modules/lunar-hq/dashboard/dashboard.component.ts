@@ -88,4 +88,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._clockSubscription.unsubscribe();
   }
+
+  navigateToServers() {
+    this.router.navigate(['/my-server']);
+  }
 }

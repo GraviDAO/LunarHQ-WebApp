@@ -29,8 +29,8 @@
             {{serverObj?.discordServerName}}
           </div>
           <div class="server-name-right-icon pd-left-8 app-why-lbl f22">
-            <ion-icon *ngIf="serverObj?.userGotLicense" name="key" class="app-why-icon light-20 ic14"></ion-icon>
-            <ion-icon *ngIf="!serverObj?.userGotLicense" class="app-why-icon ic10 error"
+            <ion-icon *ngIf="serverObj?.userOwnsLicense" name="key" class="app-why-icon light-20 ic14"></ion-icon>
+            <ion-icon *ngIf="!serverObj?.userOwnsLicense" class="app-why-icon ic10 error"
                       name="warning"></ion-icon>
           </div>
         </div>
@@ -76,16 +76,17 @@
           </div>
         </div>
         <div class="divider"></div>
-        <div class="pd-top-34 visit-button d-flex justify-content-center" *ngIf="serverObj?.userGotLicense">
+        <div class="pd-top-34 visit-button d-flex justify-content-center"
+             *ngIf="serverObj?.userOwnsLicense">
           <app-why-cta-three
             [btnClass]="cssClass.cta3PrimaryNorm + 'ft-bold letter-spacing-047'"
             [iconClass]="cssClass.cta3PrimaryIconNorm"
             [iconType]="'chevron-forward-outline'"
-            (click)="navigateToDetails('GraviDAO')"
+            (click)="navigateToDetails(serverObj?.discordServerId)"
             [btnLabel]="'VISIT'"></app-why-cta-three>
         </div>
-        <div *ngIf="!serverObj?.userGotLicense"
-          class="add-license-button d-flex flex-column align-items-center justify-content-center text-center"
+        <div *ngIf="!serverObj?.userOwnsLicense"
+             class="add-license-button d-flex flex-column align-items-center justify-content-center text-center"
              (click)="navigateToAddLicense()">
           <ion-icon name="add-circle-outline" class="app-why-icon ic18 error"></ion-icon>
           <div class="add-license pd-top-8 app-why-lbl f10 letter-spacing-02 ft-bold error">ADD LICENSE</div>

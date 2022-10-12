@@ -73,6 +73,7 @@
               [btnClass]="cssClass.cta3PrimaryNorm"
               [iconClass]="cssClass.cta3Primary14Icon"
               [iconType]="'chevron-forward-outline'"
+              (click)="navigateToServers()"
               [btnLabel]="'ADMIN'"></app-why-cta-three>
           </div>
         </div>
@@ -82,7 +83,7 @@
         <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let serverObj of profileObj?.discordServers">
           <div class="d-flex align-items-center">
             <div class="pd-left-4">
-              <img class="server-logo-container" [src]="serverObj?.discordServerImage" alt="server-logo">
+              <img class="server-logo-container" [src]="serverObj?.discordServerImage" alt="server-logo" imgFallback/>
             </div>
             <div class="pd-left-20">
               <label class="app-why-lbl f16 light-70">{{serverObj?.discordServerName}}</label>
