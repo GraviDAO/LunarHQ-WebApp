@@ -59,6 +59,7 @@ export class WelcomeV2Component implements OnDestroy {
               public coreService: CoreService,
               private modalService: ModalService) {
     this.walletInit();
+    this.getUserProfile();
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
         this.selected = 'discord_connected';
@@ -127,7 +128,6 @@ export class WelcomeV2Component implements OnDestroy {
         }, 50)
       }
     });
-    this.getUserProfile();
   }
 
   ngOnDestroy(): void {
