@@ -61,17 +61,16 @@
                   [iconPath]="'./assets/img/svg/terra_icon.svg'"
                   [btnLabel]="terraAddress"></app-why-cta-one>
               </div>
-
-              <!--<div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="!(terraAddress === 'terra wallet' && selected === 'discord')">
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="!(terraClassicAddress === 'terra classic' && selected === 'discord')">
                 <app-why-cta-one
-                  [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('terra', terraAddress)"
-                  [rightIconType]="(terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [cssClass]="terraClassicAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('terraClassic', terraClassicAddress)"
+                  [rightIconType]="(terraClassicAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
-                  [iconPath]="'./assets/img/svg/terra_icon.svg'"
+                  [btnImage]="'./assets/img/png/LunaClassic_color.png'"
                   [btnLabel]="terraClassicAddress"></app-why-cta-one>
-              </div>-->
+              </div>
             </div>
           </div>
         </div>
@@ -194,13 +193,13 @@
         [iconPath]="'./assets/img/svg/terra_icon.svg'"
         [btnLabel]="'Terra'"></app-why-cta-one>
     </div>
-    <!--<div class="d-flex justify-content-center pd-top-16">
+    <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
-        [cssClass]="selectedWallet === 'terra' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('terraClassic')"
-        [iconPath]="'./assets/img/svg/terra_icon.svg'"
+        [btnImage]="'./assets/img/png/LunaClassic_color.png'"
         [btnLabel]="'Terra Classic'"></app-why-cta-one>
-    </div>-->
+    </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
         <app-why-lunar-hq-cta-two
@@ -278,7 +277,8 @@
     <div class="pd-top-32">
       <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
         <div>If you change your Discord Profile from Lunar HQ,
-          you will no longer be able to access controlled channels or manage your Discord servers connected to th discord.
+          you will no longer be able to access controlled channels or manage your Discord servers connected to th
+          discord.
         </div>
       </label>
     </div>

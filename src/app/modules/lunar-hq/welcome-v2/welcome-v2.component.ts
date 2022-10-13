@@ -38,7 +38,7 @@ export class WelcomeV2Component implements OnDestroy {
   walletDescription = 'Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.';
   polygonAddress = 'polygon wallet';
   terraAddress = 'terra wallet';
-  terraClassicAddress = 'terra classic wallet';
+  terraClassicAddress = 'terra classic';
   useLedgerStation: boolean | undefined = false;
   // @ts-ignore
   subscription: Subscription;
@@ -109,7 +109,7 @@ export class WelcomeV2Component implements OnDestroy {
             console.error(error, 'error');
             this.loaderService.stop();
             if (error.status === 403) {
-              this.toast.error('You already have the wallet ' + error.error.wallet.substring(0,8) + '...' + error.error.wallet.substring(error.error.wallet.length - 4) + ' of that chain connected to this Discord account.');
+              this.toast.error('You already have the wallet ' + error.error.wallet.substring(0, 8) + '...' + error.error.wallet.substring(error.error.wallet.length - 4) + ' of that chain connected to this Discord account.');
             }
             this.closeDiscordPopUp();
           });
@@ -163,8 +163,10 @@ export class WelcomeV2Component implements OnDestroy {
     this.currentStep = 'connection success!';
     const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
     const tempTerraObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra');
+    const tempTerraClassicObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra Classic');
     this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.address;
     this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.address;
+    this.terraClassicAddress = tempTerraClassicObj === undefined ? 'terra classic' : tempTerraClassicObj.address;
     this.discordProfileObj = {
       discordName: dataObj.discordName,
       discordProfileImage: dataObj.discordProfileImage
@@ -267,8 +269,10 @@ export class WelcomeV2Component implements OnDestroy {
 
           if (blockchainName === 'polygon-mainnet') {
             this.polygonAddress = publicAddress;
-          } else {
+          } else if (blockchainName === 'Terra') {
             this.terraAddress = publicAddress;
+          } else {
+            this.terraClassicAddress = publicAddress;
           }
 
           this.coreService.getLiteProfileDetails()
@@ -290,8 +294,10 @@ export class WelcomeV2Component implements OnDestroy {
 
             if (blockchainName === 'polygon-mainnet') {
               this.polygonAddress = publicAddress;
-            } else {
+            } else if (blockchainName === 'Terra') {
               this.terraAddress = publicAddress;
+            } else {
+              this.terraClassicAddress = publicAddress;
             }
 
             this.getUserProfile();
@@ -330,10 +336,13 @@ export class WelcomeV2Component implements OnDestroy {
   // function to signIn with Terratx
   signTerraTx(terraAddress: any, nonce: any, classic: boolean = false) {
     if (this.walletChainId !== (classic ? 'columbus-5' : 'phoenix-1')) {
-      this.resetSteps();
-      this.terraController.disconnect();
       this.modalService.open('terraWallet');
       this.toast.error('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'));
+
+      if(!this.progressStatus) { //Means we are at beginning of flow
+        this.resetSteps();
+        this.terraController.disconnect();
+        }
     } else {
       this.loaderService.start();
       const msg = new MsgSend(
@@ -347,7 +356,7 @@ export class WelcomeV2Component implements OnDestroy {
           memo: 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet',
         })
         .then((res) => {
-          const blockchainName = 'Terra';
+          const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
           const dataObject = {
             type: 'TerraTx',
             signature: res.result.txhash,
@@ -359,6 +368,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
+          console.error(error, 'error');
           this.loaderService.stop();
           this.terraController.disconnect();
           this.toast.error('Failed to connect');
@@ -390,7 +400,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   // function to signIn with TerraArbitraryByte
-  async signTerra(nonce: string, publicAddress: string) {
+  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {    
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -402,7 +412,6 @@ export class WelcomeV2Component implements OnDestroy {
         signature: res.result.signature.toString(),
         public_key: res.result.public_key.key ?? null,
       };
-      const blockchainName = 'Terra';
       const dataObject = {
         type: 'TerraArbitraryByte',
         signature: {
@@ -452,16 +461,16 @@ export class WelcomeV2Component implements OnDestroy {
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
           this.walletChainId = _states.network.chainID;
-          const blockchainName = 'Terra';
+          const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
           const connectionType = _states.wallets[0].connectType;
           const connectionName = _states.connection.name;
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               this.modalService.close('terraWallet');
               if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
-                this.signTerra(nonceResult.message, walletAddr);
+                this.signTerra(nonceResult.message, walletAddr, blockchainName);
               } else {
-                this.signTerraTx(walletAddr, nonceResult.message);
+                this.signTerraTx(walletAddr, nonceResult.message, this.selectedWallet === 'terraClassic');
               }
             }, (error) => {
               console.error('error', error);
@@ -489,7 +498,8 @@ export class WelcomeV2Component implements OnDestroy {
     } else {
       if (address === 'polygon wallet') {
         this.connectToMetaMask();
-      } else if (address === 'terra wallet') {
+      } else if (address === 'terra wallet' || address === 'terra classic') {
+        this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
         this.terraWalletConnect();
       } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet') {
         this.unlink.chainType = chainType;
@@ -530,13 +540,15 @@ export class WelcomeV2Component implements OnDestroy {
       this.modalService.close('removeWalletModal');
       this.currentStep = 'step 1 : connect wallet';
     } else {
-      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : 'Terra';
+      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : 'Terra Classic');
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
           if (this.unlink.chainType === 'polygon') {
             this.polygonAddress = 'polygon wallet';
-          } else {
+          } else if (this.unlink.chainType === 'terra') {
             this.terraAddress = 'terra wallet';
+          } else {
+            this.terraClassicAddress = 'terra classic';
           }
 
           if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
