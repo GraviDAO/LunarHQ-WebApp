@@ -533,7 +533,7 @@ export class WelcomeV2Component implements OnDestroy {
       } else if (address === 'terra wallet' || address === 'terra classic') {
         this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
         this.terraWalletConnect();
-      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet') {
+      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet' || this.terraClassicAddress !== 'terra classic') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
