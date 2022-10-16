@@ -46,6 +46,7 @@ export class WelcomeV2Component implements OnDestroy {
   availableConnections: Array<any> = [];
   discordTitle = 'connect discord';
   discordProfileObj: any;
+  terraConnectionRequested: boolean = false;
   unlink: { chainType: string, address: string } = {chainType: '', address: ''};
 
 
@@ -489,7 +490,7 @@ export class WelcomeV2Component implements OnDestroy {
         const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
         if (i > -1) connections.splice(i, 1);
         this.availableConnections = connections;
-        if (_states.status === 'WALLET_CONNECTED') {
+        if (_states.status === 'WALLET_CONNECTED' && this.terraConnectionRequested) {
           const walletAddr = _states.wallets[0].terraAddress;
           this.walletChainId = _states.network.chainID;
           const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
@@ -551,6 +552,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
     this.useLedgerStation = useLedgerStation;
+    this.terraConnectionRequested = true;    
     let connect = await this.terraController.connect(type, identifier);
   }
 
