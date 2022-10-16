@@ -397,6 +397,7 @@ export class WelcomeV2Component implements OnDestroy {
           };
           this.useLedgerStation = false;
           this.loaderService.stop();
+          this.terraConnectionRequested = false;  
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
@@ -455,6 +456,7 @@ export class WelcomeV2Component implements OnDestroy {
         blockchainName
       };
       this.loaderService.stop();
+      this.terraConnectionRequested = false;    
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
       console.error(e, 'e');
