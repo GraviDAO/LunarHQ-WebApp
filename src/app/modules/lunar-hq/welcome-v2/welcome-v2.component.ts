@@ -533,7 +533,7 @@ export class WelcomeV2Component implements OnDestroy {
       } else if (address === 'terra wallet' || address === 'terra classic') {
         this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
         this.terraWalletConnect();
-      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet') {
+      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet' || this.terraClassicAddress !== 'terra classic') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
@@ -584,7 +584,7 @@ export class WelcomeV2Component implements OnDestroy {
             this.terraClassicAddress = 'terra classic';
           }
 
-          if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
+          if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet' && this.terraClassicAddress == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
             this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {
