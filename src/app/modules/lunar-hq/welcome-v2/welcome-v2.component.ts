@@ -257,10 +257,10 @@ export class WelcomeV2Component implements OnDestroy {
       this.exitModal();
       let response = await this.web3.connectAccount();
       // @ts-ignore
-      const walletAddr = response[0];
+      const walletAddr = response[0];      
       const blockchainName = 'polygon-mainnet';
       this.coreService.getNonce(walletAddr, blockchainName)
-        .subscribe((result) => {
+        .subscribe((result) => {          
           this.handleSignIn(result.message, walletAddr);
         });
     } catch (error) {
@@ -413,7 +413,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   // To handle metamask sign in
   async handleSignIn(nonce: any, publicAddress: any) {
-    try {
+    try {      
       this.loaderService.start();
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
