@@ -60,7 +60,7 @@ export class WelcomeV2Component implements OnDestroy {
               public coreService: CoreService,
               private modalService: ModalService) {
     // this.logStates();
-    this.walletInit();
+    this.walletInit();    
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
         this.selected = 'discord_connected';
@@ -253,19 +253,14 @@ export class WelcomeV2Component implements OnDestroy {
   //function to connect to metamask & get nonce
   async connectToMetaMask() {
     try {
-      console.log('mm called');
-      
+      localStorage.removeItem('walletconnect');
       this.exitModal();
       let response = await this.web3.connectAccount();
       // @ts-ignore
-      const walletAddr = response[0];
-      console.log(walletAddr);
-      
+      const walletAddr = response[0];      
       const blockchainName = 'polygon-mainnet';
       this.coreService.getNonce(walletAddr, blockchainName)
-        .subscribe((result) => {
-          console.log(result);
-          
+        .subscribe((result) => {          
           this.handleSignIn(result.message, walletAddr);
         });
     } catch (error) {
@@ -418,9 +413,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   // To handle metamask sign in
   async handleSignIn(nonce: any, publicAddress: any) {
-    try {
-      console.log(publicAddress);
-      
+    try {      
       this.loaderService.start();
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
@@ -562,7 +555,8 @@ export class WelcomeV2Component implements OnDestroy {
 
   async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
     this.useLedgerStation = useLedgerStation;
-    this.terraConnectionRequested = true;    
+    this.terraConnectionRequested = true;
+    localStorage.removeItem('walletconnect');
     let connect = await this.terraController.connect(type, identifier);
   }
 
