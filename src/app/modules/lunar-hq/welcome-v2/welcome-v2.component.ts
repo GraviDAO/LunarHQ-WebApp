@@ -58,8 +58,8 @@ export class WelcomeV2Component implements OnDestroy {
               private storageService: LocalStorageService,
               public coreService: CoreService,
               private modalService: ModalService) {
+    // this.logStates();
     this.walletInit();
-    this.getUserProfile();
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
         this.selected = 'discord_connected';
@@ -115,7 +115,8 @@ export class WelcomeV2Component implements OnDestroy {
             this.closeDiscordPopUp();
           });
         }
-      } else {
+      } else {        
+        this.getUserProfile(true);
         // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
         let currTry = 0;
         const interv = setInterval(() => {
@@ -130,11 +131,37 @@ export class WelcomeV2Component implements OnDestroy {
     });
   }
 
+  // logStates() {
+  //   let sel = "";
+  //   let step = "";
+  //   let prog = "";
+  //   let user: any = "";
+
+  //   const newInt = setInterval(() => {
+  //     if(this.selected != sel) {
+  //       console.log("selected: " + this.selected);
+  //       sel = this.selected;
+  //     }
+  //     if(this.currentStep != step) {
+  //       console.log("step: " + this.currentStep);
+  //       step = this.currentStep;
+  //     }
+  //     if(this.progressStatus != prog) {
+  //       console.log("Progress: " + this.progressStatus);
+  //       prog = this.progressStatus;
+  //     }
+  //     if(this.storageService.get('user_progress') != user) {
+  //       console.log("user_progress: " + this.storageService.get('user_progress') + "\n");
+  //       user = this.storageService.get('user_progress');
+  //     }
+  //   }, 100)
+  // }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 
-  getUserProfile() {
+  getUserProfile(resetIfError: boolean = false) {
     let lunarUserObj = this.storageService.get('lunar_user');
     if (lunarUserObj && lunarUserObj.token) {
       this.coreService.getLiteProfileDetails()
@@ -144,7 +171,11 @@ export class WelcomeV2Component implements OnDestroy {
           },
           error: (error) => {
             console.error(error, 'error');
-            this.progressStatus = this.storageService.get('user_progress');
+            if(!resetIfError) {
+              this.progressStatus = this.storageService.get('user_progress');
+            } else {
+              this.resetSteps();
+            }
             this.setDataObj(lunarUserObj);
           }
         });
@@ -510,7 +541,8 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   gotToMyDiscord() {
-    window.open('https://discord.com/channels/@me', '_blank');
+    this.router.navigate(['/dashboard']);
+    // window.open('https://discord.com/channels/@me', '_blank');
   }
 
   navigateToDiscord() {
