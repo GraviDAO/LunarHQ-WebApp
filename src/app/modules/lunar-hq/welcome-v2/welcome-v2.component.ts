@@ -60,7 +60,7 @@ export class WelcomeV2Component implements OnDestroy {
               public coreService: CoreService,
               private modalService: ModalService) {
     // this.logStates();
-    this.walletInit();
+    this.walletInit();    
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
         this.selected = 'discord_connected';
@@ -253,6 +253,7 @@ export class WelcomeV2Component implements OnDestroy {
   //function to connect to metamask & get nonce
   async connectToMetaMask() {
     try {
+      localStorage.removeItem('walletconnect');
       this.exitModal();
       let response = await this.web3.connectAccount();
       // @ts-ignore
@@ -554,7 +555,8 @@ export class WelcomeV2Component implements OnDestroy {
 
   async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
     this.useLedgerStation = useLedgerStation;
-    this.terraConnectionRequested = true;    
+    this.terraConnectionRequested = true;
+    localStorage.removeItem('walletconnect');
     let connect = await this.terraController.connect(type, identifier);
   }
 
