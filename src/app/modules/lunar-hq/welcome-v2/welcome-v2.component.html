@@ -62,9 +62,9 @@
                   [btnLabel]="terraAddress"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="!(terraAddress === 'terra wallet' && selected === 'discord')">
+                   *ngIf="!(terraClassicAddress === 'terra classic' && selected === 'discord')">
                 <app-why-cta-one
-                  [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  [cssClass]="terraClassicAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('terraClassic', terraClassicAddress)"
                   [rightIconType]="(terraClassicAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
