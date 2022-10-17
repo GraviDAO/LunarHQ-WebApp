@@ -9,7 +9,7 @@ import {ToastrService} from 'ngx-toastr';
 import {getChainOptions, WalletController} from '@terra-money/wallet-provider';
 import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Subscription} from 'rxjs';
-import {MsgSend} from '@terra-money/terra.js';
+import { LCDClient, MsgSend, TxInfo, Msg } from "@terra-money/terra.js";
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
@@ -402,13 +402,66 @@ export class WelcomeV2Component implements OnDestroy {
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
-          console.error(error, 'error');
-          this.loaderService.stop();
-          this.terraController.disconnect();
-          this.toast.error('Failed to connect');
-          this.modalService.open('terraWallet');
+          if(error.name === 'CreateTxFailed') {
+            console.error('CreateTxFailed, searching for tx on-chain!', 'error');
+            this.verifyTerraTxStillPosted(this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic', msg, nonce, terraAddress)
+              .then((res) => {
+                const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
+                const dataObject = {
+                  type: 'TerraTx',
+                  signature: res,
+                  publicAddress: terraAddress,
+                  blockchainName
+                };
+                this.useLedgerStation = false;
+                this.loaderService.stop();
+                this.terraConnectionRequested = false;  
+                this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
+              })
+              .catch(() => {
+                this.loaderService.stop();
+                this.terraController.disconnect();
+                this.toast.error('Failed to connect');
+                this.modalService.open('terraWallet');
+              })
+          } else {
+            console.error(error, 'error');
+            this.loaderService.stop();
+            this.terraController.disconnect();
+            this.toast.error('Failed to connect');
+            this.modalService.open('terraWallet');
+          }
         });
     }
+  }
+
+  async verifyTerraTxStillPosted(blockchainName: string, msg: MsgSend, nonce: string, address: string): Promise<string> {
+    const lcd = new LCDClient({
+      URL: blockchainName === "Terra" ? "https://phoenix-lcd.terra.dev" : "https://columbus-lcd.terra.dev/",
+      chainID: blockchainName === "Terra" ? "phoenix-1" : "columbus-5",
+    });
+
+    return new Promise((resolve, reject) => {
+      let txHash: string = "";
+      let currTry: number = 0;
+
+      const interv = setInterval(() => {
+        lcd.tx.txInfosByHeight(undefined).then((txs) => {
+          txs.every((a) => {            
+            if(a.tx.body.memo === 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet'
+                && (a.tx.body.messages[0] as MsgSend).from_address === address) {
+              txHash = a.txhash;
+              clearInterval(interv);
+              resolve(txHash);
+            }
+          })
+          if(currTry++ > 10) {
+            clearInterval(interv);
+            reject();
+          }
+        });
+      }, 1000)
+    })
   }
 
   // To handle metamask sign in
