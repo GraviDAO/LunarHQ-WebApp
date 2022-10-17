@@ -2,30 +2,33 @@
   [title]="'ANNOUNCEMENTS'"
   [activeTab]="'ANNOUNCEMENTS'">
   <div class="search-bar">
-    <div class="pd-left-24 pd-right-24">
-      <app-why-cta-three
-        [btnClass]="cssClass.cta3Primary + ' backBtn'"
-        [btnLabel]="'Back'"
-        [leftIconType]="'chevron-back'"
-        [iconClass]="cssClass.cta3PrimaryIcon"
-        (click)="navigateBack()">
-      </app-why-cta-three>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="pd-left-24 pd-right-24">
+        <app-why-cta-three
+          [btnClass]="cssClass.cta3Primary + ' backBtn'"
+          [btnLabel]="'Back'"
+          [leftIconType]="'chevron-back'"
+          [iconClass]="cssClass.cta3PrimaryIcon"
+          (click)="navigateBack()">
+        </app-why-cta-three>
+      </div>
+      <div>
+        <app-why-search-component></app-why-search-component>
+      </div>
     </div>
-    <div>
-      <app-why-search-component></app-why-search-component>
-    </div>
-    <div>
 
-    </div>
     <div>
-      <app-why-cta-one
-        [cssClass]="cssClass.cta1Md"
-        [iconType]="'file-tray-full'"
-        [btnLabel]="'settings'"></app-why-cta-one>
+      <div>
+        <app-why-cta-one
+          [cssClass]="cssClass.cta1DarkSm"
+          [iconType]="'cog-outline'"
+          [iconClass]="cssClass.ctaIcon16Primary"
+          [btnLabel]="'settings'"></app-why-cta-one>
+      </div>
     </div>
   </div>
 
-  <div class="pd-top-56 announcement-container">
+  <div class="mr-top-56 announcement-container">
     <article class="announcement-wrapper">
       <div class="announcement-container-one">
         <div>
@@ -36,7 +39,7 @@
             <label class="app-why-lbl f14 ft-bold secondary">GraviDAO</label>
           </div>
           <div class="pd-top-10">
-            <label class="app-why-lbl ft-lato light">28 Jul, 2022  |  JUST NOW</label>
+            <label class="app-why-lbl ft-lato light">28 Jul, 2022 | JUST NOW</label>
           </div>
           <div>
             <label class="app-why-lbl ft-lato light">by json (3,3)</label>

@@ -81,6 +81,10 @@
     color: var(--primary-50);
   }
 
+  &.primary {
+    color: var(--primary);
+  }
+
   &.secondary-dark {
     color: var(--secondary-dark) !important;
   }
@@ -107,7 +111,7 @@
   &.fill-dark::part(svg) {
     fill: var(--dark);
   }
-  
+
   &.success {
     color: var(--success);
   }

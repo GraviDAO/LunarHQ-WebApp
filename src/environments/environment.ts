@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server: 'https://api.lunarassistant.io/'
+  server: 'https://staging.lunar-hq.io/'
   // server: 'http://localhost:6060/',
 };
 
