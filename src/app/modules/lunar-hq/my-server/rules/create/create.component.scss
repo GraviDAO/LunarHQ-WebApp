@@ -9,223 +9,273 @@
   margin-left: -3.75rem;
   z-index: 10;
 }
+
 .back-button {
-    display: flex;
-    width: mixin.toRem(132);
-    float: left;
-  }
-  .step {
-    &.active {
-      span {
-        color: var(--secondary) !important;
-      }
+  display: flex;
+  width: mixin.toRem(132);
+  float: left;
+}
+
+.step {
+  &.active {
+    span {
+      color: var(--secondary) !important;
     }
   }
-  .bs-stepper-header {
-    position: absolute;
-    width: 100%;
-  }
+}
+
+.bs-stepper-header {
+  position: absolute;
+  width: 80%;
+  margin-left: 10%;
+}
+
 .rule-container {
-    width: mixin.toRem(720);
-    margin-left: auto;    
-    margin-right: auto;
+  width: mixin.toRem(720);
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .rule-details-container {
-    width: 100%;
-    height: mixin.toRem(396);
-    @include mixin.bg--wrapper;
-    background: var(--tertiary);
+  width: 100%;
+  height: mixin.toRem(396);
+  @include mixin.bg--wrapper;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--tertiary);
 }
-.create-rule-container{
-    width: 100%;
-    height: mixin.toRem(500);
-    @include mixin.bg--wrapper;
-    background: var(--tertiary);
+
+.create-rule-container {
+  width: 100%;
+  min-height: mixin.toRem(500);
+  //height: mixin.toRem(500);
+  @include mixin.bg--wrapper;
+  background: var(--tertiary);
 }
+
 .title-underline {
-    height: mixin.toRem(1);
-    background: var(--light-20);
+  height: mixin.toRem(1);
+  background: var(--light-20);
 }
+
 .description_area {
-    width: 100%;
-    height: mixin.toRem(88);
-    opacity: 0.2;
-    @include mixin.notch(8px);
-    background-color: var(--dark);
-    border: none;
-  }
+  width: 100%;
+  height: mixin.toRem(88);
+  opacity: 0.2;
+  @include mixin.notch(8px);
+  background-color: var(--dark);
+  border: none;
+}
+
 .link-dropdown {
-    background: none;
-    outline: none;
-    width: mixin.toRem(176);
-    height: mixin.toRem(20);
-    text-align: left;
+  background: none;
+  outline: none;
+  width: mixin.toRem(176);
+  height: mixin.toRem(20);
+  text-align: left;
+  padding: 0;
+
+  &.left-arrow {
+    padding-left: mixin.toRem(20);
+  }
+
+  &.highlight {
+    color: var(--primary);
+  }
+
+  &.condition-dropdown {
+    color: var(--light-50);
+    width: mixin.toRem(40);
+
+    &.success {
+      color: var(--success);
+    }
+
+    &.error {
+      color: var(--error);
+    }
+
+    &.warning {
+      color: var(--warning);
+    }
+  }
+}
+
+.dropdown-menu {
+  max-height: mixin.toRem(184);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-left: mixin.toRem(8);
+
+  &.left-dropdown-menu {
+    margin-left: 0;
+  }
+
+  &.condition-dropdown-menu {
+    // margin-left: -8rem;
+  }
+
+  &.show {
+    background-color: var(--bg-light);
+    border-radius: 0;
     padding: 0;
-    &.left-arrow {
-        padding-left: mixin.toRem(20);
+  }
+
+}
+
+.dropdown {
+  .dropdown-toggle {
+    &::after {
+      right: 0 !important;
+      font-size: var(--font-size-20);
+      vertical-align: 0.055em;
+      margin-top: 0.45rem;
+      position: absolute;
+      border-top: 0.35em solid;
+      border-right: 0.25em solid transparent;
+      border-bottom: 0;
+      border-left: 0.25em solid transparent;
     }
-    &.highlight{
-        color: var(--primary);
-    }
-    &.condition-dropdown {
-        color: var(--light-50);
-        width: mixin.toRem(40);
-        &.success {
-            color: var(--success);
-        }
-        &.error {
-            color: var(--error);
-        }
-        &.warning {
-            color: var(--warning);
-        }
+
+    &.left-arrow::after {
+      margin-left: 0;
+      left: 0 !important;
+      right: revert !important;
     }
   }
 
-.dropdown-menu{
-    max-height: mixin.toRem(184);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-left: mixin.toRem(8);
-    &.left-dropdown-menu {
-        margin-left: 0;
-    }
-    &.condition-dropdown-menu {
-        // margin-left: -8rem;
-    }
-    &.show {
-        background-color: var(--bg-light);
-        border-radius: 0;
-        padding: 0;
-    }
-      
-}
-.dropdown{
+  &.show {
     .dropdown-toggle {
-        &::after {
-            right: 0 !important;
-            font-size: var(--font-size-20);
-            vertical-align: 0.055em;
-            margin-top: 0.45rem;
-            position: absolute;
-            border-top: 0.35em solid;
-            border-right: 0.25em solid transparent;
-            border-bottom: 0;
-            border-left: 0.25em solid transparent;
-        }
-        &.left-arrow::after {       
-            margin-left: 0;
-            left: 0 !important;
-            right: revert !important;
-        }
+      color: var(--secondary);
     }
-    &.show {
-        .dropdown-toggle{
-            color: var(--secondary);
-        }
-        .dropdown-toggle::after {
-            color: var(--secondary);
-            margin-top: 0.10rem;
-            height: mixin.toRem(12);
-            border-bottom: 0.35em dashed;
-            border-top: 0em solid transparent;
-            border-right: 0.25em solid transparent;
-            border-left: 0.25em solid transparent;
-        }
+
+    .dropdown-toggle::after {
+      color: var(--secondary);
+      margin-top: 0.10rem;
+      height: mixin.toRem(12);
+      border-bottom: 0.35em dashed;
+      border-top: 0em solid transparent;
+      border-right: 0.25em solid transparent;
+      border-left: 0.25em solid transparent;
     }
-}
-.dropdown-item {
-    height: mixin.toRem(36);
-    min-width: mixin.toRem(168);
-    &:hover {
-        background-color: var(--secondary);
-    }
-}
-.dropdown-divider {
-    border-top: mixin.toRem(1) solid var(--bg-white);
-    margin: 0;
-}
-.rule-action-next {
-    float: right;
-    width: mixin.toRem(96);
-}
-.rule-item-detail {
-    height: mixin.toRem(96);
-    background-color: var(--dark);
-    &.rule-item-detail-nft-token {
-        height: mixin.toRem(180);
-    }
-}
-.rule-item-nft {
-    min-height: mixin.toRem(136);
-    height: auto;
-    background-color: var(--dark-50);
-}
-.rule-item-nft-filter-nft-id {
-    width: mixin.toRem(420);
-}
-.opacity-20 {
-    opacity: 0.2;
-}
-.rule-item-is-text {
-    width: mixin.toRem(48);
-}
-.rule-item-and-text {
-    width: mixin.toRem(44);
-}
-.create-rule-content{
-    overflow-y: scroll;
-}
-.rule-item-condition{
-    width: mixin.toRem(48);
-}
-.rule-item-add-criteria {
-    width: mixin.toRem(112);
-}
-.rule-item-criteria {
-    height: mixin.toRem(96);
-    background-color: var(--dark-50);
-    &.rule-item-criteria-nft-token {
-        height: mixin.toRem(192); 
-    }
-}
-.criteria-close-button {
-    float: right;
-}
-.rule-item-select-operator {
-    width: mixin.toRem(56);
-}
-.rule-item-criteria-contact-addrress {
-    width: mixin.toRem(282);
-}
-.rule-item-criteria-quantity-held {
-    width: mixin.toRem(96);
-}
-.rule-item-criteria-trait-item {
-    min-height: mixin.toRem(126);
-    background-color: var(--dark-20);
-}
-.rule-item-criteria-trait-type-container {
-    width: mixin.toRem(240);
-}
-.rule-item-criteria-trait-divider {
-    margin-top: auto;
-    margin-bottom: mixin.toRem(16);
-    min-height: 96px;
-    width: 1px;
-    background: var(--light-20);
-}
-.rule-item-criteria-trait-rows-container {
-    width: mixin.toRem(296);
+  }
 }
 
-.rules-view{
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: mixin.toRem(480);
-    z-index: 1000;
-    background-color: var(--tertiary);
-    box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
+.dropdown-item {
+  height: mixin.toRem(36);
+  min-width: mixin.toRem(168);
+
+  &:hover {
+    background-color: var(--secondary);
+  }
+}
+
+.dropdown-divider {
+  border-top: mixin.toRem(1) solid var(--bg-white);
+  margin: 0;
+}
+
+.rule-action-next {
+  float: right;
+  width: mixin.toRem(96);
+}
+
+.rule-item-detail {
+  height: mixin.toRem(96);
+  background-color: var(--dark);
+
+  &.rule-item-detail-nft-token {
+    height: mixin.toRem(180);
+  }
+}
+
+.rule-item-nft {
+  min-height: mixin.toRem(136);
+  height: auto;
+  background-color: var(--dark-50);
+}
+
+.rule-item-nft-filter-nft-id {
+  width: mixin.toRem(420);
+}
+
+.opacity-20 {
+  opacity: 0.2;
+}
+
+.rule-item-is-text {
+  width: mixin.toRem(48);
+}
+
+.rule-item-and-text {
+  width: mixin.toRem(44);
+}
+
+.create-rule-content {
+  overflow-y: scroll;
+}
+
+.rule-item-condition {
+  width: mixin.toRem(48);
+}
+
+.rule-item-add-criteria {
+  width: mixin.toRem(112);
+}
+
+.rule-item-criteria {
+  height: mixin.toRem(96);
+  background-color: var(--dark-50);
+
+  &.rule-item-criteria-nft-token {
+    height: mixin.toRem(192);
+  }
+}
+
+.criteria-close-button {
+  float: right;
+}
+
+.rule-item-select-operator {
+  width: mixin.toRem(56);
+}
+
+.rule-item-criteria-contact-addrress {
+  width: mixin.toRem(282);
+}
+
+.rule-item-criteria-quantity-held {
+  width: mixin.toRem(96);
+}
+
+.rule-item-criteria-trait-item {
+  min-height: mixin.toRem(126);
+  background-color: var(--dark-20);
+}
+
+.rule-item-criteria-trait-type-container {
+  width: mixin.toRem(240);
+}
+
+.rule-item-criteria-trait-divider {
+  margin-top: auto;
+  margin-bottom: mixin.toRem(16);
+  min-height: 96px;
+  width: 1px;
+  background: var(--light-20);
+}
+
+.rule-item-criteria-trait-rows-container {
+  width: mixin.toRem(296);
+}
+
+.rules-view {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: mixin.toRem(480);
+  z-index: 1000;
+  background-color: var(--tertiary);
+  box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
 }

@@ -1,29 +1,43 @@
 @use "src/style/mixin-core" as mixin;
+
 .rules-view {
-    background: var(--tertiary);
+  background: var(--tertiary);
 }
+
 .rules-view-header {
-    height: mixin.toRem(86);
-    .close-button {
-        float: right;
-    }
+  height: mixin.toRem(86);
+
+  .close-button {
+    float: right;
+  }
 }
+
 .rules-view-container {
-    width: mixin.toRem(400);
-    height: mixin.toRem(654);
-    @include mixin.bg--wrapper;
-    background: var(--bg-dark);
-    .rules-name-container {
-        height: mixin.toRem(96);
-        background: var(--dark);
-    }
+  width: mixin.toRem(400);
+  height: mixin.toRem(654);
+  @include mixin.bg--wrapper;
+  background: var(--bg-dark);
+
+  .rules-name-container {
+    height: mixin.toRem(96);
+    background: var(--dark);
+  }
+
+  &.full-height {
+    height: 100vh !important;
+    background: none !important;
+    //height: calc(100vh - 48px) !important;
+  }
 }
+
 .rules-action-container {
-    height: mixin.toRem(62);
-    .rules-action-item {
-        width: mixin.toRem(44);
-    }
+  height: mixin.toRem(62);
+
+  .rules-action-item {
+    width: mixin.toRem(44);
+  }
 }
+
 .rule-item-is-rule {
-    //width: mixin.toRem(26);
+  //width: mixin.toRem(26);
 }

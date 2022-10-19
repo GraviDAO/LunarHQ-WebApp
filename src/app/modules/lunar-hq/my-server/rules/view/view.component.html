@@ -27,20 +27,20 @@
             <div class="rule-item d-flex flex-column mr-top-8">
                 <!-- <div class="rule-item-base-role-container d-flex">
                     <div class="rule-item-base-role app-why-lbl f14 ft-lato light-50">
-                        Base Role : \ 
+                        Base Role : \
                     </div>
                     <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
                         {{rulesService.getRole(role)?.name}}
                     </div>
                 </div> -->
                 <ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
-                    <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light-50">
-                        {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}} 
+                    <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light">
+                        {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}}
                     </div>
                     <div class="rule-item-existing-rule-container d-flex flex-column">
                         <div class="rule-item-is-rule-container d-flex">
                             <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                                [ {{rulesService.getCondition(ruleItem.condition)?.name}} ] 
+                                [ {{rulesService.getCondition(ruleItem.condition)?.name?.toLowerCase()}} ]
                             </div>
                             <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="ruleItem.ruleTypeId == 'existing_rule'">
                                 {{rulesService.getRule(ruleItem.ruleId)?.name}}
@@ -49,9 +49,9 @@
                                 {{ruleItem.contractAddress}}__[ {{rulesService.getOperator(ruleItem.operatorId)?.name}} ]__{{ruleItem.quantityHeld}}
                             </div>
                         </div>
-                        <div class="rule-item-is-rule-container d-flex pd-left-48">
+                        <div class="rule-item-is-rule-container d-flex">
                             <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" *ngIf="ruleItem.ruleTypeId == 'nft'" [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
-                                [ {{rulesService.getCondition(ruleItem.filterCondition)?.name}} ]
+                                [ {{rulesService.getCondition(ruleItem.filterCondition)?.name?.toLowerCase()}} ]
                             </div>
                             <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" *ngIf="ruleItem.ruleTypeId == 'nft'" [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
                                 <span *ngIf="ruleItem.filter == 'filter_nft'">Filter by NFT ID</span>
@@ -65,7 +65,7 @@
                             <ng-container *ngFor="let trait of ruleItem.traits; let traitIndex = index;">
                                 <div class="rule-item-and-rule-container d-flex">
                                     <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                                        [ {{rulesService.getCondition(trait.condition)?.name}} ] 
+                                        [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
                                     </div>
                                     <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
                                         {{rulesService.getTraitType(trait.traitTypeId)?.name}}
@@ -74,7 +74,7 @@
                                 <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
                                     <div class="d-flex pd-left-24">
                                         <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
-                                            [ {{rulesService.getCondition(row.condition)?.name}} ] 
+                                            [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
                                         </div>
                                         <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
                                             {{rulesService.getTraitRow(row.rowId)?.name}}
@@ -86,7 +86,7 @@
                         <ng-container *ngFor="let criteria of ruleItem.criterias; let criteriaIndex = index;">
                             <div class="rule-item-and-rule-container d-flex pd-left-24">
                                 <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
-                                    [ {{rulesService.getCondition(criteria.condition)?.name}} ] 
+                                    [ {{rulesService.getCondition(criteria.condition)?.name?.toLowerCase()}} ]
                                 </div>
                                 <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
                                     {{rulesService.getRuleType(criteria.ruleTypeId)?.name}}
@@ -94,7 +94,7 @@
                             </div>
                             <div class="rule-item-is-rule-container d-flex pd-left-48">
                                 <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                                    [ {{rulesService.getCondition(criteria.ruleCondition)?.name}} ] 
+                                    [ {{rulesService.getCondition(criteria.ruleCondition)?.name?.toLowerCase()}} ]
                                 </div>
                                 <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="criteria.ruleTypeId == 'existing_rule'">
                                     {{rulesService.getRule(criteria.ruleId)?.name}}
@@ -119,7 +119,7 @@
                                 <ng-container *ngFor="let trait of criteria.traits; let traitIndex = index;">
                                     <div class="rule-item-and-rule-container d-flex">
                                         <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                                            [ {{rulesService.getCondition(trait.condition)?.name}} ] 
+                                            [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
                                         </div>
                                         <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
                                             {{rulesService.getTraitType(trait.traitTypeId)?.name}}
@@ -128,7 +128,7 @@
                                     <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
                                         <div class="d-flex pd-left-24">
                                             <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
-                                                [ {{rulesService.getCondition(row.condition)?.name}} ] 
+                                                [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
                                             </div>
                                             <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
                                                 {{rulesService.getTraitRow(row.rowId)?.name}}
@@ -149,7 +149,7 @@
     <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24" *ngIf="!paused && !update">
         <div class="rules-action-item">
             <app-why-cta-three
-                [parentClass]="'flex-column'" 
+                [parentClass]="'flex-column'"
                 [btnClass]="cssClass.cta3BtnLabel"
                 [btnLabel]="'Remove'"
                 [leftIconType]="'close-circle-outline'"
@@ -159,7 +159,7 @@
         </div>
         <div class="rules-action-item mr-left-24">
             <app-why-cta-three
-                [parentClass]="'flex-column'" 
+                [parentClass]="'flex-column'"
                 [btnClass]="cssClass.cta3BtnLabel"
                 [btnLabel]="'Pause'"
                 [leftIconType]="'pause-circle-outline'"
@@ -169,7 +169,7 @@
         </div>
         <div class="rules-action-item mr-left-24">
             <app-why-cta-three
-                [parentClass]="'flex-column'" 
+                [parentClass]="'flex-column'"
                 [btnClass]="cssClass.cta3BtnLabelPrimary"
                 [btnLabel]="'Edit'"
                 [leftIconType]="'pencil'"

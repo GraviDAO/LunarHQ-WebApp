@@ -66,6 +66,8 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['dashboard']);
     } else if (tab === 'MY SERVERS') {
       this.router.navigate(['my-server']);
+    } else if (tab === 'ANNOUNCEMENTS') {
+      this.router.navigate(['announcement']);
     }
   }
 

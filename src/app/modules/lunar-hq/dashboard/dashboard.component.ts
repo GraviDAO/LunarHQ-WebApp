@@ -18,8 +18,8 @@ import {timer} from 'rxjs';
 export class DashboardComponent implements OnInit, OnDestroy {
   userDataObj: Array<any> = [];
   profileObj: any;
-  currentDateTime: Date;
-  private _clockSubscription: Subscription;
+  currentDateTime: Date | undefined;
+  private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
 
   constructor(public cssClass: CssConstants,
@@ -86,10 +86,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // @ts-ignore
     this._clockSubscription.unsubscribe();
   }
 
   navigateToServers() {
     this.router.navigate(['/my-server']);
+  }
+
+  navigateToAnnouncement() {
+    this.router.navigate(['/announcement']);
   }
 }

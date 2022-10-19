@@ -167,6 +167,7 @@
 
     <app-why-lunar-hq-recent-announcements
       [announcementArrayObj]="profileObj?.announcements"
+      (navigateToAnnouncementEvent)="navigateToAnnouncement()"
       class="mr-top-8"></app-why-lunar-hq-recent-announcements>
 
     <div class="mr-top-40 mr-bottom-80 show-cursor" (click)="goToTop()">

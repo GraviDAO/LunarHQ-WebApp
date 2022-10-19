@@ -21,11 +21,12 @@
     }
   }
 }
+
 .create-poll-container {
   width: mixin.toRem(720);
   margin-left: auto;
   margin-right: auto;
-  position: relative;
+  //position: relative;
 }
 
 .create-poll-widget {
@@ -57,70 +58,81 @@
 .navigate-steps {
   width: mixin.toRem(720);
 }
+
 .text-wrapper {
   font-size: 12px !important;
 }
+
 .a {
   pointer-events: none;
+
   &:visited {
     color: var(--primary);
   }
 }
+
 .height-192 {
   height: mixin.toRem(192) !important;
 }
 
 .link-dropdown {
-    background: none;
-    outline: none;
-    width: mixin.toRem(180);
-    text-align: end;
+  background: none;
+  outline: none;
+  width: mixin.toRem(180);
+  text-align: end;
+  padding: 0;
+}
+
+.dropdown-menu {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-left: mixin.toRem(8);
+
+  &.show {
+    background-color: var(--bg-light);
+    border-radius: 0;
     padding: 0;
   }
 
-.dropdown-menu{
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-left: mixin.toRem(8);
-    &.show {
-        background-color: var(--bg-light);
-        border-radius: 0;
-        padding: 0;
+}
+
+.dropdown {
+  .dropdown-toggle::after {
+    font-size: var(--font-size-20);
+    vertical-align: 0.055em;
+    margin-top: 0.55rem;
+    position: relative;
+  }
+
+  &.show {
+    .dropdown-toggle {
+      color: var(--primary);
     }
 
-}
-.dropdown{
     .dropdown-toggle::after {
-        font-size: var(--font-size-20);
-        vertical-align: 0.055em;
-        margin-top: 0.55rem;
-        position: relative;
+      color: var(--primary);
+      margin-top: 0.15rem;
+      height: mixin.toRem(12);
+      border-bottom: 0.3em dashed;
+      border-top: 0em solid transparent;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
     }
-    &.show {
-        .dropdown-toggle{
-            color: var(--primary);
-        }
-        .dropdown-toggle::after {
-            color: var(--primary);
-            margin-top: 0.15rem;
-            height: mixin.toRem(12);
-            border-bottom: 0.3em dashed;
-            border-top: 0em solid transparent;
-            border-right: 0.3em solid transparent;
-            border-left: 0.3em solid transparent;
-        }
-    }
+  }
 }
+
 .dropdown-item {
-    height: mixin.toRem(36);
-    width: mixin.toRem(168);
-    &:hover {
-        background-color: var(--secondary);
-    }
+  height: mixin.toRem(36);
+  width: mixin.toRem(168);
+
+  &:hover {
+    background-color: var(--secondary);
+  }
 }
+
 .dropdown-divider {
-    border-top: mixin.toRem(1) solid var(--bg-white);
-    margin: 0;
+  border-top: mixin.toRem(1) solid var(--bg-white);
+  margin: 0;
 }
 
 .form-check-input {
@@ -137,6 +149,7 @@
   border-width: 4px;
   outline: none;
   box-shadow: none;
+
   + label {
     color: var(--primary) !important;
   }
@@ -148,26 +161,41 @@
 }
 
 .date-time-input {
-    background: transparent !important;
-    color: var(--light) !important;
-    border: 0 !important;
-    border-bottom: 1px solid var(--secondary) !important;
-    border-radius: 0 !important;
-    font-family: Lato, sans-serif;
-    font-weight: 300 !important;
+  background: transparent !important;
+  color: var(--light) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--secondary) !important;
+  border-radius: 0 !important;
+  font-family: Lato, sans-serif;
+  font-weight: 300 !important;
 }
 
 .date-time-input {
   &::-webkit-datetime-edit-ampm-field {
     display: none;
   }
+
   &::-webkit-calendar-picker-indicator {
     color: var(--light) !important;
   }
- }
- input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
 }
- input[type="time"]::-webkit-datetime-edit-hour-field {
-     margin-right: 3px;
- }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[type="time"]::-webkit-datetime-edit-hour-field {
+  margin-right: 3px;
+}
+
+.step-container {
+  display: flex;
+  align-items: center;
+  height: mixin.toRem(64);
+}
+
+.step-label-wrapper {
+  width: mixin.toRem(96);
+  margin-left: mixin.toRem(24);
+  //height: mixin.toRem(16);
+}

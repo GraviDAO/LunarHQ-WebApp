@@ -1,0 +1,27 @@
+@import "src/app/modules/lunar-hq/my-server/rules/view/view.component";
+@import "src/app/modules/lunar-hq/announcement/announcements.component";
+
+
+.info-wrapper {
+  width: 82%;
+}
+
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-container {
+  height: calc(100% - 35vh);
+  overflow: scroll;
+  background: var(--bg-dark);
+}
+
+.text-content {
+  font-size: 14px;
+  color: var(--light);
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+}

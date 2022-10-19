@@ -14,6 +14,9 @@
 
 @import "src/style/index";
 
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
 
-#toast-container > div { z-index: 9999; }
+#toast-container > div {
+  z-index: 9999;
+}
 

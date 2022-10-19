@@ -23,6 +23,8 @@ import { CreateRuleComponent } from './my-server/rules/create/create.component';
 import { PollsComponent } from './polls/polls.component';
 import {AnnouncementsComponent} from './announcement/announcements.component';
 import {WelcomeV2Component} from './welcome-v2/welcome-v2.component';
+import {AnnouncementCellComponent} from './common/announcement-cell/announcement-cell.component';
+import {PreviewAnnouncementComponent} from './common/preview-announcement/preview-announcement.component';
 
 
 
@@ -39,7 +41,9 @@ const commonModules = [
   CreateRuleComponent,
   RecentPollsComponent,
   RecentAnnouncementsComponent,
+  AnnouncementCellComponent,
   GravidaoPollsComponent,
+  PreviewAnnouncementComponent,
   GravidaoCreatePollComponent,
   PollsComponent,
   AnnouncementsComponent,

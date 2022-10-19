@@ -103,4 +103,8 @@ export class GravidaoCreatePollComponent implements OnInit {
   getDatePicker(date: string) {
     this.dateRadioSelected = date;
   }
+
+  viewStep(stepIndex: number) {
+    this.stepperIndex = stepIndex;
+  }
 }

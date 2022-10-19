@@ -1,0 +1,42 @@
+<section class="rules-view flex flex-nowrap">
+  <div class="rules-view-header">
+    <div class="close-button mr-top-36 mr-right-24 add-cursor" (click)="closeView()">
+      <ion-icon name="close-outline" class="app-why-icon ic24 light-50"></ion-icon>
+    </div>
+  </div>
+  <div class="rules-view-container full-height d-flex flex-column mr-left-40">
+    <div class="rules-name-container pd-box-16 d-flex">
+      <div class="pd-left-8 pd-top-8">
+        <img class="announcement-item-image" [src]="announcementObj?.discordServerIcon" alt="GraviDAO">
+      </div>
+      <div class="pd-left-16 info-wrapper">
+        <div class="title-wrapper">
+          <div class="app-why-lbl f14 ft-bold secondary">{{announcementObj?.discordServerName}}</div>
+        </div>
+        <div class="pd-top-8">
+          <div class="app-why-lbl ft-lato light">{{announcementObj?.createdTimestamp | date}}</div>
+        </div>
+        <div>
+          <div class="app-why-lbl ft-lato light-50">by {{announcementObj?.authorName}}</div>
+        </div>
+      </div>
+      <div class="icon-wrapper">
+        <div>
+          <ion-icon class="app-why-icon ic18 light-70" name="star-outline"></ion-icon>
+        </div>
+        <div class="pd-top-8">
+          <img class="discord-img-container show-cursor" src="/assets/img/svg/discord-brands-primary.svg" alt="discord"
+               (click)="openAnnouncement(announcementObj?.messageUrl)">
+        </div>
+      </div>
+    </div>
+    <div class="mr-top-16 content-container">
+      <div class="">
+        <div class="text-content">
+          {{announcementObj?.content}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,10 +1,10 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Location} from '@angular/common';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import Stepper from 'bs-stepper';
-import { RulesService } from 'src/app/modules/services/rules.service';
-import { CssConstants } from 'src/app/shared/services/css-constants.service';
+import {RulesService} from 'src/app/modules/services/rules.service';
+import {CssConstants} from 'src/app/shared/services/css-constants.service';
 
 @Component({
   selector: 'app-why-lunar-hq-create-rule',
@@ -40,45 +40,44 @@ export class CreateRuleComponent implements OnInit {
     quantityHeld: '',
     filterCondition: 'and',
     filter: 'no_filter',
-    nft_id:'',
-    file:'',
+    nft_id: '',
+    file: '',
     traits: [],
-    criterias: [
-
-    ]
+    criterias: []
   };
-  ruleItems:any = [];
+  ruleItems: any = [];
+
   constructor(private router: Router,
-    private location: Location,
-    private route: ActivatedRoute,
-    public cssClass: CssConstants,
-    public rulesService: RulesService) {
-        this.route.queryParams.subscribe((params: any) => {
-        console.log(params.server);
-        this.activeSubMenu = params.server;
-      }); 
-      this.roles = rulesService.getRoles();
-      this.rules = rulesService.getRules();
-      this.ruleTypes = rulesService.getRuleTypes();
-      this.conditions = rulesService.getConditions();
-      this.operators = rulesService.getOperators();
-      this.traitTypes = rulesService.getTraitTypes();
-      this.traitRows = rulesService.getTraitRows();
-      this.createRuleForm = new FormGroup({
-        name: new FormControl('',
-          [
-            Validators.required
-          ]),
-        description: new FormControl('',
+              private location: Location,
+              private route: ActivatedRoute,
+              public cssClass: CssConstants,
+              public rulesService: RulesService) {
+    this.route.queryParams.subscribe((params: any) => {
+      console.log(params.server);
+      this.activeSubMenu = params.server;
+    });
+    this.roles = rulesService.getRoles();
+    this.rules = rulesService.getRules();
+    this.ruleTypes = rulesService.getRuleTypes();
+    this.conditions = rulesService.getConditions();
+    this.operators = rulesService.getOperators();
+    this.traitTypes = rulesService.getTraitTypes();
+    this.traitRows = rulesService.getTraitRows();
+    this.createRuleForm = new FormGroup({
+      name: new FormControl('',
         [
           Validators.required
         ]),
-        role: new FormControl('',
+      description: new FormControl('',
+        [
+          Validators.required
+        ]),
+      role: new FormControl('',
         [
           Validators.required
         ])
-      });
-      this.addRule();
+    });
+    this.addRule();
   }
 
   getStepperIndex = (event: any) => {
@@ -91,7 +90,7 @@ export class CreateRuleComponent implements OnInit {
     this.stepper = new Stepper(stepperEl, {
       linear: false,
       animation: true
-    })  
+    })
     stepperEl.addEventListener('show.bs-stepper', this.getStepperIndex);
   }
 
@@ -106,7 +105,7 @@ export class CreateRuleComponent implements OnInit {
   selectRole(role: any) {
     console.log('selectRole - ', role);
     this.createRuleForm.controls['role'].setValue(role.id);
-    this.selectedRole = role.name; 
+    this.selectedRole = role.name;
   }
 
   createRule() {
@@ -124,7 +123,7 @@ export class CreateRuleComponent implements OnInit {
       this.stepTitle = this.stepTitles[id];
     else {
       this.stepTitle = this.createRuleForm.controls['name'].value;
-    } 
+    }
   }
 
   next() {
@@ -185,8 +184,8 @@ export class CreateRuleComponent implements OnInit {
       quantityHeld: '',
       filterCondition: 'and',
       filter: 'no_filter',
-      nft_id:'',
-      file:'',
+      nft_id: '',
+      file: '',
       traits: []
     });
   }
@@ -197,7 +196,7 @@ export class CreateRuleComponent implements OnInit {
       condition: 'not',
       traitTypeId: '',
       traitType: '',
-      rows:[
+      rows: [
         {
           condition: 'is',
           rowId: '',
@@ -206,6 +205,7 @@ export class CreateRuleComponent implements OnInit {
       ]
     });
   }
+
   addTraitRow(trait: any) {
     console.log('addTraitRow - ', trait);
     trait.rows.push({
@@ -214,61 +214,84 @@ export class CreateRuleComponent implements OnInit {
       row: ''
     });
   }
+
   selectCondition(criteria: any, condition: any) {
     console.log('selectCondition - ', condition);
     criteria.condition = condition.id;
   }
+
   selectCriteriaRole(criteria: any, role: any) {
     console.log('selectCriteriaRole - ', role);
     criteria.role = role.name;
   }
+
   removeCriteria(ruleItemIndex: number, criteriaIndex: number) {
     this.ruleItems[ruleItemIndex].criterias.splice(criteriaIndex, 1);
   }
+
   selectTraitType(trait: any, traitType: any) {
     console.log('selectTraitType - ', traitType);
     trait.traitTypeId = traitType.id;
     trait.traitType = traitType.name;
     console.log('ruleItems  - ', this.ruleItems);
   }
+
   selectTraitRow(row: any, traitRow: any) {
     console.log('selectTraitRow - ', traitRow);
     row.rowId = traitRow.id;
     row.row = traitRow.name;
     console.log('ruleItems  - ', this.ruleItems);
   }
+
   removeTrait(criteria: any, traitIndex: number) {
     criteria.traits.splice(traitIndex, 1);
   }
+
   removeTraitRow(trait: any, rowIndex: number) {
     trait.rows.splice(rowIndex, 1);
   }
+
   onChangeFilter(ruleItem: any, filterValue: string) {
     console.log('onChangeFilter - ', filterValue);
     ruleItem.filter = filterValue;
     console.log('ruleItems  - ', this.ruleItems);
   }
+
   uploadJsonFile(ruleItem: any) {
-    ruleItem.file='uploaded';
+    ruleItem.file = 'uploaded';
   }
+
   replaceJsonFile(ruleItem: any) {
-    ruleItem.file='';
+    ruleItem.file = '';
   }
+
   removeJsonFile(ruleItem: any) {
-    ruleItem.file='';
+    ruleItem.file = '';
   }
+
   updateNftId(ruleItem: any, value: any) {
     console.log('updateNftId - ', ruleItem, value);
     ruleItem.nft_id = value;
     console.log('ruleItems  - ', this.ruleItems);
   }
+
   preview() {
     this.viewRule = true;
   }
+
   closeView() {
     this.viewRule = false;
   }
+
   updateRole() {
 
+  }
+
+  @HostListener('document:click', ['$event']) onDocumentClick() {
+    this.closeView();
+  }
+
+  viewStep(stepIndex: number) {
+    this.stepperIndex = stepIndex;
   }
 }

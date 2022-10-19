@@ -1,4 +1,5 @@
 @use "src/style/mixin-core" as mixin;
+@import "src/app/modules/lunar-hq/polls/polls.component";
 
 .announcement-container {
   max-width: 68rem;
@@ -30,6 +31,7 @@
   min-width: mixin.toRem(702);
   height: mixin.toRem(122);
   background: var(--dark-50) !important;
+  max-width: 65%;
 }
 
 .announcement-container-three {
@@ -54,14 +56,26 @@
 }
 
 .search-bar {
+  z-index: 99;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: mixin.toRem(64);
-  background-color: var(--dark-20);
+  background-color: var(--dark-50);
   padding: 16px 24px;
   position: fixed;
   width: calc(100vw - 240px);
   margin-top: -3.5rem;
   margin-left: -3.8rem;
+}
+
+.preview-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: mixin.toRem(480);
+  z-index: 1000;
+  background-color: var(--tertiary);
+  box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
 }

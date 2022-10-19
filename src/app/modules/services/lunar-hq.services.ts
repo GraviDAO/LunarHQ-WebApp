@@ -32,6 +32,13 @@ export class LunarHqAPIServices {
       }));
   }
 
+  getAnnouncements(): Observable<any> {
+    return this.http.get<any>(environment.server + 'announcements')
+      .pipe(map((result) => {
+        return result.message;
+      }));
+  }
+
   getServerDetails(discordServerId: any): Observable<any> {
     return this.http.get<any>(environment.server + 'server/?discordServerId=' + discordServerId)
       .pipe(map((result) => {
