@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
 import {CssConstants} from '../../../../../../shared/services/css-constants.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import Stepper from 'bs-stepper';
+import {RuleList} from './dummy.data';
 
 
 @Component({
@@ -17,13 +18,14 @@ export class GravidaoCreatePollComponent implements OnInit {
   createPollsObj = {};
   createPollForm!: FormGroup;
   ctiveSubMenu = '';
-  stepperIndex = 0;
+  stepperIndex = 1;
   selectedTimeZone = 'UTC';
   private stepper!: Stepper;
   stepTitles = ['POLL INFORMATION', 'VOTE WEIGHT', 'POLL TIMGINGS', 'POLL LOCATION']
   stepTitle: string = this.stepTitles[0];
   timeZones = {utc: 'UTC'}
   dateRadioSelected = '';
+
   constructor(
     private router: Router,
     public cssClass: CssConstants,
@@ -37,8 +39,8 @@ export class GravidaoCreatePollComponent implements OnInit {
     });
 
     this.createPollForm = new FormGroup({
-      name: new FormControl('', [ Validators.required]),
-      poll_description: new FormControl('', [ Validators.required ]),
+      name: new FormControl('', [Validators.required]),
+      poll_description: new FormControl('', [Validators.required]),
       dateSelected: new FormControl('')
     });
   }
@@ -66,8 +68,15 @@ export class GravidaoCreatePollComponent implements OnInit {
   getStepperIndex = (event: any) => {
     this.stepperIndex = event.detail?.indexStep;
   }
+  voteWeight = 'tokenWeighted';
+  selectedNetwork = 'Select network';
+  contractAddress = '';
+  numberPerVote = 0;
+  ruleList: any;
+  value: any;
 
   ngOnInit(): void {
+    this.ruleList = RuleList;
     const stepperEl = document.querySelector('#stepper1') as HTMLElement;
     this.stepper = new Stepper(stepperEl, {
       linear: false,
@@ -106,5 +115,13 @@ export class GravidaoCreatePollComponent implements OnInit {
 
   viewStep(stepIndex: number) {
     this.stepperIndex = stepIndex;
+  }
+
+  setWeight(weight: string) {
+    this.voteWeight = weight;
+  }
+
+  setRangValue(range: any) {
+    this.value = range + '%';
   }
 }

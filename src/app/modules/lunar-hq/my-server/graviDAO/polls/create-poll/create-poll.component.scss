@@ -1,4 +1,5 @@
 @use "src/style/mixin-core" as mixin;
+@import "src/app/modules/lunar-hq/my-server/details/details.component";
 
 .create-poll-header {
   height: mixin.toRem(64);
@@ -31,7 +32,7 @@
 
 .create-poll-widget {
   width: mixin.toRem(720);
-  height: mixin.toRem(500);
+  //height: mixin.toRem(500);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
 }
@@ -81,6 +82,10 @@
   width: mixin.toRem(180);
   text-align: end;
   padding: 0;
+
+  &.no-width {
+    width: 0;
+  }
 }
 
 .dropdown-menu {
@@ -136,19 +141,38 @@
 }
 
 .form-check-input {
+  outline: none;
   background: var(--dark-20);
   border-color: var(--light-70);
   width: 12px;
   height: 12px;
+
+  &.check-box {
+    outline: none;
+    border-radius: 2px;
+
+    &:checked {
+      background-color: var(--light-70) !important;
+      content: "\2713";
+      border-width: 0 !important;
+
+      &:before {
+        color: #777777;
+      }
+    }
+  }
 }
 
 .form-check-input:checked {
   background-color: var(--primary);
   border-color: var(--primary);
-  background-image: url("/assets/img/svg/black-circle.svg");
   border-width: 4px;
   outline: none;
   box-shadow: none;
+
+  &.radio-box {
+    background-image: url("/assets/img/svg/black-circle.svg");
+  }
 
   + label {
     color: var(--primary) !important;
@@ -197,5 +221,105 @@ input[type="time"]::-webkit-datetime-edit-hour-field {
 .step-label-wrapper {
   width: mixin.toRem(96);
   margin-left: mixin.toRem(24);
+  text-align: center;
   //height: mixin.toRem(16);
+}
+
+
+.search-bar {
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  height: mixin.toRem(64);
+  background-color: var(--dark-50);
+  padding: 16px 24px;
+  position: fixed;
+  width: calc(100vw - 240px);
+  margin-top: -3.5rem;
+  margin-left: -3.8rem;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.max-width-240 {
+  max-width: 240px;
+}
+
+/*input[type=checkbox] {
+  background: var(--dark-20);
+  border-color: var(--light-70);
+  width: 12px;
+  height: 12px;
+  accent-color: var(--light-70);
+}*/
+
+.app-check-box {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.app-check-box input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.app-check-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.app-check-box:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.app-check-box input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.app-check-box input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.app-check-box .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

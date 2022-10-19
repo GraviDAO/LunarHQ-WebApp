@@ -181,6 +181,10 @@ div::-webkit-scrollbar-button {
   }
 }
 
+.set-input-border {
+  border-bottom: 1px solid var(--secondary) !important;
+}
+
 .text-align-center {
   text-align: center;
 }

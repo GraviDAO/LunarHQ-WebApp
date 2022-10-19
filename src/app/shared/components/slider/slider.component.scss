@@ -1,0 +1,48 @@
+@use "src/style/mixin-core" as mixin;
+
+.slider-container {
+  width: mixin.toRem(250);
+  height: 32px;
+}
+
+
+.app-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1px;
+  background: var(--light-50);
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.app-slider:hover {
+  //background: var(--secondary);
+}
+
+.app-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  cursor: pointer;
+  border-radius: 12px;
+
+  &:hover {
+    background: var(--primary-dark);
+  }
+}
+
+.app-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--primary-dark);
+  }
+}
+
