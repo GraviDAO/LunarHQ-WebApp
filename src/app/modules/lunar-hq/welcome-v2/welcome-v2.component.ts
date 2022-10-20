@@ -598,8 +598,8 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   gotToMyDiscord() {
-    this.router.navigate(['/dashboard']);
-    // window.open('https://discord.com/channels/@me', '_blank');
+    // this.router.navigate(['/dashboard']);
+    window.open('https://discord.com/channels/@me', '_blank');
   }
 
   navigateToDiscord() {
