@@ -9,7 +9,7 @@ import {ToastrService} from 'ngx-toastr';
 import {getChainOptions, WalletController} from '@terra-money/wallet-provider';
 import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Subscription} from 'rxjs';
-import {MsgSend} from '@terra-money/terra.js';
+import { LCDClient, MsgSend, TxInfo, Msg } from "@terra-money/terra.js";
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
@@ -46,6 +46,7 @@ export class WelcomeV2Component implements OnDestroy {
   availableConnections: Array<any> = [];
   discordTitle = 'connect discord';
   discordProfileObj: any;
+  terraConnectionRequested: boolean = false;
   unlink: { chainType: string, address: string } = {chainType: '', address: ''};
 
 
@@ -59,7 +60,7 @@ export class WelcomeV2Component implements OnDestroy {
               public coreService: CoreService,
               private modalService: ModalService) {
     // this.logStates();
-    this.walletInit();
+    this.walletInit();    
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
         this.selected = 'discord_connected';
@@ -252,13 +253,14 @@ export class WelcomeV2Component implements OnDestroy {
   //function to connect to metamask & get nonce
   async connectToMetaMask() {
     try {
+      localStorage.removeItem('walletconnect');
       this.exitModal();
       let response = await this.web3.connectAccount();
       // @ts-ignore
-      const walletAddr = response[0];
+      const walletAddr = response[0];      
       const blockchainName = 'polygon-mainnet';
       this.coreService.getNonce(walletAddr, blockchainName)
-        .subscribe((result) => {
+        .subscribe((result) => {          
           this.handleSignIn(result.message, walletAddr);
         });
     } catch (error) {
@@ -396,21 +398,75 @@ export class WelcomeV2Component implements OnDestroy {
           };
           this.useLedgerStation = false;
           this.loaderService.stop();
+          this.terraConnectionRequested = false;  
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
-          console.error(error, 'error');
-          this.loaderService.stop();
-          this.terraController.disconnect();
-          this.toast.error('Failed to connect');
-          this.modalService.open('terraWallet');
+          if(error.name === 'CreateTxFailed') {
+            console.error('CreateTxFailed, searching for tx on-chain!', 'error');
+            this.verifyTerraTxStillPosted(this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic', msg, nonce, terraAddress)
+              .then((res) => {
+                const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
+                const dataObject = {
+                  type: 'TerraTx',
+                  signature: res,
+                  publicAddress: terraAddress,
+                  blockchainName
+                };
+                this.useLedgerStation = false;
+                this.loaderService.stop();
+                this.terraConnectionRequested = false;  
+                this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
+              })
+              .catch(() => {
+                this.loaderService.stop();
+                this.terraController.disconnect();
+                this.toast.error('Failed to connect');
+                this.modalService.open('terraWallet');
+              })
+          } else {
+            console.error(error, 'error');
+            this.loaderService.stop();
+            this.terraController.disconnect();
+            this.toast.error('Failed to connect');
+            this.modalService.open('terraWallet');
+          }
         });
     }
   }
 
+  async verifyTerraTxStillPosted(blockchainName: string, msg: MsgSend, nonce: string, address: string): Promise<string> {
+    const lcd = new LCDClient({
+      URL: blockchainName === "Terra" ? "https://phoenix-lcd.terra.dev" : "https://columbus-lcd.terra.dev/",
+      chainID: blockchainName === "Terra" ? "phoenix-1" : "columbus-5",
+    });
+
+    return new Promise((resolve, reject) => {
+      let txHash: string = "";
+      let currTry: number = 0;
+
+      const interv = setInterval(() => {
+        lcd.tx.txInfosByHeight(undefined).then((txs) => {
+          txs.every((a) => {            
+            if(a.tx.body.memo === 'I am posting this message with my one-time nonce: ' + nonce + ' to cryptographically verify that I am the owner of this wallet'
+                && (a.tx.body.messages[0] as MsgSend).from_address === address) {
+              txHash = a.txhash;
+              clearInterval(interv);
+              resolve(txHash);
+            }
+          })
+          if(currTry++ > 10) {
+            clearInterval(interv);
+            reject();
+          }
+        });
+      }, 1000)
+    })
+  }
+
   // To handle metamask sign in
   async handleSignIn(nonce: any, publicAddress: any) {
-    try {
+    try {      
       this.loaderService.start();
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
@@ -454,6 +510,7 @@ export class WelcomeV2Component implements OnDestroy {
         blockchainName
       };
       this.loaderService.stop();
+      this.terraConnectionRequested = false;    
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
       console.error(e, 'e');
@@ -489,7 +546,7 @@ export class WelcomeV2Component implements OnDestroy {
         const i = connections.findIndex((e) => (e.type === 'READONLY' || e.name === 'XDEFI Wallet'));
         if (i > -1) connections.splice(i, 1);
         this.availableConnections = connections;
-        if (_states.status === 'WALLET_CONNECTED') {
+        if (_states.status === 'WALLET_CONNECTED' && this.terraConnectionRequested) {
           const walletAddr = _states.wallets[0].terraAddress;
           this.walletChainId = _states.network.chainID;
           const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
@@ -532,7 +589,7 @@ export class WelcomeV2Component implements OnDestroy {
       } else if (address === 'terra wallet' || address === 'terra classic') {
         this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
         this.terraWalletConnect();
-      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet') {
+      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet' || this.terraClassicAddress !== 'terra classic') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
@@ -541,8 +598,8 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   gotToMyDiscord() {
-    this.router.navigate(['/dashboard']);
-    // window.open('https://discord.com/channels/@me', '_blank');
+    // this.router.navigate(['/dashboard']);
+    window.open('https://discord.com/channels/@me', '_blank');
   }
 
   navigateToDiscord() {
@@ -551,6 +608,8 @@ export class WelcomeV2Component implements OnDestroy {
 
   async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
     this.useLedgerStation = useLedgerStation;
+    this.terraConnectionRequested = true;
+    localStorage.removeItem('walletconnect');
     let connect = await this.terraController.connect(type, identifier);
   }
 
@@ -582,7 +641,7 @@ export class WelcomeV2Component implements OnDestroy {
             this.terraClassicAddress = 'terra classic';
           }
 
-          if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
+          if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet' && this.terraClassicAddress == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
             this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {
