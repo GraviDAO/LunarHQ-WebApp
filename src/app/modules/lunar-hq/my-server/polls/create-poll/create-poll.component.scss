@@ -1,5 +1,5 @@
-@use "src/style/mixin-core" as mixin;
-@import "src/app/modules/lunar-hq/my-server/details/details.component";
+@use "../../../../../../style/mixin-core" as mixin;
+@import "../../details/details.component";
 
 .create-poll-header {
   height: mixin.toRem(64);
@@ -50,10 +50,11 @@
 .description_area {
   width: mixin.toRem(484);
   height: mixin.toRem(200);
-  opacity: 0.4;
+  //opacity: 0.4;
   @include mixin.notch(8px);
-  background-color: var(--dark);
+  background-color: var(--dark-50);
   border: none;
+  resize: none;
 }
 
 .navigate-steps {
@@ -150,6 +151,7 @@
   &.check-box {
     outline: none;
     border-radius: 2px;
+    box-shadow: none;
 
     &:checked {
       background-color: var(--light-70) !important;
@@ -185,6 +187,8 @@
 }
 
 .date-time-input {
+  outline: none;
+  box-shadow: none;
   background: transparent !important;
   color: var(--light) !important;
   border: 0 !important;
@@ -322,4 +326,15 @@ input[type="time"]::-webkit-datetime-edit-hour-field {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.preview-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: mixin.toRem(480);
+  z-index: 1000;
+  background-color: var(--tertiary);
+  box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
 }

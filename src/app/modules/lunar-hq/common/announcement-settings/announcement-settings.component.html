@@ -1,0 +1,184 @@
+<app-why-header-side-nav
+  [title]="'ANNOUNCEMENTS'"
+  [activeTab]="'ANNOUNCEMENTS'">
+  <div class="search-bar-container">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="pd-left-24 pd-right-24">
+        <app-why-cta-three
+          [btnClass]="cssClass.cta3Primary + ' backBtn'"
+          [btnLabel]="'Back'"
+          [leftIconType]="'chevron-back'"
+          [iconClass]="cssClass.cta3PrimaryIcon"
+          (click)="navigateBack()">
+        </app-why-cta-three>
+      </div>
+    </div>
+  </div>
+
+  <section class="form-wrapper">
+
+
+    <article class="main-wrapper mr-top-56">
+      <div class="app-why-lbl f16 text-uppercase ft-500 light">
+        filter server / channels
+      </div>
+      <div class="horizontal-divider light-20 mr-top-8 mr-bottom-40">
+      </div>
+      <div>
+
+      </div>
+      <div class="d-flex mr-bottom-12">
+        <div class="server-channel-wrapper">
+          <div class="app-why-lbl light-50 text-uppercase">Server</div>
+        </div>
+        <div class="mr-left-80">
+          <div class="app-why-lbl light-50 text-uppercase">Channels</div>
+        </div>
+      </div>
+      <div class="d-flex mr-bottom-12" *ngFor="let serverFilterObj of serverFilterArray; let pos = index;">
+        <div class="server-channel-wrapper">
+          <app-why-drop-down [leftIcon]="true" [dataList]="serverList"
+                             (dataSet)="setChannel($event, pos)"></app-why-drop-down>
+        </div>
+        <div class="server-channel-wrapper mr-left-80">
+          <app-why-drop-down [leftIcon]="true" [placeholderText]="'Select Channel'"
+                             (dataSet)="setChannelList($event)"
+                             [dataList]="channelList[pos]"></app-why-drop-down>
+        </div>
+      </div>
+      <div class="mr-top-24">
+        <app-why-cta-three [btnClass]="cssClass.cta3Light50F12" [btnLabel]="'ADD ROW'"
+                           [leftIconType]="'add-circle-outline'"
+                           [parentClass]="'light-hover'"
+                           (click)="serverFilterArray.push([])"
+                           [iconClass]="cssClass.cta3Light70Icon"></app-why-cta-three>
+      </div>
+
+    </article>
+
+    <div class="main-wrapper mr-top-8">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="app-why-lbl f16 text-uppercase ft-500 light">
+          Content visibility
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="app-why-lbl f12 ft-500 light-50 pd-right-8 text-uppercase">do not remove starred items</div>
+          <label class="switch primary">
+            <input type="checkbox" checked="false" (change)="checkUncheck($event)">
+            <span class="toggle-switch round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="horizontal-divider light-20 mr-top-8 mr-bottom-40">
+      </div>
+      <div>
+        <div class="app-why-lbl light-50 ft-lato ltr-spacing text-uppercase">Delete announcements after…</div>
+      </div>
+      <div class="d-flex align-items-center pd-top-12">
+        <input type="radio" class="radio-button-secondary primary" [checked]="visibilityFilter === '1_day'" id="1_day"
+               name="visibility"
+               value="1_day" (click)="onVisibilityChange('1_day')">
+        <label class="app-why-lbl f12 ft-500 pd-left-8"
+               [ngClass]="{'primary': visibilityFilter === '1_day', 'light-50': visibilityFilter !== '1_day'}"
+               for="1_day">
+          1 DAY
+        </label>
+      </div>
+      <div class="d-flex align-items-center pd-top-12">
+        <input type="radio" class="radio-button-secondary primary" [checked]="visibilityFilter === '1_week'" id="1_week"
+               name="visibility"
+               value="1_week" (click)="onVisibilityChange('1_week')">
+        <label class="app-why-lbl f12 ft-500 pd-left-8"
+               [ngClass]="{'primary': visibilityFilter === '1_week', 'light-50': visibilityFilter !== '1_week'}"
+               for="1_week">
+          1 WEEK
+        </label>
+      </div>
+      <div class="d-flex align-items-center pd-top-12">
+        <input type="radio" class="radio-button-secondary primary" [checked]="visibilityFilter === '4_week'" id="4_week"
+               name="visibility"
+               value="4_week" (click)="onVisibilityChange('4_week')">
+        <label class="app-why-lbl f12 ft-500 pd-left-8"
+               [ngClass]="{'primary': visibilityFilter === '4_week', 'light-50': visibilityFilter !== '4_week'}"
+               for="4_week">
+          4 WEEKS
+        </label>
+      </div>
+      <div class="d-flex align-items-center pd-top-12">
+        <input type="radio" class="radio-button-secondary primary" [checked]="visibilityFilter === '12_week'"
+               id="12_week"
+               name="visibility"
+               value="12_week" (click)="onVisibilityChange('12_week')">
+        <label class="app-why-lbl f12 ft-500 pd-left-8"
+               [ngClass]="{'primary': visibilityFilter === '12_week', 'light-50': visibilityFilter !== '12_week'}"
+               for="12_week">
+          12 WEEKS
+        </label>
+      </div>
+
+    </div>
+
+    <div class="main-wrapper mr-top-8">
+      <div class="app-why-lbl f16 text-uppercase ft-500 light">
+        Highlight @ mentions
+      </div>
+      <div class="horizontal-divider light-20 mr-top-8 mr-bottom-40">
+      </div>
+      <div>
+        <div class="d-flex align-items-center">
+          <input type="radio" class="radio-button-secondary primary" [checked]="mentionFilter === false" id="off"
+                 name="highlight"
+                 value="off" (click)="onChangeServer(false)">
+          <label class="app-why-lbl f12 ft-500 pd-left-8"
+                 [ngClass]="{'primary': mentionFilter === false, 'light-50': mentionFilter !== false}" for="off">
+            OFF
+          </label>
+        </div>
+        <div class="d-flex align-items-center pd-top-8">
+          <input type="radio" class="radio-button-secondary primary" [checked]="mentionFilter === true"
+                 id="on" name="highlight"
+                 value="on" (click)="onChangeServer(true)">
+          <label class="app-why-lbl f12 ft-500 pd-left-8"
+                 [ngClass]="{'primary': mentionFilter === true, 'light-50': mentionFilter !== true}" for="on">
+            ON
+          </label>
+        </div>
+      </div>
+      <div class="pd-top-32" *ngIf="mentionFilter">
+        <div class="d-flex pd-bottom-24" *ngFor="let mentionObj of mention; let i=index;">
+          <div class="mention-wrapper form-group">
+            <input type="text" id="name" class="form-control app-why-floating-input"
+                   [value]="mention[i]"
+                   (change)="valueChange($event, i)" placeholder=" ">
+            <label class="app-why-floating-lbl" for="name">@ mention</label>
+          </div>
+          <div class="d-flex align-items-end pd-left-16" *ngIf="mention.length > 1" (click)="spliceMention(i)">
+            <ion-icon class="app-why-icon ic14 light-70" name="remove-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="" *ngIf="mentionFilter">
+        <app-why-cta-three [btnClass]="cssClass.cta3Light50F12" [btnLabel]="'ADD ROW'"
+                           [leftIconType]="'add-circle-outline'"
+                           [parentClass]="'light-hover'"
+                           (click)="mention.push('')"
+                           [iconClass]="cssClass.cta3Light70Icon"></app-why-cta-three>
+      </div>
+
+
+    </div>
+    <div class="d-flex justify-content-end mr-top-24 full-width mr-bottom-80">
+      <div class="d-flex">
+        <app-why-lunar-hq-cta-two [btnLabel]="'BACK'" [btnTheme]="'bg--dark'"
+                                  [buttonSize]="'sm'"
+                                  (click)="navigateBack()" [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
+        </app-why-lunar-hq-cta-two>
+
+        <app-why-cta-one (click)="confirm()"
+                         [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
+                         [btnLabel]="'Confirm'">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </section>
+</app-why-header-side-nav>

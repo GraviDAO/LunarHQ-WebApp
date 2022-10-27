@@ -1,0 +1,32 @@
+@use "src/style/mixin-core" as mixin;
+@import "src/app/modules/lunar-hq/polls/polls.component";
+
+.main-wrapper {
+  width: mixin.toRem(720);
+  min-height: mixin.toRem(330);
+  @include mixin.bg--wrapper;
+  background: var(--tertiary);
+  padding: mixin.toRem(24) mixin.toRem(40);
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.full-width {
+  width: mixin.toRem(720);
+}
+
+.server-list-item {
+  width: mixin.toRem(170);
+}
+
+.mention-wrapper {
+  width: mixin.toRem(240);
+}
+
+.server-channel-wrapper {
+  width: mixin.toRem(162);
+}

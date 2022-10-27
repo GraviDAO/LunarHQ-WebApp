@@ -33,32 +33,32 @@
 .rule-name-title {
     width: mixin.toRem(272);
   }
-  
+
   .population-title {
     width: mixin.toRem(96);
   }
-  
+
   .chain-title {
-  
+
   }
-  
+
   .rules-item-name {
     width: mixin.toRem(272);
   }
-  
+
   .rules-item-population {
     width: mixin.toRem(96);
   }
-  
+
   .rules-item-chain {
     width: mixin.toRem(178);
   }
-  
+
   .rules-item-chain-icon-container {
     width: mixin.toRem(24);
     height: mixin.toRem(24);
   }
-  
+
 .divider {
     margin-top: mixin.toRem(7);
     margin-bottom: auto;
@@ -89,4 +89,9 @@
     z-index: 1000;
     background-color: var(--tertiary);
     box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
+}
+
+.block-chain-wrapper {
+  overflow: scroll;
+  white-space: nowrap;
 }

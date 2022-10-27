@@ -1,7 +1,8 @@
 <app-why-header-side-nav
-  [title]="'Create Poll'"
-  [activeTab]="'CREATE POLL'"
-  [activeSubMenuTab]="activeSubMenu"
+  [title]="'my servers'"
+  [activeTab]="'MY SERVERS'"
+  [activeSubMenuTab]="discordServerName"
+  [nestedMenuSelected]="'Polls'"
   (profileClick)="navigateToPolls()">
   <div class="search-bar">
     <div class="align-items-center col-3">
@@ -110,7 +111,7 @@
                                 ngbDropdownToggle>{{selectedNetwork}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <div *ngFor="let list of ['Polygon','Terra']">
+                          <div *ngFor="let list of ['Polygon','Terra', 'Terra Classic']">
                             <button ngbDropdownItem
                                     class="app-why-lbl f12 ft-bolt dark no-letter-spacing text-uppercase">{{list}}</button>
                             <div class="dropdown-divider"></div>
@@ -197,7 +198,8 @@
                 <div
                   class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName}}</div>
                 <div class="rules-item-chain-icon">
-                  <img class="rules-item-chain-icon-container mr-right-16" src="/assets/img/svg/drop.svg" alt="drop">
+                  <img class="rules-item-chain-icon-container mr-right-16" imgFallback
+                       alt="drop">
                 </div>
               </div>
               <div class="divider"></div>
@@ -379,4 +381,7 @@
 
   </article>
 
+  <div class="preview-container" *ngIf="viewPreview">
+    <app-why-lunar-hq-preview-poll (closeEvent)="closePreview()"></app-why-lunar-hq-preview-poll>
+  </div>
 </app-why-header-side-nav>

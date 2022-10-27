@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {KitchenSinkComponent} from './kitchen-sink/kitchen-sink.component';
-import {WelcomeComponent} from './modules/lunar-hq/welcome/welcome.component';
 import {DashboardComponent} from './modules/lunar-hq/dashboard/dashboard.component';
 import {ProfileComponent} from './modules/lunar-hq/profile/profile.component';
-import {StateGuard} from './shared/services/state-guard';
 import {MyServerComponent} from './modules/lunar-hq/my-server/my-server.component';
 import {AddNewServerComponent} from './modules/lunar-hq/my-server/add-new-server/add-new-server.component';
 import {MyLicensesComponent} from './modules/lunar-hq/my-server/my-licenses/my-licenses.component';
@@ -14,15 +12,18 @@ import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forg
 import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
 import {AdminMenuComponent} from './modules/admin/menu/menu.component';
 import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
-import { RulesComponent } from './modules/lunar-hq/my-server/rules/rules.component';
-import { AdminListComponent } from './modules/admin/admin-list/admin-list.component';
-import { AdminUserListComponent } from './modules/admin/user-list/user-list.component';
-import { AdminWhitelistComponent } from './modules/admin/whitelist/whitelist.component';
-import { CreateRuleComponent } from './modules/lunar-hq/my-server/rules/create/create.component';
-import {GravidaoPollsComponent} from './modules/lunar-hq/my-server/graviDAO/polls/polls.component';
-import {GravidaoCreatePollComponent} from './modules/lunar-hq/my-server/graviDAO/polls/create-poll/create-poll.component';
+import {RulesComponent} from './modules/lunar-hq/my-server/rules/rules.component';
+import {AdminListComponent} from './modules/admin/admin-list/admin-list.component';
+import {AdminUserListComponent} from './modules/admin/user-list/user-list.component';
+import {AdminWhitelistComponent} from './modules/admin/whitelist/whitelist.component';
+import {CreateRuleComponent} from './modules/lunar-hq/my-server/rules/create/create.component';
+import {PollsListComponent} from './modules/lunar-hq/my-server/polls/polls.component';
+import {CreatePollComponent} from './modules/lunar-hq/my-server/polls/create-poll/create-poll.component';
 import {AnnouncementsComponent} from './modules/lunar-hq/announcement/announcements.component';
 import {WelcomeV2Component} from './modules/lunar-hq/welcome-v2/welcome-v2.component';
+import {
+  AnnouncementSettingsComponent
+} from './modules/lunar-hq/common/announcement-settings/announcement-settings.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
     component: AnnouncementsComponent
   },
   {
+    path: 'announcement/settings',
+    component: AnnouncementSettingsComponent
+  },
+  {
     path: 'profile',
     component: ProfileComponent
   },
@@ -64,24 +69,24 @@ const routes: Routes = [
     component: MyLicensesComponent
   },
   {
-    path: 'my-server/details',
+    path: 'my-server/details/:discordServerId',
     component: DetailsComponent
   },
   {
-    path: 'my-server/rules',
+    path: 'my-server/rules/:discordServerId',
     component: RulesComponent
   },
   {
-    path: 'my-server/rules/create',
+    path: 'my-server/rules/create/rule',
     component: CreateRuleComponent
   },
   {
-    path: 'my-server/gravidao/polls',
-    component: GravidaoPollsComponent
+    path: 'my-server/:discordServerId/polls',
+    component: PollsListComponent
   },
   {
-    path: 'my-server/gravidao/create-poll',
-    component: GravidaoCreatePollComponent
+    path: 'my-server/:discordServerId/create-poll/:discordServerName',
+    component: CreatePollComponent
   },
   {
     path: 'polls',

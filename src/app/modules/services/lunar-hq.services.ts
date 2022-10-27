@@ -45,4 +45,18 @@ export class LunarHqAPIServices {
         return result;
       }));
   }
+
+  getServerRules(discordServerId: any): Observable<any> {
+    return this.http.get<any>(environment.server + 'WAgetRules/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  getPolls(discordServerId) {
+    return this.http.get<any>(environment.server + 'WAgetProposals/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
 }

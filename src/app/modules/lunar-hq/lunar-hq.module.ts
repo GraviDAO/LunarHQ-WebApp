@@ -17,14 +17,17 @@ import {RecentPollsComponent} from './common/recent-polls/recent-polls-component
 import {RecentAnnouncementsComponent} from './common/recent-announcements/recent-announcements.component';
 import { RulesComponent } from './my-server/rules/rules.component';
 import { RulesViewComponent } from './my-server/rules/view/view.component';
-import {GravidaoPollsComponent} from './my-server/graviDAO/polls/polls.component';
-import {GravidaoCreatePollComponent} from './my-server/graviDAO/polls/create-poll/create-poll.component';
+import {PollsListComponent} from './my-server/polls/polls.component';
+import {CreatePollComponent} from './my-server/polls/create-poll/create-poll.component';
 import { CreateRuleComponent } from './my-server/rules/create/create.component';
 import { PollsComponent } from './polls/polls.component';
 import {AnnouncementsComponent} from './announcement/announcements.component';
 import {WelcomeV2Component} from './welcome-v2/welcome-v2.component';
 import {AnnouncementCellComponent} from './common/announcement-cell/announcement-cell.component';
 import {PreviewAnnouncementComponent} from './common/preview-announcement/preview-announcement.component';
+import {PreviewPollComponent} from './my-server/polls/preview-poll/preview-poll.component';
+import {AnnouncementSettingsComponent} from './common/announcement-settings/announcement-settings.component';
+import {PollCellComponent} from './common/poll-cell/poll-cell.component';
 
 
 
@@ -42,12 +45,15 @@ const commonModules = [
   RecentPollsComponent,
   RecentAnnouncementsComponent,
   AnnouncementCellComponent,
-  GravidaoPollsComponent,
+  PollsListComponent,
   PreviewAnnouncementComponent,
-  GravidaoCreatePollComponent,
+  CreatePollComponent,
   PollsComponent,
   AnnouncementsComponent,
-  WelcomeV2Component
+  WelcomeV2Component,
+  PreviewPollComponent,
+  PollCellComponent,
+  AnnouncementSettingsComponent
 ];
 
 const ngBootstrapModules = [

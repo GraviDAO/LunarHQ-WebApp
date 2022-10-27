@@ -5,6 +5,21 @@
   display: inline-block;
   width: 26px;
   height: 14px;
+
+  &.primary {
+
+    .toggle-switch {
+      background: var(--light-50);
+    }
+
+    .toggle-switch:before {
+      background: var(--dark);
+    }
+
+    input:checked + .toggle-switch {
+      background: var(--primary);
+    }
+  }
 }
 
 .switch input {
@@ -54,11 +69,16 @@ input:checked + .toggle-switch:before {
 /* Rounded sliders */
 .toggle-switch.round {
   border-radius: 12px;
+
+  &.primary {
+    background-color: var(--primary);
+  }
 }
 
 .toggle-switch.round:before {
   border-radius: 50%;
 }
+
 
 // check box
 .form-check-input:checked {

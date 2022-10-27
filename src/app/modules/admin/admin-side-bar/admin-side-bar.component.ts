@@ -57,8 +57,6 @@ export class AdminSideBarComponent implements OnInit {
   }
 
   navigate(tab: string, pos: number, isSubMenu?: any) {
-
-    console.log('nav', tab, pos, isSubMenu);
     // Object.keys(this.toggle).forEach((key: string, index: number) => (pos !== index ? this.toggle[key] = false : ''));
     // this.toggle[pos] = this.toggle[pos] !== true;
     Object.keys(this.toggle).forEach((key: string, index: number) => this.toggle[key] = false);
@@ -81,7 +79,6 @@ export class AdminSideBarComponent implements OnInit {
   }
 
   subMenu(tab: string, index: number) {
-    console.log(tab);
     this.activeSubMenuTab = tab;
     this.toggle[index] = true;
     this.selectedSubMenu.emit(tab);
@@ -116,10 +113,7 @@ export class AdminSideBarComponent implements OnInit {
     }
 
     const theme = Object.keys(themeOne);
-    console.log(theme);
-
     theme.forEach((key: string) => {
-      console.log(`${key}: ${themeOne[key]}`);
       document.documentElement.style.setProperty('--' + `${key}`, `${themeOne[key]}`);
     });
 

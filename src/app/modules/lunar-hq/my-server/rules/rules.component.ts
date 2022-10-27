@@ -1,7 +1,9 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CssConstants } from 'src/app/shared/services/css-constants.service';
+import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CssConstants} from 'src/app/shared/services/css-constants.service';
+import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-why-lunar-hq-rules',
@@ -15,59 +17,20 @@ export class RulesComponent implements OnInit {
   paused = false;
   ruleName = 'Watchers on the wall';
   role = 'shepards';
-  ruleItems =[
-    {
-      ruleTypeId: 'existing_rule',
-      ruleType: '',
-      ruleId: 'watchers',
-      rule: '',
-      condition: 'is',
-      contractAddress: '',
-      operatorId: '',
-      operator: '',
-      quantityHeld: '',
-      filter: 'no_filter',
-      nft_id:'',
-      file:'',
-      traits: [],
-      criterias: [
-        {
-          condition: 'and',
-          ruleCondition: 'is',
-          ruleTypeId: 'existing_rule',
-          ruleType: '',
-          ruleId: 'x-men',
-          rule: '',
-          contractAddress: '',
-          operatorId: '',
-          operator: '',
-          quantityHeld: '',
-          traits: []
-        },
-        {
-          condition: 'and',
-          ruleCondition: 'is',
-          ruleTypeId: 'nft',
-          ruleType: '',
-          ruleId: '',
-          rule: '',
-          contractAddress: '9v0dnfv08nas8fnv9a8fhavm',
-          operatorId: 'greater_than_equal',
-          operator: '≥',
-          quantityHeld: '2',
-          traits: []
-        }
-      ]
-    }
-  ]
+  ruleItems = [];
+  discordServerId = '';
 
   constructor(private router: Router,
               private location: Location,
               private route: ActivatedRoute,
+              private lunarService: LunarHqAPIServices,
+              private loader: NgxUiLoaderService,
               public cssClass: CssConstants) {
-    this.route.queryParams.subscribe((params: any) => {
-      console.log(params.server);
-      this.activeSubMenu = params.server;
+    this.route.paramMap.subscribe((params: any) => {
+      this.discordServerId = params.get('discordServerId');
+      if (this.discordServerId) {
+        this.getServerRules()
+      }
     });
 
   }
@@ -82,11 +45,13 @@ export class RulesComponent implements OnInit {
   navigateBack() {
     this.location.back();
   }
+
   navigateToRules() {
 
   }
+
   navigateToCreateRule() {
-    this.router.navigate(['my-server/rules/create']);
+    this.router.navigate(['my-server/rules/create/rule']);
   }
 
   showRule(paused = false) {
@@ -96,6 +61,22 @@ export class RulesComponent implements OnInit {
 
   closeView() {
     this.viewRule = false;
+  }
+
+  getServerRules() {
+    this.loader.start();
+    this.lunarService.getServerRules(this.discordServerId)
+      .subscribe({
+        next: (data) => {
+          console.log(data.message, 'data');
+          this.ruleItems = data.message.rules;
+          this.loader.stop();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loader.stop();
+        }
+      });
   }
 
   updateRole() {

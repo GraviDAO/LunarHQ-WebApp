@@ -97,4 +97,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   navigateToAnnouncement() {
     this.router.navigate(['/announcement']);
   }
+
+  serverDetails(serverObj: any) {
+    this.router.navigate(['my-server/details/' + serverObj.discordServerId]);
+    // my-server/details?server=
+  }
 }

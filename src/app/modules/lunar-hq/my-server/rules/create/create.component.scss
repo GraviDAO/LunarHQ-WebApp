@@ -3,11 +3,12 @@
 .create-rule-header {
   height: mixin.toRem(64);
   width: calc(100% - 240px);
-  background: var(--dark-50);
+  @include mixin.bg--wrapper;
   position: fixed;
   margin-top: -112px;
   margin-left: -3.75rem;
   z-index: 10;
+  backdrop-filter: blur(16px);
 }
 
 .back-button {
@@ -61,10 +62,14 @@
 .description_area {
   width: 100%;
   height: mixin.toRem(88);
-  opacity: 0.2;
   @include mixin.notch(8px);
-  background-color: var(--dark);
+  background-color: var(--dark-50);
   border: none;
+  resize: none;
+
+  &::placeholder {
+    color: var(--light-50);
+  }
 }
 
 .link-dropdown {

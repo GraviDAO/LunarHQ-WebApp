@@ -20,8 +20,10 @@
 }
 
 .text-content {
+  padding: 24px;
   font-size: 14px;
   color: var(--light);
   font-family: Lato, sans-serif;
   font-weight: 300;
+  white-space: pre-line;
 }

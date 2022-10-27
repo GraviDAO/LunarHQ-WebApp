@@ -1,11 +1,11 @@
 <article class="announcement-wrapper">
   <div class="announcement-container-one">
     <div>
-      <img class="announcement-item-image" [src]="annObj?.discordServerIcon" alt="GraviDAO">
+      <img class="announcement-item-image" [src]="annObj?.discordServerIcon" alt="GraviDAO" imgFallback>
     </div>
     <div class="pd-left-8">
       <div class="title-wrapper">
-        <label class="app-why-lbl f14 ft-bold secondary">{{annObj?.discordServerName}}</label>
+        <span class="app-why-lbl f1416 ft-bold secondary">{{annObj?.discordServerName}}</span>
       </div>
       <div class="pd-top-10">
         <div class="app-why-lbl ft-lato light">{{annObj?.createdTimestamp | date}}</div>
@@ -17,8 +17,8 @@
   </div>
   <div class="announcement-container-two">
     <div class="d-flex">
-      <div class="pd-left-16 pd-top-8 content-container">
-        <div class="app-why-lbl light-70 f14" [innerHTML]="annObj?.content">
+      <div class="pd-lr-16 pd-top-8 content-container">
+        <div class="app-why-lbl light-70 f14" [innerHTML]="annObj?.content.substring(0,450)">
         </div>
       </div>
       <div class="pd-top-18 pd-right-16 show-cursor" (click)="preView()">
@@ -30,7 +30,7 @@
     <div>
       <ion-icon class="app-why-icon ic18 light-70" name="star-outline"></ion-icon>
     </div>
-    <div class="pd-top-22">
+    <div class="pdtop-24">
       <img class="discord-img-container show-cursor" src="/assets/img/svg/discord-brands-primary.svg" alt="discord"
            (click)="openAnnouncement(annObj?.messageUrl)">
     </div>

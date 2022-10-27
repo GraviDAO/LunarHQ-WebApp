@@ -20,7 +20,6 @@ export class AdminUserListComponent {
   openClose(event: boolean, index: number) {
     this.toggleId = index;
     this.isOpen = event;
-    console.log(event, 'eve');
   }
 
   addAdminPopUp() {
@@ -32,7 +31,6 @@ export class AdminUserListComponent {
   }
 
   checkUncheck(status: any) {
-    console.log(status.target.checked);
     if (!status.target.checked) {
       this.modalService.open('unLinkDiscord')
     }

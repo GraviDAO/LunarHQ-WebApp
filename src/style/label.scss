@@ -45,6 +45,12 @@
     height: var(--font-size-18);
   }
 
+  &.f1416 {
+    font-size: var(--font-size-14);
+    line-height: var(--font-size-16);
+    height: var(--font-size-16);
+  }
+
 
   &.f16 {
     font-size: var(--font-size-16);
@@ -114,7 +120,7 @@
     color: var(--success) !important;
     --color: var(--success) !important;
   }
-  
+
   &.warning {
     --color: var(--warning);
     color: var(--warning);
@@ -255,6 +261,10 @@
   &.text-center {
     text-align: center;
   }
+
+  &.ltr-spacing {
+    letter-spacing: 0.2px;
+  }
 }
 
 
@@ -317,6 +327,12 @@ input[type="radio"].radio-button-secondary {
 
   &:checked {
     border: 0.255em solid var(--secondary);
+  }
+
+  &.primary {
+    &:checked {
+      border: 0.255em solid var(--primary);
+    }
   }
 }
 

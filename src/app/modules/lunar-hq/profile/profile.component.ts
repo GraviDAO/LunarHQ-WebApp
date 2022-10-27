@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   walletRemovingIndex = 0;
   profileObj: any;
   unlink: any;
-  terraController: WalletController;
-  subscription: Subscription;
+  terraController!: WalletController;
+  subscription!: Subscription;
   availableInstallTypes: Array<any> = [];
   availableConnections: Array<any> = [];
   polygonAddress = 'polygon wallet';
@@ -146,11 +146,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileObj = data.message;
           this.profileObj?.discordServers.forEach((discordObj: any) => {
             if (discordObj.licences.length > 0) {
+              // @ts-ignore
               this.licenseList.push(...discordObj.licences)
             }
           });
-          this.polygonWalletExists = this.profileObj.accountWallets.some(obj => obj.blockchainName === 'polygon-mainnet');
-          this.terraWalletExists = this.profileObj.accountWallets.some(obj => obj.blockchainName === 'Terra');
+          this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
+          this.terraWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra');
           this.loaderService.stop();
         },
         error: (error) => {
@@ -219,7 +220,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.coreService.unLinkWallet(this.unlink.blockchainName, this.unlink.address)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'message');
           this.loaderService.stop();
           let lunarObj = this.storageService.get('lunar_user');
           const token = data.message;

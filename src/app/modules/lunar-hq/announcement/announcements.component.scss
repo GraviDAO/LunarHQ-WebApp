@@ -6,6 +6,7 @@
   @include mixin.bg--wrapper;
   background: var(--dark);
   margin: 4px auto;
+  width: 100%;
 }
 
 .announcement-wrapper {
@@ -15,7 +16,8 @@
 }
 
 .announcement-container-one {
-  @include mixin.bg--wrapper;
+  //@include mixin.bg--wrapper;
+  background: var(--dark-20) !important;
   width: mixin.toRem(232);
   height: mixin.toRem(122);
   padding: 22px 24px;
@@ -23,50 +25,41 @@
 
   .title-wrapper {
     height: 32px;
+    display: flex;
+    //align-items: center;
   }
 }
 
 .announcement-container-two {
   @include mixin.bg--wrapper;
-  min-width: mixin.toRem(702);
+  //min-width: mixin.toRem(702);
   height: mixin.toRem(122);
   background: var(--dark-50) !important;
-  max-width: 65%;
+  width: 72%;
+  //max-width: 65%;
 }
 
 .announcement-container-three {
-  @include mixin.bg--wrapper;
+  //@include mixin.bg--wrapper;
+  background: var(--dark-20) !important;
   width: mixin.toRem(68);
   height: mixin.toRem(122);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 16px;
+  padding-top: mixin.toRem(16);
 }
 
 
 .announcement-item-image {
   width: mixin.toRem(32);
   height: mixin.toRem(32);
+  @include mixin.notch(8px);
 }
 
 .discord-img-container {
-  height: mixin.toRem(14);
-  width: mixin.toRem(26);
-}
-
-.search-bar {
-  z-index: 99;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: mixin.toRem(64);
-  background-color: var(--dark-50);
-  padding: 16px 24px;
-  position: fixed;
-  width: calc(100vw - 240px);
-  margin-top: -3.5rem;
-  margin-left: -3.8rem;
+  height: mixin.toRem(18);
+  width: mixin.toRem(18);
 }
 
 .preview-container {
@@ -78,4 +71,8 @@
   z-index: 1000;
   background-color: var(--tertiary);
   box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
+}
+
+.pdtop-24 {
+  padding-top: mixin.toRem(18);
 }

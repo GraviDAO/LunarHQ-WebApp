@@ -27,7 +27,7 @@
               <ul *ngIf="sideNav.subMenu && isToggled" [ngClass]="toggle[i] ? 'show': 'hide'" class="pd-0 mr-top-8">
                 <li *ngFor="let subMenuObj of sideNav.subMenu"
                     class="submenu-list mr-bottom-8"
-                    (click)="subMenu($event,subMenuObj.title, i, '')">
+                    (click)="subMenu($event,subMenuObj.title, i, subMenuObj,'')">
                   <article>
                     <div class="add-cursor">
                       <label class="text-capitalize add--pd-left add-cursor"
@@ -46,7 +46,7 @@
                         <li *ngFor="let nestedMenu of subMenuObj.nestedMenuList" class="min-ht-22"
                             (click)="subMenu($event,subMenuObj.title, i, nestedMenu)">
                           <label class="pd-bottom-4 add--pd-left-34 nest-label add-cursor"
-                                 [ngClass]="{'active-sub-menu': nestedMenuSelected === nestedMenu}">- {{nestedMenu}}</label>
+                                 [ngClass]="{'active-sub-menu': nestedMenuSelected === nestedMenu.title}">- {{nestedMenu.title}}</label>
                         </li>
                       </ul>
                     </div>

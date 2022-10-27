@@ -21,7 +21,6 @@ export class AdminMenuComponent {
   openClose(event: boolean, index: number) {
     this.toggleId = index;
     this.isOpen = event;
-    console.log(event, 'eve');
   }
 
   suspend() {

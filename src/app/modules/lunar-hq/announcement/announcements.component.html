@@ -1,7 +1,7 @@
 <app-why-header-side-nav
   [title]="'ANNOUNCEMENTS'"
   [activeTab]="'ANNOUNCEMENTS'">
-  <div class="search-bar">
+  <div class="search-bar-container">
     <div class="d-flex justify-content-center align-items-center">
       <div class="pd-left-24 pd-right-24">
         <app-why-cta-three
@@ -39,6 +39,7 @@
         <app-why-cta-one
           [cssClass]="cssClass.cta1DarkSm"
           [iconType]="'cog-outline'"
+          (clickEvent)="goToSettings()"
           [iconClass]="cssClass.ctaIcon16Primary"
           [btnLabel]="'settings'"></app-why-cta-one>
       </div>

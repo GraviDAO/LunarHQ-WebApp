@@ -7,12 +7,12 @@
       <div *ngIf="profileObj?.discordProfileImage">
         <img class="discord-img-wrapper" [src]="profileObj?.discordProfileImage" alt="" imgFallback>
       </div>
-      <div class="pd-left-16">
+      <div class="pd-left-16 d-flex flex-column">
         <div>
           <label class="app-why-lbl f28 light ft-bold">{{profileObj?.discordName}}</label>
         </div>
         <div class="pd-top-8">
-          <label class="app-why-lbl f16 light-50 ft-lato">{{profileObj?.discordStatus}}</label>
+          <label class="app-why-lbl f16 light-50 ft-lato">Hi there {{profileObj?.discordStatus}}</label>
         </div>
       </div>
     </div>
@@ -28,7 +28,8 @@
       </div>
       <div class="pd-left-16 d-flex align-items-center"
            *ngFor="let walletObj of profileObj?.accountWallets; let isLast = last ">
-        <img [src]="walletObj?.blockchainImageUrl" alt="blockchainImage" class="app-why-icon ic20 mr-right-8">
+        <img [src]="walletObj?.blockchainImageUrl" alt="blockchainImage" imgFallback
+             class="app-why-icon ic20 mr-right-8">
         <label class="app-why-lbl f14 ft-lato light-50">
           {{walletObj?.address | longTextPipe}}
         </label>
@@ -45,7 +46,7 @@
     </div>
 
     <div class="pd-top-40 pd-bottom-40">
-      <div class="horizontal-divider light-50"></div>
+      <div class="horizontal-divider light-20"></div>
     </div>
 
     <div class="pd-top-24 d-flex">
@@ -89,8 +90,8 @@
               <label class="app-why-lbl f16 light-70">{{serverObj?.discordServerName}}</label>
             </div>
             <div class="pd-left-4">
-              <ion-icon *ngIf="serverObj?.userIsAdmin" class="app-why-icon ic10 light-70" name="key"></ion-icon>
-              <ion-icon *ngIf="!serverObj?.userIsAdmin && !serverObj?.userOwnsLicense" class="app-why-icon ic10 error"
+              <ion-icon *ngIf="serverObj?.userIsAdmin" class="app-why-icon ic14 light-70" name="key"></ion-icon>
+              <ion-icon *ngIf="!serverObj?.userIsAdmin && !serverObj?.userOwnsLicense" class="app-why-icon ic14 error"
                         name="warning"></ion-icon>
             </div>
           </div>
@@ -98,6 +99,7 @@
             <app-why-cta-three
               [parentClass]="'light-70-hover'"
               [btnClass]="cssClass.cta3Light50F12"
+              (click)="serverDetails(serverObj)"
               [iconClass]="cssClass.cta3Light5014Icon"
               [iconType]="'chevron-forward-circle-outline'"
               [btnLabel]="'View'"></app-why-cta-three>
@@ -109,7 +111,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <label class="app-why-lbl f16 ft-bold light">GRAVIDAO Discord rules [{{profileObj?.rules.length}}]</label>
+            <label class="app-why-lbl f16 ft-bold light">Discord rules [{{profileObj?.rules.length}}]</label>
           </div>
           <div>
             <app-why-cta-three
@@ -170,13 +172,15 @@
       (navigateToAnnouncementEvent)="navigateToAnnouncement()"
       class="mr-top-8"></app-why-lunar-hq-recent-announcements>
 
-    <div class="mr-top-40 mr-bottom-80 show-cursor" (click)="goToTop()">
-      <div class="text-center">
-        <ion-icon class="app-why-icon ic16 light-70" name="chevron-up-outline"></ion-icon>
-      </div>
-      <div class="text-center">
-        <span class="app-why-lbl light-70">BACK TO TOP</span>
-      </div>
+    <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center">
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
+        [btnLabel]="'BACK TO TOP'"
+        [leftIconType]="'chevron-up-outline'"
+        [iconClass]="cssClass.cta3Icon + ' btn-hover'"
+        [parentClass]="'flex-column'"
+        (click)="goToTop()">
+      </app-why-cta-three>
     </div>
 
   </section>

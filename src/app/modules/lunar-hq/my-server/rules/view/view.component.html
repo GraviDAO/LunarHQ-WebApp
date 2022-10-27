@@ -1,234 +1,253 @@
 <div class="rules-view flex flex-nowrap">
-    <div class="rules-view-header">
-        <div class="close-button mr-top-36 mr-right-24 add-cursor" (click)="closeView()">
-            <ion-icon name="close-outline" class="app-why-icon ic24 light-50"></ion-icon>
-        </div>
+  <div class="rules-view-header">
+    <div class="close-button mr-top-36 mr-right-24 add-cursor" (click)="closeView()">
+      <ion-icon name="close-outline" class="app-why-icon ic24 light-50"></ion-icon>
     </div>
-    <div class="rules-view-container d-flex flex-column mr-left-40">
-        <div class="rules-name-container pd-box-24 d-flex flex-column">
-            <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                RULE NAME
-            </div>
-            <div class="rule-title-container pd-top-8 d-flex justify-content-between">
-                <div class="rule-title app-why-lbl f16 ft-bold light">
-                    {{ruleName}}
-                    <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
-                </div>
-                <div class="rule-title d-flex align-items-center">
-                    <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047">MORE</div>
-                    <ion-icon name="chevron-down-outline" class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
-                </div>
-            </div>
+  </div>
+  <div class="rules-view-container d-flex flex-column mr-left-40">
+    <div class="rules-name-container pd-box-24 d-flex flex-column">
+      <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        RULE NAME
+      </div>
+      <div class="rule-title-container pd-top-8 d-flex justify-content-between">
+        <div class="rule-title app-why-lbl f16 ft-bold light">
+          {{ruleName}}
+          <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
         </div>
-        <div class="rules-content pd-box-24 d-flex flex-column">
-            <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                CRITERIA
+        <div class="rule-title d-flex align-items-center">
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047">MORE</div>
+          <ion-icon name="chevron-down-outline" class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div class="rules-content pd-box-24 d-flex flex-column">
+      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        CRITERIA
+      </div>
+      <div class="rule-item d-flex flex-column mr-top-8">
+        <ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
+          <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light">
+            {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}}
+          </div>
+          <div class="rule-item-existing-rule-container d-flex flex-column">
+            <div class="rule-item-is-rule-container d-flex">
+              <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                [ {{rulesService.getCondition(ruleItem.condition)?.name?.toLowerCase()}} ]
+              </div>
+              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
+                   *ngIf="ruleItem.ruleTypeId == 'existing_rule'">
+                {{rulesService.getRule(ruleItem.ruleId)?.name}}
+              </div>
+              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
+                   *ngIf="ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'">
+                {{ruleItem.contractAddress}}__[ {{rulesService.getOperator(ruleItem.operatorId)?.name}}
+                ]__{{ruleItem.quantityHeld}}
+              </div>
             </div>
-            <div class="rule-item d-flex flex-column mr-top-8">
-                <!-- <div class="rule-item-base-role-container d-flex">
-                    <div class="rule-item-base-role app-why-lbl f14 ft-lato light-50">
-                        Base Role : \
+            <div class="rule-item-is-rule-container d-flex">
+              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                   *ngIf="ruleItem.ruleTypeId == 'nft'"
+                   [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
+                [ {{rulesService.getCondition(ruleItem.filterCondition)?.name?.toLowerCase()}} ]
+              </div>
+              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                   *ngIf="ruleItem.ruleTypeId == 'nft'"
+                   [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
+                <span *ngIf="ruleItem.filter == 'filter_nft'">Filter by NFT ID</span>
+                <span *ngIf="ruleItem.filter == 'filter_traits'">Filter by traits</span>
+              </div>
+            </div>
+            <div class="rule-item-criteria-filter-nft-traits mr-top-24 d-flex flex-column"
+                 *ngIf="ruleItem.ruleTypeId == 'nft' && ruleItem.filter == 'filter_traits'">
+              <div
+                class="rule-item-criteria-filter-nft-traits-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                NFT TRAITS
+              </div>
+              <ng-container *ngFor="let trait of ruleItem.traits; let traitIndex = index;">
+                <div class="rule-item-and-rule-container d-flex">
+                  <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
+                       [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
+                    [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
+                  </div>
+                  <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                       [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
+                    {{rulesService.getTraitType(trait.traitTypeId)?.name}}
+                  </div>
+                </div>
+                <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
+                  <div class="d-flex pd-left-24">
+                    <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
+                         [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
+                      [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
                     </div>
                     <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                        {{rulesService.getRole(role)?.name}}
+                      {{rulesService.getTraitRow(row.rowId)?.name}}
                     </div>
-                </div> -->
-                <ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
-                    <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light">
-                        {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}}
-                    </div>
-                    <div class="rule-item-existing-rule-container d-flex flex-column">
-                        <div class="rule-item-is-rule-container d-flex">
-                            <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                                [ {{rulesService.getCondition(ruleItem.condition)?.name?.toLowerCase()}} ]
-                            </div>
-                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="ruleItem.ruleTypeId == 'existing_rule'">
-                                {{rulesService.getRule(ruleItem.ruleId)?.name}}
-                            </div>
-                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'">
-                                {{ruleItem.contractAddress}}__[ {{rulesService.getOperator(ruleItem.operatorId)?.name}} ]__{{ruleItem.quantityHeld}}
-                            </div>
-                        </div>
-                        <div class="rule-item-is-rule-container d-flex">
-                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" *ngIf="ruleItem.ruleTypeId == 'nft'" [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
-                                [ {{rulesService.getCondition(ruleItem.filterCondition)?.name?.toLowerCase()}} ]
-                            </div>
-                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" *ngIf="ruleItem.ruleTypeId == 'nft'" [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
-                                <span *ngIf="ruleItem.filter == 'filter_nft'">Filter by NFT ID</span>
-                                <span *ngIf="ruleItem.filter == 'filter_traits'">Filter by traits</span>
-                            </div>
-                        </div>
-                        <div class="rule-item-criteria-filter-nft-traits mr-top-24 d-flex flex-column" *ngIf="ruleItem.ruleTypeId == 'nft' && ruleItem.filter == 'filter_traits'">
-                            <div class="rule-item-criteria-filter-nft-traits-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                                NFT TRAITS
-                            </div>
-                            <ng-container *ngFor="let trait of ruleItem.traits; let traitIndex = index;">
-                                <div class="rule-item-and-rule-container d-flex">
-                                    <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                                        [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
-                                    </div>
-                                    <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                                        {{rulesService.getTraitType(trait.traitTypeId)?.name}}
-                                    </div>
-                                </div>
-                                <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
-                                    <div class="d-flex pd-left-24">
-                                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
-                                            [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
-                                        </div>
-                                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                                            {{rulesService.getTraitRow(row.rowId)?.name}}
-                                        </div>
-                                    </div>
-                                </ng-container>
-                            </ng-container>
-                        </div>
-                        <ng-container *ngFor="let criteria of ruleItem.criterias; let criteriaIndex = index;">
-                            <div class="rule-item-and-rule-container d-flex pd-left-24">
-                                <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
-                                    [ {{rulesService.getCondition(criteria.condition)?.name?.toLowerCase()}} ]
-                                </div>
-                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
-                                    {{rulesService.getRuleType(criteria.ruleTypeId)?.name}}
-                                </div>
-                            </div>
-                            <div class="rule-item-is-rule-container d-flex pd-left-48">
-                                <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                                    [ {{rulesService.getCondition(criteria.ruleCondition)?.name?.toLowerCase()}} ]
-                                </div>
-                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="criteria.ruleTypeId == 'existing_rule'">
-                                    {{rulesService.getRule(criteria.ruleId)?.name}}
-                                </div>
-                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4" *ngIf="criteria.ruleTypeId == 'nft' || criteria.ruleTypeId == 'token'">
-                                    {{criteria.contractAddress}}__[ {{rulesService.getOperator(criteria.operatorId)?.name}} ]__{{criteria.quantityHeld}}
-                                </div>
-                            </div>
-                            <div class="rule-item-is-rule-container d-flex pd-left-48">
-                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" *ngIf="criteria.ruleTypeId == 'nft'" [ngClass]="{'success': criteria.filterCondition == 'and', 'error': criteria.filterCondition == 'not', 'warning': criteria.filterCondition == 'or', 'light-50': criteria.filterCondition == 'is'}">
-                                    [ {{rulesService.getCondition(criteria.filterCondition)?.name}} ]
-                                </div>
-                                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" *ngIf="criteria.ruleTypeId == 'nft'" [ngClass]="{'success': criteria.filterCondition == 'and', 'error': criteria.filterCondition == 'not', 'warning': criteria.filterCondition == 'or', 'light-50': criteria.filterCondition == 'is'}">
-                                    <span *ngIf="criteria.filter == 'filter_nft'">Filter by NFT ID</span>
-                                    <span *ngIf="criteria.filter == 'filter_traits'">Filter by traits</span>
-                                </div>
-                            </div>
-                            <div class="rule-item-criteria-filter-nft-traits mr-top-24 d-flex flex-column" *ngIf="criteria.ruleTypeId == 'nft' && criteria.filter == 'filter_traits'">
-                                <div class="rule-item-criteria-filter-nft-traits-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                                    NFT TRAITS
-                                </div>
-                                <ng-container *ngFor="let trait of criteria.traits; let traitIndex = index;">
-                                    <div class="rule-item-and-rule-container d-flex">
-                                        <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                                            [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
-                                        </div>
-                                        <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4" [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                                            {{rulesService.getTraitType(trait.traitTypeId)?.name}}
-                                        </div>
-                                    </div>
-                                    <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
-                                        <div class="d-flex pd-left-24">
-                                            <div class="rule-item-is-rule app-why-lbl f14 ft-lato" [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
-                                                [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
-                                            </div>
-                                            <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                                                {{rulesService.getTraitRow(row.rowId)?.name}}
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </ng-container>
-                            </div>
-                        </ng-container>
-                    </div>
+                  </div>
                 </ng-container>
+              </ng-container>
             </div>
-            <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
-                &lt;END&gt;
-            </div>
-        </div>
+            <ng-container *ngFor="let criteria of ruleItem.criterias; let criteriaIndex = index;">
+              <div class="rule-item-and-rule-container d-flex pd-left-24">
+                <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
+                     [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
+                  [ {{rulesService.getCondition(criteria.condition)?.name?.toLowerCase()}} ]
+                </div>
+                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                     [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
+                  {{rulesService.getRuleType(criteria.ruleTypeId)?.name}}
+                </div>
+              </div>
+              <div class="rule-item-is-rule-container d-flex pd-left-48">
+                <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
+                  [ {{rulesService.getCondition(criteria.ruleCondition)?.name?.toLowerCase()}} ]
+                </div>
+                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
+                     *ngIf="criteria.ruleTypeId == 'existing_rule'">
+                  {{rulesService.getRule(criteria.ruleId)?.name}}
+                </div>
+                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
+                     *ngIf="criteria.ruleTypeId == 'nft' || criteria.ruleTypeId == 'token'">
+                  {{criteria.contractAddress}}__[ {{rulesService.getOperator(criteria.operatorId)?.name}}
+                  ]__{{criteria.quantityHeld}}
+                </div>
+              </div>
+              <div class="rule-item-is-rule-container d-flex pd-left-48">
+                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                     *ngIf="criteria.ruleTypeId == 'nft'"
+                     [ngClass]="{'success': criteria.filterCondition == 'and', 'error': criteria.filterCondition == 'not', 'warning': criteria.filterCondition == 'or', 'light-50': criteria.filterCondition == 'is'}">
+                  [ {{rulesService.getCondition(criteria.filterCondition)?.name}} ]
+                </div>
+                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                     *ngIf="criteria.ruleTypeId == 'nft'"
+                     [ngClass]="{'success': criteria.filterCondition == 'and', 'error': criteria.filterCondition == 'not', 'warning': criteria.filterCondition == 'or', 'light-50': criteria.filterCondition == 'is'}">
+                  <span *ngIf="criteria.filter == 'filter_nft'">Filter by NFT ID</span>
+                  <span *ngIf="criteria.filter == 'filter_traits'">Filter by traits</span>
+                </div>
+              </div>
+              <div class="rule-item-criteria-filter-nft-traits mr-top-24 d-flex flex-column"
+                   *ngIf="criteria.ruleTypeId == 'nft' && criteria.filter == 'filter_traits'">
+                <div
+                  class="rule-item-criteria-filter-nft-traits-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                  NFT TRAITS
+                </div>
+                <ng-container *ngFor="let trait of criteria.traits; let traitIndex = index;">
+                  <div class="rule-item-and-rule-container d-flex">
+                    <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
+                         [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
+                      [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
+                    </div>
+                    <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
+                         [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
+                      {{rulesService.getTraitType(trait.traitTypeId)?.name}}
+                    </div>
+                  </div>
+                  <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
+                    <div class="d-flex pd-left-24">
+                      <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
+                           [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
+                        [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
+                      </div>
+                      <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
+                        {{rulesService.getTraitRow(row.rowId)?.name}}
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
+        &lt;END&gt;
+      </div>
     </div>
-    <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24" *ngIf="!paused && !update">
-        <div class="rules-action-item">
-            <app-why-cta-three
-                [parentClass]="'flex-column'"
-                [btnClass]="cssClass.cta3BtnLabel"
-                [btnLabel]="'Remove'"
-                [leftIconType]="'close-circle-outline'"
-                [iconClass]="cssClass.cta3Icon"
-                (click)="removeRule()">
-            </app-why-cta-three>
-        </div>
-        <div class="rules-action-item mr-left-24">
-            <app-why-cta-three
-                [parentClass]="'flex-column'"
-                [btnClass]="cssClass.cta3BtnLabel"
-                [btnLabel]="'Pause'"
-                [leftIconType]="'pause-circle-outline'"
-                [iconClass]="cssClass.cta3Icon"
-                (click)="pauseRule()">
-            </app-why-cta-three>
-        </div>
-        <div class="rules-action-item mr-left-24">
-            <app-why-cta-three
-                [parentClass]="'flex-column'"
-                [btnClass]="cssClass.cta3BtnLabelPrimary"
-                [btnLabel]="'Edit'"
-                [leftIconType]="'pencil'"
-                [iconClass]="cssClass.cta3IconPrimary">
-            </app-why-cta-three>
-        </div>
+  </div>
+  <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24" *ngIf="!paused && !update">
+    <div class="rules-action-item">
+      <app-why-cta-three
+        [parentClass]="'flex-column'"
+        [btnClass]="cssClass.cta3BtnLabel"
+        [btnLabel]="'Remove'"
+        [leftIconType]="'close-circle-outline'"
+        [iconClass]="cssClass.cta3Icon"
+        (click)="removeRule()">
+      </app-why-cta-three>
     </div>
-    <div class="rules-action-container justify-content-center d-flex pd-top-40" *ngIf="paused || update">
-        <app-why-cta-one
-            [cssClass]="cssClass.cta1Md + ' cursor-pointer'"
-            (click)="updatePauseRole()"
-            [btnLabel]="'Update Role'"></app-why-cta-one>
+    <div class="rules-action-item mr-left-24">
+      <app-why-cta-three
+        [parentClass]="'flex-column'"
+        [btnClass]="cssClass.cta3BtnLabel"
+        [btnLabel]="'Pause'"
+        [leftIconType]="'pause-circle-outline'"
+        [iconClass]="cssClass.cta3Icon"
+        (click)="pauseRule()">
+      </app-why-cta-three>
     </div>
+    <div class="rules-action-item mr-left-24">
+      <app-why-cta-three
+        [parentClass]="'flex-column'"
+        [btnClass]="cssClass.cta3BtnLabelPrimary"
+        [btnLabel]="'Edit'"
+        [leftIconType]="'pencil'"
+        [iconClass]="cssClass.cta3IconPrimary">
+      </app-why-cta-three>
+    </div>
+  </div>
+  <div class="rules-action-container justify-content-center d-flex pd-top-40" *ngIf="paused || update">
+    <app-why-cta-one
+      [cssClass]="cssClass.cta1Md + ' cursor-pointer'"
+      (click)="updatePauseRole()"
+      [btnLabel]="'Update Role'"></app-why-cta-one>
+  </div>
 </div>
 <!-- Remove Rule Confirmation Modal Stated -->
 <app-why-modal id="removeRuleModal" [popUpType]="'confirmation'">
-    <app-why-modal-wrapper>
-      <div class="app-why-lbl f22 ft-uni ft-medium light">REMOVE RULE</div>
-      <div class="pd-top-32">
-        <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
-          <div>
-            Removing this rule will cause all Discord members to lose any associated roles. It cannot be undone.
-          </div>
-        </label>
-      </div>
-      <div class="d-flex justify-content-between pd-top-80 pd-bottom-40">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">REMOVE RULE</div>
+    <div class="pd-top-32">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
         <div>
-          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('removeRuleModal')">
-          </app-why-lunar-hq-cta-two>
+          Removing this rule will cause all Discord members to lose any associated roles. It cannot be undone.
         </div>
-        <div>
-          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Remove'" (click)="confirmRemoveRule()">
-          </app-why-cta-one>
-        </div>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between pd-top-80 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('removeRuleModal')">
+        </app-why-lunar-hq-cta-two>
       </div>
-    </app-why-modal-wrapper>
-  </app-why-modal>
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Remove'" (click)="confirmRemoveRule()">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
 <!-- Remove Rule Conformation Modal Ended -->
 <!-- Pause Rule Confirmation Modal Stated -->
 <app-why-modal id="pauseRuleModal" [popUpType]="'confirmation'">
-    <app-why-modal-wrapper>
-      <div class="app-why-lbl f22 ft-uni ft-medium light">PAUSE RULE?</div>
-      <div class="pd-top-32">
-        <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
-          <div>
-            Pausing this rule will cause all Discord members to lose any associated roles. It can be unpaused at any time to restore the roles.
-          </div>
-        </label>
-      </div>
-      <div class="d-flex justify-content-between pd-top-80 pd-bottom-40">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">PAUSE RULE?</div>
+    <div class="pd-top-32">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
         <div>
-          <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('pauseRuleModal')">
-          </app-why-lunar-hq-cta-two>
+          Pausing this rule will cause all Discord members to lose any associated roles. It can be unpaused at any time
+          to restore the roles.
         </div>
-        <div>
-          <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'" (click)="confirmPauseRule()">
-          </app-why-cta-one>
-        </div>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between pd-top-80 pd-bottom-40">
+      <div>
+        <app-why-lunar-hq-cta-two [btnTheme]="'bg--dark'" (click)="cancelModal('pauseRuleModal')">
+        </app-why-lunar-hq-cta-two>
       </div>
-    </app-why-modal-wrapper>
-  </app-why-modal>
-  <!-- Pause Rule Conformation Modal Ended -->
+      <div>
+        <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Confirm'" (click)="confirmPauseRule()">
+        </app-why-cta-one>
+      </div>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Pause Rule Conformation Modal Ended -->

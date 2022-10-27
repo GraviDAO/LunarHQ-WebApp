@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
-import {CssConstants} from '../../../../../../shared/services/css-constants.service';
+import {CssConstants} from '../../../../../shared/services/css-constants.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import Stepper from 'bs-stepper';
 import {RuleList} from './dummy.data';
@@ -13,29 +13,29 @@ import {RuleList} from './dummy.data';
   styleUrls: ['./create-poll.component.scss']
 })
 
-export class GravidaoCreatePollComponent implements OnInit {
+export class CreatePollComponent implements OnInit {
   activeSubMenu = '';
   createPollsObj = {};
   createPollForm!: FormGroup;
-  ctiveSubMenu = '';
-  stepperIndex = 1;
+  stepperIndex = 0;
   selectedTimeZone = 'UTC';
   private stepper!: Stepper;
   stepTitles = ['POLL INFORMATION', 'VOTE WEIGHT', 'POLL TIMGINGS', 'POLL LOCATION']
   stepTitle: string = this.stepTitles[0];
   timeZones = {utc: 'UTC'}
   dateRadioSelected = '';
+  discordServerId = '';
+  discordServerName = '';
 
   constructor(
     private router: Router,
     public cssClass: CssConstants,
     private location: Location,
     private route: ActivatedRoute,
-    private fb: FormBuilder
-  ) {
-    this.route.queryParams.subscribe((params: any) => {
-      console.log(params.server);
-      this.activeSubMenu = params.server;
+    private fb: FormBuilder) {
+    this.route.paramMap.subscribe((params: any) => {
+      this.discordServerId = params.get('discordServerId');
+      this.discordServerName = params.get('discordServerName');
     });
 
     this.createPollForm = new FormGroup({
@@ -52,7 +52,7 @@ export class GravidaoCreatePollComponent implements OnInit {
   }
 
   next() {
-    // this.stepper.next();
+    this.stepperIndex++;
     this.getActiveStep();
   }
 
@@ -74,6 +74,7 @@ export class GravidaoCreatePollComponent implements OnInit {
   numberPerVote = 0;
   ruleList: any;
   value: any;
+  viewPreview = false;
 
   ngOnInit(): void {
     this.ruleList = RuleList;
@@ -123,5 +124,9 @@ export class GravidaoCreatePollComponent implements OnInit {
 
   setRangValue(range: any) {
     this.value = range + '%';
+  }
+
+  closePreview() {
+    this.viewPreview = false;
   }
 }
