@@ -15,7 +15,7 @@ import {Observable, Subscription, timer} from 'rxjs';
 
 export class PollsListComponent implements OnInit, OnDestroy {
   discordServerId = '';
-  pollsList = [];
+  pollsList: Array<any> = [];
   currentDateTime: Date | undefined;
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);

@@ -15,12 +15,15 @@ import {ToastrModule} from 'ngx-toastr';
 import {JwtInterceptor} from './shared/services/jwt.interceptor';
 import {AdminModule} from './modules/admin/admin.module';
 import {CdkStepperModule} from '@angular/cdk/stepper';
+import {ToastMsgComponent} from './shared/_helpers/toast.component';
+
 // import {ErrorInterceptor} from './shared/_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    KitchenSinkComponent
+    KitchenSinkComponent,
+    ToastMsgComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,12 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
     BrowserAnimationsModule,
     NgbModule,
     NgxUiLoaderModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      // positionClass: 'inline',
+      preventDuplicates: true,
+    }), // ToastrModule added
     HttpClientModule,
     SharedModule,
     ModalModule,

@@ -53,8 +53,15 @@ export class LunarHqAPIServices {
       }));
   }
 
-  getPolls(discordServerId) {
+  getPolls(discordServerId: any) {
     return this.http.get<any>(environment.server + 'WAgetProposals/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  getRoles(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getRoles/?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
       }));

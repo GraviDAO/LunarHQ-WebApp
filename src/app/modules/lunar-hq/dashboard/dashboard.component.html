@@ -2,6 +2,12 @@
   [activeTab]="'DASHBOARD'"
   [profileObj]="setHeaderValue()"
   (profileClick)="navigateToProfile()">
+
+  <form>
+    <label for="appt-time">Choose an appointment time: </label>
+    <input id="appt-time" type="time" name="appt-time" />
+  </form>
+
   <section class="pd-bottom-48" id="dashboardContainer" #dashboardContainer>
     <div class="d-flex">
       <div *ngIf="profileObj?.discordProfileImage">

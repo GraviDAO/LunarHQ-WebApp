@@ -45,13 +45,13 @@
           </div>
         </div>
       </div>
-
     </div>
+
     <div class="polls-container d-flex flex-column mr-top-56">
       <div class="recent-polls mr-top-8 d-flex flex-column pd-lr-40 pd-top-24 mr-bottom-80">
         <div class="recent-poll-header-title d-flex justify-content-between">
           <div class="app-why-lbl f16 ft-bold light">
-            Gravidao Polls [ {{pollsList.length}} ]
+            {{pollsList[0]?.discordServerName}} Polls [ {{pollsList.length}} ]
           </div>
           <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
             <app-why-cta-three [btnClass]="cssClass.cta3PrimaryNorm" [iconClass]="cssClass.cta3PrimaryIconNorm"
