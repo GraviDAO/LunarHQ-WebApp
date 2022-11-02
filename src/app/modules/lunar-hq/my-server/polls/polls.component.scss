@@ -1,4 +1,4 @@
-@use "src/style/mixin-core" as mixin;
+@use "../../../../../style/mixin-core" as mixin;
 
 .polls-header {
   height: mixin.toRem(64);

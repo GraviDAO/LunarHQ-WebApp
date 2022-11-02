@@ -8,6 +8,7 @@ import {CssConstants} from '../../../../shared/services/css-constants.service';
 })
 export class RecentPollsComponent {
   @Input() pollArrayObj: any;
+  // @ts-ignore
   @Input() currentDateTime: Date;
 
   constructor(public cssClass: CssConstants) {
@@ -15,9 +16,5 @@ export class RecentPollsComponent {
 
   navigateToPolls() {
 
-  }
-
-  navigateToViewInDiscord(obj) {
-    window.open(`https://discord.com/channels/${obj.discordServerId}/${obj.discordChannelId}/${obj.discordMessageId}`, '_blank');
   }
 }

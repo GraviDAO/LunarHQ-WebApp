@@ -52,6 +52,7 @@ export class LocalStorageService {
   }
 
   public get(key: string): any {
+    // @ts-ignore
     let value: string = this.canLocalStore ? localStorage.getItem(key) : this.fallbackStorage[key];
 
     if (value && value.substr(0, 1) === String.fromCharCode(16)) {

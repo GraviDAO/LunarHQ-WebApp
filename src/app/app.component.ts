@@ -8,7 +8,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 })
 export class AppComponent implements OnInit {
   title = 'LunarHQ-WebApp';
-  constructor(private ngxLoader: NgxUiLoaderService) {
+  constructor(private ngxLoader: NgxUiLoaderService,) {
   }
 
   ngOnInit() {

@@ -18,8 +18,8 @@
       <div class="server-details-desc-area d-flex justify-content-between">
         <div class="server-details-desc d-flex flex-column">
           <div class="server-name-container d-flex align-items-center">
-            <div class="server-logo">
-              <img src="/assets/img/svg/gravidao-logo.svg" alt="logo" class="logo-wrapper">
+            <div class="">
+              <img [src]="serverDetails?.discordServerImage" alt="logo" class="logo-wrapper" imgFallback>
             </div>
             <div class="server-name pd-left-16 app-why-lbl f28 ft-bold light">
               {{serverDetails?.discordServerName}}
@@ -34,7 +34,7 @@
             </div>
             <div class="server-icons d-flex align-items-center pd-left-16 pd-right-16">
               <div *ngFor="let chainObj of serverDetails?.blockchains">
-                <img class="server-icon-container mr-right-8" [src]="chainObj.imageUrl" alt="atom">
+                <img class="server-icon-container mr-right-16" [src]="chainObj.imageUrl" alt="atom">
               </div>
             </div>
           </div>
@@ -81,8 +81,8 @@
       <div class="server-detail-rules-license mr-top-8 d-flex">
         <div class="server-detail-rules d-flex flex-column pd-top-24 pd-left-40">
           <div class="rules-header-title d-flex justify-content-between pd-right-40">
-            <div class="app-why-lbl f16 ft-bold light">
-              GRAVIDAO DISCORD RULES [ {{serverDetails?.rules.length}} ]
+            <div class="app-why-lbl f16 ft-500 light text-uppercase">
+              {{serverDetails?.discordServerName}} DISCORD RULES [ {{serverDetails?.rules.length}} ]
             </div>
             <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
               <app-why-cta-three
@@ -106,20 +106,21 @@
             </div>
           </div>
           <div class="server-detail-rules-content mr-top-16 d-flex flex-column pd-right-40">
-            <div class="rules-item d-flex flex-row align-items-center" *ngFor="let rule of serverDetails?.rules">
-              <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+            <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
+                 *ngFor="let rule of serverDetails?.rules">
+              <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                 {{rule?.roleName}}
               </div>
               <div class="divider"></div>
-              <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+              <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                 {{rule?.population}}
               </div>
               <div class="divider"></div>
               <div class="rules-item-chain d-flex justify-content-between">
                 <div
-                  class="pd-left-16 app-why-lbl f16 ft-bold light server-text-container">{{rule?.blockchainName}}</div>
+                  class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName}}</div>
                 <div class="rules-item-chain-icon">
-                  <img class="rules-item-chain-icon-container mr-right-16" src="/assets/img/svg/drop.svg" alt="drop">
+                  <img class="rules-item-chain-icon-container mr-right-16 mr-left-16" [src]="rule?.blockchainImage" alt="drop">
                 </div>
               </div>
               <div class="divider"></div>
@@ -133,9 +134,9 @@
         </div>
         <div class="server-detail-license d-flex flex-column pd-top-24 mr-left-8">
           <div class="rules-header-title d-flex flex-column justify-content-between pd-left-40 pd-right-40">
-            <div class="app-why-lbl f16 ft-bold light">
-              LICENSES IN GRAVIDAO [ {{serverDetails?.licences.length}} ]
-            </div>
+            <span class="app-why-lbl f16 ft-bold light text-uppercase">
+              LICENSES IN {{serverDetails?.discordServerName}} [ {{serverDetails?.licences.length}} ]
+            </span>
             <div class="title-underline mr-top-8 mr-right-40"></div>
           </div>
           <div class="license-items mr-top-48 pd-left-40 pd-right-40">
@@ -189,9 +190,11 @@
         [currentDateTime]="currentDateTime"
         [pollArrayObj]="serverDetails?.proposals"></app-why-lunar-hq-recent-polls>
 
-      <app-why-lunar-hq-recent-announcements
-        [announcementArrayObj]="serverDetails?.announcements"
-        class="mr-top-8"></app-why-lunar-hq-recent-announcements>
+      <div class="mr-bottom-60">
+        <app-why-lunar-hq-recent-announcements
+          [announcementArrayObj]="serverDetails?.announcements"
+          class="mr-top-8"></app-why-lunar-hq-recent-announcements>
+      </div>
     </div>
   </div>
   <!--</app-why-side-nav>-->

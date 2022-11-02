@@ -35,6 +35,7 @@
   .poll-item-image {
     width: mixin.toRem(40);
     height: mixin.toRem(40);
+    @include mixin.notch(8px);
   }
 
   .poll-item-desc {

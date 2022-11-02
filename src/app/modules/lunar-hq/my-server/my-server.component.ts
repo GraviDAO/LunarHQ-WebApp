@@ -32,7 +32,6 @@ export class MyServerComponent implements OnInit {
     this.lunarHqService.getMyServers()
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'data');
           this.myServerList = data.message;
           this.loader.stop();
         },
@@ -57,8 +56,8 @@ export class MyServerComponent implements OnInit {
   }
 
   navigateToDetails(server: any) {
-    console.log('navigateToDetails', server);
-    this.router.navigate(['my-server/details'], {queryParams: {server}});
+    this.router.navigate(['my-server/details/' + server]);
+    // this.router.navigate(['my-server/details'], {queryParams: {server}});
   }
 
   navigateToAddLicense() {

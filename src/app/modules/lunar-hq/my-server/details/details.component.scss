@@ -1,10 +1,12 @@
 @use "src/style/mixin-core" as mixin;
 
 .server-details-header {
+  position: fixed;
   height: mixin.toRem(64);
   width: 100%;
-  background: var(--dark-50);
-  position: fixed;
+  @include mixin.bg--wrapper;
+  background: var(--dark-20);
+  clip-path: none;
   margin-top: -112px;
   margin-left: -3.75rem;
   z-index: 10;
@@ -32,8 +34,12 @@
 }
 
 .server-active-chains {
-  width: mixin.toRem(64);
+  width: mixin.toRem(86);
   text-align: right;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .server-icon-container {
@@ -311,6 +317,7 @@
 .server-text-container {
   overflow: scroll;
   white-space: nowrap;
+  max-width: mixin.toRem(120);
 
   &::-webkit-scrollbar {
     width: 0;
@@ -318,3 +325,9 @@
   }
 }
 
+
+.logo-wrapper {
+  width: 86px;
+  height: 86px;
+  @include mixin.notch(8px);
+}

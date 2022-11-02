@@ -32,8 +32,36 @@ export class LunarHqAPIServices {
       }));
   }
 
+  getAnnouncements(): Observable<any> {
+    return this.http.get<any>(environment.server + 'announcements')
+      .pipe(map((result) => {
+        return result.message;
+      }));
+  }
+
   getServerDetails(discordServerId: any): Observable<any> {
     return this.http.get<any>(environment.server + 'server/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  getServerRules(discordServerId: any): Observable<any> {
+    return this.http.get<any>(environment.server + 'WAgetRules/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  getPolls(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'WAgetProposals/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  getRoles(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getRoles/?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
       }));

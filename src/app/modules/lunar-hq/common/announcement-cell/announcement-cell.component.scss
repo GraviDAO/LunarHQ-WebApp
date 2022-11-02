@@ -1,0 +1,7 @@
+@use "src/style/mixin-core" as mixin;
+@import "src/app/modules/lunar-hq/announcement/announcements.component";
+
+.content-container {
+  width: 96%;
+  white-space: pre-line;
+}

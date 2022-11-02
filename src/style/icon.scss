@@ -61,6 +61,10 @@
     color: var(--light);
   }
 
+  &.white {
+    color: var(--bg-white);
+  }
+
   &.light-70 {
     color: var(--light-70);
   }
@@ -79,6 +83,10 @@
 
   &.primary-50 {
     color: var(--primary-50);
+  }
+
+  &.primary {
+    color: var(--primary);
   }
 
   &.secondary-dark {
@@ -107,7 +115,7 @@
   &.fill-dark::part(svg) {
     fill: var(--dark);
   }
-  
+
   &.success {
     color: var(--success);
   }

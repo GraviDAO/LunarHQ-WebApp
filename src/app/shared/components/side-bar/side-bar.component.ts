@@ -66,17 +66,19 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['dashboard']);
     } else if (tab === 'MY SERVERS') {
       this.router.navigate(['my-server']);
+    } else if (tab === 'ANNOUNCEMENTS') {
+      this.router.navigate(['announcement']);
     }
   }
 
-  subMenu(event: any, tab: string, index: number, nestedMenu?: string) {
+  subMenu(event: any, tab: string, index: number, subMenuObj: any, nestedMenu?: any) {
     console.log(tab, nestedMenu);
     console.log(this.toggle);
     this.activeSubMenuTab = tab;
     this.toggle[index] = true;
     console.log(this.toggle);
-    this.selectedSubMenu.emit(tab);
-    this.nestedMenuSelected = nestedMenu || '';
+    this.selectedSubMenu.emit(subMenuObj || nestedMenu);
+    this.nestedMenuSelected = nestedMenu.title || '';
     event.stopPropagation();
   }
 

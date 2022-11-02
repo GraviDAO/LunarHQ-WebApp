@@ -233,6 +233,12 @@
       padding-left: mixin.toRem(16);
       padding-right: mixin.toRem(16);
     }
+
+    &.dpm {
+      width: mixin.toRem(130);
+      background: var(--dark);
+      color: var(--primary);
+    }
   }
 
   &.in-active {

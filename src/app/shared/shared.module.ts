@@ -16,6 +16,7 @@ import {RipplerHeaderSideNavComponent} from './components/rippler-header-side-na
 import {RipplerDropDownComponent} from './components/rippler-drop-down/rippler-drop-down.component';
 import {LongTextPipe} from './_helpers/long-text.pipe';
 import {TimerCounterPipe} from './_helpers/timer-counter.pipe';
+import {SliderComponent} from './components/slider/slider.component';
 
 const commonModules = [
   CtaOneComponent,
@@ -31,6 +32,7 @@ const commonModules = [
   RipplerHeaderSideNavComponent,
   RipplerDropDownComponent,
   LongTextPipe,
+  SliderComponent,
   TimerCounterPipe
 ];
 

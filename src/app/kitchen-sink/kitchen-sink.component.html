@@ -6,7 +6,13 @@
 
 <section class="pd-top-80 pd-left-24" style="background: var(--tertiary); height: 100%; overflow: scroll">
 
-  <div class="pd-top-24">
+  <div class="mr-box-64">
+    <app-why-drop-down [rightIcon]="true"></app-why-drop-down>
+    <app-why-drop-down [leftIcon]="true"></app-why-drop-down>
+  </div>
+
+
+  <div class="mr-top-64">
     <app-why-cta-one
       (click)="navigateToWelcome()"
       [cssClass]="cssClass.cta1Md" [btnLabel]="'Welcome'"></app-why-cta-one>
@@ -17,6 +23,11 @@
       (click)="showToast()"
       [cssClass]="cssClass.cta1Md" [btnLabel]="'Toast'"></app-why-cta-one>
   </div>
+
+  <form>
+    <label for="appt-time">Choose an time: </label>
+    <input id="appt-time" type="time" name="appt-time" />
+  </form>
 
   <div class="pd-top-24">
     <app-why-cta-one

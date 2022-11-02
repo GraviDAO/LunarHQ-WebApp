@@ -1,0 +1,343 @@
+@use "../../../../../../style/mixin-core" as mixin;
+@import "../../details/details.component";
+
+.create-poll-header {
+  height: mixin.toRem(64);
+  width: 100%;
+  background: var(--dark-50);
+  position: fixed;
+  margin-top: mixin.toRem(-55);
+  margin-left: -3.75rem;
+  z-index: 10;
+}
+
+.back-button {
+  width: 85% !important;
+}
+
+.step {
+  &.active {
+    span {
+      color: var(--secondary) !important;
+    }
+  }
+}
+
+.create-poll-container {
+  width: mixin.toRem(720);
+  margin-left: auto;
+  margin-right: auto;
+  //position: relative;
+}
+
+.create-poll-widget {
+  width: mixin.toRem(720);
+  //height: mixin.toRem(500);
+  @include mixin.bg--wrapper;
+  background: var(--tertiary);
+}
+
+.title-underline {
+  height: mixin.toRem(1);
+  background: var(--light-20);
+}
+
+.poll_name {
+  width: mixin.toRem(484);
+  height: mixin.toRem(32);
+}
+
+.description_area {
+  width: mixin.toRem(484);
+  height: mixin.toRem(200);
+  //opacity: 0.4;
+  @include mixin.notch(8px);
+  background-color: var(--dark-50);
+  border: none;
+  resize: none;
+}
+
+.navigate-steps {
+  width: mixin.toRem(720);
+}
+
+.text-wrapper {
+  font-size: 12px !important;
+}
+
+.a {
+  pointer-events: none;
+
+  &:visited {
+    color: var(--primary);
+  }
+}
+
+.height-192 {
+  height: mixin.toRem(192) !important;
+}
+
+.link-dropdown {
+  background: none;
+  outline: none;
+  width: mixin.toRem(180);
+  text-align: end;
+  padding: 0;
+
+  &.no-width {
+    width: 0;
+  }
+}
+
+.dropdown-menu {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-left: mixin.toRem(8);
+
+  &.show {
+    background-color: var(--bg-light);
+    border-radius: 0;
+    padding: 0;
+  }
+
+}
+
+.dropdown {
+  .dropdown-toggle::after {
+    font-size: var(--font-size-20);
+    vertical-align: 0.055em;
+    margin-top: 0.55rem;
+    position: relative;
+  }
+
+  &.show {
+    .dropdown-toggle {
+      color: var(--primary);
+    }
+
+    .dropdown-toggle::after {
+      color: var(--primary);
+      margin-top: 0.15rem;
+      height: mixin.toRem(12);
+      border-bottom: 0.3em dashed;
+      border-top: 0em solid transparent;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
+    }
+  }
+}
+
+.dropdown-item {
+  height: mixin.toRem(36);
+  width: mixin.toRem(168);
+
+  &:hover {
+    background-color: var(--secondary);
+  }
+}
+
+.dropdown-divider {
+  border-top: mixin.toRem(1) solid var(--bg-white);
+  margin: 0;
+}
+
+.form-check-input {
+  outline: none;
+  background: var(--dark-20);
+  border-color: var(--light-70);
+  width: 12px;
+  height: 12px;
+
+  &.check-box {
+    outline: none;
+    border-radius: 2px;
+    box-shadow: none;
+
+    &:checked {
+      background-color: var(--light-70) !important;
+      content: "\2713";
+      border-width: 0 !important;
+
+      &:before {
+        color: #777777;
+      }
+    }
+  }
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  border-width: 4px;
+  outline: none;
+  box-shadow: none;
+
+  &.radio-box {
+    background-image: url("/assets/img/svg/black-circle.svg");
+  }
+
+  + label {
+    color: var(--primary) !important;
+  }
+}
+
+.poll-timing-content {
+  width: mixin.toRem(600);
+  height: mixin.toRem(152);
+}
+
+.date-time-input {
+  outline: none;
+  box-shadow: none;
+  background: transparent !important;
+  color: var(--light) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--secondary) !important;
+  border-radius: 0 !important;
+  font-family: Lato, sans-serif;
+  font-weight: 300 !important;
+}
+
+.date-time-input {
+  /*&::-webkit-datetime-edit-ampm-field {
+    display: none;
+  }*/
+
+  &::-webkit-calendar-picker-indicator {
+    //color: var(--light) !important;
+    filter: invert(1);
+    //background: var(--light) !important;
+    //background-color: var(--light) !important;
+  }
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  //display: none;
+}
+
+/*input[type="time"]::-webkit-datetime-edit-hour-field {
+  margin-right: 3px;
+}*/
+
+.step-container {
+  display: flex;
+  align-items: center;
+  height: mixin.toRem(64);
+}
+
+.step-label-wrapper {
+  width: mixin.toRem(96);
+  margin-left: mixin.toRem(24);
+  text-align: center;
+  //height: mixin.toRem(16);
+}
+
+
+.search-bar {
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  height: mixin.toRem(64);
+  background-color: var(--dark-50);
+  padding: 16px 24px;
+  position: fixed;
+  width: calc(100vw - 240px);
+  margin-top: -3.5rem;
+  margin-left: -3.8rem;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.max-width-240 {
+  max-width: 240px;
+}
+
+/*input[type=checkbox] {
+  background: var(--dark-20);
+  border-color: var(--light-70);
+  width: 12px;
+  height: 12px;
+  accent-color: var(--light-70);
+}*/
+
+.app-check-box {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.app-check-box input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.app-check-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.app-check-box:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.app-check-box input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.app-check-box input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.app-check-box .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.preview-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: mixin.toRem(480);
+  z-index: 1000;
+  background-color: var(--tertiary);
+  box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
+}

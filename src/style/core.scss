@@ -181,6 +181,10 @@ div::-webkit-scrollbar-button {
   }
 }
 
+.set-input-border {
+  border-bottom: 1px solid var(--secondary) !important;
+}
+
 .text-align-center {
   text-align: center;
 }
@@ -224,4 +228,19 @@ div::-webkit-scrollbar-button {
 
 .show-cursor {
   cursor: pointer;
+}
+
+
+.search-bar-container {
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: mixin.toRem(64);
+  background-color: var(--dark-50);
+  padding: 16px 24px;
+  position: fixed;
+  width: calc(100vw - 240px);
+  margin-top: -3.5rem;
+  margin-left: -3.8rem;
 }

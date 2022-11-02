@@ -8,12 +8,41 @@
 // add the grid
 //@import "~bootstrap/scss/utilities";
 // add css utilities
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr.css";
 
 @import "~bootstrap/dist/css/bootstrap.css";
 
 @import "src/style/index";
 
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
 
-#toast-container > div { z-index: 9999; }
+#toast-container > div {
+  z-index: 9999;
+  //position: fixed;
+}
+
+
+.app-why-toast {
+  position: fixed;
+  top: 12px;
+  color: white;
+  z-index: 999;
+  padding: 15px 15px 15px 15px;
+  width: 300px;
+  right: 24px;
+  border-radius: 3px;
+  background-size: 24px;
+  box-shadow: 0 0 12px #999;
+  font-size: 16px;
+  line-height: 2px;
+  background: #51a351 no-repeat 15px center;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+
+  &.error {
+    background: #bd362f;
+  }
+}
+
 

@@ -1,63 +1,70 @@
 <app-why-header-side-nav
   [title]="'ANNOUNCEMENTS'"
   [activeTab]="'ANNOUNCEMENTS'">
-  <div class="search-bar">
-    <div class="pd-left-24 pd-right-24">
-      <app-why-cta-three
-        [btnClass]="cssClass.cta3Primary + ' backBtn'"
-        [btnLabel]="'Back'"
-        [leftIconType]="'chevron-back'"
-        [iconClass]="cssClass.cta3PrimaryIcon"
-        (click)="navigateBack()">
-      </app-why-cta-three>
+  <div class="search-bar-container">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="pd-left-24 pd-right-24">
+        <app-why-cta-three
+          [btnClass]="cssClass.cta3Primary + ' backBtn'"
+          [btnLabel]="'Back'"
+          [leftIconType]="'chevron-back'"
+          [iconClass]="cssClass.cta3PrimaryIcon"
+          (click)="navigateBack()">
+        </app-why-cta-three>
+      </div>
+      <div>
+        <app-why-search-component
+          (clearSearch)=clearSearch()
+          (searchContent)="searchAnnouncement($event)"></app-why-search-component>
+      </div>
     </div>
-    <div>
-      <app-why-search-component></app-why-search-component>
-    </div>
-    <div>
 
-    </div>
-    <div>
-      <app-why-cta-one
-        [cssClass]="cssClass.cta1Md"
-        [iconType]="'file-tray-full'"
-        [btnLabel]="'settings'"></app-why-cta-one>
+    <div class="d-flex">
+      <div>
+        <div ngbDropdown container="body">
+          <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light text-uppercase" id="dropdownBasic1"
+                  ngbDropdownToggle>{{selectedServer}}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div *ngFor="let list of serverList">
+              <button ngbDropdownItem
+                      (click)="setServer(list)"
+                      class="app-why-lbl f12 ft-bolt dark no-letter-spacing text-uppercase">{{list}}</button>
+              <div class="dropdown-divider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mr-left-16">
+        <app-why-cta-one
+          [cssClass]="cssClass.cta1DarkSm"
+          [iconType]="'cog-outline'"
+          (clickEvent)="goToSettings()"
+          [iconClass]="cssClass.ctaIcon16Primary"
+          [btnLabel]="'settings'"></app-why-cta-one>
+      </div>
     </div>
   </div>
 
-  <div class="pd-top-56 announcement-container">
-    <article class="announcement-wrapper">
-      <div class="announcement-container-one">
-        <div>
-          <img class="announcement-item-image" src="/assets/img/svg/gravidao-logo.svg" alt="GraviDAO">
-        </div>
-        <div class="pd-left-8">
-          <div class="title-wrapper">
-            <label class="app-why-lbl f14 ft-bold secondary">GraviDAO</label>
-          </div>
-          <div class="pd-top-10">
-            <label class="app-why-lbl ft-lato light">28 Jul, 2022  |  JUST NOW</label>
-          </div>
-          <div>
-            <label class="app-why-lbl ft-lato light">by json (3,3)</label>
-          </div>
-        </div>
-      </div>
-      <div class="announcement-container-two">
-        <div>
-          <div class="d-flex justify-content-end pd-top-18 pd-right-16">
-            <ion-icon class="app-why-icon ic18 light-50" name="resize-outline"></ion-icon>
-          </div>
-        </div>
-      </div>
-      <div class="announcement-container-three">
-        <div>
-          <ion-icon class="app-why-icon ic18 light-70" name="star-outline"></ion-icon>
-        </div>
-        <div class="pd-top-22">
-          <img class="discord-img-container" src="/assets/img/svg/discord-brands-primary.svg" alt="discord">
-        </div>
-      </div>
-    </article>
+  <article class="mr-top-32">
+    <div class="announcement-container mr-top-8" *ngFor="let annObj of announcementList">
+      <app-why-lunar-hq-announcement-cell [annObj]="annObj"
+                                          (previewAnnouncement)="previewAnnouncement($event)"></app-why-lunar-hq-announcement-cell>
+    </div>
+  </article>
+
+  <div class="mr-top-40 mr-bottom-80 show-cursor" (click)="goToTop()">
+    <div class="text-center">
+      <ion-icon class="app-why-icon ic16 light-70" name="chevron-up-outline"></ion-icon>
+    </div>
+    <div class="text-center">
+      <span class="app-why-lbl light-70">BACK TO TOP</span>
+    </div>
+  </div>
+
+  <div class="preview-container" *ngIf="previewAnnouncementView">
+    <app-why-lunar-hq-preview-announcement
+      (closePreview)="closePreview()"
+      [announcementObj]="selectedAnnouncementObj"></app-why-lunar-hq-preview-announcement>
   </div>
 </app-why-header-side-nav>

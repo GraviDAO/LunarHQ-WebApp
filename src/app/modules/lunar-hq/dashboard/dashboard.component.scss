@@ -71,8 +71,9 @@
 }
 
 .server-logo-container {
-  width: mixin.toRem(24);
+  width: mixin.toRem(32);
   height: mixin.toRem(32);
+  @include mixin.notch(8px);
 }
 
 .width-270 {

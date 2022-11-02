@@ -1,0 +1,57 @@
+
+<div class="poll-item d-flex align-items-center">
+  <div class="poll-item-image-container d-flex justify-content-center">
+    <img class="poll-item-image" [src]="pollObj?.discordServerIcon" alt="GraviDAO">
+  </div>
+  <div class="vertical-divider ht64 light-20"></div>
+  <div class="poll-item-desc d-flex flex-column pd-lr-24">
+    <div class="poll-item-name app-why-lbl f16 ft-bold light">
+      {{pollObj?.title}}
+    </div>
+    <div class="poll-item-details pd-top-8 d-flex justify-content-between">
+      <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        {{pollObj?.discordServerName}}
+      </div>
+      <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        ID : {{pollObj?.id}} | BY: {{pollObj?.creatorDiscordId | longTextPipe}}
+        | {{pollObj?.startDate | date: 'dd MMM, yyyy'}}
+      </div>
+    </div>
+  </div>
+  <div class="vertical-divider ht64 light-20"></div>
+  <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
+    <div *ngIf="pollObj?.status === 'Active'">
+      <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+        {{[pollObj?.endDate, currentDateTime] | timeCounter}}
+      </div>
+      <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary text-center">
+        ACTIVE
+      </div>
+    </div>
+    <div *ngIf="pollObj?.status === 'Quorum Failed'">
+      <div class="poll-item-time app-why-lbl f16 ft-bold error">
+        FINISHED
+      </div>
+      <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 error text-center">
+        FAILED
+      </div>
+    </div>
+  </div>
+  <div class="vertical-divider ht64 light-20"></div>
+  <div class="poll-item-discord-button-container">
+    <div class="poll-item-discord-button show-cursor pd-left-24"
+         (click)="navigateToViewInDiscord(pollObj)">
+      <ion-icon src="/assets/img/svg/discord-brands-primary.svg" class="app-why-icon ic18 primary"></ion-icon>
+      <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN
+        DISCORD
+      </div>
+    </div>
+    <div *ngIf="pollObj?.status === 'Quorum Failed'"
+         class="poll-item-discord-button pd-left-24 pd-right-24">
+      <ion-icon name="cloud-download" class="app-why-icon ic18 light-70"></ion-icon>
+      <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">EXPORT
+        SUMMARY
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,8 +15,8 @@ import {Observable, Subscription, timer} from 'rxjs';
 export class DetailsComponent implements OnInit, OnDestroy {
   discordServerId = '';
   serverDetails: any;
-  currentDateTime: Date;
-  private _clockSubscription: Subscription;
+  currentDateTime: Date | undefined;
+  private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
 
   constructor(private router: Router,
@@ -25,8 +25,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
               private loader: NgxUiLoaderService,
               private route: ActivatedRoute,
               public cssClass: CssConstants) {
-    this.route.queryParams.subscribe((params: any) => {
-      this.discordServerId = params.server;
+    this.route.paramMap.subscribe((params: any) => {
+      this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
         this.getServerDetails()
       }
@@ -45,7 +45,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.lunarService.getServerDetails(this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'data');
           this.serverDetails = data.message;
           this.loader.stop();
         },
@@ -65,7 +64,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   navigateToRules() {
-    this.router.navigate(['my-server/rules']);
+    this.router.navigate(['my-server/rules/' + this.discordServerId]);
   }
 
   navigateToPolls() {
@@ -85,6 +84,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // @ts-ignore
     this._clockSubscription.unsubscribe();
   }
 }

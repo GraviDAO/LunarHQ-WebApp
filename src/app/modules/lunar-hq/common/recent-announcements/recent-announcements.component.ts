@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
 
 @Component({
@@ -9,18 +9,16 @@ import {CssConstants} from '../../../../shared/services/css-constants.service';
 
 export class RecentAnnouncementsComponent {
   @Input() announcementArrayObj: any;
+  @Output() navigateToAnnouncementEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(public cssClass: CssConstants) {
   }
 
-  navigateToAnnouncements() {
-
+  announcementEvent() {
+    this.navigateToAnnouncementEvent.emit(true);
   }
 
   navigateToGoTo() {
 
-  }
-
-  openAnnouncement(link) {
-    window.open(link, '_blank')
   }
 }
