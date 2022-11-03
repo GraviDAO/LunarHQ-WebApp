@@ -233,6 +233,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
+.add-min-ht {
+  height: mixin.toRem(400);
+}
+
 .search-bar {
   z-index: 99;
   display: flex;
@@ -335,9 +339,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
+  height: 99vh;
   width: mixin.toRem(480);
   z-index: 1000;
   background-color: var(--tertiary);
   box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
+  overflow: scroll;
 }

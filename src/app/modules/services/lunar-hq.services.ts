@@ -66,4 +66,18 @@ export class LunarHqAPIServices {
         return result;
       }));
   }
+
+  getChannels(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getChannels/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  createPoll(data: any, discordServerId: any): Observable<any> {
+    return this.http.post<any>(environment.server + 'createProposal/?discordServerId=' + discordServerId, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
 }

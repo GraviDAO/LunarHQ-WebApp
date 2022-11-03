@@ -9,6 +9,7 @@ import {Component, EventEmitter, HostListener, Input, Output, Renderer2} from '@
 export class RipplerDropDownComponent {
   viewHide = false;
   clickOnButton = false;
+  @Input() keyField = '';
   @Input() rightIcon = false;
   @Input() dataList: any;
   @Input() leftIcon = false;
@@ -35,7 +36,7 @@ export class RipplerDropDownComponent {
   }
 
   setData(data: any) {
-    this.placeholderText = data;
+    this.placeholderText = this.keyField ? data[this.keyField] : data;
     this.dataSet.emit(data);
   }
 }

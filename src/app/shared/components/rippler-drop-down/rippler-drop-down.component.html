@@ -11,7 +11,10 @@
       </div>
       <ul class="dropdown" aria-label="submenu" [ngClass]="{'view-drop-down': viewHide}">
         <li (click)="showHideList(); activateList()" class="list-data-container" *ngFor="let i of dataList">
-          <div class="text-wrapper text-uppercase" (click)="setData(i)">{{i}}</div>
+          <div class="text-wrapper text-uppercase" (click)="setData(i)">
+            <div *ngIf="keyField">{{i[keyField]}}</div>
+            <div *ngIf="!keyField">{{i}}</div>
+          </div>
         </li>
       </ul>
     </li>

@@ -5,38 +5,135 @@
     </div>
   </div>
   <div class="rules-view-container d-flex flex-column mr-left-40">
-    <div class="rules-name-container pd-box-24 d-flex flex-column">
+    <div class="rules-name-container pd-box-24 d-flex flex-column" [ngClass]="{'expand-more': viewMore}">
       <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
         POLL NAME
       </div>
       <div class="rule-title-container pd-top-8 d-flex justify-content-between">
         <div class="rule-title app-why-lbl f16 ft-bold light">
-          Fuse Hack Actions
+          {{pollObj?.title}}
         </div>
         <div class="rule-title d-flex align-items-center">
-          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047">MORE</div>
-          <ion-icon name="chevron-down-outline" class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="!viewMore" (click)="viewMore = true">
+            MORE
+          </div>
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="viewMore" (click)="viewMore = false">
+            Less
+          </div>
+          <ion-icon name="{{viewMore ? 'chevron-down-outline' : 'chevron-up-outline'}}"
+                    class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+        </div>
+      </div>
+      <div *ngIf="viewMore" class="pd-top-40">
+        <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          Description
+        </div>
+        <div class="app-why-lbl f14 light-70 ft-lato">
+          {{pollObj?.description}}
         </div>
       </div>
     </div>
-    <div class="rules-content pd-box-24 d-flex flex-column">
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+    <div *ngIf="!viewMore" class="rules-content pd-box-24 d-flex flex-column">
+      <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02">
         VOTING SYSTEM
       </div>
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-        Voting Style:\ <span>Role Weighted</span>
+      <div class="pd-left-24 pd-top-8">
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Voting Style:\ </span>
+        <span class="app-why-lbl f14 ft-lato light">{{pollObj?.votingSystem}}</span>
       </div>
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-        TIMINGS
+      <div *ngIf="pollObj.votingSystem === 'Role Weighted Voting'">
+        <div class="pd-left-48" *ngFor="let rule of [0,1]; let pos = index;">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Role {{pos + 1}}</span>
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">Watchers on the wall</span>
+        </div>
       </div>
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-        POLL LOCATION
+      <div *ngIf="pollObj.votingSystem === 'Token Weighted Voting'">
+        <div class="pd-left-48">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Network</span>
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{pollObj?.blockchainName}}</span>
+        </div>
+        <div class="pd-left-48">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Address</span>
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{pollObj?.address | longTextPipe}}</span>
+        </div>
+        <div class="pd-left-48">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Vote</span>
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{pollObj?.numberPerVote}}</span>
+        </div>
       </div>
-      <div class="rule-item d-flex flex-column mr-top-8">
+      <div class="pd-left-24 app-why-lbl f14 ft-lato light-50 letter-spacing-02">
+        <span class="app-why-lbl f14 ft-lato success">[and]</span>
+        <span class="app-why-lbl f14 ft-lato light">Quorum</span>
+        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light">Percentage</span>
+      </div>
+      <div class="pd-left-112">
+        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light">{{pollObj?.quorum}}</span>
+      </div>
+      <div class="pd-top-16">
+        <span class="app-why-lbl f10 ft-lato light-50 letter-spacing-02">TIMINGS</span>
+      </div>
+      <div class="pd-left-24 pd-top-8">
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Time Zone:\ UTC</span>
+      </div>
+      <div class="pd-left-24">
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Poll starts __</span>
+        <span class="app-why-lbl f14 ft-lato success">[start date]</span>
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02"> __</span>
+        <span class="app-why-lbl f14 ft-lato light" *ngIf="detailsObj?.isToday">Today</span>
+        <span class="app-why-lbl f14 ft-lato light"
+              *ngIf="!detailsObj?.isToday">{{pollObj?.startDate| date: 'dd/MM/yyyy'}}</span>
+      </div>
+      <div class="pd-left-48">
+        <span class="app-why-lbl f14 ft-lato success">[start time]</span>
+        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.startTime}}</span>
+      </div>
+      <div class="pd-left-24">
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Poll ends __</span>
+        <span class="app-why-lbl f14 ft-lato error">[closing date]</span>
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02"> __</span>
+        <span class="app-why-lbl f14 ft-lato light">{{pollObj?.endDate | date: 'dd/MM/yyyy'}}</span>
+      </div>
+      <div class="pd-left-48">
+        <span class="app-why-lbl f14 ft-lato error">[closing time]</span>
+        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.closingTime}}</span>
+      </div>
+
+      <div class="pd-top-16">
+        <span class="app-why-lbl f10 ft-lato light-50 letter-spacing-02">POLL LOCATION</span>
+      </div>
+
+      <div class="pd-left-24 pd-top-8">
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Channel group:\ {{detailsObj?.location}}</span>
+      </div>
+      <div class="pd-left-48" *ngIf="detailsObj?.channelName">
+        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.channelName}}</span>
+      </div>
+
+      <div class="d-flex flex-column mr-top-8">
       </div>
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
         &lt;end&gt;
       </div>
     </div>
+  </div>
+
+  <div class="pd-top-40 pd-bottom-60 d-flex justify-content-center">
+    <app-why-cta-one [cssClass]="cssClass.cta1Sm"
+                     (click)="createPoll()"
+                     [btnLabel]="'Create Poll'">
+    </app-why-cta-one>
   </div>
 </div>
