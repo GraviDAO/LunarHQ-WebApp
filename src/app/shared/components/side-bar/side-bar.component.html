@@ -34,10 +34,11 @@
                              [ngClass]="{'active-sub-menu': activeSubMenuTab === subMenuObj.title}">
                         {{subMenuObj.title}}
                       </label>
-                      <ion-icon class="add-pd-left-8 app-why-icon ic10"
+                      <!--            Commented based on call with Adam-->
+                      <!--<ion-icon class="add-pd-left-8 app-why-icon ic10"
                                 [ngClass]="{'light-50': subMenuObj.permissionType === getPermissionType.fullAccess,
                             'error': subMenuObj.permissionType === getPermissionType.partialAccess}"
-                                name="{{getSubMenuIcon(subMenuObj.permissionType)}}"></ion-icon>
+                                name="{{getSubMenuIcon(subMenuObj.permissionType)}}"></ion-icon>-->
                     </div>
                     <div>
                       <ul *ngIf="subMenuObj.nestedMenuList && activeSubMenuTab === subMenuObj.title"

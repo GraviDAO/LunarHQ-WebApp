@@ -24,7 +24,8 @@
 }
 
 .rules-details-container {
-  width: mixin.toRem(718);
+  width: 60vw;
+  min-width: mixin.toRem(718);
   height: mixin.toRem(657);
   background: var(--tertiary);
 }
@@ -75,6 +76,13 @@
   height: mixin.toRem(504);
   overflow-y: scroll;
   overflow-x: hidden;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .rules-item {
@@ -102,4 +110,10 @@
 .block-chain-wrapper {
   overflow: scroll;
   white-space: nowrap;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -32,7 +32,6 @@ export class CreatePollComponent implements OnInit {
   voteWeight = 'tokenWeighted';
   selectedNetwork = 'Select network';
   contractAddress = '';
-  numberPerVote = 0;
   roleList: any;
   channelList: any;
   value: any;
@@ -43,6 +42,8 @@ export class CreatePollComponent implements OnInit {
   closingTime: any;
   closingDate: any;
   detailsObj: any = {};
+  todayDate = new Date();
+  validateClosingDate = new Date();
 
   constructor(
     private router: Router,
@@ -63,7 +64,6 @@ export class CreatePollComponent implements OnInit {
   getActiveStep() {
     // const elements2: any = document.querySelectorAll('.step.active');
     // const id = elements2[0].id.split('-')[1]
-    console.log(this.stepperIndex, 'stepperIndex');
     this.stepTitle = this.stepTitles[this.stepperIndex];
   }
 
@@ -113,7 +113,6 @@ export class CreatePollComponent implements OnInit {
       if (this.voteWeight === 'tokenWeighted') {
         this.pollObj.votingSystem = 'Token Weighted Voting';
         this.validatePoll(this.stepperIndex);
-        console.log('selectedNetwork', this.selectedNetwork);
       } else {
         this.pollObj.votingSystem = 'Role Weighted Voting';
       }
@@ -143,7 +142,6 @@ export class CreatePollComponent implements OnInit {
     } else if (this.stepperIndex === 3) {
       this.validatePoll(this.stepperIndex);
     }
-    console.log(this.pollObj, 'pollObj');
     this.stepperIndex++;
     this.getActiveStep();
   }
@@ -178,9 +176,7 @@ export class CreatePollComponent implements OnInit {
     this.lunarService.getChannels(this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'channelList');
           this.channelList = data.message;
-          console.log(this.channelList, 'channelList');
           this.loader.stop();
         },
         error: (error) => {
@@ -195,7 +191,6 @@ export class CreatePollComponent implements OnInit {
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'data');
           this.roleList = data.message.rules;
           this.loader.stop();
           this.getChannels();
@@ -260,7 +255,12 @@ export class CreatePollComponent implements OnInit {
   setChannel(obj: any) {
     this.pollObj.discordChannelId = obj.id;
     this.detailsObj.location = obj.name;
-    console.log(obj);
+  }
+
+  validateClosingDateFn(value: any) {
+    let closingDate = new Date(value);
+    closingDate.setDate(closingDate.getDate() + 1);
+    this.validateClosingDate = closingDate;
   }
 
   setBlockChain(list: string) {
@@ -273,7 +273,6 @@ export class CreatePollComponent implements OnInit {
     this.lunarService.createPoll(this.pollObj, this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data, 'data');
           this.loader.stop();
         },
         error: (error) => {

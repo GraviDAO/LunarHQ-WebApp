@@ -293,12 +293,15 @@
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2" for="closingDate">Closing
                   Date: </label>
-                <input class="form-control date-time-input" type="date" id="closingDate" [(ngModel)]="closingDate"/>
+                <input class="form-control date-time-input" type="date"
+                       [min]="todayDate | date :'yyyy-MM-dd'"
+                       id="closingDate" [(ngModel)]="closingDate"/>
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">Closing
                   Time: </label>
-                <input class="form-control date-time-input" type="time" [(ngModel)]="closingTime"/>
+                <input class="form-control date-time-input" type="time"
+                       [(ngModel)]="closingTime"/>
               </div>
             </div>
             <div class="mr-top-16 text-align-start d-flex align-items-center">
@@ -312,7 +315,10 @@
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
                   Start Date: </label>
-                <input class="form-control date-time-input" type="date" id="pickStartDate" [(ngModel)]="startDate"/>
+                <input class="form-control date-time-input" type="date"
+                       [min]="todayDate | date :'yyyy-MM-dd'"
+                       (ngModelChange)="validateClosingDateFn($event)"
+                       id="pickStartDate" [(ngModel)]="startDate"/>
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
@@ -321,8 +327,10 @@
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
-                  Closing Date: </label>
-                <input class="form-control date-time-input" type="date" id="pickClosingDate" [(ngModel)]="closingDate">
+                  Closing Date: {{validateClosingDate | date :'yyyy-MM-dd'}}</label>
+                <input class="form-control date-time-input" type="date"
+                       [min]="validateClosingDate | date :'yyyy-MM-dd'"
+                       id="pickClosingDate" [(ngModel)]="closingDate">
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">

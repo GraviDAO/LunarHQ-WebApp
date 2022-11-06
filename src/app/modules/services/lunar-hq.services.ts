@@ -75,7 +75,7 @@ export class LunarHqAPIServices {
   }
 
   createPoll(data: any, discordServerId: any): Observable<any> {
-    return this.http.post<any>(environment.server + 'createProposal/?discordServerId=' + discordServerId, data)
+    return this.http.post<any>(environment.server + 'WAcreateProposal/?discordServerId=' + discordServerId, data)
       .pipe(map((result) => {
         return result;
       }));

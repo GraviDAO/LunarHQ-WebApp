@@ -28,11 +28,12 @@
           <div class="server-name pd-left-16 app-why-lbl f22 ft-bold light">
             {{serverObj?.discordServerName}}
           </div>
-          <div class="server-name-right-icon pd-left-8 app-why-lbl f22">
+          <!--            Commented based on call with Adam-->
+          <!--<div class="server-name-right-icon pd-left-8 app-why-lbl f22">
             <ion-icon *ngIf="serverObj?.userOwnsLicense" name="key" class="app-why-icon light-20 ic14"></ion-icon>
             <ion-icon *ngIf="!serverObj?.userOwnsLicense" class="app-why-icon ic10 error"
                       name="warning"></ion-icon>
-          </div>
+          </div>-->
         </div>
         <div class="divider"></div>
         <div class="server-details  d-flex pd-left-16 pd-top-24">
@@ -60,14 +61,15 @@
               ACTIVE ROLES
             </div>
           </div>
-          <div class="server-detail-item pd-left-8">
+          <!--            Commented based on call with Adam-->
+          <!--<div class="server-detail-item pd-left-8">
             <div class="server-detail-item-number app-why-lbl f16 text-center ft-lato light-70">
               {{serverObj?.licences.length}}
             </div>
             <div class="server-detail-item-label app-why-lbl f10 text-center ft-lato light-70">
               LICENSES
             </div>
-          </div>
+          </div>-->
         </div>
         <div class="divider"></div>
         <div class="server-icons d-flex justify-content-center pd-top-34 pd-left-16 pd-right-16">
@@ -76,8 +78,10 @@
           </div>
         </div>
         <div class="divider"></div>
-        <div class="pd-top-34 visit-button d-flex justify-content-center"
-             *ngIf="serverObj?.userOwnsLicense">
+        <!--            Commented based on call with Adam-->
+        <!--<div class="pd-top-34 visit-button d-flex justify-content-center"
+             *ngIf="serverObj?.userOwnsLicense">-->
+        <div class="pd-top-34 visit-button d-flex justify-content-center">
           <app-why-cta-three
             [btnClass]="cssClass.cta3PrimaryNorm + 'ft-bold letter-spacing-047'"
             [iconClass]="cssClass.cta3PrimaryIconNorm"
@@ -85,12 +89,13 @@
             (click)="navigateToDetails(serverObj?.discordServerId)"
             [btnLabel]="'VISIT'"></app-why-cta-three>
         </div>
-        <div *ngIf="!serverObj?.userOwnsLicense"
+        <!--            Commented based on call with Adam-->
+        <!--<div *ngIf="!serverObj?.userOwnsLicense"
              class="add-license-button d-flex flex-column align-items-center justify-content-center text-center"
              (click)="navigateToAddLicense()">
           <ion-icon name="add-circle-outline" class="app-why-icon ic18 error"></ion-icon>
           <div class="add-license pd-top-8 app-why-lbl f10 letter-spacing-02 ft-bold error">ADD LICENSE</div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
