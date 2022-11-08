@@ -27,8 +27,10 @@
     </div>
   </div>
   <div class="announcement-container-three">
-    <div>
-      <ion-icon class="app-why-icon ic18 light-70" name="star-outline"></ion-icon>
+    <div (click)="starAnnouncement(annObj)">
+      <ion-icon class="app-why-icon ic18 light-70"
+                [ngClass]="{'primary': annObj?.starred}"
+                name="{{annObj?.starred ? 'star' : 'star-outline'}}"></ion-icon>
     </div>
     <div class="pdtop-24">
       <img class="discord-img-container show-cursor" src="/assets/img/svg/discord-brands-primary.svg" alt="discord"

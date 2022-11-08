@@ -239,6 +239,10 @@
       background: var(--dark);
       color: var(--primary);
     }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   &.in-active {

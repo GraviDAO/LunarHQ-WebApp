@@ -8,8 +8,8 @@ import {CssConstants} from 'src/app/shared/services/css-constants.service';
 
 @Component({
   selector: 'app-why-lunar-hq-create-rule',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss']
+  templateUrl: './create-rule.component.html',
+  styleUrls: ['./create-rule.component.scss']
 })
 export class CreateRuleComponent implements OnInit {
 
@@ -276,6 +276,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   preview() {
+    console.log('preView');
     this.viewRule = true;
   }
 

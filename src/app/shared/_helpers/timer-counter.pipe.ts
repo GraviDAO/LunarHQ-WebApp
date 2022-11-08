@@ -13,7 +13,6 @@ export class TimerCounterPipe implements PipeTransform {
 
 
     let diffBtw = moment.utc(moment(new Date(value[0]), 'DD/MM/YYYY HH:mm:ss').diff(moment(value[1], 'DD/MM/YYYY HH:mm:ss'))).format('mm:ss')
-    console.log(diffBtw, new Date(value[0]), new Date());
 
     let diffInMilliSeconds = Math.abs(endDate - startDate) / 1000;
     // calculate days

@@ -48,7 +48,7 @@
 
 .create-rule-container {
   width: 100%;
-  min-height: mixin.toRem(500);
+  min-height: mixin.toRem(200);
   //height: mixin.toRem(500);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
@@ -107,7 +107,7 @@
 }
 
 .dropdown-menu {
-  max-height: mixin.toRem(184);
+  max-height: mixin.toRem(226);
   overflow-y: scroll;
   overflow-x: hidden;
   margin-left: mixin.toRem(8);
@@ -195,7 +195,7 @@
 }
 
 .rule-item-nft {
-  min-height: mixin.toRem(136);
+  min-height: mixin.toRem(88);
   height: auto;
   background-color: var(--dark-50);
 }

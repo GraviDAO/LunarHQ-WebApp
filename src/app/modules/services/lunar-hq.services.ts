@@ -53,8 +53,33 @@ export class LunarHqAPIServices {
       }));
   }
 
+  // Get Polls by discord server id
   getPolls(discordServerId: any) {
     return this.http.get<any>(environment.server + 'WAgetProposals/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  // Get polls created by logged-in User
+  getMyPolls(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getOwnerProposals')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Get list of Active polls
+  getActivePolls(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'activeProposals')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Get the list of polls, which logged-in user has voted
+  getMyParticipatedPolls(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getParticipantProposals')
       .pipe(map((result) => {
         return result;
       }));
@@ -74,10 +99,30 @@ export class LunarHqAPIServices {
       }));
   }
 
+  //Create a new poll
   createPoll(data: any, discordServerId: any): Observable<any> {
     return this.http.post<any>(environment.server + 'WAcreateProposal/?discordServerId=' + discordServerId, data)
       .pipe(map((result) => {
         return result;
       }));
   }
+
+  //Star Announcement for the user
+  starAnnouncement(data: any): Observable<any> {
+    return this.http.put<any>(environment.server + 'starAnnouncement', data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+
+  //Get Stared Announcement list by the logged-in user
+  getStaredAnnouncementList(): Observable<any> {
+    return this.http.get<any>(environment.server + 'starredAnnouncements')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+
 }

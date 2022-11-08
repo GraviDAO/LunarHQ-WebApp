@@ -53,8 +53,10 @@ export class CreatePollComponent implements OnInit {
     private lunarService: LunarHqAPIServices,
     private route: ActivatedRoute,
     public toastService: ToastMsgService,
-    private toast: ToastrService,
+    private toast: ToastMsgService,
     private fb: FormBuilder) {
+    this.todayDate.setDate(this.todayDate.getDate() + 1);
+
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       this.discordServerName = params.get('discordServerName');
@@ -274,11 +276,22 @@ export class CreatePollComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.loader.stop();
+          this.toast.setMessage('Poll created successfully');
+          this.location.back();
         },
         error: (error) => {
           console.error(error, 'error');
           this.loader.stop();
+          this.toast.setMessage('Failed to create Poll', 'error');
         }
       });
+  }
+
+  setBtnClass() {
+    if (this.stepperIndex === 0) {
+      this.validatePoll(this.stepperIndex);
+      return 'app-why-btn small';
+    }
+    return 'app-why-btn disabled small';
   }
 }

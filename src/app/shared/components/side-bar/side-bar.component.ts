@@ -43,13 +43,9 @@ export class SideBarComponent implements OnInit {
     } else if (icon === 'MY SERVERS') {
       return this.activeTab === icon ? 'server' : 'server-outline';
     } else if (icon === 'POLLS') {
-      return this.activeTab === icon ? 'print' : 'print-outline';
+      return this.activeTab === icon ? './assets/img/svg/poll.svg' : './assets/img/svg/poll-outline.svg';
     } else if (icon === 'ANNOUNCEMENTS') {
       return this.activeTab === icon ? 'megaphone' : 'megaphone-outline';
-    } else if (icon === 'mailchim') {
-      return this.activeTab === icon ? 'eye' : 'eye-outline';
-    } else {
-      return this.activeTab === icon ? 'list' : 'list-outline';
     }
   }
 
@@ -68,6 +64,8 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['my-server']);
     } else if (tab === 'ANNOUNCEMENTS') {
       this.router.navigate(['announcement']);
+    } else if (tab === 'POLLS') {
+      this.router.navigate(['polls']);
     }
   }
 
@@ -78,7 +76,9 @@ export class SideBarComponent implements OnInit {
     this.toggle[index] = true;
     console.log(this.toggle);
     this.selectedSubMenu.emit(subMenuObj || nestedMenu);
-    this.nestedMenuSelected = nestedMenu.title || '';
+    if (nestedMenu !== undefined) {
+      this.nestedMenuSelected = nestedMenu.title || '';
+    }
     event.stopPropagation();
   }
 

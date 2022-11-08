@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {ToastrService} from 'ngx-toastr';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
+import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-announcement',
@@ -20,12 +21,13 @@ export class AnnouncementsComponent implements OnInit {
   previewAnnouncementView = false;
   selectedAnnouncementObj: any;
   announcementSettings: any;
+  starredAnnouncements = 0;
 
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
               private storageService: LocalStorageService,
               private router: Router,
-              private toast: ToastrService,
+              private toast: ToastMsgService,
               private lunarHqService: LunarHqAPIServices) {
     this.announcementSettings = this.storageService.get('announcement_settings');
   }
@@ -44,6 +46,7 @@ export class AnnouncementsComponent implements OnInit {
     this.serverList.push('view all servers');
     this.serverList.push('gravidao');
     this.getAnnouncementList();
+    this.getStaredAnnouncementList();
   }
 
   getAnnouncementList() {
@@ -63,7 +66,8 @@ export class AnnouncementsComponent implements OnInit {
         error: (error: any) => {
           this.loader.stop();
           console.error(error, 'error');
-          this.toast.error('Failed to get announcements');
+          this.toast.setMessage('Failed to get announcements', 'error');
+
         }
       });
   }
@@ -117,5 +121,37 @@ export class AnnouncementsComponent implements OnInit {
 
   goToSettings() {
     this.router.navigate(['/announcement/settings']);
+  }
+
+  starAnnouncement(obj: any) {
+    console.log(obj, 'obj');
+    let starAnnouncementObj: any = {
+      discordServerId: obj.discordServerId,
+      discordChannelId: obj.discordChannelId,
+      discordMessageId: obj.id
+    };
+    this.lunarHqService.starAnnouncement(starAnnouncementObj)
+      .subscribe({
+        next: (data: any) => {
+          console.log('data', data);
+          this.toast.setMessage('Successfully starred the announcement', '');
+        },
+        error: (err: any) => {
+          console.log('err', err);
+        }
+      });
+  }
+
+  private getStaredAnnouncementList() {
+    this.lunarHqService.getStaredAnnouncementList()
+      .subscribe({
+        next: (data: any) => {
+          console.log('data', data.message);
+          this.starredAnnouncements = data.message.length;
+        },
+        error: (err: any) => {
+          console.log('err', err);
+        }
+      });
   }
 }

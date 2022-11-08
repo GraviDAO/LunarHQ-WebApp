@@ -9,6 +9,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class AnnouncementCellComponent {
   @Input() annObj: any;
   @Output() previewAnnouncement: EventEmitter<any> = new EventEmitter<any>();
+  @Output() starAnnouncementEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
@@ -20,5 +21,9 @@ export class AnnouncementCellComponent {
   preView() {
     console.log('in');
     this.previewAnnouncement.emit(this.annObj);
+  }
+
+  starAnnouncement(obj: any) {
+    this.starAnnouncementEvent.emit(obj);
   }
 }

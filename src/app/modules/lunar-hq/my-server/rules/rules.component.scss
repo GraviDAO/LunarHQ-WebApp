@@ -36,7 +36,8 @@
 }
 
 .rule-name-title {
-  width: mixin.toRem(272);
+  //width: mixin.toRem(272);
+  width: 21vw;
 }
 
 .population-title {
@@ -48,7 +49,8 @@
 }
 
 .rules-item-name {
-  width: mixin.toRem(272);
+  //width: mixin.toRem(272);
+  width: 21vw;
 }
 
 .rules-item-population {
@@ -56,7 +58,8 @@
 }
 
 .rules-item-chain {
-  width: mixin.toRem(178);
+  min-width: mixin.toRem(178);
+  width: 17vw;
 }
 
 .rules-item-chain-icon-container {

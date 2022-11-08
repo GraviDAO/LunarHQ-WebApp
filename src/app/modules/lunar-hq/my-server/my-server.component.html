@@ -36,7 +36,7 @@
           </div>-->
         </div>
         <div class="divider"></div>
-        <div class="server-details  d-flex pd-left-16 pd-top-24">
+        <div class="server-details  d-flex justify-content-center pd-lr-16 pd-top-24">
           <div class="server-detail-item">
             <div class="server-detail-item-number app-why-lbl f16 text-center ft-lato light-70">
               {{serverObj?.memberCount}}
@@ -72,9 +72,9 @@
           </div>-->
         </div>
         <div class="divider"></div>
-        <div class="server-icons d-flex justify-content-center pd-top-34 pd-left-16 pd-right-16">
+        <div class="server-icons d-flex justify-content-around pd-top-34 pd-lr-16 pd-right-16">
           <div *ngFor="let chainObj of serverObj?.blockchains">
-            <img class="server-icon-container mr-right-8" [src]="chainObj?.imageUrl" alt="atom">
+            <img class="server-icon-container" [src]="chainObj?.imageUrl" alt="atom">
           </div>
         </div>
         <div class="divider"></div>

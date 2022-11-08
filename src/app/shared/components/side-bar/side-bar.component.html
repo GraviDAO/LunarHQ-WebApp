@@ -1,7 +1,7 @@
 <section>
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar" class="active">
-      <ul class="list-unstyled components mr-bottom-5 pd-top-36">
+      <ul class="list-  unstyled components mr-bottom-5 pd-top-36">
         <li *ngFor="let sideNav of sideNavList; let i = index;"
             class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
             [ngClass]="{'no-height': sideNav.subMenu}">
@@ -10,7 +10,8 @@
                  [ngClass]="{'active-container': (activeTab === sideNav.title), 'justify-content-center': !isToggled}">
               <ion-icon class="app-why-icon ic14 light-70"
                         [ngClass]="{'secondary-dark': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()}"
-                        name="{{setIcon(sideNav.title)}}"></ion-icon>
+                        name="{{setIcon(sideNav.title)}}"
+                        src="{{setIcon(sideNav.title)}}"></ion-icon>
               <span class="text-capitalize text-container"
                     [ngClass]="{'active-color': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase()}">
                 {{sideNav.title}}

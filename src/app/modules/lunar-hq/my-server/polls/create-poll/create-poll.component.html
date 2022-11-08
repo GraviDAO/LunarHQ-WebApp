@@ -21,23 +21,23 @@
       <div class="d-flex align-items-center pd-right-24">
         <div id="stepper1" class="">
           <div class="step-container">
-            <div (click)="viewStep(0)" class="step-label-wrapper">
+            <div (click)="viewStep(0)" class="step-label-wrapper add-cursor">
                   <span class="app-why-lbl f10 text-center light-50 ft-lato"
                         [ngClass]="{'secondary': stepperIndex === 0, 'primary': stepperIndex > 0}">POLL DETAILS</span>
             </div>
-            <div (click)="viewStep(1)" class="step-label-wrapper">
+            <div (click)="viewStep(1)" class="step-label-wrapper add-cursor">
                   <span class=" app-why-lbl f10 text-center light-50 ft-lato"
                         [ngClass]="{'secondary': stepperIndex === 1, 'primary': stepperIndex > 1}">VOTING SYSTEM</span>
             </div>
-            <div (click)="viewStep(2)" class="step-label-wrapper">
+            <div (click)="viewStep(2)" class="step-label-wrapper add-cursor">
                   <span class=" app-why-lbl f10 text-center light-50 ft-lato"
                         [ngClass]="{'secondary': stepperIndex === 2, 'primary': stepperIndex > 2}">TIMINGS</span>
             </div>
-            <div (click)="viewStep(3)" class="step-label-wrapper">
+            <div (click)="viewStep(3)" class="step-label-wrapper add-cursor">
                   <span class=" app-why-lbl f10 text-center light-50 ft-lato"
                         [ngClass]="{'secondary': stepperIndex === 3, 'primary': stepperIndex > 3}">SELECT CHANNEL</span>
             </div>
-            <div (click)="viewStep(4)" class="step-label-wrapper">
+            <div (click)="viewStep(4)" class="step-label-wrapper add-cursor">
                   <span class=" app-why-lbl f10 text-center light-50 ft-lato"
                         [ngClass]="{'secondary': stepperIndex === 4, 'primary': stepperIndex > 4}">PREVIEW</span>
             </div>
