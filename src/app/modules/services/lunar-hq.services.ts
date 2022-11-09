@@ -53,8 +53,41 @@ export class LunarHqAPIServices {
       }));
   }
 
+  // Get Polls by discord server id
   getPolls(discordServerId: any) {
     return this.http.get<any>(environment.server + 'WAgetProposals/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  // Get polls created by logged-in User
+  getMyPolls() {
+    return this.http.get<any>(environment.server + 'getOwnerProposals')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Get list of Active polls
+  getActivePolls(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'activeProposals')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Get all polls
+  getAllPolls() {
+    return this.http.get<any>(environment.server + 'WAgetAllProposals')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Get the list of polls, which logged-in user has voted
+  getMyParticipatedPolls() {
+    return this.http.get<any>(environment.server + 'getParticipantProposals')
       .pipe(map((result) => {
         return result;
       }));
@@ -66,4 +99,50 @@ export class LunarHqAPIServices {
         return result;
       }));
   }
+
+  getChannels(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getChannels/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Create a new poll
+  createPoll(data: any, discordServerId: any): Observable<any> {
+    return this.http.post<any>(environment.server + 'WAcreateProposal/?discordServerId=' + discordServerId, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Create a new Rule
+  createRule(data: any): Observable<any> {
+    let url = environment.server + (data.ruleType === 'NFT' ? 'WAaddNftRule/?discordServerId=' + data.discordServerId : 'WAaddTokenRule/?discordServerId=' + data.discordServerId)
+    return this.http.post<any>(url, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  //Star Announcement for the user
+  starUnStarAnnouncement(data: any, type: string): Observable<any> {
+    let url = environment.server;
+    url = url + (type === 'star' ? 'starAnnouncement' : 'unstarAnnouncement');
+    console.log(url, 'url');
+    return this.http.put<any>(url, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+
+  //Get Stared Announcement list by the logged-in user
+  getStaredAnnouncementList(): Observable<any> {
+    return this.http.get<any>(environment.server + 'starredAnnouncements')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+
 }

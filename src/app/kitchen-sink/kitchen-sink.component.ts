@@ -3,6 +3,7 @@ import {CssConstants} from '../shared/services/css-constants.service';
 import {ModalService} from '../shared/_modal/modal.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {ToastMsgService} from '../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-kitchen-sink',
@@ -18,7 +19,8 @@ export class KitchenSinkComponent {
 
   constructor(public cssClass: CssConstants,
               private router: Router,
-              private toast: ToastrService,
+              private toast: ToastMsgService,
+              // private toast: ToastrService,
               private modalService: ModalService) {
   }
 
@@ -27,7 +29,8 @@ export class KitchenSinkComponent {
   }
 
   showToast() {
-    this.toast.success('Show');
+    // this.toast.success('Show');
+    this.toast.setMessage('Successfully starred the announcement', '');
   }
 
   navigateToWelcome() {

@@ -7,7 +7,7 @@ import {ToastMsgService} from '../services/toast-msg-service';
     <div class="app-why-toast {{toastService.getType()}}" *ngIf="toastService.getView()">
       <div class="d-flex align-items-center">
         <ion-icon class="app-why-icon ic16 white" name="close-circle"></ion-icon>
-        <div class="pd-left-6">{{toastService.getMessage()}}</div>
+        <div class="pd-left-6" style="word-break: break-word">{{toastService.getMessage()}}</div>
       </div>
     </div>
   `,

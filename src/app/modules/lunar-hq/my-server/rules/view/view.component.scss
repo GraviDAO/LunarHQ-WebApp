@@ -14,13 +14,18 @@
 
 .rules-view-container {
   width: mixin.toRem(400);
-  height: mixin.toRem(654);
+  overflow: scroll;
+  height: 72vh;
   @include mixin.bg--wrapper;
   background: var(--bg-dark);
 
   .rules-name-container {
     height: mixin.toRem(96);
     background: var(--dark);
+
+    &.expand-more {
+      height: 75vh;
+    }
   }
 
   &.full-height {

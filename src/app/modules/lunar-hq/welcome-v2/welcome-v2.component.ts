@@ -116,7 +116,7 @@ export class WelcomeV2Component implements OnDestroy {
             this.closeDiscordPopUp();
           });
         }
-      } else {        
+      } else {
         this.getUserProfile(true);
         // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
         let currTry = 0;
@@ -172,7 +172,7 @@ export class WelcomeV2Component implements OnDestroy {
           },
           error: (error) => {
             console.error(error, 'error');
-            if(!resetIfError) {
+            if (!resetIfError) {
               this.progressStatus = this.storageService.get('user_progress');
             } else {
               this.resetSteps();
@@ -372,10 +372,10 @@ export class WelcomeV2Component implements OnDestroy {
       this.modalService.open('terraWallet');
       this.toast.error('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'));
 
-      if(!this.progressStatus) { //Means we are at beginning of flow
+      if (!this.progressStatus) { //Means we are at beginning of flow
         this.resetSteps();
         this.terraController.disconnect();
-        }
+      }
     } else {
       this.loaderService.start();
       const msg = new MsgSend(
@@ -398,7 +398,7 @@ export class WelcomeV2Component implements OnDestroy {
           };
           this.useLedgerStation = false;
           this.loaderService.stop();
-          this.terraConnectionRequested = false;  
+          this.terraConnectionRequested = false;
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
@@ -487,7 +487,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   // function to signIn with TerraArbitraryByte
-  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {    
+  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -510,7 +510,7 @@ export class WelcomeV2Component implements OnDestroy {
         blockchainName
       };
       this.loaderService.stop();
-      this.terraConnectionRequested = false;    
+      this.terraConnectionRequested = false;
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
       console.error(e, 'e');

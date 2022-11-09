@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RulesService } from 'src/app/modules/services/rules.service';
-import { CssConstants } from 'src/app/shared/services/css-constants.service';
-import { ModalService } from 'src/app/shared/_modal/modal.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {RulesService} from 'src/app/modules/services/rules.service';
+import {CssConstants} from 'src/app/shared/services/css-constants.service';
+import {ModalService} from 'src/app/shared/_modal/modal.service';
 
 @Component({
   selector: 'app-why-lunar-hq-rules-view',
@@ -15,19 +15,24 @@ export class RulesViewComponent implements OnInit {
   @Input() rules: any = [];
   @Input() paused: boolean = false;
   @Input() update: boolean = false;
+  @Input() ruleObj: any;
   @Output() closeRule: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateRole: EventEmitter<any> = new EventEmitter<any>();
+  viewMore = false;
+
   constructor(public cssClass: CssConstants,
-    public rulesService: RulesService,
-    private modalService: ModalService) { }
+              public rulesService: RulesService,
+              private modalService: ModalService) {
+  }
 
   ngOnInit(): void {
-    console.log('RulesViewComponent - ', this.rules);
+    // console.log('RulesViewComponent - ', this.rules);
   }
 
   closeView() {
     this.closeRule.emit();
   }
+
   updatePauseRole() {
     this.updateRole.emit();
   }

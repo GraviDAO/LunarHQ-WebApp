@@ -4,223 +4,224 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class RulesService {
-  
-    roles = [
-        {
-          id: 'shepards',
-          name: 'Shepards',
-        },
-        {
-          id: 'watchers',
-          name: 'Watchers on the wall',
-        },
-        {
-          id: 'dao',
-          name: 'DAO Fellowship',
-        },
-        {
-          id: 'x-men',
-          name: 'X-Men 2.0',
-        },
-        {
-          id: 'musketeers',
-          name: 'The Musketeers',
-        },
-        {
-          id: 'avengers',
-          name: 'Avengers',
-        },
-        {
-          id: 'gryfyndoor',
-          name: 'Gryfyndoor',
-        },
-        {
-          id: 'realworld',
-          name: 'Realworld',
-        }
-      ];
-      rules = [
-        {
-          id: 'shepards',
-          name: 'Shepards',
-        },
-        {
-          id: 'watchers',
-          name: 'Watchers on the wall',
-        },
-        {
-          id: 'dao',
-          name: 'DAO Fellowship',
-        },
-        {
-          id: 'x-men',
-          name: 'X-Men 2.0',
-        },
-        {
-          id: 'musketeers',
-          name: 'The Musketeers',
-        },
-        {
-          id: 'avengers',
-          name: 'Avengers',
-        },
-        {
-          id: 'gryfyndoor',
-          name: 'Gryfyndoor',
-        },
-        {
-          id: 'realworld',
-          name: 'Realworld',
-        }
-      ];
-      ruleTypes = [
-        {
-          id: 'existing_rule',
-          name: 'EXISTING RULE',
-        },
-        {
-          id: 'nft',
-          name: 'NFT',
-        },
-        {
-          id: 'token',
-          name: 'TOKEN',
-        }
-      ];
-      conditions = [
-        {
-          id: 'is',
-          name: 'IS',
-        },
-        {
-          id: 'not',
-          name: 'NOT',
-        },
-        {
-          id: 'and',
-          name: 'AND',
-        },
-        {
-          id: 'or',
-          name: 'OR',
-        }
-      ];
-    
-      operators = [
-        {
-          id: 'greater_than_equal',
-          name: '≥',
-        },
-        {
-          id: 'greater_than',
-          name: '>',
-        },
-        {
-          id: 'equals',
-          name: '=',
-        },
-        {
-          id: 'less_than',
-          name: '<',
-        },
-        {
-          id: 'less_than_equal',
-          name: '≤',
-        },
-        {
-          id: 'not_equals',
-          name: '!=',
-        }
-      ];
-      traitTypes = [
-        {
-          id: 'headwear',
-          name: 'HEADWEAR',
-        },
-        {
-          id: 'clothes',
-          name: 'CLOTHES',
-        },
-        {
-          id: 'background',
-          name: 'BACKGROUND',
-        }
-      ];
-      traitRows = [
-        {
-          id: 'halo',
-          name: 'HALO',
-        },
-        {
-          id: 'sushi',
-          name: 'SUSHI',
-        },
-        {
-          id: 'gborg',
-          name: 'GBORG',
-        },
-        {
-          id: 'mars',
-          name: 'MARS',
-        }
-      ]
 
-    constructor() {
+  roles = [
+    {
+      id: 'shepards',
+      name: 'Shepards',
+    },
+    {
+      id: 'watchers',
+      name: 'Watchers on the wall',
+    },
+    {
+      id: 'dao',
+      name: 'DAO Fellowship',
+    },
+    {
+      id: 'x-men',
+      name: 'X-Men 2.0',
+    },
+    {
+      id: 'musketeers',
+      name: 'The Musketeers',
+    },
+    {
+      id: 'avengers',
+      name: 'Avengers',
+    },
+    {
+      id: 'gryfyndoor',
+      name: 'Gryfyndoor',
+    },
+    {
+      id: 'realworld',
+      name: 'Realworld',
     }
+  ];
+  rules = [
+    {
+      id: 'shepards',
+      name: 'Shepards',
+    },
+    {
+      id: 'watchers',
+      name: 'Watchers on the wall',
+    },
+    {
+      id: 'dao',
+      name: 'DAO Fellowship',
+    },
+    {
+      id: 'x-men',
+      name: 'X-Men 2.0',
+    },
+    {
+      id: 'musketeers',
+      name: 'The Musketeers',
+    },
+    {
+      id: 'avengers',
+      name: 'Avengers',
+    },
+    {
+      id: 'gryfyndoor',
+      name: 'Gryfyndoor',
+    },
+    {
+      id: 'realworld',
+      name: 'Realworld',
+    }
+  ];
+  ruleTypes = [
+    // Commented based on call with Adam
+    /*{
+      id: 'existing_rule',
+      name: 'EXISTING RULE',
+    },*/
+    {
+      id: 'nft',
+      name: 'NFT',
+    },
+    {
+      id: 'token',
+      name: 'TOKEN',
+    }
+  ];
+  conditions = [
+    {
+      id: 'is',
+      name: 'IS',
+    },
+    {
+      id: 'not',
+      name: 'NOT',
+    },
+    {
+      id: 'and',
+      name: 'AND',
+    },
+    {
+      id: 'or',
+      name: 'OR',
+    }
+  ];
 
-    getRoles() {
-        return this.roles;
+  operators = [
+    {
+      id: 'Greater Than Or Equals',
+      name: '≥',
+    },
+    {
+      id: 'Greater Than',
+      name: '>',
+    },
+    {
+      id: 'Equals',
+      name: '=',
+    },
+    {
+      id: 'Lesser Than',
+      name: '<',
+    },
+    {
+      id: 'Lesser Than Or Equals',
+      name: '≤',
+    }/*,
+    {
+      id: 'not_equals',
+      name: '!=',
+    }*/
+  ];
+  traitTypes = [
+    {
+      id: 'headwear',
+      name: 'HEADWEAR',
+    },
+    {
+      id: 'clothes',
+      name: 'CLOTHES',
+    },
+    {
+      id: 'background',
+      name: 'BACKGROUND',
     }
+  ];
+  traitRows = [
+    {
+      id: 'halo',
+      name: 'HALO',
+    },
+    {
+      id: 'sushi',
+      name: 'SUSHI',
+    },
+    {
+      id: 'gborg',
+      name: 'GBORG',
+    },
+    {
+      id: 'mars',
+      name: 'MARS',
+    }
+  ]
 
-    getRole(roleId: string) {
-        return this.roles.find((role) => role.id === roleId)
-    }
+  constructor() {
+  }
 
-    getRules() {
-        return this.rules;
-    }
+  getRoles() {
+    return this.roles;
+  }
 
-    getRule(ruleId: string) {
-        return this.rules.find((rule) => rule.id === ruleId);
-    }
+  getRole(roleId: string) {
+    return this.roles.find((role) => role.id === roleId)
+  }
 
-    getRuleTypes() {
-        return this.ruleTypes;
-    }
+  getRules() {
+    return this.rules;
+  }
 
-    getRuleType(ruleTypeId: string) {
-        return this.ruleTypes.find((ruleType) => ruleType.id === ruleTypeId);
-    }
+  getRule(ruleId: string) {
+    return this.rules.find((rule) => rule.id === ruleId);
+  }
 
-    getConditions() {
-        return this.conditions;
-    }
+  getRuleTypes() {
+    return this.ruleTypes;
+  }
 
-    getCondition(conditionId: string) {
-        return this.conditions.find((condition) => condition.id === conditionId);
-    }
+  getRuleType(ruleTypeId: string) {
+    return this.ruleTypes.find((ruleType) => ruleType.id === ruleTypeId);
+  }
 
-    getOperators() {
-        return this.operators;
-    }
+  getConditions() {
+    return this.conditions;
+  }
 
-    getOperator(operatorId: string) {
-        return this.operators.find((operator) => operator.id === operatorId);
-    }
+  getCondition(conditionId: string) {
+    return this.conditions.find((condition) => condition.id === conditionId);
+  }
 
-    getTraitTypes() {
-        return this.traitTypes;
-    }
+  getOperators() {
+    return this.operators;
+  }
 
-    getTraitType(traitTypeId: string) {
-        return this.traitTypes.find((traitType) => traitType.id === traitTypeId);
-    }
+  getOperator(operatorId: string) {
+    return this.operators.find((operator) => operator.id === operatorId);
+  }
 
-    getTraitRows() {
-        return this.traitRows;
-    }
+  getTraitTypes() {
+    return this.traitTypes;
+  }
 
-    getTraitRow(traitRowId: string) {
-        return this.traitRows.find((traitRow) => traitRow.id === traitRowId);
-    }
+  getTraitType(traitTypeId: string) {
+    return this.traitTypes.find((traitType) => traitType.id === traitTypeId);
+  }
+
+  getTraitRows() {
+    return this.traitRows;
+  }
+
+  getTraitRow(traitRowId: string) {
+    return this.traitRows.find((traitRow) => traitRow.id === traitRowId);
+  }
 }

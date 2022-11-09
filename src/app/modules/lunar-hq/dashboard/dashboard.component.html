@@ -3,11 +3,6 @@
   [profileObj]="setHeaderValue()"
   (profileClick)="navigateToProfile()">
 
-  <form>
-    <label for="appt-time">Choose an appointment time: </label>
-    <input id="appt-time" type="time" name="appt-time" />
-  </form>
-
   <section class="pd-bottom-48" id="dashboardContainer" #dashboardContainer>
     <div class="d-flex">
       <div *ngIf="profileObj?.discordProfileImage">
@@ -95,11 +90,12 @@
             <div class="pd-left-20">
               <label class="app-why-lbl f16 light-70">{{serverObj?.discordServerName}}</label>
             </div>
-            <div class="pd-left-4">
+            <!--            Commented based on call with Adam-->
+            <!--<div class="pd-left-4">
               <ion-icon *ngIf="serverObj?.userIsAdmin" class="app-why-icon ic14 light-70" name="key"></ion-icon>
               <ion-icon *ngIf="!serverObj?.userIsAdmin && !serverObj?.userOwnsLicense" class="app-why-icon ic14 error"
                         name="warning"></ion-icon>
-            </div>
+            </div>-->
           </div>
           <div class="d-flex align-items-center">
             <app-why-cta-three
@@ -175,6 +171,7 @@
 
     <app-why-lunar-hq-recent-announcements
       [announcementArrayObj]="profileObj?.announcements"
+      (refreshList)="getProfileDetails()"
       (navigateToAnnouncementEvent)="navigateToAnnouncement()"
       class="mr-top-8"></app-why-lunar-hq-recent-announcements>
 

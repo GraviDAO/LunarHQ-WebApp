@@ -32,11 +32,19 @@ export class CreatePollComponent implements OnInit {
   voteWeight = 'tokenWeighted';
   selectedNetwork = 'Select network';
   contractAddress = '';
-  numberPerVote = 0;
   roleList: any;
+  channelList: any;
   value: any;
   viewPreview = false;
   errorMessage: { id: string, msg: string } = {id: '', msg: ''};
+  startTime: any;
+  startDate: any;
+  closingTime: any;
+  closingDate: any;
+  detailsObj: any = {};
+  todayDate = new Date();
+  validateClosingDate = new Date();
+  currentTime: any;
 
   constructor(
     private router: Router,
@@ -46,23 +54,27 @@ export class CreatePollComponent implements OnInit {
     private lunarService: LunarHqAPIServices,
     private route: ActivatedRoute,
     public toastService: ToastMsgService,
-    private toast: ToastrService,
+    private toast: ToastMsgService,
     private fb: FormBuilder) {
+    this.todayDate.setDate(this.todayDate.getDate() + 1);
+
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       this.discordServerName = params.get('discordServerName');
     });
+    // console.log(this.todayDate.getUTCHours().toString().length);
+    const hours = this.todayDate.getUTCHours().toString().length === 1 ? '0' + this.todayDate.getUTCHours() : this.todayDate.getUTCHours();
+    this.currentTime = hours + ':' + this.todayDate.getUTCMinutes();
   }
 
   getActiveStep() {
     // const elements2: any = document.querySelectorAll('.step.active');
     // const id = elements2[0].id.split('-')[1]
-    console.log(this.stepperIndex, 'stepperIndex');
     this.stepTitle = this.stepTitles[this.stepperIndex];
   }
 
-  next() {
-    if (this.stepperIndex === 0) {
+  validatePoll(index: number) {
+    if (index === 0 || index === 4) {
       if (this.pollObj.title === '' || this.pollObj.title === undefined) {
         this.toastService.setMessage('Title cannot be empty', 'error');
         return;
@@ -70,14 +82,71 @@ export class CreatePollComponent implements OnInit {
         this.toastService.setMessage('Description cannot be empty', 'error');
         return;
       }
+    } else if (index === 1 || index === 4) {
+      if (this.selectedNetwork === 'Select network' && this.voteWeight === 'tokenWeighted') {
+        this.toastService.setMessage('Please select network', 'error');
+        return;
+      }
+    } else if (index === 2 || index === 4) {
+      if (this.startTime === undefined || this.startTime === '') {
+        this.toastService.setMessage('Please set start time', 'error');
+        return;
+      }
+      if (this.closingTime === undefined || this.closingTime === '') {
+        this.toastService.setMessage('Please set closing time', 'error');
+        return;
+      }
+      if (this.closingDate === undefined || this.closingDate === '') {
+        this.toastService.setMessage('Please set closing date', 'error');
+        return;
+      }
+      if ((this.dateRadioSelected !== 'today') && (this.startDate === undefined || this.startDate === '')) {
+        this.toastService.setMessage('Please set start date', 'error');
+        return;
+      }
+    } else if (index === 3 || index === 4) {
+      if (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '') {
+        this.toastService.setMessage('Please select channel', 'error');
+        return
+      }
+    }
+  }
+
+  next() {
+    if (this.stepperIndex === 0) {
+      this.validatePoll(this.stepperIndex);
     } else if (this.stepperIndex === 1) {
       if (this.voteWeight === 'tokenWeighted') {
-        if (this.selectedNetwork === 'Select network') {
-          this.toastService.setMessage('Please select network', 'error');
-          return;
-        }
-        console.log('selectedNetwork', this.selectedNetwork);
+        this.pollObj.votingSystem = 'Token Weighted Voting';
+        this.validatePoll(this.stepperIndex);
+      } else {
+        this.pollObj.votingSystem = 'Role Weighted Voting';
       }
+    } else if (this.stepperIndex === 2) {
+      this.validatePoll(this.stepperIndex);
+      const tempStartTime = this.startTime.split(':');
+      if (this.dateRadioSelected === 'today') {
+        this.detailsObj.isToday = true;
+        this.startDate = new Date();
+        this.pollObj.startDate = new Date(Date.UTC(this.startDate.getUTCFullYear(), this.startDate.getUTCMonth(),
+          this.startDate.getUTCDate(), tempStartTime[0],
+          tempStartTime[1]));
+      } else {
+        this.detailsObj.isToday = false;
+        this.startDate = new Date(this.startDate);
+        this.pollObj.startDate = new Date(Date.UTC(this.startDate.getUTCFullYear(), this.startDate.getUTCMonth(),
+          this.startDate.getUTCDate(), tempStartTime[0],
+          tempStartTime[1]));
+      }
+      const tempCloseTime = this.closingTime.split(':');
+      this.closingDate = new Date(this.closingDate);
+      this.pollObj.endDate = new Date(Date.UTC(this.closingDate.getUTCFullYear(), this.closingDate.getUTCMonth(),
+        this.closingDate.getUTCDate(), tempCloseTime[0],
+        tempCloseTime[1]));
+      this.detailsObj.startTime = this.startTime;
+      this.detailsObj.closingTime = this.closingTime;
+    } else if (this.stepperIndex === 3) {
+      this.validatePoll(this.stepperIndex);
     }
     this.stepperIndex++;
     this.getActiveStep();
@@ -96,6 +165,7 @@ export class CreatePollComponent implements OnInit {
   getStepperIndex = (event: any) => {
     this.stepperIndex = event.detail?.indexStep;
   }
+  channelName = 'Select Channel';
 
   ngOnInit(): void {
     // this.roleList = RuleList;
@@ -108,14 +178,29 @@ export class CreatePollComponent implements OnInit {
     stepperEl.addEventListener('show.bs-stepper', this.getStepperIndex);
   }
 
+  getChannels() {
+    this.loader.start();
+    this.lunarService.getChannels(this.discordServerId)
+      .subscribe({
+        next: (data) => {
+          this.channelList = data.message;
+          this.loader.stop();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loader.stop();
+        }
+      });
+  }
+
   getRoles() {
     this.loader.start();
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'data');
           this.roleList = data.message.rules;
           this.loader.stop();
+          this.getChannels();
         },
         error: (error) => {
           console.error(error, 'error');
@@ -129,11 +214,11 @@ export class CreatePollComponent implements OnInit {
   }
 
   countCharacter() {
-    /*const currentCount = document.getElementById('current_count');
-    const description = this.createPollForm.controls['poll_description'].value;
+    const currentCount = document.getElementById('current_count');
+    const description = this.pollObj.description?.length;
     if (currentCount)
-      currentCount.innerHTML = description.length + '&nbsp;';
-    const maxCount = document.getElementById('maximum_count');*/
+      currentCount.innerHTML = description + '&nbsp;';
+    const maxCount = document.getElementById('maximum_count');
   }
 
   navigateBack() {
@@ -153,7 +238,7 @@ export class CreatePollComponent implements OnInit {
   }
 
   viewStep(stepIndex: number) {
-    if (this.stepperIndex === 3 && stepIndex === 4) {
+    if (stepIndex === 4) {
       this.viewPreview = true;
     } else {
       this.stepperIndex = stepIndex;
@@ -162,6 +247,7 @@ export class CreatePollComponent implements OnInit {
 
   setWeight(weight: string) {
     this.voteWeight = weight;
+    this.pollObj.votingSystem = weight === 'tokenWeighted' ? 'Token Weighted Voting' : 'Role Weighted Voting';
   }
 
   setRangValue(range: any) {
@@ -171,5 +257,86 @@ export class CreatePollComponent implements OnInit {
 
   closePreview() {
     this.viewPreview = false;
+  }
+
+  setChannel(obj: any) {
+    this.pollObj.discordChannelId = obj.id;
+    this.detailsObj.location = obj.name;
+    this.channelName = obj.name;
+  }
+
+  validateClosingDateFn(value: any) {
+    let closingDate = new Date(value);
+    closingDate.setDate(closingDate.getDate() + 1);
+    this.validateClosingDate = closingDate;
+    this.startDate = value;
+  }
+
+  setBlockChain(list: string) {
+    this.selectedNetwork = list;
+    this.pollObj.blockchainName = list === 'Polygon' ? 'polygon-mainnet' : list;
+  }
+
+  createPoll(draft?: boolean) {
+    this.loader.start();
+    if (draft) {
+      this.pollObj.status = 'Draft';
+    }
+    this.lunarService.createPoll(this.pollObj, this.discordServerId)
+      .subscribe({
+        next: (data) => {
+          this.loader.stop();
+          if (draft) {
+            this.toast.setMessage('Poll saved');
+          } else {
+            this.toast.setMessage('Poll created successfully');
+          }
+          this.location.back();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loader.stop();
+          this.toast.setMessage('Failed to create Poll', 'error');
+        }
+      });
+  }
+
+  setBtnClass() {
+    if (this.stepperIndex === 0) {
+      this.validatePoll(this.stepperIndex);
+      return 'app-why-btn small';
+    }
+    return 'app-why-btn disabled small';
+  }
+
+  validateTime(startTime: Event) {
+    // console.log(startTime > this.currentTime, 'start');
+    if (startTime < this.currentTime) {
+      this.toastService.setMessage('Time should be greater than current UTC time', 'error');
+    }
+  }
+
+  checkUncheck(status: any, obj: any) {
+    if (this.pollObj.ruleIds === undefined) {
+      this.pollObj.ruleIds = [];
+      this.detailsObj.rules = [];
+    }
+    // console.log(obj, status.target.checked);
+    if (status.target.checked) {
+      this.pollObj.ruleIds?.push(obj.id);
+      this.detailsObj.rules.push(obj.roleName);
+    } else {
+      // @ts-ignore
+      const tempRuleId = this.pollObj.ruleIds.filter(function (value, index, arr) {
+        return value !== obj.id;
+      });
+      // console.log(tempRuleId, 'id');
+      this.pollObj.ruleIds = tempRuleId;
+
+      this.detailsObj.rules = this.detailsObj.rules.filter(function (value: any) {
+        return value !== obj.roleName;
+      });
+    }
+    // console.log(this.pollObj.ruleIds);
   }
 }

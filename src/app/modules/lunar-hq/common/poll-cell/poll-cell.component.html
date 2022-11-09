@@ -1,4 +1,3 @@
-
 <div class="poll-item d-flex align-items-center">
   <div class="poll-item-image-container d-flex justify-content-center">
     <img class="poll-item-image" [src]="pollObj?.discordServerIcon" alt="GraviDAO">
@@ -12,7 +11,7 @@
       <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
         {{pollObj?.discordServerName}}
       </div>
-      <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+      <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02" *ngIf="pollObj">
         ID : {{pollObj?.id}} | BY: {{pollObj?.creatorDiscordId | longTextPipe}}
         | {{pollObj?.startDate | date: 'dd MMM, yyyy'}}
       </div>
@@ -22,6 +21,7 @@
   <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
     <div *ngIf="pollObj?.status === 'Active'">
       <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+<!--        {{pollObj?.endDate}}-->
         {{[pollObj?.endDate, currentDateTime] | timeCounter}}
       </div>
       <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary text-center">

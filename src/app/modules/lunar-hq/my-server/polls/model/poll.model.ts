@@ -12,7 +12,5 @@ export interface PollModel {
   blockchainName?: string;
   numberPerVote?: 0;
   status?: string;
-  ruleIds?: [
-    string
-  ]
+  ruleIds?: string [];
 }

@@ -219,7 +219,7 @@ div::-webkit-scrollbar-button {
   border-radius: 0 !important;
   background: #E5E5E5 !important;
   border: 0;
-  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 2px 24px 0 rgba(0, 0, 0, 0.5);
 }
 
 .no-bg {
@@ -243,4 +243,18 @@ div::-webkit-scrollbar-button {
   width: calc(100vw - 240px);
   margin-top: -3.5rem;
   margin-left: -3.8rem;
+
+  &.my-server {
+    margin-top: -7rem;
+  }
+}
+
+.polls-header {
+  height: mixin.toRem(64);
+  width: 100%;
+  background: var(--dark-50);
+  position: fixed;
+  margin-top: -7rem;
+  margin-left: -3.75rem;
+  z-index: 99;
 }

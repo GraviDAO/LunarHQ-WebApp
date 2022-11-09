@@ -206,12 +206,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   connectWallet() {
-    console.log('Connect Wallet');
+    // console.log('Connect Wallet');
   }
 
   removeWallet(accountObj: any) {
     this.openModal('removeWalletModal');
-    console.log(accountObj, 'accountObj');
+    // console.log(accountObj, 'accountObj');
     this.unlink = accountObj;
   }
 

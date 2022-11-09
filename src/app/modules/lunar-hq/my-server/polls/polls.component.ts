@@ -62,7 +62,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
     this.lunarService.getPolls(this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'data');
+          // console.log(data.message, 'data');
           this.pollsList = data.message.proposals;
           this.loader.stop();
         },

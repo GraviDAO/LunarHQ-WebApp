@@ -1,14 +1,4 @@
-@use "../../../../../style/mixin-core" as mixin;
-
-.polls-header {
-  height: mixin.toRem(64);
-  width: 100%;
-  background: var(--dark-50);
-  position: fixed;
-  margin-top: -112px;
-  margin-left: -3.75rem;
-  z-index: 10;
-}
+@use "src/style/mixin-core" as mixin;
 
 .polls-container {
   width: mixin.toRem(1080);
@@ -16,9 +6,10 @@
   margin-right: auto;
   // background: var(--tertiary);
 }
+
 .recent-polls {
   width: mixin.toRem(1080);
-  height: mixin.toRem(770);
+  max-height: mixin.toRem(770);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
 }
@@ -48,7 +39,7 @@
   @include mixin.bg--wrapper;
   background: var(--dark-20);
 
- .divider {
+  .divider {
     height: mixin.toRem(64);
   }
 
@@ -88,6 +79,7 @@
   height: mixin.toRem(1);
   background: var(--light-20);
 }
+
 .link-dropdown {
   background: none;
   outline: none;
@@ -97,47 +89,54 @@
   text-align: left;
 }
 
-.dropdown-menu{
-    margin-left: mixin.toRem(12);
-    &.show {
-        background-color: var(--bg-light);
-        border-radius: 0;
-        padding: 0;
-    }
+.dropdown-menu {
+  margin-left: mixin.toRem(12);
+
+  &.show {
+    background-color: var(--bg-light);
+    border-radius: 0;
+    padding: 0;
+  }
 }
-.dropdown{
+
+.dropdown {
+  .dropdown-toggle::after {
+    right: 0 !important;
+    font-size: var(--font-size-20);
+    vertical-align: 0.055em;
+    margin-top: 0.55rem;
+    position: absolute;
+  }
+
+  &.show {
+    .dropdown-toggle {
+      color: var(--secondary) !important;
+    }
+
     .dropdown-toggle::after {
-        right: 0 !important;
-        font-size: var(--font-size-20);
-        vertical-align: 0.055em;
-        margin-top: 0.55rem;
-        position: absolute;
+      color: var(--secondary);
+      margin-top: 0.15rem;
+      height: mixin.toRem(12);
+      border-bottom: 0.3em dashed;
+      border-top: 0em solid transparent;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
     }
-    &.show {
-        .dropdown-toggle {
-          color: var(--secondary) !important;
-        }
-        .dropdown-toggle::after {
-            color: var(--secondary);
-            margin-top: 0.15rem;
-            height: mixin.toRem(12);
-            border-bottom: 0.3em dashed;
-            border-top: 0em solid transparent;
-            border-right: 0.3em solid transparent;
-            border-left: 0.3em solid transparent;
-        }
-    }
+  }
 }
+
 .dropdown-item {
-    height: mixin.toRem(38);
-    width: mixin.toRem(168);
-    &:hover {
-        background-color: var(--secondary);
-    }
+  height: mixin.toRem(38);
+  width: mixin.toRem(168);
+
+  &:hover {
+    background-color: var(--secondary);
+  }
 }
+
 .dropdown-divider {
-    border-top: mixin.toRem(1) solid var(--bg-white);
-    margin: 0;
+  border-top: mixin.toRem(1) solid var(--bg-white);
+  margin: 0;
 }
 
 .vertical-divider {

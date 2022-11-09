@@ -44,9 +44,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.profileObj = data.message;
           this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});
-          this.userDataObj.push({
+          /*this.userDataObj.push({
             label: 'LICENSES APPLIED VS HELD', value: [this.profileObj.licensesApplied, this.profileObj.licensesHeld]
-          });
+          });*/
           this.userDataObj.push({label: 'DISCORD RULES', value: [this.profileObj.rules.length]});
           this.userDataObj.push({label: 'POLLS', value: [this.profileObj.proposals.length]});
           this.userDataObj.push({label: 'NEW ANNOUNCEMENTS', value: [this.profileObj.announcements.length]});
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   goToTop() {
-    console.log('in top');
+    // console.log('in top');
     window.scroll({
       top: 0,
       left: 0,

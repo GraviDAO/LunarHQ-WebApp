@@ -1,5 +1,6 @@
 <app-why-header-side-nav
   [title]="'ANNOUNCEMENTS'"
+  [nestedMenuValue]="starredAnnouncements"
   [activeTab]="'ANNOUNCEMENTS'">
   <div class="search-bar-container">
     <div class="d-flex justify-content-center align-items-center">
@@ -35,21 +36,23 @@
           </div>
         </div>
       </div>
-      <div class="mr-left-16">
+      <!--<div class="mr-left-16">
         <app-why-cta-one
           [cssClass]="cssClass.cta1DarkSm"
           [iconType]="'cog-outline'"
           (clickEvent)="goToSettings()"
           [iconClass]="cssClass.ctaIcon16Primary"
           [btnLabel]="'settings'"></app-why-cta-one>
-      </div>
+      </div>-->
     </div>
   </div>
 
   <article class="mr-top-32">
     <div class="announcement-container mr-top-8" *ngFor="let annObj of announcementList">
-      <app-why-lunar-hq-announcement-cell [annObj]="annObj"
-                                          (previewAnnouncement)="previewAnnouncement($event)"></app-why-lunar-hq-announcement-cell>
+      <app-why-lunar-hq-announcement-cell
+        [annObj]="annObj"
+        (starAnnouncementEvent)="starAnnouncement($event)"
+        (previewAnnouncement)="previewAnnouncement($event)"></app-why-lunar-hq-announcement-cell>
     </div>
   </article>
 
@@ -65,6 +68,7 @@
   <div class="preview-container" *ngIf="previewAnnouncementView">
     <app-why-lunar-hq-preview-announcement
       (closePreview)="closePreview()"
+      (starAnnouncementEvent)="starAnnouncement($event)"
       [announcementObj]="selectedAnnouncementObj"></app-why-lunar-hq-preview-announcement>
   </div>
 </app-why-header-side-nav>

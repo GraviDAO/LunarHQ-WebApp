@@ -54,7 +54,7 @@ export class AddNewServerComponent implements OnInit {
               public cssClass: CssConstants) { }
 
   ngOnInit(): void {
-    console.log('testing2')
+    // console.log('testing2')
   }
   navigateToMyServer() {
     this.router.navigate(['my-server']);

@@ -11,12 +11,10 @@ import {AdminLoginComponent} from './modules/admin/login/login.component';
 import {AdminForgotPasswordComponent} from './modules/admin/forgot-password/forgot-password.component';
 import {AdminResetPasswordComponent} from './modules/admin/reset-password/reset-password.component';
 import {AdminMenuComponent} from './modules/admin/menu/menu.component';
-import {PollsComponent} from './modules/lunar-hq/polls/polls.component';
 import {RulesComponent} from './modules/lunar-hq/my-server/rules/rules.component';
 import {AdminListComponent} from './modules/admin/admin-list/admin-list.component';
 import {AdminUserListComponent} from './modules/admin/user-list/user-list.component';
 import {AdminWhitelistComponent} from './modules/admin/whitelist/whitelist.component';
-import {CreateRuleComponent} from './modules/lunar-hq/my-server/rules/create/create.component';
 import {PollsListComponent} from './modules/lunar-hq/my-server/polls/polls.component';
 import {CreatePollComponent} from './modules/lunar-hq/my-server/polls/create-poll/create-poll.component';
 import {AnnouncementsComponent} from './modules/lunar-hq/announcement/announcements.component';
@@ -24,6 +22,8 @@ import {WelcomeV2Component} from './modules/lunar-hq/welcome-v2/welcome-v2.compo
 import {
   AnnouncementSettingsComponent
 } from './modules/lunar-hq/common/announcement-settings/announcement-settings.component';
+import {PollsMenuComponent} from './modules/lunar-hq/polls-menu/polls.menu.component';
+import {CreateRuleComponent} from './modules/lunar-hq/my-server/rules/create/create-rule.component';
 
 const routes: Routes = [
   {
@@ -77,7 +77,8 @@ const routes: Routes = [
     component: RulesComponent
   },
   {
-    path: 'my-server/rules/create/rule',
+    // add discordServerId & discordServer Name to route
+    path: 'my-server/rules/create/rule/:discordServerId/:discordServerName',
     component: CreateRuleComponent
   },
   {
@@ -90,7 +91,7 @@ const routes: Routes = [
   },
   {
     path: 'polls',
-    component: PollsComponent
+    component: PollsMenuComponent
   },
   {
     path: 'admin',
