@@ -14,6 +14,9 @@
   </div>
   <div class="horizontal-divider light-20 mr-top-8 mr-bottom-48"></div>
   <div class="announcement-container" *ngFor="let annObj of announcementArrayObj?.slice(0,3)">
-    <app-why-lunar-hq-announcement-cell [annObj]="annObj"></app-why-lunar-hq-announcement-cell>
+    <app-why-lunar-hq-announcement-cell
+      (starAnnouncementEvent)="starAnnouncement($event)"
+      [annObj]="annObj">
+    </app-why-lunar-hq-announcement-cell>
   </div>
 </div>

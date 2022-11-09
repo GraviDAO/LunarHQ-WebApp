@@ -30,10 +30,12 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
       title: 'POLLS',
       subMenu: [
         {
-          title: 'Owner'
+          title: 'Owner',
+          route: '/polls?type=owner',
         },
         {
-          title: 'Participant'
+          title: 'Participant',
+          route: '/polls?type=participant',
         }
       ]
     },
@@ -88,7 +90,13 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   }
 
   navigateToSubMenu(subMenu: any) {
-    this.router.navigate([subMenu.route])
+    if (subMenu.route.includes('/polls?')) {
+      const route = subMenu.route.substring(0, 6);
+      const type = subMenu.route.substring(12, subMenu.route.length);
+      this.router.navigate([route], {queryParams: {type}});
+    } else {
+      this.router.navigate([subMenu.route])
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

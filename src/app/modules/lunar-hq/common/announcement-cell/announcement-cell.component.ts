@@ -24,6 +24,7 @@ export class AnnouncementCellComponent {
   }
 
   starAnnouncement(obj: any) {
-    this.starAnnouncementEvent.emit(obj);
+    let type = obj.starred ? 'unStar' : 'star';
+    this.starAnnouncementEvent.emit({obj, type});
   }
 }

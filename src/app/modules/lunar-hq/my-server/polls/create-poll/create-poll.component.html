@@ -194,7 +194,9 @@
             </div>
             <div class="rules-item d-flex flex-row align-items-center" *ngFor="let rule of roleList">
               <div class="form-check d-flex align-items-center">
-                <input class="form-check-input check-box" type="checkbox" value="" id="{{rule?.roleName}}">
+                <input class="form-check-input check-box"
+                       (change)="checkUncheck($event, rule)"
+                       type="checkbox" value="" id="{{rule?.roleName}}">
               </div>
               <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                 {{rule?.roleName}}
@@ -287,15 +289,18 @@
                  *ngIf="dateRadioSelected === 'today'">
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
-                  Start time: </label>
-                <input class="form-control date-time-input" type="time" [(ngModel)]="startTime"/>
+                  Start time:</label>
+                <input class="form-control date-time-input" type="time"
+                       (ngModelChange)="validateTime($event)"
+                       [(ngModel)]="startTime"/>
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2" for="closingDate">Closing
                   Date: </label>
                 <input class="form-control date-time-input" type="date"
                        [min]="todayDate | date :'yyyy-MM-dd'"
-                       id="closingDate" [(ngModel)]="closingDate"/>
+                       id="closingDate" [ngModel]="closingDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="closingDate = $event"/>
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">Closing
@@ -318,7 +323,7 @@
                 <input class="form-control date-time-input" type="date"
                        [min]="todayDate | date :'yyyy-MM-dd'"
                        (ngModelChange)="validateClosingDateFn($event)"
-                       id="pickStartDate" [(ngModel)]="startDate"/>
+                       id="pickStartDate" [ngModel]="startDate | date:'yyyy-MM-dd'"/>
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
@@ -330,7 +335,8 @@
                   Closing Date: {{validateClosingDate | date :'yyyy-MM-dd'}}</label>
                 <input class="form-control date-time-input" type="date"
                        [min]="validateClosingDate | date :'yyyy-MM-dd'"
-                       id="pickClosingDate" [(ngModel)]="closingDate">
+                       id="pickClosingDate" [ngModel]="closingDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="closingDate = $event">
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
@@ -349,7 +355,7 @@
           <div class="title-underline mr-top-8"></div>
           <div class="create-rule-content mr-top-48">
             <app-why-drop-down [leftIcon]="true" [dataList]="channelList"
-                               [placeholderText]="'Select Channel'"
+                               [placeholderText]="channelName"
                                [keyField]="'name'"
                                (dataSet)="setChannel($event)"></app-why-drop-down>
           </div>
@@ -359,7 +365,7 @@
 
     <div class="d-flex navigate-steps mr-top-24 mr-bottom-80">
       <div class="col-3 add-cursor">
-                      <span>
+                      <span (click)="createPoll(true)">
                         <ion-icon name="save-outline" class="app-why-icon ic12 light-50"></ion-icon>
                         <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">SAVE DRAFT</label>
                       </span>

@@ -14,7 +14,7 @@
   </div>
   <div class="horizontal-divider light-20 mr-top-8"></div>
   <div class="poll-items pd-top-48 d-flex flex-column">
-    <div *ngFor="let pollObj of pollArrayObj">
+    <div *ngFor="let pollObj of pollArrayObj?.slice(0,2)">
       <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
                                   [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
     </div>

@@ -1,15 +1,5 @@
 @use "src/style/mixin-core" as mixin;
 
-.polls-header {
-  height: mixin.toRem(64);
-  width: 100%;
-  background: var(--dark-50);
-  position: fixed;
-  margin-top: -112px;
-  margin-left: -3.75rem;
-  z-index: 10;
-}
-
 .polls-container {
   width: mixin.toRem(1080);
   margin-left: auto;
@@ -32,7 +22,7 @@
 }
 
 .back-button {
-  width: 85% !important;
+  width: 100% !important;
 }
 
 .divider {

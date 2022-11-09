@@ -21,6 +21,7 @@
   <div class="poll-item-time-status d-flex flex-column align-items-center pd-lr-16">
     <div *ngIf="pollObj?.status === 'Active'">
       <div class="poll-item-time app-why-lbl f16 ft-bold secondary">
+<!--        {{pollObj?.endDate}}-->
         {{[pollObj?.endDate, currentDateTime] | timeCounter}}
       </div>
       <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 secondary text-center">

@@ -2,8 +2,8 @@
   [activeTab]="'MY SERVERS'"
   (profileClick)="navigateToMyServer()">
   <div class="flex flex-nowrap">
-    <div class="server-header">
-      <div class="back-button">
+    <div class="search-bar-container my-server">
+      <div class="d-flex justify-content-between back-button">
         <div class="pd-left-24 pd-top-21 pd-bottom-21">
           <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
                              [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon"
@@ -11,7 +11,7 @@
           </app-why-cta-three>
         </div>
       </div>
-      <div class="pd-top-20 mr-right-24 add-server app-why-lbl f12 ft-bold primary">
+      <div class="mr-right-24 add-server app-why-lbl f12 ft-bold primary">
         <app-why-cta-three
           [btnClass]="cssClass.cta3PrimaryNorm"
           [iconType]="'reader-outline'"

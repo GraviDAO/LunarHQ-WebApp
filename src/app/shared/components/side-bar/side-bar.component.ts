@@ -50,7 +50,6 @@ export class SideBarComponent implements OnInit {
   }
 
   navigate(tab: string, pos: number, isSubMenu?: any) {
-    console.log(tab, 'activeTab');
     if (this.activeTab === tab) {
       Object.keys(this.toggle).forEach((key: string, index: number) => this.toggle[key] = false);
     } else {
@@ -70,11 +69,8 @@ export class SideBarComponent implements OnInit {
   }
 
   subMenu(event: any, tab: string, index: number, subMenuObj: any, nestedMenu?: any) {
-    console.log(tab, nestedMenu);
-    console.log(this.toggle);
     this.activeSubMenuTab = tab;
     this.toggle[index] = true;
-    console.log(this.toggle);
     this.selectedSubMenu.emit(subMenuObj || nestedMenu);
     if (nestedMenu !== undefined) {
       this.nestedMenuSelected = nestedMenu.title || '';

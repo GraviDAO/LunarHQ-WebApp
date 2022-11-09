@@ -7,6 +7,7 @@ import * as moment from 'moment';
 export class TimerCounterPipe implements PipeTransform {
 
   transform(value: Array<Date>): any {
+    // console.log(value, 'value');
 
     let startDate: number = new Date(value[1]).valueOf();
     let endDate: number = new Date(value[0]).valueOf();

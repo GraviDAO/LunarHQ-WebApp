@@ -62,7 +62,7 @@ export class LunarHqAPIServices {
   }
 
   // Get polls created by logged-in User
-  getMyPolls(discordServerId: any) {
+  getMyPolls() {
     return this.http.get<any>(environment.server + 'getOwnerProposals')
       .pipe(map((result) => {
         return result;
@@ -77,8 +77,16 @@ export class LunarHqAPIServices {
       }));
   }
 
+  //Get all polls
+  getAllPolls() {
+    return this.http.get<any>(environment.server + 'WAgetAllProposals')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   //Get the list of polls, which logged-in user has voted
-  getMyParticipatedPolls(discordServerId: any) {
+  getMyParticipatedPolls() {
     return this.http.get<any>(environment.server + 'getParticipantProposals')
       .pipe(map((result) => {
         return result;
@@ -108,8 +116,11 @@ export class LunarHqAPIServices {
   }
 
   //Star Announcement for the user
-  starAnnouncement(data: any): Observable<any> {
-    return this.http.put<any>(environment.server + 'starAnnouncement', data)
+  starUnStarAnnouncement(data: any, type: string): Observable<any> {
+    let url = environment.server;
+    url = url + (type === 'star' ? 'starAnnouncement' : 'unstarAnnouncement');
+    console.log(url, 'url');
+    return this.http.put<any>(url, data)
       .pipe(map((result) => {
         return result;
       }));

@@ -124,17 +124,17 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   starAnnouncement(obj: any) {
-    console.log(obj, 'obj');
+    console.log(obj.type, 'obj');
     let starAnnouncementObj: any = {
-      discordServerId: obj.discordServerId,
-      discordChannelId: obj.discordChannelId,
-      discordMessageId: obj.id
+      discordServerId: obj?.obj.discordServerId,
+      discordChannelId: obj?.obj.discordChannelId,
+      discordMessageId: obj?.obj.id
     };
-    this.lunarHqService.starAnnouncement(starAnnouncementObj)
+    this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
       .subscribe({
         next: (data: any) => {
           console.log('data', data);
-          this.toast.setMessage('Successfully starred the announcement', '');
+          this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },
         error: (err: any) => {
           console.log('err', err);

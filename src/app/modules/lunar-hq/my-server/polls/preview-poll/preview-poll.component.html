@@ -42,11 +42,11 @@
         <span class="app-why-lbl f14 ft-lato light">{{pollObj?.votingSystem}}</span>
       </div>
       <div *ngIf="pollObj.votingSystem === 'Role Weighted Voting'">
-        <div class="pd-left-48" *ngFor="let rule of [0,1]; let pos = index;">
+        <div class="pd-left-48" *ngFor="let rule of detailsObj?.rules; let pos = index;">
           <span class="app-why-lbl f14 ft-lato success">[and]</span>
           <span class="app-why-lbl f14 ft-lato light">Role {{pos + 1}}</span>
           <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
-          <span class="app-why-lbl f14 ft-lato light">Watchers on the wall</span>
+          <span class="app-why-lbl f14 ft-lato light">{{rule}}</span>
         </div>
       </div>
       <div *ngIf="pollObj.votingSystem === 'Token Weighted Voting'">

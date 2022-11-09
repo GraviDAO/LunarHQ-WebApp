@@ -44,6 +44,7 @@ export class CreatePollComponent implements OnInit {
   detailsObj: any = {};
   todayDate = new Date();
   validateClosingDate = new Date();
+  currentTime: any;
 
   constructor(
     private router: Router,
@@ -61,6 +62,9 @@ export class CreatePollComponent implements OnInit {
       this.discordServerId = params.get('discordServerId');
       this.discordServerName = params.get('discordServerName');
     });
+    console.log(this.todayDate.getUTCHours().toString().length);
+    const hours = this.todayDate.getUTCHours().toString().length === 1 ? '0' + this.todayDate.getUTCHours() : this.todayDate.getUTCHours();
+    this.currentTime = hours + ':' + this.todayDate.getUTCMinutes();
   }
 
   getActiveStep() {
@@ -161,6 +165,7 @@ export class CreatePollComponent implements OnInit {
   getStepperIndex = (event: any) => {
     this.stepperIndex = event.detail?.indexStep;
   }
+  channelName = 'Select Channel';
 
   ngOnInit(): void {
     // this.roleList = RuleList;
@@ -257,12 +262,14 @@ export class CreatePollComponent implements OnInit {
   setChannel(obj: any) {
     this.pollObj.discordChannelId = obj.id;
     this.detailsObj.location = obj.name;
+    this.channelName = obj.name;
   }
 
   validateClosingDateFn(value: any) {
     let closingDate = new Date(value);
     closingDate.setDate(closingDate.getDate() + 1);
     this.validateClosingDate = closingDate;
+    this.startDate = value;
   }
 
   setBlockChain(list: string) {
@@ -270,13 +277,20 @@ export class CreatePollComponent implements OnInit {
     this.pollObj.blockchainName = list === 'Polygon' ? 'polygon-mainnet' : list;
   }
 
-  createPoll() {
+  createPoll(draft?: boolean) {
     this.loader.start();
+    if (draft) {
+      this.pollObj.status = 'Draft';
+    }
     this.lunarService.createPoll(this.pollObj, this.discordServerId)
       .subscribe({
         next: (data) => {
           this.loader.stop();
-          this.toast.setMessage('Poll created successfully');
+          if (draft) {
+            this.toast.setMessage('Poll saved');
+          } else {
+            this.toast.setMessage('Poll created successfully');
+          }
           this.location.back();
         },
         error: (error) => {
@@ -293,5 +307,36 @@ export class CreatePollComponent implements OnInit {
       return 'app-why-btn small';
     }
     return 'app-why-btn disabled small';
+  }
+
+  validateTime(startTime: Event) {
+    console.log(startTime > this.currentTime, 'start');
+    if (startTime < this.currentTime) {
+      this.toastService.setMessage('Time should be greater than current UTC time', 'error');
+    }
+  }
+
+  checkUncheck(status: any, obj: any) {
+    if (this.pollObj.ruleIds === undefined) {
+      this.pollObj.ruleIds = [];
+      this.detailsObj.rules = [];
+    }
+    console.log(obj, status.target.checked);
+    if (status.target.checked) {
+      this.pollObj.ruleIds?.push(obj.id);
+      this.detailsObj.rules.push(obj.roleName);
+    } else {
+      // @ts-ignore
+      const tempRuleId = this.pollObj.ruleIds.filter(function (value, index, arr) {
+        return value !== obj.id;
+      });
+      console.log(tempRuleId, 'id');
+      this.pollObj.ruleIds = tempRuleId;
+
+      this.detailsObj.rules = this.detailsObj.rules.filter(function (value: any) {
+        return value !== obj.roleName;
+      });
+    }
+    console.log(this.pollObj.ruleIds);
   }
 }
