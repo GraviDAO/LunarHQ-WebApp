@@ -61,7 +61,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   }
 
   navigateToCreatePoll() {
-    console.log('Suspected');
+    // console.log('Suspected');
     this.router.navigate(['my-server/gravidao/create-poll']);
   }
 
@@ -70,7 +70,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.lunarHqService.getAllPolls()
       .subscribe({
         next: (data) => {
-          console.log(data);
+          // console.log(data);
           this.pollsList = data.message.proposals;
           this.loader.stop();
         },
@@ -87,7 +87,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.lunarHqService.getMyPolls()
       .subscribe({
         next: (data) => {
-          console.log(data);
+          // console.log(data);
           this.pollsList = data.message;
           this.loader.stop();
         },
@@ -108,7 +108,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.lunarHqService.getMyParticipatedPolls()
       .subscribe({
         next: (data) => {
-          console.log(data);
+          // console.log(data);
           this.pollsList = data.message.length === 0 ? [] : data.message;
           this.loader.stop();
         },

@@ -116,7 +116,7 @@ export class WelcomeV2Component implements OnDestroy {
             this.closeDiscordPopUp();
           });
         }
-      } else {        
+      } else {
         this.getUserProfile(true);
         // To reset to first step in case user is at the wallet connected but discord not stage, to avoid walletAddress field being blank and thus inability to select another wallet
         let currTry = 0;
@@ -172,7 +172,7 @@ export class WelcomeV2Component implements OnDestroy {
           },
           error: (error) => {
             console.error(error, 'error');
-            if(!resetIfError) {
+            if (!resetIfError) {
               this.progressStatus = this.storageService.get('user_progress');
             } else {
               this.resetSteps();
@@ -253,19 +253,19 @@ export class WelcomeV2Component implements OnDestroy {
   //function to connect to metamask & get nonce
   async connectToMetaMask() {
     try {
-      console.log('mm called');
-      
+      // console.log('mm called');
+
       this.exitModal();
       let response = await this.web3.connectAccount();
       // @ts-ignore
       const walletAddr = response[0];
-      console.log(walletAddr);
-      
+      // console.log(walletAddr);
+
       const blockchainName = 'polygon-mainnet';
       this.coreService.getNonce(walletAddr, blockchainName)
         .subscribe((result) => {
-          console.log(result);
-          
+          // console.log(result);
+
           this.handleSignIn(result.message, walletAddr);
         });
     } catch (error) {
@@ -377,10 +377,10 @@ export class WelcomeV2Component implements OnDestroy {
       this.modalService.open('terraWallet');
       this.toast.error('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'));
 
-      if(!this.progressStatus) { //Means we are at beginning of flow
+      if (!this.progressStatus) { //Means we are at beginning of flow
         this.resetSteps();
         this.terraController.disconnect();
-        }
+      }
     } else {
       this.loaderService.start();
       const msg = new MsgSend(
@@ -403,7 +403,7 @@ export class WelcomeV2Component implements OnDestroy {
           };
           this.useLedgerStation = false;
           this.loaderService.stop();
-          this.terraConnectionRequested = false;  
+          this.terraConnectionRequested = false;
           this.authenticateWalletAddress(dataObject, terraAddress, blockchainName);
         })
         .catch((error) => {
@@ -419,8 +419,8 @@ export class WelcomeV2Component implements OnDestroy {
   // To handle metamask sign in
   async handleSignIn(nonce: any, publicAddress: any) {
     try {
-      console.log(publicAddress);
-      
+      // console.log(publicAddress);
+
       this.loaderService.start();
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
@@ -441,7 +441,7 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   // function to signIn with TerraArbitraryByte
-  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {    
+  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -464,7 +464,7 @@ export class WelcomeV2Component implements OnDestroy {
         blockchainName
       };
       this.loaderService.stop();
-      this.terraConnectionRequested = false;    
+      this.terraConnectionRequested = false;
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
     } catch (e) {
       console.error(e, 'e');
@@ -562,7 +562,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
     this.useLedgerStation = useLedgerStation;
-    this.terraConnectionRequested = true;    
+    this.terraConnectionRequested = true;
     let connect = await this.terraController.connect(type, identifier);
   }
 

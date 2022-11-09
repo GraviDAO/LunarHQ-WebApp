@@ -1,7 +1,8 @@
 <app-why-header-side-nav
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
-  [activeSubMenuTab]="activeSubMenu"
+  [activeSubMenuTab]="discordServerName"
+  [nestedMenuSelected]="'Rules'"
   (profileClick)="navigateToMyServer()">
   <div class="flex flex-nowrap">
     <div id="stepper2" class="bs-stepper">
@@ -133,13 +134,21 @@
                         IS
                       </div>
                       <div class="rule-item-nft-container d-flex flex-column mr-left-24">
-                        <div class="form-group rule-item-criteria-contact-addrress">
-                          <input type="text" id="contractAddress-{{ruleItemIndex}}"
-                                 class="form-control app-why-floating-input"
-                                 placeholder=" " name="contractAddress" [(ngModel)]="ruleItem.contractAddress"
-                                 [ngModelOptions]="{standalone: true}">
-                          <label class="app-why-floating-lbl" for="contractAddress-{{ruleItemIndex}}">Contract
-                            address</label>
+
+                        <div class="d-flex align-items-center">
+                          <div class="pd-top-12">
+                            <app-why-drop-down [leftIcon]="true" [dataList]="['Polygon','Terra', 'Terra Classic']"
+                                               (dataSet)="setBlockChain($event)"></app-why-drop-down>
+                          </div>
+
+                          <div class="form-group rule-item-criteria-contact-addrress">
+                            <input type="text" id="contractAddress-{{ruleItemIndex}}"
+                                   class="form-control app-why-floating-input"
+                                   placeholder=" " name="contractAddress" [(ngModel)]="ruleItem.contractAddress"
+                                   [ngModelOptions]="{standalone: true}">
+                            <label class="app-why-floating-lbl" for="contractAddress-{{ruleItemIndex}}">Contract
+                              address</label>
+                          </div>
                         </div>
                         <div class="rule-item-criteria-operator d-flex align-items-center">
                           <div class="d-flex overflow-hidden rule-item-select-operator mr-top-28">
@@ -190,8 +199,7 @@
                                  id="filter_nft" name="filter"
                                  value="filter_nft" (click)="onChangeFilter(ruleItem, 'filter_nft')">
                           <label class="app-why-lbl f12 mr-left-8"
-                                 [ngClass]="{'primary': ruleItem.filter === 'filter_nft', 'light-50': ruleItem.filter !== 'filter_nft'}"
-                                 for="sockdao">
+                                 [ngClass]="{'primary': ruleItem.filter === 'filter_nft', 'light-50': ruleItem.filter !== 'filter_nft'}">
                             FILTER BY NFT ID
                           </label>
                         </div>
@@ -722,6 +730,7 @@
     </div>
     <div class="rules-view" [hidden]="!viewRule" (click)="$event.stopPropagation()">
       <app-why-lunar-hq-rules-view [update]="true" [ruleName]="createRuleForm.get('name')?.value"
+                                   [ruleObj]="ruleObj"
                                    [role]="createRuleForm.get('role')?.value" [rules]="ruleItems"
                                    (closeRule)="closeView()" (updateRole)="updateRole()"></app-why-lunar-hq-rules-view>
     </div>

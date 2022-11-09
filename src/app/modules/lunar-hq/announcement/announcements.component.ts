@@ -73,7 +73,7 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   filterAnnouncement() {
-    console.log(this.announcementSettings, 'settings');
+    // console.log(this.announcementSettings, 'settings');
     if (this.announcementSettings !== null && this.announcementSettings !== undefined) {
       if (this.announcementSettings.mentionFilter) {
         // this.announcementList = this.announcementList.filter((obj: any) => obj.content.toString().toLowerCase().includes(this.announcementSettings.mentionFilter));
@@ -124,7 +124,6 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   starAnnouncement(obj: any) {
-    console.log(obj.type, 'obj');
     let starAnnouncementObj: any = {
       discordServerId: obj?.obj.discordServerId,
       discordChannelId: obj?.obj.discordChannelId,
@@ -133,7 +132,8 @@ export class AnnouncementsComponent implements OnInit {
     this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
       .subscribe({
         next: (data: any) => {
-          console.log('data', data);
+          // console.log('data', data);
+          this.getAnnouncementList();
           this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },
         error: (err: any) => {
@@ -146,7 +146,7 @@ export class AnnouncementsComponent implements OnInit {
     this.lunarHqService.getStaredAnnouncementList()
       .subscribe({
         next: (data: any) => {
-          console.log('data', data.message);
+          // console.log('data', data.message);
           this.starredAnnouncements = data.message.length;
         },
         error: (err: any) => {

@@ -62,7 +62,7 @@ export class CreatePollComponent implements OnInit {
       this.discordServerId = params.get('discordServerId');
       this.discordServerName = params.get('discordServerName');
     });
-    console.log(this.todayDate.getUTCHours().toString().length);
+    // console.log(this.todayDate.getUTCHours().toString().length);
     const hours = this.todayDate.getUTCHours().toString().length === 1 ? '0' + this.todayDate.getUTCHours() : this.todayDate.getUTCHours();
     this.currentTime = hours + ':' + this.todayDate.getUTCMinutes();
   }
@@ -310,7 +310,7 @@ export class CreatePollComponent implements OnInit {
   }
 
   validateTime(startTime: Event) {
-    console.log(startTime > this.currentTime, 'start');
+    // console.log(startTime > this.currentTime, 'start');
     if (startTime < this.currentTime) {
       this.toastService.setMessage('Time should be greater than current UTC time', 'error');
     }
@@ -321,7 +321,7 @@ export class CreatePollComponent implements OnInit {
       this.pollObj.ruleIds = [];
       this.detailsObj.rules = [];
     }
-    console.log(obj, status.target.checked);
+    // console.log(obj, status.target.checked);
     if (status.target.checked) {
       this.pollObj.ruleIds?.push(obj.id);
       this.detailsObj.rules.push(obj.roleName);
@@ -330,13 +330,13 @@ export class CreatePollComponent implements OnInit {
       const tempRuleId = this.pollObj.ruleIds.filter(function (value, index, arr) {
         return value !== obj.id;
       });
-      console.log(tempRuleId, 'id');
+      // console.log(tempRuleId, 'id');
       this.pollObj.ruleIds = tempRuleId;
 
       this.detailsObj.rules = this.detailsObj.rules.filter(function (value: any) {
         return value !== obj.roleName;
       });
     }
-    console.log(this.pollObj.ruleIds);
+    // console.log(this.pollObj.ruleIds);
   }
 }

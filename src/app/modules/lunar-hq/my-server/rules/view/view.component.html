@@ -15,17 +15,66 @@
           <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
         </div>
         <div class="rule-title d-flex align-items-center">
-          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047">MORE</div>
-          <ion-icon name="chevron-down-outline" class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="!viewMore" (click)="viewMore = true">
+            MORE
+          </div>
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="viewMore" (click)="viewMore = false">
+            Less
+          </div>
+          <ion-icon name="{{viewMore ? 'chevron-up-outline': 'chevron-down-outline'}}"
+                    class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+        </div>
+      </div>
+      <div *ngIf="viewMore" class="pd-top-40">
+        <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          Description
+        </div>
+        <div class="app-why-lbl f14 light-70 ft-lato">
+          {{ruleObj?.description}}
         </div>
       </div>
     </div>
-    <div class="rules-content pd-box-24 d-flex flex-column">
+    <div class="rules-content pd-box-24 d-flex flex-column" *ngIf="!viewMore">
       <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-        CRITERIA
+        Rules
       </div>
       <div class="rule-item d-flex flex-column mr-top-8">
-        <ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
+        <div>
+          <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Base Role:\ </span>
+          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.roleName}}</span>
+        </div>
+        <div class="pd-top-8">
+          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.ruleType}}</span>
+        </div>
+        <div class="">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Network</span>
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.blockchainName}}</span>
+        </div>
+        <div class="">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Address</span>
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.nftAddress | longTextPipe}}</span>
+        </div>
+        <div class="">
+          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato light">Qty</span>
+          <span class="pd-lr-4 app-why-lbl f14 ft-lato light-50">[{{ruleObj?.operatorName}}]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.quantity}}</span>
+        </div>
+        <div>
+          <span class="app-why-lbl f14 ft-lato success">[ and ]  Filter by NFT ID </span>
+        </div>
+        <div class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          NFT ID
+        </div>
+        <div class="">
+          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.tokenIds}}</span>
+        </div>
+        <!--<ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
           <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light">
             {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}}
           </div>
@@ -157,7 +206,7 @@
               </div>
             </ng-container>
           </div>
-        </ng-container>
+        </ng-container>-->
       </div>
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
         &lt;END&gt;
@@ -199,7 +248,7 @@
     <app-why-cta-one
       [cssClass]="cssClass.cta1Md + ' cursor-pointer'"
       (click)="updatePauseRole()"
-      [btnLabel]="'Update Role'"></app-why-cta-one>
+      [btnLabel]="'Create Rule'"></app-why-cta-one>
   </div>
 </div>
 <!-- Remove Rule Confirmation Modal Stated -->

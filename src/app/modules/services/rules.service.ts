@@ -109,29 +109,29 @@ export class RulesService {
 
   operators = [
     {
-      id: 'greater_than_equal',
+      id: 'Greater Than Or Equals',
       name: '≥',
     },
     {
-      id: 'greater_than',
+      id: 'Greater Than',
       name: '>',
     },
     {
-      id: 'equals',
+      id: 'Equals',
       name: '=',
     },
     {
-      id: 'less_than',
+      id: 'Lesser Than',
       name: '<',
     },
     {
-      id: 'less_than_equal',
+      id: 'Lesser Than Or Equals',
       name: '≤',
-    },
+    }/*,
     {
       id: 'not_equals',
       name: '!=',
-    }
+    }*/
   ];
   traitTypes = [
     {

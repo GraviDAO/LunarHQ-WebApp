@@ -77,7 +77,8 @@ const routes: Routes = [
     component: RulesComponent
   },
   {
-    path: 'my-server/rules/create/rule',
+    // add discordServerId & discordServer Name to route
+    path: 'my-server/rules/create/rule/:discordServerId/:discordServerName',
     component: CreateRuleComponent
   },
   {

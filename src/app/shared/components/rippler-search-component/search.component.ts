@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchText);
+    // console.log(this.searchText);
     // if (this.searchText.length > 3) {
     this.searchContent.emit(this.searchText);
     // }

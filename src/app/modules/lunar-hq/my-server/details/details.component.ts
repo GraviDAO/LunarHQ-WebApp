@@ -28,7 +28,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
-        this.getServerDetails()
+        this.getServerDetails();
       }
     });
 

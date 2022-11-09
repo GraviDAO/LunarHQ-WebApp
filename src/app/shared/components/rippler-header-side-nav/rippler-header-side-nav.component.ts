@@ -102,7 +102,7 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['nestedMenuValue']) {
       this.nestedMenuValue = changes['nestedMenuValue'].currentValue;
-      console.log(this.nestedMenuValue);
+      // console.log(this.nestedMenuValue);
       if (this.nestedMenuValue !== 0) {
         // @ts-ignore
         this.sideNavList[3].subMenu.push({title: 'Starred [' + this.nestedMenuValue + ']'});

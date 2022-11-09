@@ -12,6 +12,7 @@ import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 export class RecentAnnouncementsComponent {
   @Input() announcementArrayObj: any;
   @Output() navigateToAnnouncementEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() refreshList: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(public cssClass: CssConstants,
               private lunarHqService: LunarHqAPIServices,
@@ -26,7 +27,7 @@ export class RecentAnnouncementsComponent {
   }
 
   starAnnouncement(obj: any) {
-    console.log(obj.type, 'obj');
+    // console.log(obj.type, 'obj');
     let starAnnouncementObj: any = {
       discordServerId: obj?.obj.discordServerId,
       discordChannelId: obj?.obj.discordChannelId,
@@ -35,8 +36,9 @@ export class RecentAnnouncementsComponent {
     this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
       .subscribe({
         next: (data: any) => {
-          console.log('data', data);
+          // console.log('data', data);
           this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
+          this.refreshList.emit(true);
         },
         error: (err: any) => {
           console.log('err', err);

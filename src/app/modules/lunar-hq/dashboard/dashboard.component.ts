@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   goToTop() {
-    console.log('in top');
+    // console.log('in top');
     window.scroll({
       top: 0,
       left: 0,

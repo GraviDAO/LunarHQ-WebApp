@@ -15,7 +15,7 @@
 .rules-view-container {
   width: mixin.toRem(400);
   overflow: scroll;
-  height: 82vh;
+  height: 72vh;
   @include mixin.bg--wrapper;
   background: var(--bg-dark);
 

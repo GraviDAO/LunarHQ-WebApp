@@ -51,7 +51,8 @@ export class RulesComponent implements OnInit {
   }
 
   navigateToCreateRule() {
-    this.router.navigate(['my-server/rules/create/rule']);
+    // @ts-ignore
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.ruleItems[0]?.discordServerName]);
   }
 
   showRule(paused = false) {
@@ -68,7 +69,7 @@ export class RulesComponent implements OnInit {
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
-          console.log(data.message, 'data');
+          // console.log(data.message, 'data');
           this.ruleItems = data.message.rules;
           this.loader.stop();
         },

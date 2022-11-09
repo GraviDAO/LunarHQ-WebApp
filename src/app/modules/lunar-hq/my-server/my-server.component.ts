@@ -51,7 +51,7 @@ export class MyServerComponent implements OnInit {
   }
 
   navigateToAddNewServer() {
-    console.log('navigateToAddNewServer');
+    // console.log('navigateToAddNewServer');
     this.router.navigate(['my-server/add-new-server']);
   }
 
@@ -61,7 +61,7 @@ export class MyServerComponent implements OnInit {
   }
 
   navigateToAddLicense() {
-    console.log('navigateToAddLicense');
+    // console.log('navigateToAddLicense');
     this.router.navigate(['my-server/my-licenses']);
   }
 

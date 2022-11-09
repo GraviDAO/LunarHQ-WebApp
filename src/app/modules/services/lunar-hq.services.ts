@@ -115,6 +115,15 @@ export class LunarHqAPIServices {
       }));
   }
 
+  //Create a new Rule
+  createRule(data: any): Observable<any> {
+    let url = environment.server + (data.ruleType === 'NFT' ? 'WAaddNftRule/?discordServerId=' + data.discordServerId : 'WAaddTokenRule/?discordServerId=' + data.discordServerId)
+    return this.http.post<any>(url, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   //Star Announcement for the user
   starUnStarAnnouncement(data: any, type: string): Observable<any> {
     let url = environment.server;

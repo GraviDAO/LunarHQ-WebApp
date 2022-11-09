@@ -19,7 +19,7 @@ export class AnnouncementCellComponent {
   }
 
   preView() {
-    console.log('in');
+    // console.log('in');
     this.previewAnnouncement.emit(this.annObj);
   }
 

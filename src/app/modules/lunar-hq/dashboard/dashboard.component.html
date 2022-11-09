@@ -171,6 +171,7 @@
 
     <app-why-lunar-hq-recent-announcements
       [announcementArrayObj]="profileObj?.announcements"
+      (refreshList)="getProfileDetails()"
       (navigateToAnnouncementEvent)="navigateToAnnouncement()"
       class="mr-top-8"></app-why-lunar-hq-recent-announcements>
 

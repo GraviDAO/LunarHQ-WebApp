@@ -194,6 +194,7 @@
 
       <div class="mr-bottom-60">
         <app-why-lunar-hq-recent-announcements
+          (refreshList)="getServerDetails()"
           [announcementArrayObj]="serverDetails?.announcements"
           class="mr-top-8"></app-why-lunar-hq-recent-announcements>
       </div>
