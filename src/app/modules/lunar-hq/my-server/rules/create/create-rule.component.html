@@ -137,7 +137,9 @@
 
                         <div class="d-flex align-items-center">
                           <div class="pd-top-12">
-                            <app-why-drop-down [leftIcon]="true" [dataList]="['Polygon','Terra', 'Terra Classic']"
+                            <app-why-drop-down [leftIcon]="true"
+                                               [placeholderText]="selectedNetwork"
+                                               [dataList]="['Polygon','Terra', 'Terra Classic']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down>
                           </div>
 

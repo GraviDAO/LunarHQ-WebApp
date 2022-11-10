@@ -205,7 +205,7 @@ export class RulesService {
     return this.operators;
   }
 
-  getOperator(operatorId: string) {
+  public getOperator(operatorId: string) {
     return this.operators.find((operator) => operator.id === operatorId);
   }
 

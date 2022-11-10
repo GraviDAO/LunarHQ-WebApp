@@ -11,10 +11,10 @@
       </div>
       <div class="rule-title-container pd-top-8 d-flex justify-content-between">
         <div class="rule-title app-why-lbl f16 ft-bold light">
-          {{ruleName}}
+          {{ruleObj?.name}}
           <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
         </div>
-        <div class="rule-title d-flex align-items-center">
+        <div class="rule-title d-flex align-items-center add-cursor">
           <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="!viewMore" (click)="viewMore = true">
             MORE
           </div>
@@ -61,16 +61,20 @@
         <div class="">
           <span class="app-why-lbl f14 ft-lato success">[and]</span>
           <span class="app-why-lbl f14 ft-lato light">Qty</span>
-          <span class="pd-lr-4 app-why-lbl f14 ft-lato light-50">[{{ruleObj?.operatorName}}]</span>
+          <span class="pd-lr-4 app-why-lbl f14 ft-lato light-50"
+                *ngIf="ruleObj?.operatorName">[{{ruleObj?.operatorName}}]</span>
+          <span class="pd-lr-4 app-why-lbl f14 ft-lato light-50"
+                *ngIf="!ruleObj?.operatorName">[{{getOperator(ruleObj?.quantityOperatorName)}}]</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.quantity}}</span>
         </div>
-        <div>
+        <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1">
           <span class="app-why-lbl f14 ft-lato success">[ and ]  Filter by NFT ID </span>
         </div>
-        <div class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1"
+             class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
           NFT ID
         </div>
-        <div class="">
+        <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1" class="">
           <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.tokenIds}}</span>
         </div>
@@ -224,7 +228,7 @@
         (click)="removeRule()">
       </app-why-cta-three>
     </div>
-    <div class="rules-action-item mr-left-24">
+    <div class="rules-action-item mr-left-24" *ngIf="ruleObj?.active">
       <app-why-cta-three
         [parentClass]="'flex-column'"
         [btnClass]="cssClass.cta3BtnLabel"
@@ -234,12 +238,23 @@
         (click)="pauseRule()">
       </app-why-cta-three>
     </div>
+    <div class="rules-action-item mr-left-24" *ngIf="!ruleObj?.active">
+      <app-why-cta-three
+        [parentClass]="'flex-column'"
+        [btnClass]="cssClass.cta3BtnLabelSuccess"
+        [btnLabel]="'Resume'"
+        [leftIconType]="'play-circle-outline'"
+        [iconClass]="cssClass.cta3SuccessIcon"
+        (click)="resumeRule()">
+      </app-why-cta-three>
+    </div>
     <div class="rules-action-item mr-left-24">
       <app-why-cta-three
         [parentClass]="'flex-column'"
         [btnClass]="cssClass.cta3BtnLabelPrimary"
         [btnLabel]="'Edit'"
         [leftIconType]="'pencil'"
+        (click)="editRule()"
         [iconClass]="cssClass.cta3IconPrimary">
       </app-why-cta-three>
     </div>
@@ -248,7 +263,7 @@
     <app-why-cta-one
       [cssClass]="cssClass.cta1Md + ' cursor-pointer'"
       (click)="updatePauseRole()"
-      [btnLabel]="'Create Rule'"></app-why-cta-one>
+      [btnLabel]="ruleObj?.id ? 'Update Rule' : 'Create Rule'"></app-why-cta-one>
   </div>
 </div>
 <!-- Remove Rule Confirmation Modal Stated -->

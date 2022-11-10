@@ -52,6 +52,7 @@ export class CreateRuleComponent implements OnInit {
   ruleItems: any = [];
   discordServerId = '';
   discordServerName = '';
+  ruleId = '';
 
   constructor(private router: Router,
               private location: Location,
@@ -73,7 +74,8 @@ export class CreateRuleComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      // console.log(params.server);
+      this.ruleId = params.ruleId;
+
       this.activeSubMenu = params.server;
     });
     this.roles = rulesService.getRoles();
@@ -104,6 +106,7 @@ export class CreateRuleComponent implements OnInit {
     this.stepperIndex = event.detail?.indexStep;
     // console.log('bs-stepper event - ', event, this.stepperIndex);
   }
+  selectedNetwork = 'Select Network';
 
   ngOnInit(): void {
     const stepperEl = document.querySelector('#stepper2') as HTMLElement;
@@ -354,14 +357,15 @@ export class CreateRuleComponent implements OnInit {
           this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
         }
       }
+    } else if (this.ruleObj.ruleType === 'TOKEN') {
+      this.ruleObj.tokenAddress = this.ruleObj.nftAddress;
     }
     this.lunarService.createRule(this.ruleObj)
       .subscribe({
         next: (data: any) => {
-          // console.log(data.message, 'data');
-          this.roles = data.message;
+          // this.roles = data.message;
           this.loader.stop();
-          this.toastService.setMessage('Rule created successfully');
+          this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
           this.location.back();
         },
         error: (error: any) => {
@@ -381,12 +385,17 @@ export class CreateRuleComponent implements OnInit {
   }
 
   getRoles() {
+    this.loader.start();
     this.lunarService.getRoles(this.discordServerId)
       .subscribe({
         next: (data) => {
           // console.log(data.message, 'data');
           this.roles = data.message;
-          this.loader.stop();
+          if (this.ruleId) {
+            this.getRuleById();
+          } else {
+            this.loader.stop();
+          }
         },
         error: (error) => {
           console.error(error, 'error');
@@ -397,5 +406,36 @@ export class CreateRuleComponent implements OnInit {
 
   setBlockChain(name: any) {
     this.ruleObj.blockchainName = name;
+  }
+
+  getRuleById() {
+    this.loader.start();
+    this.lunarService.getRuleById(this.discordServerId, this.ruleId)
+      .subscribe({
+        next: (value: any) => {
+          this.ruleObj = value.message.rules[0];
+          this.createRuleForm.controls['name'].setValue(this.ruleObj.name);
+          this.createRuleForm.controls['description'].setValue(this.ruleObj.description);
+          this.ruleItems[0].contractAddress = this.ruleObj.address;
+          this.ruleItems[0].quantityHeld = this.ruleObj.quantity;
+          this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
+          this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
+          this.selectedNetwork = this.ruleObj.blockchainName;
+          // = this.ruleObj?.tokenIds.length === 0 ? 'no_filter' : 'filter_nft';
+          if (this.ruleObj?.tokenIds.length === 0 || (this.ruleObj?.tokenIds.length === 1 && this.ruleObj?.tokenIds[0] === '')) {
+            this.ruleItems[0].filter = 'no_filter';
+          } else {
+            this.ruleItems[0].filter = 'filter_nft';
+          }
+          const tempRole = this.roles.filter((obj: any) => obj.id === this.ruleObj.role);
+          if (tempRole.length >= 1) {
+            this.selectedRole = tempRole[0].name;
+          }
+          this.loader.stop();
+        },
+        error: (err: any) => {
+          this.loader.stop();
+        }
+      });
   }
 }

@@ -100,7 +100,21 @@ export class LunarHqAPIServices {
       }));
   }
 
+  getRuleById(discordServerId: any, ruleId: any) {
+    return this.http.get<any>(environment.server + 'WAgetRuleById?discordServerId=' + discordServerId + '&ruleId=' + ruleId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   getChannels(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'getChannels/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  deleteRule(discordServerId: any, ruleId: any) {
     return this.http.get<any>(environment.server + 'getChannels/?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
@@ -117,7 +131,18 @@ export class LunarHqAPIServices {
 
   //Create a new Rule
   createRule(data: any): Observable<any> {
-    let url = environment.server + (data.ruleType === 'NFT' ? 'WAaddNftRule/?discordServerId=' + data.discordServerId : 'WAaddTokenRule/?discordServerId=' + data.discordServerId)
+    let url = ''
+    if (data.id) {
+      url = environment.server + (data.id.includes('N-') ? 'WAaddNftRule/?discordServerId=' + data.discordServerId : 'WAaddTokenRule/?discordServerId=' + data.discordServerId);
+      if (data.id.includes('N-')) {
+        data.nftAddress = data.address;
+      } else {
+        data.tokenAddress = data.address;
+      }
+    } else {
+
+      url = environment.server + (data.ruleType === 'NFT' ? 'WAaddNftRule/?discordServerId=' + data.discordServerId : 'WAaddTokenRule/?discordServerId=' + data.discordServerId)
+    }
     return this.http.post<any>(url, data)
       .pipe(map((result) => {
         return result;
@@ -128,7 +153,7 @@ export class LunarHqAPIServices {
   starUnStarAnnouncement(data: any, type: string): Observable<any> {
     let url = environment.server;
     url = url + (type === 'star' ? 'starAnnouncement' : 'unstarAnnouncement');
-    console.log(url, 'url');
+    // console.log(url, 'url');
     return this.http.put<any>(url, data)
       .pipe(map((result) => {
         return result;

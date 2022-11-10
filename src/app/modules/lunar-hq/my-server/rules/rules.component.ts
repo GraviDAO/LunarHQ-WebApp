@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CssConstants} from 'src/app/shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-rules',
@@ -19,9 +20,11 @@ export class RulesComponent implements OnInit {
   role = 'shepards';
   ruleItems = [];
   discordServerId = '';
+  ruleObj: any;
 
   constructor(private router: Router,
               private location: Location,
+              public toastService: ToastMsgService,
               private route: ActivatedRoute,
               private lunarService: LunarHqAPIServices,
               private loader: NgxUiLoaderService,
@@ -29,7 +32,7 @@ export class RulesComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
-        this.getServerRules()
+        this.getServerRules();
       }
     });
 
@@ -55,9 +58,11 @@ export class RulesComponent implements OnInit {
     this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.ruleItems[0]?.discordServerName]);
   }
 
-  showRule(paused = false) {
+  showRule(ruleObj: any) {
+    // console.log(ruleObj, 'obj');
+    this.ruleObj = ruleObj;
     this.viewRule = true;
-    this.paused = paused;
+    this.paused = false;
   }
 
   closeView() {
@@ -80,7 +85,37 @@ export class RulesComponent implements OnInit {
       });
   }
 
-  updateRole() {
+  updateRole(ruleObj: any) {
+    // @ts-ignore
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.ruleItems[0]?.discordServerName],
+      {queryParams: {ruleId: ruleObj.id}});
+  }
 
+  ruleAction(obj: any) {
+    if (obj.action === 'remove') {
+      this.lunarService.deleteRule(obj.ruleObj.id, obj.ruleObj.discordServerId)
+        .subscribe({
+          next: (value: any) => {
+            this.toastService.setMessage('Rule deleted successfully');
+            this.getServerRules();
+          },
+          error: (err: any) => {
+            this.toastService.setMessage('Failed to delete Rule', 'error');
+          }
+        });
+    } else {
+      obj.ruleObj.active = obj.action === 'resume';
+      this.lunarService.createRule(obj.ruleObj)
+        .subscribe({
+          next: (value: any) => {
+            this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
+            this.getServerRules();
+          },
+          error: (err: any) => {
+            this.toastService.setMessage('Failed to delete Rule', 'error');
+          }
+        });
+    }
+    this.closeView();
   }
 }

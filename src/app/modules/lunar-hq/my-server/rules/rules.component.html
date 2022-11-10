@@ -67,7 +67,7 @@
             </div>
           </div>
           <div class="divider"></div>
-          <div class="rules-item-view visit-button d-flex justify-content-center" (click)="showRule()">
+          <div class="rules-item-view visit-button d-flex justify-content-center" (click)="showRule(ruleObj)">
             <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VIEW</div>
             <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
           </div>
@@ -75,8 +75,11 @@
       </div>
     </div>
     <div class="rules-view" [hidden]="!viewRule">
-      <app-why-lunar-hq-rules-view [paused]="paused" [ruleName]="ruleName" [role]="role" [rules]="ruleItems"
-                                   (closeRule)="closeView()" (updateRole)="updateRole()"></app-why-lunar-hq-rules-view>
+      <app-why-lunar-hq-rules-view [paused]="paused"
+                                   [ruleObj]="ruleObj"
+                                   (closeRule)="closeView()"
+                                   (actionType)="ruleAction($event)"
+                                   (updateRole)="updateRole($event)"></app-why-lunar-hq-rules-view>
     </div>
   </div>
   <!--</app-why-side-nav>-->
