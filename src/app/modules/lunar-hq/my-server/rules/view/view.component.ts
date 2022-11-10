@@ -10,14 +10,15 @@ import {ModalService} from 'src/app/shared/_modal/modal.service';
 })
 export class RulesViewComponent implements OnInit {
 
-  @Input() ruleName: string = 'Watchers on the wall';
-  @Input() role: string = '\\';
-  @Input() rules: any = [];
+  // @Input() ruleName: string = 'Watchers on the wall';
+  // @Input() role: string = '\\';
+  // @Input() rules: any = [];
   @Input() paused: boolean = false;
   @Input() update: boolean = false;
   @Input() ruleObj: any;
   @Output() closeRule: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateRole: EventEmitter<any> = new EventEmitter<any>();
+  @Output() actionType: EventEmitter<any> = new EventEmitter<any>();
   viewMore = false;
 
   constructor(public cssClass: CssConstants,
@@ -50,6 +51,7 @@ export class RulesViewComponent implements OnInit {
   }
 
   confirmRemoveRule() {
+    this.actionType.emit({action: 'remove', ruleObj: this.ruleObj});
     this.cancelModal('removeRuleModal');
   }
 
@@ -57,8 +59,20 @@ export class RulesViewComponent implements OnInit {
     this.openModal('pauseRuleModal');
   }
 
+  resumeRule() {
+    this.actionType.emit({action: 'resume', ruleObj: this.ruleObj});
+  }
+
   confirmPauseRule() {
+    this.actionType.emit({action: 'pause', ruleObj: this.ruleObj});
     this.cancelModal('pauseRuleModal');
   }
 
+  getOperator(operator: string) {
+    return this.rulesService.getOperator(operator)?.name;
+  }
+
+  editRule() {
+    this.updateRole.emit(this.ruleObj);
+  }
 }
