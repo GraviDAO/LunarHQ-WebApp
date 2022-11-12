@@ -1,7 +1,6 @@
 import {Location} from '@angular/common';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SideNavType} from 'src/app/shared/components/side-bar/side.nav.type';
 import {CssConstants} from 'src/app/shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
@@ -72,22 +71,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   navigateToRules() {
     this.router.navigate(['my-server/rules/' + this.discordServerId]);
-  }
-
-  navigateToPolls() {
-
-  }
-
-  navigateToViewInDiscord() {
-
-  }
-
-  navigateToAnnouncements() {
-
-  }
-
-  navigateToGoTo() {
-
   }
 
   ngOnDestroy(): void {

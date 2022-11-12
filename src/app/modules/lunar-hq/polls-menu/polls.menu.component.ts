@@ -70,8 +70,8 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.lunarHqService.getAllPolls()
       .subscribe({
         next: (data) => {
-          // console.log(data);
           this.pollsList = data.message.proposals;
+          // console.log(this.pollsList);
           this.loader.stop();
         },
         error: (err) => {
@@ -117,5 +117,13 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
           this.loader.stop();
         }
       });
+  }
+
+  goToTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

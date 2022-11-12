@@ -129,6 +129,14 @@ export class LunarHqAPIServices {
       }));
   }
 
+  //Draft a poll
+  draftPoll(data: any, discordServerId: any): Observable<any> {
+    return this.http.post<any>(environment.server + 'WAcreateDraftProposal/?discordServerId=' + discordServerId, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   //Create a new Rule
   createRule(data: any): Observable<any> {
     let url = ''

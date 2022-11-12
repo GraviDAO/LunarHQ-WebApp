@@ -86,6 +86,9 @@ export class CreatePollComponent implements OnInit {
       if (this.selectedNetwork === 'Select network' && this.voteWeight === 'tokenWeighted') {
         this.toastService.setMessage('Please select network', 'error');
         return;
+      } else if (this.pollObj.quorum === undefined) {
+        this.toastService.setMessage('Please set quorum', 'error');
+        return;
       }
     } else if (index === 2 || index === 4) {
       if (this.startTime === undefined || this.startTime === '') {
@@ -338,5 +341,23 @@ export class CreatePollComponent implements OnInit {
       });
     }
     // console.log(this.pollObj.ruleIds);
+  }
+
+  saveDraft() {
+    this.loader.start();
+    this.lunarService.draftPoll(this.pollObj, this.discordServerId)
+      .subscribe({
+        next: (data) => {
+          this.loader.stop();
+          this.toast.setMessage('Poll saved');
+          this.location.back();
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.loader.stop();
+          this.toast.setMessage('Failed to create Poll', 'error');
+        }
+      });
+
   }
 }

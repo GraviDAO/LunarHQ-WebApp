@@ -53,6 +53,17 @@
                                     [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
       </div>
     </div>
+
+    <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center">
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
+        [btnLabel]="'BACK TO TOP'"
+        [leftIconType]="'chevron-up-outline'"
+        [iconClass]="cssClass.cta3Icon + ' btn-hover'"
+        [parentClass]="'flex-column'"
+        (click)="goToTop()">
+      </app-why-cta-three>
+    </div>
   </div>
   <!--</app-why-side-nav>-->
 </app-why-header-side-nav>

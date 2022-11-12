@@ -56,13 +56,15 @@
     </div>
   </article>
 
-  <div class="mr-top-40 mr-bottom-80 show-cursor" (click)="goToTop()">
-    <div class="text-center">
-      <ion-icon class="app-why-icon ic16 light-70" name="chevron-up-outline"></ion-icon>
-    </div>
-    <div class="text-center">
-      <span class="app-why-lbl light-70">BACK TO TOP</span>
-    </div>
+  <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center">
+    <app-why-cta-three
+      [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
+      [btnLabel]="'BACK TO TOP'"
+      [leftIconType]="'chevron-up-outline'"
+      [iconClass]="cssClass.cta3Icon + ' btn-hover'"
+      [parentClass]="'flex-column'"
+      (click)="goToTop()">
+    </app-why-cta-three>
   </div>
 
   <div class="preview-container" *ngIf="previewAnnouncementView">

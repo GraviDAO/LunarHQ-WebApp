@@ -20,7 +20,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class SliderComponent implements OnInit {
   @Input() hideValue = false;
   @Output() rangeValue: EventEmitter<any> = new EventEmitter<any>();
-  sliderValue = 20;
+  sliderValue = 0;
 
   constructor() {
 
