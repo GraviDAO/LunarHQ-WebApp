@@ -50,7 +50,7 @@ export class AnnouncementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.serverList.push('view all servers');
-    this.serverList.push('gravidao');
+    // this.serverList.push('gravidao');
     this.getAnnouncementList();
     this.getStaredAnnouncementList();
   }
@@ -65,6 +65,7 @@ export class AnnouncementsComponent implements OnInit {
           const unique = data
             .map((item: any) => item.discordServerName)
             .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
+          // console.log(unique);
           this.serverList.push(...unique);
           this.filterAnnouncement();
           this.loader.stop();
@@ -79,7 +80,7 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   filterAnnouncement() {
-    // console.log(this.announcementSettings, 'settings');
+    console.log(this.announcementList, 'settings');
     if (this.announcementSettings !== null && this.announcementSettings !== undefined) {
       if (this.announcementSettings.mentionFilter) {
         // this.announcementList = this.announcementList.filter((obj: any) => obj.content.toString().toLowerCase().includes(this.announcementSettings.mentionFilter));
