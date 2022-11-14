@@ -176,6 +176,7 @@
                 [parentClass]="'light-70-hover'"
                 [btnClass]="cssClass.cta3Light50F12"
                 [iconClass]="cssClass.cta3Light5014Icon"
+                (click)="showRule(ruleObj)"
                 [iconType]="'chevron-forward-outline'"
                 [btnLabel]="'View'"></app-why-cta-three>
             </div>
@@ -205,6 +206,13 @@
         [parentClass]="'flex-column'"
         (click)="goToTop()">
       </app-why-cta-three>
+    </div>
+
+    <div class="rules-view" [hidden]="!viewRule">
+      <app-why-lunar-hq-rules-view [ruleObj]="ruleObj"
+                                   (closeRule)="closeView()"
+                                   (actionType)="ruleAction($event)"
+                                   (updateRole)="updateRole($event)"></app-why-lunar-hq-rules-view>
     </div>
 
   </section>
