@@ -48,7 +48,7 @@
     </div>
 
     <div class="mr-top-56">
-      <div *ngFor="let pollObj of pollsList">
+      <div *ngFor="let pollObj of pollsList" class="poll-list-wrapper">
         <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
                                     [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
       </div>

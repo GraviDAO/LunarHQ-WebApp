@@ -24,9 +24,6 @@
             <div class="server-name pd-left-16 app-why-lbl f28 ft-bold light">
               {{serverDetails?.discordServerName}}
             </div>
-            <div class="server-name-right-icon pd-left-8 app-why-lbl f28" *ngIf="serverDetails?.userIsAdmin">
-              <ion-icon name="key" class="app-why-icon light-20 ic20"></ion-icon>
-            </div>
           </div>
           <div class="server-chains d-flex mr-top-16">
             <div class="server-active-chains app-why-lbl f10 ft-lato light-50 letter-spacing-02">
@@ -39,9 +36,9 @@
             </div>
           </div>
         </div>
-        <div class="server-image-container d-flex align-items-center">
+        <!--<div class="server-image-container d-flex align-items-center">
           <img class="server-image" src="/assets/img/png/placeholder.png" alt="server-image">
-        </div>
+        </div>-->
       </div>
       <div class="title-underline mr-top-40"></div>
       <div class="server-detail-items mr-top-40 d-flex">
@@ -84,17 +81,23 @@
             <div class="app-why-lbl f16 ft-500 light text-uppercase">
               {{serverDetails?.discordServerName}} DISCORD RULES [ {{serverDetails?.rules.length}} ]
             </div>
-            <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
+            <!--<div class="rules d-flex- app-why-lbl f12 ft-bold primary">
               <app-why-cta-three
                 [btnClass]="cssClass.cta3PrimaryNorm"
                 [iconClass]="cssClass.cta3PrimaryIconNorm"
                 [iconType]="'chevron-forward-outline'"
                 (click)="navigateToRules()"
                 [btnLabel]="'RULES'"></app-why-cta-three>
-            </div>
+            </div>-->
           </div>
           <div class="title-underline mr-top-8 mr-right-40"></div>
-          <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40">
+          <div class="pd-top-16 mr-right-40" *ngIf="serverDetails?.rules.length === 0">
+            <label class="app-why-lbl f14 light-70">
+              Lunar HQ is all about making communities work. It looks like you don't hold any community roles yet but
+              we'll keep checking and place them here when we find them.
+            </label>
+          </div>
+          <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40" *ngIf="serverDetails?.rules.length > 0">
             <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
               RULE NAME
             </div>
@@ -125,7 +128,8 @@
                 </div>
               </div>
               <div class="divider"></div>
-              <div class="rules-item-view visit-button d-flex justify-content-center add-cursor" (click)="showRule(rule)">
+              <div class="rules-item-view visit-button d-flex justify-content-center add-cursor"
+                   (click)="showRule(rule)">
                 <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
                 <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
               </div>
@@ -198,6 +202,17 @@
           [announcementArrayObj]="serverDetails?.announcements"
           class="mr-top-8"></app-why-lunar-hq-recent-announcements>
       </div>
+    </div>
+
+    <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center">
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
+        [btnLabel]="'BACK TO TOP'"
+        [leftIconType]="'chevron-up-outline'"
+        [iconClass]="cssClass.cta3Icon + ' btn-hover'"
+        [parentClass]="'flex-column'"
+        (click)="goToTop()">
+      </app-why-cta-three>
     </div>
 
     <div class="rules-view" [hidden]="!viewRule">

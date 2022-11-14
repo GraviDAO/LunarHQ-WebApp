@@ -1,5 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-why-lunar-hq-recent-polls',
@@ -11,10 +12,11 @@ export class RecentPollsComponent {
   // @ts-ignore
   @Input() currentDateTime: Date;
 
-  constructor(public cssClass: CssConstants) {
+  constructor(public cssClass: CssConstants,
+              private router: Router) {
   }
 
   navigateToPolls() {
-
+    this.router.navigate(['/polls'])
   }
 }

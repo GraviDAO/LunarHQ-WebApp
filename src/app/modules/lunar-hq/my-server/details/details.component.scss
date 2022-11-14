@@ -129,7 +129,7 @@
 
 .server-detail-rules-content {
   height: mixin.toRem(504);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 

@@ -17,7 +17,7 @@
             <div class="d-flex overflow-hidden">
               <div ngbDropdown container="body">
                 <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" id="dropdownBasic1"
-                        ngbDropdownToggle>ASSIGNED [ GRAVIDAO ]
+                        ngbDropdownToggle>View All
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                   <button ngbDropdownItem class="app-why-lbl f12 ft-bolt dark no-letter-spacing">VIEW ALL</button>
@@ -49,17 +49,11 @@
 
     <div class="polls-container d-flex flex-column mr-top-56">
       <div class="recent-polls mr-top-8 d-flex flex-column pd-lr-40 pd-top-24 mr-bottom-80">
-        <div class="recent-poll-header-title d-flex justify-content-between">
-          <div class="app-why-lbl f16 ft-bold light">
+        <div class="d-flex justify-content-between add-bottom-border">
+          <span class="app-why-lbl f16 ft-bold light text-uppercase mr-bottom-8">
             {{pollsList[0]?.discordServerName}} Polls [ {{pollsList.length}} ]
-          </div>
-          <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
-            <app-why-cta-three [btnClass]="cssClass.cta3PrimaryNorm" [iconClass]="cssClass.cta3PrimaryIconNorm"
-                               [iconType]="'chevron-forward-outline'" (click)="navigateToPolls()" [btnLabel]="'POLLS'">
-            </app-why-cta-three>
-          </div>
+          </span>
         </div>
-        <div class="title-underline mr-top-8"></div>
         <div class="poll-items pd-top-48 pd-bottom-48 d-flex flex-column">
           <div *ngFor="let pollObj of pollsList">
             <app-why-lunar-hq-poll-cell [pollObj]="pollObj"

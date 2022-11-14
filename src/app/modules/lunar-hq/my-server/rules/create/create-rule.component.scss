@@ -3,12 +3,13 @@
 .create-rule-header {
   height: mixin.toRem(64);
   width: calc(100% - 240px);
-  @include mixin.bg--wrapper;
+  //@include mixin.bg--wrapper;
   position: fixed;
   margin-top: -112px;
   margin-left: -3.75rem;
   z-index: 10;
   backdrop-filter: blur(16px);
+  background-color: var(--dark-50);
 }
 
 .back-button {
@@ -108,7 +109,7 @@
 
 .dropdown-menu {
   max-height: mixin.toRem(226);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   margin-left: mixin.toRem(8);
 
@@ -186,11 +187,11 @@
 }
 
 .rule-item-detail {
-  height: mixin.toRem(96);
+  min-height: mixin.toRem(120);
   background-color: var(--dark);
 
   &.rule-item-detail-nft-token {
-    height: mixin.toRem(202);
+    min-height: mixin.toRem(240);
   }
 }
 
@@ -217,7 +218,7 @@
 }
 
 .create-rule-content {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .rule-item-condition {
@@ -246,7 +247,7 @@
 }
 
 .rule-item-criteria-contact-addrress {
-  width: mixin.toRem(282);
+  width: mixin.toRem(320);
 }
 
 .rule-item-criteria-quantity-held {

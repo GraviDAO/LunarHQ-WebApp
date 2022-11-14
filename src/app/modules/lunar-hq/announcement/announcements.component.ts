@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../services/lunar-hq.services';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {ToastrService} from 'ngx-toastr';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
@@ -22,14 +22,20 @@ export class AnnouncementsComponent implements OnInit {
   selectedAnnouncementObj: any;
   announcementSettings: any;
   starredAnnouncements = 0;
+  onlyStarred = false;
 
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
               private storageService: LocalStorageService,
               private router: Router,
+              private route: ActivatedRoute,
               private toast: ToastMsgService,
               private lunarHqService: LunarHqAPIServices) {
     this.announcementSettings = this.storageService.get('announcement_settings');
+    this.route.queryParams.subscribe((params: any) => {
+      this.onlyStarred = params.starred;
+      console.log(this.onlyStarred);
+    });
   }
 
   content = 'gm @everyone' +
