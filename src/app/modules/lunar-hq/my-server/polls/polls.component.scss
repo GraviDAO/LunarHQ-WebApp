@@ -9,9 +9,10 @@
 
 .recent-polls {
   width: mixin.toRem(1080);
-  max-height: 70vh;
+  max-height: 62vh;
   //max-height: mixin.toRem(770);
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   @include mixin.bg--wrapper;
   background: var(--tertiary);
 }
@@ -147,4 +148,14 @@
   background: var(--light-20);
   margin-top: mixin.toRem(16);
   margin-bottom: auto;
+}
+
+.title-underline {
+  height: mixin.toRem(1);
+  background: var(--light-20);
+}
+
+
+.add-bottom-border {
+  border-bottom: 1px solid var(--light-20);
 }

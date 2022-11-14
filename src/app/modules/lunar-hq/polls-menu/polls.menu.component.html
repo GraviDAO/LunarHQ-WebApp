@@ -17,7 +17,7 @@
             <div class="d-flex overflow-hidden">
               <div ngbDropdown container="body">
                 <button type="button" class="link-dropdown app-why-lbl f12 ft-bold light" id="dropdownBasic1"
-                        ngbDropdownToggle>VIEW ALL SERVERS
+                        ngbDropdownToggle>VIEW ALL
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                   <button ngbDropdownItem class="app-why-lbl f12 ft-bolt dark no-letter-spacing">VIEW ALL</button>
@@ -48,7 +48,7 @@
     </div>
 
     <div class="mr-top-56">
-      <div *ngFor="let pollObj of pollsList">
+      <div *ngFor="let pollObj of pollsList" class="poll-list-wrapper">
         <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
                                     [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
       </div>

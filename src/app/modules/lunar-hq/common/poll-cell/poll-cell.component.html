@@ -8,12 +8,12 @@
       {{pollObj?.title}}
     </div>
     <div class="poll-item-details pd-top-8 d-flex justify-content-between">
-      <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+      <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
         {{pollObj?.discordServerName}}
       </div>
       <div class="poll-item-detail-info app-why-lbl f10 ft-lato light-50 letter-spacing-02" *ngIf="pollObj">
-        ID : {{pollObj?.id}} | BY: {{pollObj?.creatorDiscordId | longTextPipe}}
-        | {{pollObj?.startDate | date: 'dd MMM, yyyy'}}
+        ID : {{pollObj?.id}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;BY: {{pollObj?.creatorDiscordId | longTextPipe}}
+        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{{pollObj?.startDate | date: 'dd MMM, yyyy'}}
       </div>
     </div>
   </div>
@@ -41,6 +41,14 @@
       </div>
       <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 error text-center">
         FAILED
+      </div>
+    </div>
+    <div *ngIf="pollObj?.status === 'Quorum Passed'">
+      <div class="poll-item-time app-why-lbl f16 ft-bold success">
+        FINISHED
+      </div>
+      <div class="poll-item-time pd-top-4 app-why-lbl f10 ft-lato letter-spacing-02 success text-center">
+        SUCCESS
       </div>
     </div>
   </div>

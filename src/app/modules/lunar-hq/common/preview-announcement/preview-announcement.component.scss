@@ -15,7 +15,7 @@
 
 .content-container {
   height: calc(100% - 35vh);
-  overflow: scroll;
+  overflow-y: auto;
   background: var(--bg-dark);
 }
 

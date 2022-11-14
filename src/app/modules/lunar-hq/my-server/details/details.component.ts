@@ -120,4 +120,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.viewRule = true;
     this.paused = false;
   }
+
+  goToTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }

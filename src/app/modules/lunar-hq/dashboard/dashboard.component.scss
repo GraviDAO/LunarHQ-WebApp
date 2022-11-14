@@ -47,15 +47,19 @@
   @include mixin.bg--wrapper;
   width: 40%;
   min-width: mixin.toRem(354);
-  height: mixin.toRem(658);
+  //height: mixin.toRem(658);
   max-width: 30rem;
+  max-height: mixin.toRem(658);
+  min-height: mixin.toRem(300);
 }
 
 .rule-container {
   @include mixin.bg--wrapper;
   width: 100%;
   min-width: mixin.toRem(718);
-  height: mixin.toRem(658);
+  max-height: mixin.toRem(658);
+  min-height: mixin.toRem(300);
+  //height: mixin.toRem(658);
 }
 
 .rule-details-wrapper {
@@ -98,7 +102,7 @@
 
 .server-list-wrapper {
   height: mixin.toRem(504);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 

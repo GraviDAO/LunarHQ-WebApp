@@ -93,13 +93,13 @@
                        [ngClass]="{'rule-item-detail-nft-token': ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'}">
                     <div class="d-flex overflow-hidden rule-item-type pd-top-16">
                       <div ngbDropdown container="body">
-                        <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50"
+                        <button type="button" class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50 text-uppercase"
                                 [ngClass]="{'highlight': ruleItem.ruleTypeId == ''}"
                                 ngbDropdownToggle>{{ruleItem.ruleTypeId != '' ? ruleItem.ruleType : 'SELECT RULE TYPE'}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
                           <ng-container *ngFor="let ruleType of ruleTypes">
-                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing"
+                            <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing text-uppercase"
                                     (click)="selectRuleType(ruleItem, ruleType)">{{ruleType.name}}
                             </button>
                             <div class="dropdown-divider"></div>
@@ -136,13 +136,14 @@
                       <div class="rule-item-nft-container d-flex flex-column mr-left-24">
 
                         <div class="d-flex align-items-center">
-                          <div class="pd-top-12">
+                          <div class="pd-top-12 pd-right-16">
                             <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
                                                [dataList]="['Polygon','Terra', 'Terra Classic']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down>
                           </div>
-
+                        </div>
+                        <div class="mr-top-32">
                           <div class="form-group rule-item-criteria-contact-addrress">
                             <input type="text" id="contractAddress-{{ruleItemIndex}}"
                                    class="form-control app-why-floating-input"
@@ -153,7 +154,7 @@
                           </div>
                         </div>
                         <div class="rule-item-criteria-operator d-flex align-items-center">
-                          <div class="d-flex overflow-hidden rule-item-select-operator mr-top-28">
+                          <div class="d-flex overflow-hidden rule-item-select-operator mr-top-32">
                             <div ngbDropdown container="body">
                               <button type="button" class="link-dropdown left-arrow app-why-lbl f16 ft-lato light-70"
                                       [ngClass]="{'highlight': ruleItem.ruleTypeId != '' && ruleItem.operatorId ==''}"
@@ -210,10 +211,14 @@
                           <div [ngClass]="{'opacity-20': ruleItem.file == 'uploaded'}">
                             <label class="d-flex app-why-lbl ft-lato f10 light-50 letter-spacing-02" for="description">NFT
                               ID</label>
-                            <textarea #nftId [attr.disabled]="ruleItem.file == 'uploaded' ? '' : null"
-                                      (keyup)="updateNftId(ruleItem, nftId.value)" name="nft_id"
+                            <textarea #nftId
+                                      (keyup)="updateNftId(ruleItem, nftId.value)"
+                                      name="nft_id"
+                                      formControlName = "nft_id"
                                       class="app-why-lbl f16 ft-lato light mr-top-4 description_area no-letter-spacing pd-top-8 pd-bottom-8 pd-lr-16"
-                                      id="nft_id" maxlength="2000" placeholder="e.g. 01827, 22344, ..."></textarea>
+                                      id="nft_id"
+                                      maxlength="2000"
+                                      placeholder="e.g. 01827, 22344, ..."></textarea>
                           </div>
                           <!--            Commented based on call with Adam-->
                           <!--
@@ -731,9 +736,8 @@
       </div>
     </div>
     <div class="rules-view" [hidden]="!viewRule" (click)="$event.stopPropagation()">
-      <app-why-lunar-hq-rules-view [update]="true" [ruleName]="createRuleForm.get('name')?.value"
+      <app-why-lunar-hq-rules-view [update]="true"
                                    [ruleObj]="ruleObj"
-                                   [role]="createRuleForm.get('role')?.value" [rules]="ruleItems"
                                    (closeRule)="closeView()" (updateRole)="updateRole()"></app-why-lunar-hq-rules-view>
     </div>
   </div>

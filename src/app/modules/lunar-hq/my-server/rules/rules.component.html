@@ -24,16 +24,8 @@
     </div>
     <div class="rules-details-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40 mr-bottom-48">
       <div class="rules-header-title d-flex justify-content-between pd-right-40">
-        <div class="app-why-lbl f16 ft-bold light">
+        <div class="app-why-lbl f16 ft-bold light text-uppercase">
           {{ruleItems[0]?.discordServerName}} DISCORD RULES [ {{ruleItems?.length}} ]
-        </div>
-        <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
-          <app-why-cta-three
-            [btnClass]="cssClass.cta3PrimaryNorm"
-            [iconClass]="cssClass.cta3PrimaryIconNorm"
-            [iconType]="'chevron-forward-outline'"
-            (click)="navigateToRules()"
-            [btnLabel]="'RULES'"></app-why-cta-three>
         </div>
       </div>
       <div class="title-underline mr-top-8 mr-right-40"></div>
@@ -61,7 +53,7 @@
           <div class="divider"></div>
           <div class="rules-item-chain d-flex justify-content-between">
             <div class="pd-left-16 app-why-lbl f16 ft-bold light block-chain-wrapper">{{ruleObj?.blockchainName}}</div>
-            <div class="rules-item-chain-icon pf-left-16">
+            <div class="rules-item-chain-icon pd-left-16">
               <img class="rules-item-chain-icon-container mr-right-16" [src]="ruleObj?.blockchainImage" imgFallback
                    alt="chainImage">
             </div>

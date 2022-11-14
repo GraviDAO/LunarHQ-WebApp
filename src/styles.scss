@@ -21,6 +21,10 @@
   //position: fixed;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 
 .app-why-toast {
   position: fixed;
@@ -47,3 +51,24 @@
 }
 
 
+* {
+  scrollbar-width: thin;
+  //scrollbar-color: var(--dark) orange;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--dark-70);
+  //background: var(--dark);
+}
+
+*::-webkit-scrollbar-thumb {
+  //background-color: orange;
+  background: var(--dark);
+  border-radius: 20px;
+  //border: 3px solid orange;
+}

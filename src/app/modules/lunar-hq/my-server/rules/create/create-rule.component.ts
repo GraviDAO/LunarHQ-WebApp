@@ -97,7 +97,9 @@ export class CreateRuleComponent implements OnInit {
       role: new FormControl('',
         [
           Validators.required
-        ])
+        ]),
+      nft_id: new FormControl('',
+        [])
     });
     this.addRule();
   }
@@ -107,6 +109,7 @@ export class CreateRuleComponent implements OnInit {
     // console.log('bs-stepper event - ', event, this.stepperIndex);
   }
   selectedNetwork = 'Select Network';
+  tokenIds: any;
 
   ngOnInit(): void {
     const stepperEl = document.querySelector('#stepper2') as HTMLElement;
@@ -421,10 +424,14 @@ export class CreateRuleComponent implements OnInit {
           this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
           this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
           this.selectedNetwork = this.ruleObj.blockchainName;
+          // this.tokenIds = this.ruleObj?.tokenIds[0];
           // = this.ruleObj?.tokenIds.length === 0 ? 'no_filter' : 'filter_nft';
           if (this.ruleObj?.tokenIds.length === 0 || (this.ruleObj?.tokenIds.length === 1 && this.ruleObj?.tokenIds[0] === '')) {
             this.ruleItems[0].filter = 'no_filter';
           } else {
+            const tokenList = this.ruleObj?.tokenIds.toString();
+            console.log(tokenList, 'tokenList');
+            this.createRuleForm.controls['nft_id'].setValue(tokenList);
             this.ruleItems[0].filter = 'filter_nft';
           }
           const tempRole = this.roles.filter((obj: any) => obj.id === this.ruleObj.role);

@@ -7,6 +7,7 @@ import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription} from 'rxjs';
 import {timer} from 'rxjs';
+import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
 
 @Component({
@@ -21,10 +22,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentDateTime: Date | undefined;
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
+  viewRule = false;
+  ruleObj: any;
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
               private lunarHqService: LunarHqAPIServices,
+              public toastService: ToastMsgService,
               private router: Router,
               private loaderService: NgxUiLoaderService,
               private modalService: ModalService) {
@@ -101,5 +105,47 @@ export class DashboardComponent implements OnInit, OnDestroy {
   serverDetails(serverObj: any) {
     this.router.navigate(['my-server/details/' + serverObj.discordServerId]);
     // my-server/details?server=
+  }
+
+  closeView() {
+    this.viewRule = false;
+  }
+
+  ruleAction(obj: any) {
+    if (obj.action === 'remove') {
+      this.lunarHqService.deleteRule(obj.ruleObj.id, obj.ruleObj.discordServerId)
+        .subscribe({
+          next: (value: any) => {
+            this.toastService.setMessage('Rule deleted successfully');
+          },
+          error: (err: any) => {
+            this.toastService.setMessage('Failed to delete Rule', 'error');
+          }
+        });
+    } else {
+      obj.ruleObj.active = obj.action === 'resume';
+      this.lunarHqService.createRule(obj.ruleObj)
+        .subscribe({
+          next: (value: any) => {
+            this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
+          },
+          error: (err: any) => {
+            this.toastService.setMessage('Failed to delete Rule', 'error');
+          }
+        });
+    }
+    this.closeView();
+  }
+
+  updateRole(ruleObj: any) {
+    // @ts-ignore
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.serverDetails?.discordServerName],
+      {queryParams: {ruleId: ruleObj.id}});
+  }
+
+  showRule(ruleObj: any) {
+    // console.log(ruleObj, 'obj');
+    this.ruleObj = ruleObj;
+    this.viewRule = true;
   }
 }

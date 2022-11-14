@@ -14,7 +14,7 @@ export class ImgFallbackDirective {
   @HostListener('error')
   loadFallbackOnError() {
     const element: HTMLImageElement = <HTMLImageElement>this.eRef.nativeElement;
-    element.src = this.appImgFallback || '/assets/img/jpg/placeholder.jpg';
+    element.src = this.appImgFallback || '/assets/img/png/placeholder.png';
   }
 
 }

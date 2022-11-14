@@ -26,7 +26,7 @@
 .rules-details-container {
   width: 60vw;
   min-width: mixin.toRem(718);
-  height: 72vh;
+  height: 68vh;
   padding-bottom: mixin.toRem(16);
   //height: mixin.toRem(657);
   background: var(--tertiary);
@@ -79,15 +79,8 @@
 
 .rules-content {
   height: mixin.toRem(504);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .rules-item {

@@ -86,16 +86,19 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
         error: (error) => {
           console.error(error, 'error');
         }
-      })
+      });
   }
 
   navigateToSubMenu(subMenu: any) {
+    console.log(subMenu, 'subMenu');
     if (subMenu.route.includes('/polls?')) {
       const route = subMenu.route.substring(0, 6);
       const type = subMenu.route.substring(12, subMenu.route.length);
       this.router.navigate([route], {queryParams: {type}});
+    } else if (subMenu.route.includes('/announcement?')) {
+      this.router.navigate(['/announcement'], {queryParams: {'starred': true}});
     } else {
-      this.router.navigate([subMenu.route])
+      this.router.navigate([subMenu.route]);
     }
   }
 
@@ -105,7 +108,10 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
       // console.log(this.nestedMenuValue);
       if (this.nestedMenuValue !== 0) {
         // @ts-ignore
-        this.sideNavList[3].subMenu.push({title: 'Starred [' + this.nestedMenuValue + ']'});
+        this.sideNavList[3].subMenu.push({
+          title: 'Starred [' + this.nestedMenuValue + ']',
+          route: '/announcement?starred=true'
+        });
       }
     }
   }

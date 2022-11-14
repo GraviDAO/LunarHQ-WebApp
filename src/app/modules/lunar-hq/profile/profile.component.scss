@@ -1,6 +1,6 @@
 @use "src/style/mixin-core" as mixin;
 
-.back-header {
+/*.back-header {
   position: fixed;
   width: 100%;
   height: 4rem;
@@ -9,7 +9,7 @@
   margin-top: -3.5rem;
   z-index: 999;
   backdrop-filter: blur(16px);
-}
+}*/
 
 .profile-wrapper {
   margin-left: -3.75rem;
@@ -56,8 +56,7 @@
 .divider {
   height: 1px;
   width: 100%;
-  background-color: var(--light);
-  opacity: 0.2;
+  background-color: var(--light-20);
 }
 
 .social-links {
@@ -94,6 +93,10 @@
   width: mixin.toRem(240);
   height: mixin.toRem(40);
   margin: auto;
+}
+
+.image-wrapper {
+  @include mixin.notch(8px);
 }
 
 .profile-img {
@@ -188,29 +191,33 @@
     }
   }
 }
-.dropdown{
+
+.dropdown {
+  .dropdown-toggle::after {
+    right: 0 !important;
+    font-size: var(--font-size-20);
+    vertical-align: 0.055em;
+    margin-top: 0.55rem;
+    position: absolute;
+  }
+
+  &.show {
+    .dropdown-toggle {
+      color: var(--secondary) !important;
+    }
+
     .dropdown-toggle::after {
-        right: 0 !important;
-        font-size: var(--font-size-20);
-        vertical-align: 0.055em;
-        margin-top: 0.55rem;
-        position: absolute;
+      color: var(--secondary) !important;
+      margin-top: 0.15rem;
+      height: mixin.toRem(12);
+      border-bottom: 0.3em dashed;
+      border-top: 0em solid transparent;
+      border-right: 0.3em solid transparent;
+      border-left: 0.3em solid transparent;
     }
-    &.show {
-        .dropdown-toggle {
-          color: var(--secondary) !important;
-        }
-        .dropdown-toggle::after {
-            color: var(--secondary) !important;
-            margin-top: 0.15rem;
-            height: mixin.toRem(12);
-            border-bottom: 0.3em dashed;
-            border-top: 0em solid transparent;
-            border-right: 0.3em solid transparent;
-            border-left: 0.3em solid transparent;
-        }
-    }
+  }
 }
+
 .license-container {
   width: mixin.toRem(259);
   height: mixin.toRem(40);
