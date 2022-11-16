@@ -73,10 +73,19 @@
 }
 
 .server-detail-rules {
-  width: mixin.toRem(718);
+  width: 100%;
+  min-width: 67.5rem;
+  //margin: auto;
+  //width: mixin.toRem(718);
   height: mixin.toRem(657);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
+}
+
+.rules-detail-title {
+  width: 65%;
+  justify-content: center;
+  //margin: auto;
 }
 
 .rule-name-title {
@@ -100,7 +109,7 @@
 }
 
 .rules-item-chain {
-  width: mixin.toRem(178);
+  width: mixin.toRem(240);
 }
 
 .rules-item-chain-icon-container {
@@ -117,6 +126,8 @@
 }
 
 .server-detail-rules-content {
+  width: 80%;
+  //margin: auto;
   height: mixin.toRem(504);
   overflow-y: auto;
   overflow-x: hidden;

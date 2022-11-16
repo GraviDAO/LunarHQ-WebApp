@@ -1,15 +1,16 @@
 @use "src/style/mixin-core" as mixin;
 
 .polls-container {
-  width: mixin.toRem(1080);
-  margin-left: auto;
-  margin-right: auto;
+  //width: 100%;
+  //margin-left: auto;
+  //margin-right: auto;
   // background: var(--tertiary);
 }
 
 .recent-polls {
-  width: mixin.toRem(1080);
-  max-height: 62vh;
+  width: 60rem;
+  //width: mixin.toRem(1080);
+  //max-height: 62vh;
   //max-height: mixin.toRem(770);
   overflow-y: auto;
   overflow-x: hidden;
@@ -158,4 +159,9 @@
 
 .add-bottom-border {
   border-bottom: 1px solid var(--light-20);
+}
+
+
+.poll-list-container {
+  min-width: mixin.toRem(90);
 }

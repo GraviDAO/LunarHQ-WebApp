@@ -33,9 +33,10 @@ ul li ul {
   //background: orange;
   visibility: hidden;
   height: 2.375rem;
-  width: 10.5rem;
+  //width: 10.5rem;
   opacity: 0;
   min-width: 5rem;
+  width: max-content;
   position: absolute;
   transition: all 0.5s ease;
   left: 0;
@@ -94,9 +95,7 @@ ul li ul li {
 
 .text-wrapper {
   z-index: 99;
-  padding-left: 24px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 8px 24px;
   color: var(--dark);
   font-weight: 500;
   line-height: 20px;

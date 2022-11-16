@@ -43,40 +43,40 @@
       </div>
       <div *ngIf="pollObj.votingSystem === 'Role Weighted Voting'">
         <div class="pd-left-48" *ngFor="let rule of detailsObj?.rules; let pos = index;">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Role {{pos + 1}}</span>
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{rule}}</span>
         </div>
       </div>
       <div *ngIf="pollObj.votingSystem === 'Token Weighted Voting'">
         <div class="pd-left-48">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Network</span>
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{pollObj?.blockchainName}}</span>
         </div>
         <div class="pd-left-48">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Address</span>
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{pollObj?.address | longTextPipe}}</span>
         </div>
         <div class="pd-left-48">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Vote</span>
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{pollObj?.numberPerVote}}</span>
         </div>
       </div>
       <div class="pd-left-24 app-why-lbl f14 ft-lato light-50 letter-spacing-02">
-        <span class="app-why-lbl f14 ft-lato success">[and]</span>
+        <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light">Quorum</span>
-        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light">Percentage</span>
       </div>
       <div class="pd-left-112">
-        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light">{{pollObj?.quorum}}</span>
       </div>
       <div class="pd-top-16">
@@ -94,19 +94,19 @@
               *ngIf="!detailsObj?.isToday">{{pollObj?.startDate| date: 'dd/MM/yyyy'}}</span>
       </div>
       <div class="pd-left-48">
-        <span class="app-why-lbl f14 ft-lato success">[start time]</span>
-        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;start time&nbsp;]&nbsp;</span>
+        <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.startTime}}</span>
       </div>
       <div class="pd-left-24">
         <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Poll ends __</span>
-        <span class="app-why-lbl f14 ft-lato error">[closing date]</span>
+        <span class="app-why-lbl f14 ft-lato error">&nbsp;[&nbsp;closing date&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02"> __</span>
         <span class="app-why-lbl f14 ft-lato light">{{pollObj?.endDate | date: 'dd/MM/yyyy'}}</span>
       </div>
       <div class="pd-left-48">
-        <span class="app-why-lbl f14 ft-lato error">[closing time]</span>
-        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato error">&nbsp;[&nbsp;closing time&nbsp;]&nbsp;</span>
+        <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.closingTime}}</span>
       </div>
 
@@ -118,7 +118,7 @@
         <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Channel group:\ {{detailsObj?.location}}</span>
       </div>
       <div class="pd-left-48" *ngIf="detailsObj?.channelName">
-        <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+        <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.channelName}}</span>
       </div>
 

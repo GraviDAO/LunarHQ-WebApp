@@ -59,7 +59,7 @@ export class RulesComponent implements OnInit {
   }
 
   showRule(ruleObj: any) {
-    // console.log(ruleObj, 'obj');
+    console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
     this.paused = false;
@@ -117,5 +117,14 @@ export class RulesComponent implements OnInit {
         });
     }
     this.closeView();
+  }
+
+  goToTop() {
+    // console.log('in top');
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

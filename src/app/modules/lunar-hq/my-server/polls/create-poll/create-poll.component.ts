@@ -45,6 +45,8 @@ export class CreatePollComponent implements OnInit {
   todayDate = new Date();
   validateClosingDate = new Date();
   currentTime: any;
+  validatedStage = 0;
+  pollId: any;
 
   constructor(
     private router: Router,
@@ -62,6 +64,15 @@ export class CreatePollComponent implements OnInit {
       this.discordServerId = params.get('discordServerId');
       this.discordServerName = params.get('discordServerName');
     });
+
+    this.route.queryParams.subscribe((params: any) => {
+      this.pollId = params.pollId;
+      console.log(this.pollId, 'pollId');
+      if (this.pollId) {
+        this.setPollObj();
+      }
+    });
+
     // console.log(this.todayDate.getUTCHours().toString().length);
     const hours = this.todayDate.getUTCHours().toString().length === 1 ? '0' + this.todayDate.getUTCHours() : this.todayDate.getUTCHours();
     this.currentTime = hours + ':' + this.todayDate.getUTCMinutes();
@@ -73,60 +84,62 @@ export class CreatePollComponent implements OnInit {
     this.stepTitle = this.stepTitles[this.stepperIndex];
   }
 
-  validatePoll(index: number) {
+  validatePoll(index: number): number {
     if (index === 0 || index === 4) {
       if (this.pollObj.title === '' || this.pollObj.title === undefined) {
         this.toastService.setMessage('Title cannot be empty', 'error');
-        return;
+        return 0;
       } else if (this.pollObj.description === '' || this.pollObj.description === undefined) {
         this.toastService.setMessage('Description cannot be empty', 'error');
-        return;
+        return 0;
       }
     } else if (index === 1 || index === 4) {
       if (this.selectedNetwork === 'Select network' && this.voteWeight === 'tokenWeighted') {
         this.toastService.setMessage('Please select network', 'error');
-        return;
+        return 0;
       } else if (this.pollObj.quorum === undefined) {
         this.toastService.setMessage('Please set quorum', 'error');
-        return;
+        return 0;
       }
     } else if (index === 2 || index === 4) {
       if (this.startTime === undefined || this.startTime === '') {
         this.toastService.setMessage('Please set start time', 'error');
-        return;
+        return 0;
       }
       if (this.closingTime === undefined || this.closingTime === '') {
         this.toastService.setMessage('Please set closing time', 'error');
-        return;
+        return 0;
       }
       if (this.closingDate === undefined || this.closingDate === '') {
         this.toastService.setMessage('Please set closing date', 'error');
-        return;
+        return 0;
       }
       if ((this.dateRadioSelected !== 'today') && (this.startDate === undefined || this.startDate === '')) {
         this.toastService.setMessage('Please set start date', 'error');
-        return;
+        return 0;
       }
     } else if (index === 3 || index === 4) {
       if (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '') {
         this.toastService.setMessage('Please select channel', 'error');
-        return
+        return 0;
       }
     }
+    return 1;
   }
 
   next() {
+    let validationStatus: any;
     if (this.stepperIndex === 0) {
-      this.validatePoll(this.stepperIndex);
+      validationStatus = this.validatePoll(this.stepperIndex);
     } else if (this.stepperIndex === 1) {
       if (this.voteWeight === 'tokenWeighted') {
         this.pollObj.votingSystem = 'Token Weighted Voting';
-        this.validatePoll(this.stepperIndex);
+        validationStatus = this.validatePoll(this.stepperIndex);
       } else {
         this.pollObj.votingSystem = 'Role Weighted Voting';
       }
     } else if (this.stepperIndex === 2) {
-      this.validatePoll(this.stepperIndex);
+      validationStatus = this.validatePoll(this.stepperIndex);
       const tempStartTime = this.startTime.split(':');
       if (this.dateRadioSelected === 'today') {
         this.detailsObj.isToday = true;
@@ -149,16 +162,26 @@ export class CreatePollComponent implements OnInit {
       this.detailsObj.startTime = this.startTime;
       this.detailsObj.closingTime = this.closingTime;
     } else if (this.stepperIndex === 3) {
-      this.validatePoll(this.stepperIndex);
+      validationStatus = this.validatePoll(this.stepperIndex);
     }
-    this.stepperIndex++;
-    this.getActiveStep();
+    console.log(validationStatus, 'validationStatus');
+    if (validationStatus === 1) {
+      this.stepperIndex++;
+      this.validatedStage = this.stepperIndex;
+      if (this.stepperIndex === 4) {
+        this.viewStep(this.stepperIndex);
+      } else {
+        this.getActiveStep();
+      }
+    }
   }
 
   previous() {
     // this.stepper.previous();
-    this.stepperIndex--;
-    this.getActiveStep();
+    if (this.stepperIndex > 0) {
+      this.stepperIndex--;
+      this.getActiveStep();
+    }
   }
 
   onSubmit() {
@@ -212,10 +235,6 @@ export class CreatePollComponent implements OnInit {
       });
   }
 
-  navigateToPolls() {
-
-  }
-
   countCharacter() {
     const currentCount = document.getElementById('current_count');
     const description = this.pollObj.description?.length;
@@ -241,10 +260,12 @@ export class CreatePollComponent implements OnInit {
   }
 
   viewStep(stepIndex: number) {
-    if (stepIndex === 4) {
-      this.viewPreview = true;
-    } else {
-      this.stepperIndex = stepIndex;
+    if (this.validatedStage >= stepIndex) {
+      if (stepIndex === 4) {
+        this.viewPreview = true;
+      } else {
+        this.stepperIndex = stepIndex;
+      }
     }
   }
 
@@ -358,6 +379,9 @@ export class CreatePollComponent implements OnInit {
           this.toast.setMessage('Failed to create Poll', 'error');
         }
       });
+  }
+
+  private setPollObj() {
 
   }
 }

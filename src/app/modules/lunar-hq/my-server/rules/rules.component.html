@@ -5,7 +5,7 @@
   [nestedMenuSelected]="'Rules'"
   (profileClick)="navigateToMyServer()">
   <div class="flex flex-nowrap">
-    <div class="rules-details-header">
+    <div class="search-bar-container my-server">
       <div class="back-button">
         <div class="pd-left-24 pd-top-21 pd-bottom-21">
           <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
@@ -14,7 +14,7 @@
           </app-why-cta-three>
         </div>
       </div>
-      <div class="mr-top-16 mr-right-24 create-rule">
+      <div class="mr-right-24 create-rule">
         <app-why-cta-one
           [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
           [iconType]="'add-circle-outline'"
@@ -22,7 +22,7 @@
           [btnLabel]="'Create New Rule'"></app-why-cta-one>
       </div>
     </div>
-    <div class="rules-details-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40 mr-bottom-48">
+    <div class="rules-details-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40">
       <div class="rules-header-title d-flex justify-content-between pd-right-40">
         <div class="app-why-lbl f16 ft-bold light text-uppercase">
           {{ruleItems[0]?.discordServerName}} DISCORD RULES [ {{ruleItems?.length}} ]
@@ -66,6 +66,18 @@
         </div>
       </div>
     </div>
+
+    <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center">
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
+        [btnLabel]="'BACK TO TOP'"
+        [leftIconType]="'chevron-up-outline'"
+        [iconClass]="cssClass.cta3Icon + ' btn-hover'"
+        [parentClass]="'flex-column'"
+        (click)="goToTop()">
+      </app-why-cta-three>
+    </div>
+
     <div class="rules-view" [hidden]="!viewRule">
       <app-why-lunar-hq-rules-view [paused]="paused"
                                    [ruleObj]="ruleObj"

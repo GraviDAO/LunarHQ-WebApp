@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {PermissionType, SideNavType} from '../side-bar/side.nav.type';
 import {LunarHqAPIServices} from '../../../modules/services/lunar-hq.services';
 import {Router} from '@angular/router';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
   selector: 'app-why-header-side-nav',
@@ -46,8 +47,10 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   ];
 
   constructor(private lunarHqService: LunarHqAPIServices,
+              private localStorageService: LocalStorageService,
               private router: Router) {
-    this.getMyServers()
+    this.getMyServers();
+    this.setUserProfile();
   }
 
   profileClickEmitter(event: MouseEvent) {
@@ -87,6 +90,16 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
           console.error(error, 'error');
         }
       });
+  }
+
+  setUserProfile() {
+    const profileObj = this.localStorageService.get('lunar_user_profile');
+    this.profileObj = {
+      img: profileObj?.discordProfileImage,
+      viewProfile: true,
+      viewSettings: true,
+      userName: profileObj?.discordName
+    }
   }
 
   navigateToSubMenu(subMenu: any) {

@@ -17,12 +17,15 @@
           <div class="app-why-lbl ft-lato light">{{announcementObj?.createdTimestamp | date}}</div>
         </div>
         <div>
-          <div class="app-why-lbl ft-lato light-50">by {{announcementObj?.authorName}}</div>
+          <div class="app-why-lbl ft-lato light-50">
+            by {{announcementObj?.authorName}} {{announcementObj?.starred}}</div>
         </div>
       </div>
       <div class="icon-wrapper">
         <div (click)="starAnnouncement(announcementObj)">
-          <ion-icon class="app-why-icon ic18 light-70" name="star-outline"></ion-icon>
+          <ion-icon class="app-why-icon ic18 light-70"
+                    [ngClass]="{'primary': announcementObj?.starred}"
+                    name="{{announcementObj?.starred ? 'star' : 'star-outline'}}"></ion-icon>
         </div>
         <div class="pd-top-8">
           <img class="discord-img-container show-cursor" src="/assets/img/svg/discord-brands-primary.svg" alt="discord"
