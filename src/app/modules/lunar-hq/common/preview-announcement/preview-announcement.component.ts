@@ -23,6 +23,7 @@ export class PreviewAnnouncementComponent {
   }
 
   starAnnouncement(obj: any) {
-    this.starAnnouncementEvent.emit(obj);
+    let type = obj.starred ? 'unStar' : 'star';
+    this.starAnnouncementEvent.emit({obj, type});
   }
 }

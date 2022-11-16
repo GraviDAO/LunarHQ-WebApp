@@ -8,6 +8,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription} from 'rxjs';
 import {timer} from 'rxjs';
 import {ToastMsgService} from '../../../shared/services/toast-msg-service';
+import {LocalStorageService} from '../../../shared/services/local.storage.service';
 
 
 @Component({
@@ -24,10 +25,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   everyFiveSeconds: Observable<number> = timer(0, 3000);
   viewRule = false;
   ruleObj: any;
+  viewAnnouncement = false;
+  selectedAnnouncementObj: any;
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
               private lunarHqService: LunarHqAPIServices,
+              private localStorage: LocalStorageService,
               public toastService: ToastMsgService,
               private router: Router,
               private loaderService: NgxUiLoaderService,
@@ -47,6 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           this.profileObj = data.message;
+          this.localStorage.set('lunar_user_profile', this.profileObj);
           this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});
           /*this.userDataObj.push({
             label: 'LICENSES APPLIED VS HELD', value: [this.profileObj.licensesApplied, this.profileObj.licensesHeld]
@@ -147,5 +152,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
+  }
+
+  previewAnnouncement(obj: any) {
+    console.log(obj, 'obj');
+    this.selectedAnnouncementObj = obj;
+    this.viewAnnouncement = true;
+  }
+
+  closePreview() {
+    this.viewAnnouncement = false;
+  }
+
+  starAnnouncement(obj: any) {
+    this.closePreview();
+    // this.loader.start();
+    let starAnnouncementObj: any = {
+      discordServerId: obj?.obj.discordServerId,
+      discordChannelId: obj?.obj.discordChannelId,
+      discordMessageId: obj?.obj.id
+    };
+    this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
+      .subscribe({
+        next: (data: any) => {
+          // this.loader.stop();
+          // console.log('data', data);
+          this.getProfileDetails();
+          this.toastService.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
+        },
+        error: (err: any) => {
+          console.log('err', err);
+        }
+      });
   }
 }

@@ -55,9 +55,11 @@
   <div class="vertical-divider ht64 light-20"></div>
   <div class="poll-item-discord-button-container">
     <div class="poll-item-discord-button show-cursor pd-left-24"
+         *ngIf="pollObj?.status !== 'Pending' && pollObj?.status !== 'Draft'"
          (click)="navigateToViewInDiscord(pollObj)">
       <ion-icon src="/assets/img/svg/discord-brands-primary.svg" class="app-why-icon ic18 primary"></ion-icon>
-      <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">VIEW IN
+      <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold primary">
+        VIEW IN
         DISCORD
       </div>
     </div>
@@ -66,6 +68,14 @@
       <ion-icon name="cloud-download" class="app-why-icon ic18 light-70"></ion-icon>
       <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">EXPORT
         SUMMARY
+      </div>
+    </div>
+    <div *ngIf="pollObj?.status === 'Draft'"
+         (click)="editPoll()"
+         class="poll-item-discord-button pd-left-24 pd-right-24">
+      <ion-icon name="pencil-outline" class="app-why-icon ic18 light-70"></ion-icon>
+      <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">
+        EDIT
       </div>
     </div>
   </div>

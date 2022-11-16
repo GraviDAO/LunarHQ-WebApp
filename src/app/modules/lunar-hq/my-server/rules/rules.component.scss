@@ -24,9 +24,14 @@
 }
 
 .rules-details-container {
-  width: 60vw;
-  min-width: mixin.toRem(718);
-  height: 68vh;
+  //margin-bottom: 80px !important;
+  //width: 40vw;
+  width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+  //width: 60vw;
+  //min-width: mixin.toRem(718);
+  //height: 68vh;
   padding-bottom: mixin.toRem(16);
   //height: mixin.toRem(657);
   background: var(--tertiary);
@@ -52,7 +57,7 @@
 
 .rules-item-name {
   //width: mixin.toRem(272);
-  width: 21vw;
+  width: 23vw;
 }
 
 .rules-item-population {
@@ -61,7 +66,7 @@
 
 .rules-item-chain {
   min-width: mixin.toRem(178);
-  width: 17vw;
+  width: 20vw;
 }
 
 .rules-item-chain-icon-container {
@@ -78,7 +83,7 @@
 }
 
 .rules-content {
-  height: mixin.toRem(504);
+  //height: mixin.toRem(504);
   overflow-y: auto;
   overflow-x: hidden;
 }

@@ -16,9 +16,11 @@ import {Observable, Subscription, timer} from 'rxjs';
 export class PollsListComponent implements OnInit, OnDestroy {
   discordServerId = '';
   pollsList: Array<any> = [];
+  mainPollsList: Array<any> = [];
   currentDateTime: Date | undefined;
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
+  statusList = ['VIEW ALL', 'ACTIVE', 'FINISHED', 'PENDING', 'DRAFT'];
 
   constructor(private router: Router,
               public cssClass: CssConstants,
@@ -62,8 +64,9 @@ export class PollsListComponent implements OnInit, OnDestroy {
     this.lunarService.getPolls(this.discordServerId)
       .subscribe({
         next: (data) => {
-          // console.log(data.message, 'data');
+          this.mainPollsList = data.message.proposals;
           this.pollsList = data.message.proposals;
+          console.log(this.pollsList, 'data');
           this.loader.stop();
         },
         error: (error) => {
@@ -76,5 +79,29 @@ export class PollsListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // @ts-ignore
     this._clockSubscription.unsubscribe();
+  }
+
+  goToTop() {
+    // console.log('in top');
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  filterList(key: string) {
+    console.log(key);
+    if (key.toLowerCase() === 'finished') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Quorum Passed' || (obj.status === 'Quorum Failed')));
+    } else if (key.toLowerCase() === 'pending') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Pending'));
+    } else if (key.toLowerCase() === 'active') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Active'));
+    } else if (key.toLowerCase() === 'draft') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Draft'));
+    } else {
+      this.pollsList = this.mainPollsList;
+    }
   }
 }

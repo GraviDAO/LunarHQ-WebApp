@@ -13,6 +13,7 @@ export class RecentAnnouncementsComponent {
   @Input() announcementArrayObj: any;
   @Output() navigateToAnnouncementEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() refreshList: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() viewAnnouncement: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(public cssClass: CssConstants,
               private lunarHqService: LunarHqAPIServices,
@@ -44,5 +45,9 @@ export class RecentAnnouncementsComponent {
           console.log('err', err);
         }
       });
+  }
+
+  previewAnnouncement(obj: any) {
+    this.viewAnnouncement.emit(obj);
   }
 }

@@ -20,6 +20,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   everyFiveSeconds: Observable<number> = timer(0, 3000);
 
   viewRule = false;
+  viewAnnouncement = false;
+  selectedAnnouncementObj: any;
   paused = false;
   // ruleItems = [];
   ruleObj: any;
@@ -59,6 +61,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.loader.stop();
         }
       });
+  }
+
+  navigateToAnnouncement() {
+    this.router.navigate(['/announcement']);
   }
 
   navigateToMyServer() {
@@ -115,7 +121,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   showRule(ruleObj: any) {
-    // console.log(ruleObj, 'obj');
+    console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
     this.paused = false;
@@ -127,5 +133,38 @@ export class DetailsComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  closePreview() {
+    this.viewAnnouncement = false;
+  }
+
+  previewAnnouncement(obj: any) {
+    console.log(obj, 'obj');
+    this.selectedAnnouncementObj = obj;
+    this.viewAnnouncement = true;
+  }
+
+  starAnnouncement(obj: any) {
+    this.closePreview();
+    // this.loader.start();
+    let starAnnouncementObj: any = {
+      discordServerId: obj?.obj.discordServerId,
+      discordChannelId: obj?.obj.discordChannelId,
+      discordMessageId: obj?.obj.id
+    };
+    this.lunarService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
+      .subscribe({
+        next: (data: any) => {
+          // this.loader.stop();
+          // console.log('data', data);
+          this.getServerDetails();
+          this.toastService.setMessage(obj.type === 'star' ? 'Announcement starred' : 'Announcement unstarred', '');
+        },
+        error: (err: any) => {
+          console.log('err', err);
+          this.loader.stop();
+        }
+      });
   }
 }

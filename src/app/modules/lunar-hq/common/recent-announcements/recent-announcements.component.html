@@ -16,6 +16,7 @@
   <div class="announcement-container" *ngFor="let annObj of announcementArrayObj?.slice(0,3)">
     <app-why-lunar-hq-announcement-cell
       (starAnnouncementEvent)="starAnnouncement($event)"
+      (previewAnnouncement)="previewAnnouncement($event)"
       [annObj]="annObj">
     </app-why-lunar-hq-announcement-cell>
   </div>

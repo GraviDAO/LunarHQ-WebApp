@@ -47,35 +47,36 @@
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.ruleType}}</span>
         </div>
         <div class="">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Network</span>
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.blockchainName}}</span>
         </div>
         <div class="">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Address</span>
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
-          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.nftAddress | longTextPipe}}</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light" *ngIf="ruleObj?.nftAddress">{{ruleObj?.nftAddress | longTextPipe}}</span>
+          <span class="app-why-lbl f14 ft-lato light" *ngIf="!ruleObj?.nftAddress">{{ruleObj?.address | longTextPipe}}</span>
         </div>
         <div class="">
-          <span class="app-why-lbl f14 ft-lato success">[and]</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Qty</span>
           <span class="pd-lr-4 app-why-lbl f14 ft-lato light-50"
-                *ngIf="ruleObj?.operatorName">[{{ruleObj?.operatorName}}]</span>
+                *ngIf="ruleObj?.operatorName">&nbsp;[&nbsp;{{ruleObj?.operatorName}}&nbsp;]&nbsp;</span>
           <span class="pd-lr-4 app-why-lbl f14 ft-lato light-50"
-                *ngIf="!ruleObj?.operatorName">[{{getOperator(ruleObj?.quantityOperatorName)}}]</span>
+                *ngIf="!ruleObj?.operatorName">&nbsp;[&nbsp;{{getOperator(ruleObj?.quantityOperatorName)}}&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.quantity}}</span>
         </div>
         <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1">
-          <span class="app-why-lbl f14 ft-lato success">[ and ]  Filter by NFT ID </span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;&nbsp;Filter by NFT ID </span>
         </div>
         <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1"
              class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
           NFT ID
         </div>
         <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1" class="">
-          <span class="app-why-lbl f14 ft-lato light-50">[is]</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.tokenIds}}</span>
         </div>
         <!--<ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
@@ -212,7 +213,7 @@
           </div>
         </ng-container>-->
       </div>
-      <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50">
+      <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50 mr-top-8">
         &lt;END&gt;
       </div>
     </div>

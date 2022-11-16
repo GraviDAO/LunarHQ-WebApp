@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-why-lunar-hq-poll-cell',
@@ -8,8 +8,13 @@ import {Component, Input} from '@angular/core';
 export class PollCellComponent {
   @Input() pollObj: any;
   @Input() currentDateTime: any;
+  @Output() editPollEvent: EventEmitter<any> = new EventEmitter<any>();
 
   navigateToViewInDiscord(obj: any) {
     window.open(`https://discord.com/channels/${obj.discordServerId}/${obj.discordChannelId}/${obj.discordMessageId}`, '_blank');
+  }
+
+  editPoll() {
+    this.editPollEvent.emit(this.pollObj);
   }
 }

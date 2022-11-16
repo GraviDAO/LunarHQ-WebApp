@@ -194,6 +194,7 @@
     <app-why-lunar-hq-recent-announcements
       [announcementArrayObj]="profileObj?.announcements"
       (refreshList)="getProfileDetails()"
+      (viewAnnouncement)="previewAnnouncement($event)"
       (navigateToAnnouncementEvent)="navigateToAnnouncement()"
       class="mr-top-8"></app-why-lunar-hq-recent-announcements>
 
@@ -215,5 +216,11 @@
                                    (updateRole)="updateRole($event)"></app-why-lunar-hq-rules-view>
     </div>
 
+    <div class="rules-view" [hidden]="!viewAnnouncement">
+      <app-why-lunar-hq-preview-announcement
+        (closePreview)="closePreview()"
+        (starAnnouncementEvent)="starAnnouncement($event)"
+        [announcementObj]="selectedAnnouncementObj"></app-why-lunar-hq-preview-announcement>
+    </div>
   </section>
 </app-why-header-side-nav>

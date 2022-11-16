@@ -14,6 +14,8 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 export class PollsMenuComponent implements OnInit, OnDestroy {
   pollsList: Array<any> = [];
+  mainPollsList: Array<any> = [];
+  statusList = ['VIEW ALL', 'ACTIVE', 'FINISHED', 'PENDING', 'DRAFT'];
   currentDateTime: Date | undefined;
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
@@ -71,6 +73,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           this.pollsList = data.message.proposals;
+          this.mainPollsList = data.message.proposals;
           // console.log(this.pollsList);
           this.loader.stop();
         },
@@ -125,5 +128,26 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  filterList(key: string) {
+    console.log(key);
+    if (key.toLowerCase() === 'finished') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Quorum Passed' || (obj.status === 'Quorum Failed')));
+    } else if (key.toLowerCase() === 'pending') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Pending'));
+    } else if (key.toLowerCase() === 'active') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Active'));
+    } else if (key.toLowerCase() === 'draft') {
+      this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Draft'));
+    } else {
+      this.pollsList = this.mainPollsList;
+    }
+  }
+
+  editPoll(obj: any) {
+    console.log(obj, 'obj');
+    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
+      {queryParams: {pollId: obj.id}});
   }
 }

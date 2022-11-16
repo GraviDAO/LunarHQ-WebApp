@@ -2,9 +2,8 @@
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
   [activeSubMenuTab]="discordServerName"
-  [nestedMenuSelected]="'Polls'"
-  (profileClick)="navigateToPolls()">
-  <div class="search-bar">
+  [nestedMenuSelected]="'Polls'">
+  <div class="search-bar-container">
     <div class="align-items-center col-3">
       <div class="pd-left-24 pd-right-24">
         <app-why-cta-three
@@ -156,7 +155,7 @@
                 <div class="max-width-240">
                   <div class="form-group">
                     <input type="number" class="form-control app-why-floating-input light-70"
-                           placeholder="Enter contract address"
+                           placeholder="Number per vote"
                            [ngClass]="{'set-input-border': pollObj.numberPerVote === undefined}"
                            [(ngModel)]="pollObj.numberPerVote">
                   </div>
@@ -347,7 +346,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="stepperIndex === 3" class="content text-center">
+      <div *ngIf="stepperIndex >= 3" class="content text-center">
         <div class="create-poll-widget add-min-ht d-flex flex-column pd-top-24 pd-lr-40">
           <div class="d-flex justify-content-between">
             <div class="app-why-lbl f16 ft-bold light no-letter-spacing">{{stepTitle}}</div>
@@ -375,14 +374,14 @@
                                   [buttonSize]="'sm'" [btnDisabled]="stepperIndex === 0"
                                   (click)="previous()" [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
         </app-why-lunar-hq-cta-two>
-        <app-why-cta-one *ngIf="stepperIndex < 3" (click)="next()"
+        <app-why-cta-one (click)="next()"
                          [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
-                         [btnLabel]="'NEXT'">
+                         [btnLabel]="stepperIndex === 3 ? 'PREVIEW' : 'NEXT'">
         </app-why-cta-one>
-        <app-why-cta-one *ngIf="stepperIndex === 3" (click)="viewStep(4)"
+        <!--<app-why-cta-one *ngIf="stepperIndex === 3" (click)="next()"
                          [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
                          [btnLabel]="'PREVIEW'">
-        </app-why-cta-one>
+        </app-why-cta-one>-->
       </div>
     </div>
 
