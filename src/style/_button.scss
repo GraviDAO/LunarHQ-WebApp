@@ -27,6 +27,13 @@
 
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.2;
+    //background: var(--primary-20);
+
+    &:hover {
+      opacity: 0.2;
+      //background: var(--primary-20);
+    }
   }
 
   &.dark {

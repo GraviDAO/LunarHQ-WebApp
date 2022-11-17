@@ -155,12 +155,22 @@ export class CreateRuleComponent implements OnInit {
   }
 
   next() {
+    this.stepper.next();
+    this.getActiveStep();
+  }
+
+  validate() {
     if (this.stepperIndex === 0) {
       this.ruleObj.name = this.createRuleForm.get('name')?.value;
       this.ruleObj.description = this.createRuleForm.get('description')?.value;
+      return this.ruleObj.name === '' || this.ruleObj.description === '' || this.ruleObj.roleName === undefined;
+    } else if (this.stepperIndex === 1) {
+      this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
+      this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
+      this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
+      return this.ruleObj.nftAddress === '' || this.ruleObj.quantity === '' || this.ruleObj.tokenIds === undefined || this.ruleObj.blockchainName === undefined;
     }
-    this.stepper.next();
-    this.getActiveStep();
+    return false;
   }
 
   previous() {
@@ -313,12 +323,6 @@ export class CreateRuleComponent implements OnInit {
   }
 
   preview() {
-    if (this.stepperIndex === 1) {
-      // console.log(this.ruleItems);
-      this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
-      this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
-      this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
-    }
     // console.log('preView');
     this.viewRule = true;
   }

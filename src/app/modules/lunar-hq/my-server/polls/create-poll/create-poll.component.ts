@@ -9,6 +9,7 @@ import {ToastrService} from 'ngx-toastr';
 import {ToastMsgService} from '../../../../../shared/services/toast-msg-service';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LunarHqAPIServices} from '../../../../services/lunar-hq.services';
+import {LocalStorageService} from '../../../../../shared/services/local.storage.service';
 
 
 @Component({
@@ -56,6 +57,7 @@ export class CreatePollComponent implements OnInit {
     private lunarService: LunarHqAPIServices,
     private route: ActivatedRoute,
     public toastService: ToastMsgService,
+    private storageService: LocalStorageService,
     private toast: ToastMsgService,
     private fb: FormBuilder) {
     this.todayDate.setDate(this.todayDate.getDate() + 1);
@@ -87,40 +89,40 @@ export class CreatePollComponent implements OnInit {
   validatePoll(index: number): number {
     if (index === 0 || index === 4) {
       if (this.pollObj.title === '' || this.pollObj.title === undefined) {
-        this.toastService.setMessage('Title cannot be empty', 'error');
+        // this.toastService.setMessage('Title cannot be empty', 'error');
         return 0;
       } else if (this.pollObj.description === '' || this.pollObj.description === undefined) {
-        this.toastService.setMessage('Description cannot be empty', 'error');
+        // this.toastService.setMessage('Description cannot be empty', 'error');
         return 0;
       }
     } else if (index === 1 || index === 4) {
       if (this.selectedNetwork === 'Select network' && this.voteWeight === 'tokenWeighted') {
-        this.toastService.setMessage('Please select network', 'error');
+        // this.toastService.setMessage('Please select network', 'error');
         return 0;
       } else if (this.pollObj.quorum === undefined) {
-        this.toastService.setMessage('Please set quorum', 'error');
+        // this.toastService.setMessage('Please set quorum', 'error');
         return 0;
       }
     } else if (index === 2 || index === 4) {
       if (this.startTime === undefined || this.startTime === '') {
-        this.toastService.setMessage('Please set start time', 'error');
+        // this.toastService.setMessage('Please set start time', 'error');
         return 0;
       }
       if (this.closingTime === undefined || this.closingTime === '') {
-        this.toastService.setMessage('Please set closing time', 'error');
+        // this.toastService.setMessage('Please set closing time', 'error');
         return 0;
       }
       if (this.closingDate === undefined || this.closingDate === '') {
-        this.toastService.setMessage('Please set closing date', 'error');
+        // this.toastService.setMessage('Please set closing date', 'error');
         return 0;
       }
       if ((this.dateRadioSelected !== 'today') && (this.startDate === undefined || this.startDate === '')) {
-        this.toastService.setMessage('Please set start date', 'error');
+        // this.toastService.setMessage('Please set start date', 'error');
         return 0;
       }
     } else if (index === 3 || index === 4) {
       if (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '') {
-        this.toastService.setMessage('Please select channel', 'error');
+        // this.toastService.setMessage('Please select channel', 'error');
         return 0;
       }
     }
@@ -382,6 +384,6 @@ export class CreatePollComponent implements OnInit {
   }
 
   private setPollObj() {
-
+    this.pollObj = this.storageService.get('poll_obj');
   }
 }

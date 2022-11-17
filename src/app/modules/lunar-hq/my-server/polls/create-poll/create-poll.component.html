@@ -112,7 +112,7 @@
                   <div class="app-why-lbl light-50">Network</div>
                   <div class="pd-top-4">
                     <div>
-                      <div ngbDropdown container="body">
+                      <!--<div ngbDropdown container="body">
                         <button type="button"
                                 class="link-dropdown no-width app-why-lbl f12 ft-bold light text-uppercase"
                                 id="dropdownBasic1"
@@ -126,7 +126,7 @@
                             <div class="dropdown-divider"></div>
                           </div>
                         </div>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                 </div>
@@ -374,7 +374,8 @@
                                   [buttonSize]="'sm'" [btnDisabled]="stepperIndex === 0"
                                   (click)="previous()" [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
         </app-why-lunar-hq-cta-two>
-        <app-why-cta-one (click)="next()"
+        <app-why-cta-one (clickEvent)="next()"
+                         [isDisabled]="validatePoll(stepperIndex) === 0"
                          [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
                          [btnLabel]="stepperIndex === 3 ? 'PREVIEW' : 'NEXT'">
         </app-why-cta-one>

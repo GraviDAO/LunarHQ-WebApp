@@ -5,6 +5,7 @@ import {CssConstants} from '../../../shared/services/css-constants.service';
 import {Observable, Subscription, timer} from 'rxjs';
 import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {LocalStorageService} from '../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-polls',
@@ -27,6 +28,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     public cssClass: CssConstants,
     private route: ActivatedRoute,
     private location: Location,
+    private storageService: LocalStorageService,
     private loader: NgxUiLoaderService,
     private lunarHqService: LunarHqAPIServices) {
     this.route.queryParams.subscribe((params: any) => {
@@ -146,7 +148,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   }
 
   editPoll(obj: any) {
-    console.log(obj, 'obj');
+    this.storageService.set('poll_obj', obj);
     this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
       {queryParams: {pollId: obj.id}});
   }

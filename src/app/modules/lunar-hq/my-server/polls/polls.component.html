@@ -61,6 +61,7 @@
         <div class="poll-items pd-top-48 pd-bottom-48 d-flex flex-column">
           <div *ngFor="let pollObj of pollsList">
             <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
+                                        (editPollEvent)="editPoll($event)"
                                         [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
           </div>
         </div>
