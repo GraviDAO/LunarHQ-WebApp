@@ -122,7 +122,7 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
         // @ts-ignore
         this.sideNavList[3].subMenu.push({
           title: 'Starred [' + this.nestedMenuValue + ']',
-          route: '/announcement?starred=true'
+          route: '/announcement/starred'
         });
       }
     }

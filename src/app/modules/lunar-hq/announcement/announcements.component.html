@@ -1,6 +1,7 @@
 <app-why-header-side-nav
   [title]="'ANNOUNCEMENTS'"
   [nestedMenuValue]="starredAnnouncements"
+  [activeSubMenuTab]="byStarred === 'starred' ? 'Starred ['+starredAnnouncements+']' : ''"
   [activeTab]="'ANNOUNCEMENTS'">
   <div class="search-bar-container">
     <div class="d-flex justify-content-center align-items-center">
