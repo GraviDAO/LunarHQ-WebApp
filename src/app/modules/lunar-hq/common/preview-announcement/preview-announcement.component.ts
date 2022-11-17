@@ -19,7 +19,7 @@ export class PreviewAnnouncementComponent {
   }
 
   openAnnouncement(messageUrl: any) {
-
+    window.open(messageUrl, '_blank');
   }
 
   starAnnouncement(obj: any) {

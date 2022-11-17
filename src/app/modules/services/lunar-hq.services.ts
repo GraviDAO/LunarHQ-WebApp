@@ -177,5 +177,12 @@ export class LunarHqAPIServices {
       }));
   }
 
+  exportSummary(id: any): Observable<any> {
+    return this.http.get<any>(environment.server + 'getProposalSummary/' + id)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
 
 }

@@ -49,6 +49,10 @@ const routes: Routes = [
     component: AnnouncementsComponent
   },
   {
+    path: 'announcement/:type',
+    component: AnnouncementsComponent
+  },
+  {
     path: 'announcement/settings',
     component: AnnouncementSettingsComponent
   },

@@ -19,8 +19,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class SliderComponent implements OnInit {
   @Input() hideValue = false;
+  @Input() sliderValue = 0;
   @Output() rangeValue: EventEmitter<any> = new EventEmitter<any>();
-  sliderValue = 0;
 
   constructor() {
 

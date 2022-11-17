@@ -6,6 +6,7 @@ import {SideNavType} from '../../../../shared/components/side-bar/side.nav.type'
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
+import {LocalStorageService} from '../../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-polls',
@@ -26,6 +27,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
               public cssClass: CssConstants,
               private lunarService: LunarHqAPIServices,
               private loader: NgxUiLoaderService,
+              private storageService: LocalStorageService,
               private location: Location,
               private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params: any) => {
@@ -55,7 +57,6 @@ export class PollsListComponent implements OnInit, OnDestroy {
   }
 
   navigateToCreatePoll() {
-    console.log('Suspected');
     this.router.navigate(['my-server/' + this.discordServerId + '/create-poll/' + this.pollsList[0]?.discordServerName]);
   }
 
@@ -66,7 +67,6 @@ export class PollsListComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.mainPollsList = data.message.proposals;
           this.pollsList = data.message.proposals;
-          console.log(this.pollsList, 'data');
           this.loader.stop();
         },
         error: (error) => {
@@ -91,7 +91,6 @@ export class PollsListComponent implements OnInit, OnDestroy {
   }
 
   filterList(key: string) {
-    console.log(key);
     if (key.toLowerCase() === 'finished') {
       this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Quorum Passed' || (obj.status === 'Quorum Failed')));
     } else if (key.toLowerCase() === 'pending') {
@@ -103,5 +102,11 @@ export class PollsListComponent implements OnInit, OnDestroy {
     } else {
       this.pollsList = this.mainPollsList;
     }
+  }
+
+  editPoll(obj: any) {
+    this.storageService.set('poll_obj', obj);
+    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
+      {queryParams: {pollId: obj.id}});
   }
 }

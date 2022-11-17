@@ -22,7 +22,8 @@ export class AnnouncementsComponent implements OnInit {
   selectedAnnouncementObj: any;
   announcementSettings: any;
   starredAnnouncements = 0;
-  onlyStarred = false;
+  // onlyStarred = false;
+  byStarred = '';
 
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
@@ -32,9 +33,14 @@ export class AnnouncementsComponent implements OnInit {
               private toast: ToastMsgService,
               private lunarHqService: LunarHqAPIServices) {
     this.announcementSettings = this.storageService.get('announcement_settings');
-    this.route.queryParams.subscribe((params: any) => {
-      this.onlyStarred = params.starred;
-      console.log(this.onlyStarred);
+    this.route.paramMap.subscribe((params: any) => {
+      this.byStarred = params.get('type');
+      if (this.byStarred === 'starred') {
+        this.getStaredAnnouncementList();
+      } else {
+        this.getStaredAnnouncementList();
+        this.getAnnouncementList();
+      }
     });
   }
 
@@ -51,8 +57,6 @@ export class AnnouncementsComponent implements OnInit {
   ngOnInit(): void {
     this.serverList.push('view all servers');
     // this.serverList.push('gravidao');
-    this.getAnnouncementList();
-    this.getStaredAnnouncementList();
   }
 
   getAnnouncementList() {
@@ -60,6 +64,9 @@ export class AnnouncementsComponent implements OnInit {
     this.lunarHqService.getAnnouncements()
       .subscribe({
         next: (data: any) => {
+          if (this.byStarred === 'starred') {
+
+          }
           this.announcementList = data;
           this.mainAnnouncementList = data;
           const unique = data
@@ -80,7 +87,7 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   filterAnnouncement() {
-    console.log(this.announcementList, 'settings');
+    // console.log(this.announcementList, 'settings');
     if (this.announcementSettings !== null && this.announcementSettings !== undefined) {
       if (this.announcementSettings.mentionFilter) {
         // this.announcementList = this.announcementList.filter((obj: any) => obj.content.toString().toLowerCase().includes(this.announcementSettings.mentionFilter));
@@ -131,6 +138,7 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   starAnnouncement(obj: any) {
+    this.closePreview()
     let starAnnouncementObj: any = {
       discordServerId: obj?.obj.discordServerId,
       discordChannelId: obj?.obj.discordChannelId,
@@ -154,6 +162,10 @@ export class AnnouncementsComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           // console.log('data', data.message);
+          if (this.byStarred === 'starred') {
+            this.announcementList = data.message;
+            this.mainAnnouncementList = data.message;
+          }
           this.starredAnnouncements = data.message.length;
         },
         error: (err: any) => {

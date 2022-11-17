@@ -103,7 +103,6 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   }
 
   navigateToSubMenu(subMenu: any) {
-    console.log(subMenu, 'subMenu');
     if (subMenu.route.includes('/polls?')) {
       const route = subMenu.route.substring(0, 6);
       const type = subMenu.route.substring(12, subMenu.route.length);
@@ -123,7 +122,7 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
         // @ts-ignore
         this.sideNavList[3].subMenu.push({
           title: 'Starred [' + this.nestedMenuValue + ']',
-          route: '/announcement?starred=true'
+          route: '/announcement/starred'
         });
       }
     }

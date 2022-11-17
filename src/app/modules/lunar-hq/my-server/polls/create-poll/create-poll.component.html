@@ -112,21 +112,12 @@
                   <div class="app-why-lbl light-50">Network</div>
                   <div class="pd-top-4">
                     <div>
-                      <div ngbDropdown container="body">
-                        <button type="button"
-                                class="link-dropdown no-width app-why-lbl f12 ft-bold light text-uppercase"
-                                id="dropdownBasic1"
-                                ngbDropdownToggle>{{selectedNetwork}}
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <div *ngFor="let list of ['Polygon','Terra', 'Terra Classic']">
-                            <button ngbDropdownItem
-                                    (click)="setBlockChain(list)"
-                                    class="app-why-lbl f12 ft-bolt dark no-letter-spacing text-uppercase">{{list}}</button>
-                            <div class="dropdown-divider"></div>
-                          </div>
-                        </div>
-                      </div>
+                      <app-why-drop-down
+                        [leftIcon]="true"
+                        (dataSet)="setBlockChain($event)"
+                        [dataList]="['Polygon','Terra', 'Terra Classic']"
+                        [placeholderText]="selectedNetwork">
+                      </app-why-drop-down>
                     </div>
                   </div>
                 </div>
@@ -177,7 +168,7 @@
           </div>
 
           <div class="mr-top-40" *ngIf="voteWeight === 'roleWeighted'">
-            <div class="rules-detail-title pd-top-16 pd-bottom-16 d-flex flex-row pd-right-40">
+            <div class="rules-detail-title pd-box-16 d-flex flex-row pd-right-40">
               <div class="form-check">
                 <input class="form-check-input check-box" type="checkbox" value="" id="rule-name">
               </div>
@@ -191,11 +182,14 @@
                 CHAIN
               </div>
             </div>
-            <div class="rules-item d-flex flex-row align-items-center" *ngFor="let rule of roleList">
+            <div class="rules-item d-flex flex-row align-items-center pd-lr-16 mr-bottom-8"
+                 *ngFor="let rule of roleList"
+                 [ngStyle]="{'background': pollObj.ruleIds.indexOf(rule?.id) >= 0 ? '#231f20' : '#231f2033'}">
               <div class="form-check d-flex align-items-center">
                 <input class="form-check-input check-box"
                        (change)="checkUncheck($event, rule)"
-                       type="checkbox" value="" id="{{rule?.roleName}}">
+                       [checked]="pollObj.ruleIds.indexOf(rule?.id) >= 0"
+                       type="checkbox" [value]="" id="{{rule?.roleName}}">
               </div>
               <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                 {{rule?.roleName}}
@@ -239,7 +233,7 @@
               </div>
             </div>
             <div class="col-6">
-              <app-why-slider (rangeValue)="setRangValue($event)"></app-why-slider>
+              <app-why-slider [sliderValue]="quorumValue" (rangeValue)="setRangValue($event)"></app-why-slider>
             </div>
             <div class="col-3">
               <div class="max-width-240">
@@ -374,7 +368,8 @@
                                   [buttonSize]="'sm'" [btnDisabled]="stepperIndex === 0"
                                   (click)="previous()" [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
         </app-why-lunar-hq-cta-two>
-        <app-why-cta-one (click)="next()"
+        <app-why-cta-one (clickEvent)="next()"
+                         [isDisabled]="validatePoll(stepperIndex) === 0"
                          [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
                          [btnLabel]="stepperIndex === 3 ? 'PREVIEW' : 'NEXT'">
         </app-why-cta-one>
