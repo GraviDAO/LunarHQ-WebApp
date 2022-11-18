@@ -102,6 +102,7 @@
 .profile-img {
   width: mixin.toRem(96);
   height: mixin.toRem(96);
+  @include mixin.notch(8px);
 }
 
 .bg-dark-100 {
