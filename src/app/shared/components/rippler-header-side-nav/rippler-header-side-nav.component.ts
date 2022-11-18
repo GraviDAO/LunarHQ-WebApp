@@ -56,7 +56,8 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   profileClickEmitter(event: MouseEvent) {
     // @ts-ignore
     if (this.profileObj.viewProfile) {
-      this.profileClick.emit(event);
+      // this.profileClick.emit(event);
+      this.router.navigate(['profile']);
     }
   }
 

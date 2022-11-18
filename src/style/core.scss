@@ -246,7 +246,8 @@
 
 .polls-header {
   height: mixin.toRem(64);
-  width: 100%;
+  width: calc(100vw - 240px);
+  //width: 100%;
   background: var(--dark-50);
   position: fixed;
   margin-top: -7rem;
