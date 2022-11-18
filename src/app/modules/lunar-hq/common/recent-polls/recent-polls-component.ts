@@ -1,6 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
 import {Route, Router} from '@angular/router';
+import {LocalStorageService} from '../../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-recent-polls',
@@ -13,10 +14,17 @@ export class RecentPollsComponent {
   @Input() currentDateTime: Date;
 
   constructor(public cssClass: CssConstants,
+              private storageService: LocalStorageService,
               private router: Router) {
   }
 
   navigateToPolls() {
     this.router.navigate(['/polls'])
+  }
+
+  editPoll(obj: any) {
+    this.storageService.set('poll_obj', obj);
+    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
+      {queryParams: {pollId: obj.id}});
   }
 }

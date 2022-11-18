@@ -7,6 +7,10 @@
   // background: var(--tertiary);
 }
 
+.btn-wrapper {
+  width: mixin.toRem(216);
+}
+
 .recent-polls {
   width: 60rem;
   //width: mixin.toRem(1080);
@@ -26,7 +30,7 @@
 }
 
 .back-button {
-  width: 85% !important;
+  width: 100%;
 }
 
 .divider {

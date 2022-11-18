@@ -9,6 +9,14 @@
   width: 100%;
 }
 
+.full-width {
+  width: 100%;
+}
+
+.back-btn-container {
+  width: mixin.toRem(288);
+}
+
 .announcement-wrapper {
   height: mixin.toRem(122);
   @include mixin.bg--wrapper;
