@@ -19,6 +19,7 @@ export class SideBarComponent implements OnInit {
   @Input() nestedMenuSelected = '';
   @Output() selectedTab: EventEmitter<string> = new EventEmitter<string>();
   @Output() selectedSubMenu: EventEmitter<string> = new EventEmitter<string>();
+  @Output() mainMenuSelected: EventEmitter<string> = new EventEmitter<string>();
   isToggled = true;
   toggle: any = {};
 
@@ -50,6 +51,7 @@ export class SideBarComponent implements OnInit {
   }
 
   navigate(tab: string, pos: number, isSubMenu?: any) {
+    this.mainMenuSelected.emit(tab);
     if (this.activeTab === tab) {
       Object.keys(this.toggle).forEach((key: string, index: number) => this.toggle[key] = false);
     } else {

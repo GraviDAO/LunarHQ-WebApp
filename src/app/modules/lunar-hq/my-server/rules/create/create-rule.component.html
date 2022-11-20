@@ -2,6 +2,7 @@
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
   [activeSubMenuTab]="discordServerName"
+  [nestedMenu]="nestedMenu"
   [nestedMenuSelected]="'Rules'"
   (profileClick)="navigateToMyServer()">
   <div class="flex flex-nowrap">
@@ -19,21 +20,23 @@
           <div class="step" id="step-0" data-target="#rule-details">
             <button class="step-trigger">
               <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato"
-                    [ngClass]="{'primary': stepperIndex > 0}">
+                    [ngClass]="{'secondary': stepperIndex === 0, 'primary': stepperIndex > 0}">
                 {{stepTitles[0]}}
               </span>
             </button>
           </div>
           <div class="step" id="step-1" data-target="#create-rule">
             <button class="step-trigger" [disabled]="validate()">
-              <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">
+              <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato"
+                    [ngClass]="{'secondary': stepperIndex === 1 && viewRule === false, 'primary': viewRule}">
                 {{stepTitles[1]}}
               </span>
             </button>
           </div>
           <div class="step" id="step-2">
-            <button class="step-trigger" disabled="true" (click)="preview()">
-              <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato">
+            <button class="step-trigger" [disabled]="validate()" (click)="preview()">
+              <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato"
+                    [ngClass]="{'secondary': viewRule}">
                 {{stepTitles[2]}}
               </span>
             </button>

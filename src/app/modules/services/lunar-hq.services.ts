@@ -115,7 +115,7 @@ export class LunarHqAPIServices {
   }
 
   deleteRule(ruleId: any,discordServerId: any) {
-    return this.http.delete<any>(environment.server + 'deleteRule/' + ruleId + '?discordServerId=' + discordServerId)
+    return this.http.delete<any>(environment.server + 'WAdeleteRule/' + ruleId + '?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
       }));

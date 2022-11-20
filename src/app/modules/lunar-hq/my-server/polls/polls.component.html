@@ -1,6 +1,7 @@
 <app-why-header-side-nav
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
+  [nestedMenu]="nestedMenu"
   [activeSubMenuTab]="pollsList[0]?.discordServerName"
   [nestedMenuSelected]="'Polls'"
   (profileClick)="navigateToPolls()">

@@ -6,6 +6,7 @@ import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
+import {LocalStorageService} from '../../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-details',
@@ -18,6 +19,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   currentDateTime: Date | undefined;
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
+  nestedMenu: any;
 
   viewRule = false;
   viewAnnouncement = false;
@@ -31,6 +33,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
               private lunarService: LunarHqAPIServices,
               public toastService: ToastMsgService,
               private loader: NgxUiLoaderService,
+              private storageService: LocalStorageService,
               private route: ActivatedRoute,
               public cssClass: CssConstants) {
     this.route.paramMap.subscribe((params: any) => {
@@ -39,7 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.getServerDetails();
       }
     });
-
+    this.nestedMenu = this.storageService.get('server_menu');
   }
 
   ngOnInit(): void {

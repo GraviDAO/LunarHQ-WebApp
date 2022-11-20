@@ -5,6 +5,7 @@ import {CssConstants} from 'src/app/shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
+import {LocalStorageService} from '../../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-rules',
@@ -21,11 +22,13 @@ export class RulesComponent implements OnInit {
   ruleItems = [];
   discordServerId = '';
   ruleObj: any;
+  nestedMenu: any;
 
   constructor(private router: Router,
               private location: Location,
               public toastService: ToastMsgService,
               private route: ActivatedRoute,
+              private storageService: LocalStorageService,
               private lunarService: LunarHqAPIServices,
               private loader: NgxUiLoaderService,
               public cssClass: CssConstants) {
@@ -35,7 +38,7 @@ export class RulesComponent implements OnInit {
         this.getServerRules();
       }
     });
-
+    this.nestedMenu = this.storageService.get('server_menu');
   }
 
   ngOnInit(): void {

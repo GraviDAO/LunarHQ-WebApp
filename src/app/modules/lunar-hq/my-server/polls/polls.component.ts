@@ -22,6 +22,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
   statusList = ['VIEW ALL', 'ACTIVE', 'FINISHED', 'PENDING', 'DRAFT'];
+  nestedMenu: any;
 
   constructor(private router: Router,
               public cssClass: CssConstants,
@@ -36,6 +37,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
         this.getPollsList()
       }
     });
+    this.nestedMenu = this.storageService.get('server_menu');
   }
 
   ngOnInit(): void {

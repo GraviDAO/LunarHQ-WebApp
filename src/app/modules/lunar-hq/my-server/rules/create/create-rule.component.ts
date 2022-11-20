@@ -8,6 +8,7 @@ import {CssConstants} from 'src/app/shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {ToastMsgService} from '../../../../../shared/services/toast-msg-service';
+import {LocalStorageService} from '../../../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-create-rule',
@@ -54,14 +55,20 @@ export class CreateRuleComponent implements OnInit {
   discordServerName = '';
   ruleId = '';
 
+  nestedMenu: any;
+
   constructor(private router: Router,
               private location: Location,
               private route: ActivatedRoute,
               private lunarService: LunarHqAPIServices,
               private loader: NgxUiLoaderService,
               public toastService: ToastMsgService,
+              private storageService: LocalStorageService,
               public cssClass: CssConstants,
               public rulesService: RulesService) {
+
+    this.nestedMenu = this.storageService.get('server_menu');
+
     this.ruleObj.quantityOperatorName = 'Greater Than Or Equals';
     this.ruleObj.operatorName = '≥';
     this.route.paramMap.subscribe((params: any) => {
@@ -323,7 +330,6 @@ export class CreateRuleComponent implements OnInit {
   }
 
   preview() {
-    // console.log('preView');
     this.viewRule = true;
   }
 
@@ -412,7 +418,11 @@ export class CreateRuleComponent implements OnInit {
   }
 
   setBlockChain(name: any) {
-    this.ruleObj.blockchainName = name;
+    if (name === 'Polygon') {
+      this.ruleObj.blockchainName = 'polygon-mainnet';
+    } else {
+      this.ruleObj.blockchainName = name;
+    }
   }
 
   getRuleById() {
@@ -427,7 +437,7 @@ export class CreateRuleComponent implements OnInit {
           this.ruleItems[0].quantityHeld = this.ruleObj.quantity;
           this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
           this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
-          this.selectedNetwork = this.ruleObj.blockchainName;
+          this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
           // this.tokenIds = this.ruleObj?.tokenIds[0];
           // = this.ruleObj?.tokenIds.length === 0 ? 'no_filter' : 'filter_nft';
           if (this.ruleObj?.tokenIds.length === 0 || (this.ruleObj?.tokenIds.length === 1 && this.ruleObj?.tokenIds[0] === '')) {

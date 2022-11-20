@@ -49,6 +49,8 @@ export class CreatePollComponent implements OnInit {
   validatedStage = 0;
   pollId: any;
 
+  nestedMenu: any;
+
   constructor(
     private router: Router,
     public cssClass: CssConstants,
@@ -61,6 +63,7 @@ export class CreatePollComponent implements OnInit {
     private toast: ToastMsgService,
     private fb: FormBuilder) {
     this.todayDate.setDate(this.todayDate.getDate() + 1);
+    this.nestedMenu = this.storageService.get('server_menu');
 
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
@@ -387,7 +390,7 @@ export class CreatePollComponent implements OnInit {
 
   private setPollObj() {
     this.pollObj = this.storageService.get('poll_obj');
-    this.selectedNetwork = this.pollObj.blockchainName;
+    this.selectedNetwork = this.pollObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.pollObj.blockchainName;
     this.value = this.pollObj.quorum;
     // @ts-ignore
     this.quorumValue = this.pollObj.quorum;

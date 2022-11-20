@@ -3,9 +3,10 @@ import {Component, OnInit} from '@angular/core';
 
 import {ActivatedRoute, Router} from '@angular/router';
 import {CssConstants} from 'src/app/shared/services/css-constants.service';
-import {SideNavType} from '../../../shared/components/side-bar/side.nav.type';
+import {PermissionType, SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import {LocalStorageService} from '../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-my-server',
@@ -14,8 +15,10 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 })
 export class MyServerComponent implements OnInit {
   myServerList = [];
+  nestedMenu = [];
 
   constructor(private route: ActivatedRoute,
+              private storageService: LocalStorageService,
               private router: Router,
               private loader: NgxUiLoaderService,
               private lunarHqService: LunarHqAPIServices,
@@ -33,6 +36,27 @@ export class MyServerComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.myServerList = data.message;
+          if (data.message.length > 0) {
+            for (let obj of this.myServerList) {
+              // @ts-ignore
+              this.nestedMenu.push({
+                title: obj.discordServerName,
+                route: '/my-server/details/' + obj.discordServerId,
+                permissionType: obj.userIsAdmin ? PermissionType.fullAccess : ((!obj?.userIsAdmin && !obj?.userOwnsLicense) ? PermissionType.noAccess : PermissionType.partialAccess),
+                nestedMenuList: [
+                  {
+                    title: 'Rules',
+                    route: 'my-server/rules/' + obj.discordServerId
+                  },
+                  {
+                    title: 'Polls',
+                    route: 'my-server/' + obj.discordServerId + '/polls'
+                  }
+                ]
+              });
+            }
+          }
+          this.storageService.set('server_menu', this.nestedMenu);
           this.loader.stop();
         },
         error: (err) => {
@@ -51,17 +75,14 @@ export class MyServerComponent implements OnInit {
   }
 
   navigateToAddNewServer() {
-    // console.log('navigateToAddNewServer');
     this.router.navigate(['my-server/add-new-server']);
   }
 
   navigateToDetails(server: any) {
     this.router.navigate(['my-server/details/' + server]);
-    // this.router.navigate(['my-server/details'], {queryParams: {server}});
   }
 
   navigateToAddLicense() {
-    // console.log('navigateToAddLicense');
     this.router.navigate(['my-server/my-licenses']);
   }
 

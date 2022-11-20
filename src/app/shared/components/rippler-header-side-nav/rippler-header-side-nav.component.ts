@@ -12,6 +12,7 @@ import {LocalStorageService} from '../../services/local.storage.service';
 export class RipplerHeaderSideNavComponent implements OnChanges {
   @Input() profileObj: { img: string; viewProfile: boolean; viewSettings: boolean; userName: string; } | undefined;
   @Input() nestedMenuValue: number = 0;
+  @Input() nestedMenu: any;
   @Input() activeTab = '';
   @Input() activeSubMenuTab = '';
   @Input() nestedMenuSelected = '';
@@ -49,7 +50,6 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   constructor(private lunarHqService: LunarHqAPIServices,
               private localStorageService: LocalStorageService,
               private router: Router) {
-    this.getMyServers();
     this.setUserProfile();
   }
 
@@ -59,38 +59,6 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
       // this.profileClick.emit(event);
       this.router.navigate(['profile']);
     }
-  }
-
-  getMyServers() {
-    this.lunarHqService.getMyServers()
-      .subscribe({
-        next: (data) => {
-          let resultObj = data.message;
-          if (data.message.length > 0) {
-            for (let obj of resultObj) {
-              // @ts-ignore
-              this.sideNavList[1].subMenu.push({
-                title: obj.discordServerName,
-                route: '/my-server/details/' + obj.discordServerId,
-                permissionType: obj.userIsAdmin ? PermissionType.fullAccess : ((!obj?.userIsAdmin && !obj?.userOwnsLicense) ? PermissionType.noAccess : PermissionType.partialAccess),
-                nestedMenuList: [
-                  {
-                    title: 'Rules',
-                    route: 'my-server/rules/' + obj.discordServerId
-                  },
-                  {
-                    title: 'Polls',
-                    route: 'my-server/' + obj.discordServerId + '/polls'
-                  }
-                ]
-              });
-            }
-          }
-        },
-        error: (error) => {
-          console.error(error, 'error');
-        }
-      });
   }
 
   setUserProfile() {
@@ -116,6 +84,11 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes['sideNavList'], 'changes');
+    if (changes['nestedMenu']) {
+      this.sideNavList[1].subMenu = changes['nestedMenu'].currentValue;
+    }
+
     if (changes['nestedMenuValue']) {
       this.nestedMenuValue = changes['nestedMenuValue'].currentValue;
       // console.log(this.nestedMenuValue);
