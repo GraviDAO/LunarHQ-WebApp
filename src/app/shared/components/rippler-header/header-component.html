@@ -42,11 +42,16 @@
           <img class="profile-img" [src]="profileObj?.img"
                [ngClass]="{'add-notch': profileObj?.img === ''}"
                alt="" imgFallback>
-          <div class="pd-left-8 app-why-lbl f14 ft-bold light">{{profileObj?.userName}}</div>
+          <div class="pd-left-8 app-why-lbl f14 ft-bold light text-uppercase">{{profileObj?.userName}}</div>
         </div>
         <div class="settings-container" *ngIf="profileObj?.viewSettings">
           <ion-icon class="app-why-icon ic14 light" name="cog-outline"></ion-icon>
         </div>
+      </div>
+
+      <div class="log-out-container mr-left-16" (click)="logOut()">
+        <div class="pd-left-16 app-why-lbl f14 ft-bold light">LOG OUT</div>
+        <ion-icon class="app-why-icon ic14 light pd-right-16" name="log-out-outline"></ion-icon>
       </div>
 
       <div *ngIf="rightLabel">

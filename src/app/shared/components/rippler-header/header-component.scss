@@ -80,6 +80,22 @@
   @include mixin.notch(8px);
 }
 
+.log-out-container {
+  width: mixin.toRem(120);
+  height: mixin.toRem(32);
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  //margin-top: 4px;
+  cursor: pointer;
+  @include mixin.notch(8px);
+
+  &:hover > div, &:hover > ion-icon {
+    color: var(--secondary);
+  }
+}
+
 .profile-img {
   width: 32px;
   height: 32px;

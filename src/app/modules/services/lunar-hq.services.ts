@@ -192,4 +192,12 @@ export class LunarHqAPIServices {
   }
 
 
+  checkJWT(): Observable<any> {
+    return this.http.get<any>(environment.server + 'checkJWT')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+
 }
