@@ -6,6 +6,7 @@ import {Observable, Subscription, timer} from 'rxjs';
 import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
+import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-polls',
@@ -28,6 +29,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     public cssClass: CssConstants,
     private route: ActivatedRoute,
     private location: Location,
+    private toast: ToastMsgService,
     private storageService: LocalStorageService,
     private loader: NgxUiLoaderService,
     private lunarHqService: LunarHqAPIServices) {
@@ -97,6 +99,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
           this.loader.stop();
         },
         error: (err) => {
+          this.toast.setMessage(err.message, 'error');
           console.error(err, 'err');
           this.loader.stop();
         }

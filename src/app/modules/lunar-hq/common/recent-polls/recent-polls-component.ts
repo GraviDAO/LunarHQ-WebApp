@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
 import {Route, Router} from '@angular/router';
 import {LocalStorageService} from '../../../../shared/services/local.storage.service';
@@ -12,6 +12,9 @@ export class RecentPollsComponent {
   @Input() pollArrayObj: any;
   // @ts-ignore
   @Input() currentDateTime: Date;
+  @Input() hasPermission = false;
+  @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor(public cssClass: CssConstants,
               private storageService: LocalStorageService,
@@ -19,7 +22,7 @@ export class RecentPollsComponent {
   }
 
   navigateToPolls() {
-    this.router.navigate(['/polls'])
+    this.openPoll.emit(true);
   }
 
   editPoll(obj: any) {

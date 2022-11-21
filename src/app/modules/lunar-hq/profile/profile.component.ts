@@ -140,16 +140,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getProfileDetails() {
     this.loaderService.start();
-    this.lunarHqService.getProfileDetails()
+    this.coreService.getLiteProfileDetails()
       .subscribe({
         next: (data) => {
           this.profileObj = data.message;
-          this.profileObj?.discordServers.forEach((discordObj: any) => {
+          /*this.profileObj?.discordServers.forEach((discordObj: any) => {
             if (discordObj.licences.length > 0) {
               // @ts-ignore
               this.licenseList.push(...discordObj.licences)
             }
-          });
+          });*/
           this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
           this.terraWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra');
           this.loaderService.stop();

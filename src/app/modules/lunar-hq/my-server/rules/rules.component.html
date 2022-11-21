@@ -1,6 +1,7 @@
 <app-why-header-side-nav
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
+  [nestedMenu]="nestedMenu"
   [activeSubMenuTab]="ruleItems[0]?.discordServerName"
   [nestedMenuSelected]="'Rules'"
   (profileClick)="navigateToMyServer()">
@@ -80,6 +81,7 @@
 
     <div class="rules-view" [hidden]="!viewRule">
       <app-why-lunar-hq-rules-view [paused]="paused"
+                                   [hasPermission]="hasPermission"
                                    [ruleObj]="ruleObj"
                                    (closeRule)="closeView()"
                                    (actionType)="ruleAction($event)"

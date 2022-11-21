@@ -6,6 +6,7 @@ import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
+import {LocalStorageService} from '../../../../shared/services/local.storage.service';
 
 @Component({
   selector: 'app-why-lunar-hq-details',
@@ -18,6 +19,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   currentDateTime: Date | undefined;
   private _clockSubscription: Subscription | undefined;
   everyFiveSeconds: Observable<number> = timer(0, 3000);
+  nestedMenu: any;
 
   viewRule = false;
   viewAnnouncement = false;
@@ -25,27 +27,42 @@ export class DetailsComponent implements OnInit, OnDestroy {
   paused = false;
   // ruleItems = [];
   ruleObj: any;
+  hasPermission = false;
 
   constructor(private router: Router,
               private location: Location,
               private lunarService: LunarHqAPIServices,
               public toastService: ToastMsgService,
               private loader: NgxUiLoaderService,
+              private storageService: LocalStorageService,
               private route: ActivatedRoute,
               public cssClass: CssConstants) {
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
+        this.getPermission();
         this.getServerDetails();
       }
     });
-
+    this.nestedMenu = this.storageService.get('server_menu');
   }
 
   ngOnInit(): void {
     this._clockSubscription = this.everyFiveSeconds.subscribe(() => {
       this.currentDateTime = new Date();
     });
+  }
+
+  getPermission() {
+    this.lunarService.getPermissions(this.discordServerId)
+      .subscribe({
+        next: (value: any) => {
+          this.hasPermission = value.message === 'Has enough permissions.';
+        },
+        error: (err: any) => {
+
+        }
+      });
   }
 
   getServerDetails() {
@@ -166,5 +183,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.loader.stop();
         }
       });
+  }
+
+  navigateToPoll(value: any) {
+    this.router.navigate(['my-server/' + this.discordServerId + '/polls']);
+    // my-server/975751237242867742/polls
   }
 }

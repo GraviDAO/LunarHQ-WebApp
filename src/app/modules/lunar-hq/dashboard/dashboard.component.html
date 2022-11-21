@@ -3,7 +3,7 @@
   [profileObj]="setHeaderValue()"
   (profileClick)="navigateToProfile()">
 
-  <div *ngIf="!profileObj">
+  <div *ngIf="profileObjError">
     <div>
       <label class="app-why-lbl f16 error ft-bold">
         Failed to load data.
@@ -133,8 +133,9 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <label class="app-why-lbl f16 ft-bold light text-uppercase">Discord rules [{{profileObj?.rules.length}}
-              ]</label>
+            <label class="app-why-lbl f16 ft-bold light text-uppercase">
+              My Applied Discord roles [{{profileObj?.rules.length}}]</label>
+            <!--              Discord rules [{{profileObj?.rules.length}}]</label>-->
           </div>
           <!--<div>
             <app-why-cta-three
@@ -188,6 +189,7 @@
     </article>
 
     <app-why-lunar-hq-recent-polls
+      (openPoll)="navigateToPoll($event)"
       [currentDateTime]="currentDateTime"
       [pollArrayObj]="profileObj?.proposals"></app-why-lunar-hq-recent-polls>
 

@@ -63,15 +63,15 @@
         DISCORD
       </div>
     </div>
-    <div *ngIf="pollObj?.status === 'Quorum Passed' || pollObj?.status === 'Quorum Failed'"
+    <div *ngIf="(pollObj?.status === 'Quorum Passed' || pollObj?.status === 'Quorum Failed') && hasPermission"
          class="poll-item-discord-button pd-left-24 pd-right-24 show-cursor"
-    (click)="exportSummary(pollObj?.id)">
+         (click)="exportSummary(pollObj?.id)">
       <ion-icon name="cloud-download" class="app-why-icon ic18 light-70"></ion-icon>
       <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">
         EXPORT SUMMARY
       </div>
     </div>
-    <div *ngIf="pollObj?.status === 'Draft'"
+    <div *ngIf="pollObj?.status === 'Draft' && hasPermission"
          (click)="editPoll()"
          class="poll-item-discord-button pd-left-24 pd-right-24 show-cursor">
       <ion-icon name="pencil-outline" class="app-why-icon ic18 light-70"></ion-icon>

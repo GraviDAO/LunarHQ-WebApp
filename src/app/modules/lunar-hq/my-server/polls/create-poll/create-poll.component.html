@@ -2,6 +2,7 @@
   [title]="'my servers'"
   [activeTab]="'MY SERVERS'"
   [activeSubMenuTab]="discordServerName"
+  [nestedMenu]="nestedMenu"
   [nestedMenuSelected]="'Polls'">
   <div class="search-bar-container">
     <div class="align-items-center col-3">
@@ -243,7 +244,7 @@
               <div class="max-width-240">
                 <div class="form-group">
                   <input type="text" class="form-control app-why-floating-input light-70"
-                         placeholder="20%"
+                         placeholder="0%"
                          [(ngModel)]="value">
                 </div>
               </div>
@@ -357,11 +358,11 @@
     </div>
 
     <div class="d-flex navigate-steps mr-top-24 mr-bottom-80">
-      <div class="col-3 add-cursor">
-                      <span (click)="saveDraft()">
-                        <ion-icon name="save-outline" class="app-why-icon ic12 light-50"></ion-icon>
-                        <label class="align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">SAVE DRAFT</label>
-                      </span>
+      <div class="col-3">
+        <span (click)="saveDraft()" class="show-cursor">
+          <ion-icon name="save-outline" class="app-why-icon ic12 light-50"></ion-icon>
+          <label class="show-cursor align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">SAVE DRAFT</label>
+        </span>
       </div>
       <div class="d-flex justify-content-end col-9">
         <app-why-lunar-hq-cta-two [btnLabel]="'BACK'" [btnTheme]="'bg--dark'"

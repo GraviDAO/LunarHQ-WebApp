@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ruleObj: any;
   viewAnnouncement = false;
   selectedAnnouncementObj: any;
+  profileObjError = false;
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
@@ -56,12 +57,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
           /*this.userDataObj.push({
             label: 'LICENSES APPLIED VS HELD', value: [this.profileObj.licensesApplied, this.profileObj.licensesHeld]
           });*/
-          this.userDataObj.push({label: 'DISCORD RULES', value: [this.profileObj.rules.length]});
+          this.userDataObj.push({label: 'APPLIED ROLES', value: [this.profileObj.rules.length]});
           this.userDataObj.push({label: 'POLLS', value: [this.profileObj.proposals.length]});
           this.userDataObj.push({label: 'NEW ANNOUNCEMENTS', value: [this.profileObj.announcements.length]});
           this.loaderService.stop();
         },
         error: (error) => {
+          this.profileObjError = true;
           console.error(error, 'error');
           this.loaderService.stop();
         }
@@ -184,5 +186,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.log('err', err);
         }
       });
+  }
+
+  navigateToPoll(value: any) {
+    this.router.navigate(['/polls'])
   }
 }
