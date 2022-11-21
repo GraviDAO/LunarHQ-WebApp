@@ -77,7 +77,8 @@
   min-width: 67.5rem;
   //margin: auto;
   //width: mixin.toRem(718);
-  height: mixin.toRem(657);
+  //height: mixin.toRem(657);
+  padding-bottom: mixin.toRem(48);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
 }
@@ -128,7 +129,7 @@
 .server-detail-rules-content {
   width: 80%;
   //margin: auto;
-  height: mixin.toRem(504);
+  //height: mixin.toRem(504);
   overflow-y: auto;
   overflow-x: hidden;
 }

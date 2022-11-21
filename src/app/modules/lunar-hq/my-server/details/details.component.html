@@ -83,14 +83,14 @@
             <div class="app-why-lbl f16 ft-500 light text-uppercase">
               {{serverDetails?.discordServerName}} DISCORD RULES [ {{serverDetails?.rules.length}} ]
             </div>
-            <!--<div class="rules d-flex- app-why-lbl f12 ft-bold primary">
+            <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
               <app-why-cta-three
                 [btnClass]="cssClass.cta3PrimaryNorm"
                 [iconClass]="cssClass.cta3PrimaryIconNorm"
                 [iconType]="'chevron-forward-outline'"
                 (click)="navigateToRules()"
                 [btnLabel]="'RULES'"></app-why-cta-three>
-            </div>-->
+            </div>
           </div>
           <div class="title-underline mr-top-8 mr-right-40"></div>
           <div class="pd-top-16 mr-right-40" *ngIf="serverDetails?.rules.length === 0">
@@ -113,7 +113,7 @@
           <div class="d-flex justify-content-center">
             <div class="server-detail-rules-content mr-top-16 d-flex flex-column">
               <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
-                   *ngFor="let rule of serverDetails?.rules">
+                   *ngFor="let rule of serverDetails?.rules?.slice(0,2)">
                 <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                   {{rule?.roleName}}
                 </div>

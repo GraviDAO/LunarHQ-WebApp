@@ -14,8 +14,8 @@ import {LocalStorageService} from '../../../shared/services/local.storage.servic
   styleUrls: ['./my-server.component.scss']
 })
 export class MyServerComponent implements OnInit {
-  myServerList = [];
-  nestedMenu = [];
+  myServerList: Array<any> = [];
+  nestedMenu: Array<any> = [];
 
   constructor(private route: ActivatedRoute,
               private storageService: LocalStorageService,
@@ -34,9 +34,9 @@ export class MyServerComponent implements OnInit {
     this.loader.start();
     this.lunarHqService.getMyServers()
       .subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.myServerList = data.message;
-          console.log(this.myServerList)
+          // console.log(this.myServerList)
           if (data.message.length > 0) {
             for (let obj of this.myServerList) {
               // @ts-ignore
