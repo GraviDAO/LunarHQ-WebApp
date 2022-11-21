@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
+import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-poll-cell',
@@ -8,10 +9,12 @@ import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 })
 export class PollCellComponent {
   @Input() pollObj: any;
+  @Input() hasPermission = false;
   @Input() currentDateTime: any;
   @Output() editPollEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private lunarService: LunarHqAPIServices) {
+  constructor(private lunarService: LunarHqAPIServices,
+              private toast: ToastMsgService) {
   }
 
   navigateToViewInDiscord(obj: any) {
@@ -24,7 +27,7 @@ export class PollCellComponent {
   }
 
   exportSummary(id: any) {
-    this.lunarService.exportSummary(id)
+    this.lunarService.exportSummary(id, this.pollObj?.discordServerId)
       .subscribe({
         next: (value: any) => {
           console.log(value, 'value');
@@ -37,6 +40,7 @@ export class PollCellComponent {
           link.click(); // This will download the data file named "my_data.csv"
         },
         error: (err: any) => {
+          this.toast.setMessage(err.message, 'error')
           console.error(err, 'err');
         }
       });

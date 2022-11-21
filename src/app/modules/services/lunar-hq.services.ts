@@ -121,7 +121,7 @@ export class LunarHqAPIServices {
       }));
   }
 
-  deleteRule(ruleId: any,discordServerId: any) {
+  deleteRule(ruleId: any, discordServerId: any) {
     return this.http.delete<any>(environment.server + 'WAdeleteRule/' + ruleId + '?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
@@ -184,8 +184,8 @@ export class LunarHqAPIServices {
       }));
   }
 
-  exportSummary(id: any): Observable<any> {
-    return this.http.get<any>(environment.server + 'getProposalSummary/' + id)
+  exportSummary(id: any, discordServerId: any): Observable<any> {
+    return this.http.get<any>(environment.server + 'getProposalSummary/' + id + '/?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
       }));

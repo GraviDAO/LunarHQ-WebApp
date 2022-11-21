@@ -14,6 +14,7 @@ export class RulesViewComponent implements OnInit {
   // @Input() role: string = '\\';
   // @Input() rules: any = [];
   @Input() paused: boolean = false;
+  @Input() hasPermission: boolean = false;
   @Input() update: boolean = false;
   @Input() ruleObj: any;
   @Output() closeRule: EventEmitter<any> = new EventEmitter<any>();

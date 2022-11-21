@@ -12,7 +12,9 @@ export class RecentPollsComponent {
   @Input() pollArrayObj: any;
   // @ts-ignore
   @Input() currentDateTime: Date;
+  @Input() hasPermission = false;
   @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor(public cssClass: CssConstants,
               private storageService: LocalStorageService,

@@ -27,6 +27,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   paused = false;
   // ruleItems = [];
   ruleObj: any;
+  hasPermission = false;
 
   constructor(private router: Router,
               private location: Location,
@@ -39,11 +40,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
+        this.getPermission();
         this.getServerDetails();
       }
     });
     this.nestedMenu = this.storageService.get('server_menu');
-    this.getPermission();
   }
 
   ngOnInit(): void {
@@ -56,10 +57,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.lunarService.getPermissions(this.discordServerId)
       .subscribe({
         next: (value: any) => {
-          console.log(value, 'value');
+          this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-          console.log(err, 'err');
+
         }
       });
   }

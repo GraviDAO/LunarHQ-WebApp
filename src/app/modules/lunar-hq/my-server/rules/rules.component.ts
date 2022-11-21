@@ -23,6 +23,7 @@ export class RulesComponent implements OnInit {
   discordServerId = '';
   ruleObj: any;
   nestedMenu: any;
+  hasPermission = false;
 
   constructor(private router: Router,
               private location: Location,
@@ -35,6 +36,7 @@ export class RulesComponent implements OnInit {
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
+        this.getPermission();
         this.getServerRules();
       }
     });
@@ -42,6 +44,18 @@ export class RulesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getPermission() {
+    this.lunarService.getPermissions(this.discordServerId)
+      .subscribe({
+        next: (value: any) => {
+          this.hasPermission = value.message === 'Has enough permissions.';
+        },
+        error: (err: any) => {
+
+        }
+      });
   }
 
   navigateToMyServer() {

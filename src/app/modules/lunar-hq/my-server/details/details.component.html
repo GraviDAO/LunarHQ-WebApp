@@ -198,6 +198,7 @@
 
       <app-why-lunar-hq-recent-polls
         (openPoll)="navigateToPoll($event)"
+        [hasPermission]="hasPermission"
         [currentDateTime]="currentDateTime"
         [pollArrayObj]="serverDetails?.proposals"></app-why-lunar-hq-recent-polls>
 
@@ -224,6 +225,7 @@
 
     <div class="rules-view" [hidden]="!viewRule">
       <app-why-lunar-hq-rules-view [paused]="paused"
+                                   [hasPermission]="hasPermission"
                                    [ruleObj]="ruleObj"
                                    (closeRule)="closeView()"
                                    (actionType)="ruleAction($event)"

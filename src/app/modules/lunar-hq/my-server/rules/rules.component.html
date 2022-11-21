@@ -81,6 +81,7 @@
 
     <div class="rules-view" [hidden]="!viewRule">
       <app-why-lunar-hq-rules-view [paused]="paused"
+                                   [hasPermission]="hasPermission"
                                    [ruleObj]="ruleObj"
                                    (closeRule)="closeView()"
                                    (actionType)="ruleAction($event)"

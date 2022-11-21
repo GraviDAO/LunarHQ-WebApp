@@ -23,6 +23,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
   everyFiveSeconds: Observable<number> = timer(0, 3000);
   statusList = ['VIEW ALL', 'ACTIVE', 'FINISHED', 'PENDING', 'DRAFT'];
   nestedMenu: any;
+  hasPermission = false;
 
   constructor(private router: Router,
               public cssClass: CssConstants,
@@ -34,6 +35,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params: any) => {
       this.discordServerId = params.get('discordServerId');
       if (this.discordServerId) {
+        this.getPermission();
         this.getPollsList()
       }
     });
@@ -48,6 +50,18 @@ export class PollsListComponent implements OnInit, OnDestroy {
 
   navigateBack() {
     this.location.back();
+  }
+
+  getPermission() {
+    this.lunarService.getPermissions(this.discordServerId)
+      .subscribe({
+        next: (value: any) => {
+          this.hasPermission = value.message === 'Has enough permissions.';
+        },
+        error: (err: any) => {
+
+        }
+      });
   }
 
   navigateToPolls() {
