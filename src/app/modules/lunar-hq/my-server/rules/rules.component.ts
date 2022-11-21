@@ -53,7 +53,7 @@ export class RulesComponent implements OnInit {
           this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-
+          this.toastService.setMessage(err?.message, 'error');
         }
       });
   }
@@ -97,6 +97,7 @@ export class RulesComponent implements OnInit {
         },
         error: (error) => {
           console.error(error, 'error');
+          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
         }
       });
@@ -117,7 +118,7 @@ export class RulesComponent implements OnInit {
             this.getServerRules();
           },
           error: (err: any) => {
-            this.toastService.setMessage('Failed to delete Rule', 'error');
+            this.toastService.setMessage(err?.message, 'error');
           }
         });
     } else {
@@ -129,7 +130,7 @@ export class RulesComponent implements OnInit {
             this.getServerRules();
           },
           error: (err: any) => {
-            this.toastService.setMessage('Failed to delete Rule', 'error');
+            this.toastService.setMessage(err?.message, 'error');
           }
         });
     }

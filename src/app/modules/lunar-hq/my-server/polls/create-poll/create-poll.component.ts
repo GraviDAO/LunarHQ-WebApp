@@ -60,7 +60,6 @@ export class CreatePollComponent implements OnInit {
     private route: ActivatedRoute,
     public toastService: ToastMsgService,
     private storageService: LocalStorageService,
-    private toast: ToastMsgService,
     private fb: FormBuilder) {
     this.todayDate.setDate(this.todayDate.getDate() + 1);
     this.nestedMenu = this.storageService.get('server_menu');
@@ -103,6 +102,7 @@ export class CreatePollComponent implements OnInit {
         // this.toastService.setMessage('Please select network', 'error');
         return 0;
       } else if (this.pollObj.quorum === undefined) {
+        this.pollObj.quorum = String(0);
         // this.toastService.setMessage('Please set quorum', 'error');
         return 0;
       }
@@ -219,6 +219,7 @@ export class CreatePollComponent implements OnInit {
         },
         error: (error) => {
           console.error(error, 'error');
+          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
         }
       });
@@ -235,6 +236,7 @@ export class CreatePollComponent implements OnInit {
         },
         error: (error) => {
           console.error(error, 'error');
+          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
         }
       });
@@ -317,16 +319,16 @@ export class CreatePollComponent implements OnInit {
         next: (data) => {
           this.loader.stop();
           if (draft) {
-            this.toast.setMessage('Poll saved');
+            this.toastService.setMessage('Poll saved');
           } else {
-            this.toast.setMessage('Poll created successfully');
+            this.toastService.setMessage('Poll created successfully');
           }
           this.location.back();
         },
         error: (error) => {
           console.error(error, 'error');
           this.loader.stop();
-          this.toast.setMessage('Failed to create Poll', 'error');
+          this.toastService.setMessage(error?.message, 'error');
         }
       });
   }
@@ -377,13 +379,13 @@ export class CreatePollComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.loader.stop();
-          this.toast.setMessage('Poll saved');
+          this.toastService.setMessage('Poll saved');
           this.location.back();
         },
         error: (error) => {
           console.error(error, 'error');
           this.loader.stop();
-          this.toast.setMessage('Failed to create Poll', 'error');
+          this.toastService.setMessage(error?.message, 'error');
         }
       });
   }

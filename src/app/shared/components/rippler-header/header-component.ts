@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CssConstants} from '../../services/css-constants.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-why-header',
@@ -22,10 +23,15 @@ export class HeaderComponent implements OnInit {
     viewSettings: false
   };
 
-  constructor(public cssClass: CssConstants) {
+  constructor(public cssClass: CssConstants,
+              private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/welcome']);
+  }
 }

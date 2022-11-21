@@ -7,6 +7,7 @@ import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
 import {LocalStorageService} from '../../../../shared/services/local.storage.service';
+import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-polls',
@@ -30,6 +31,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
               private lunarService: LunarHqAPIServices,
               private loader: NgxUiLoaderService,
               private storageService: LocalStorageService,
+              public toastService: ToastMsgService,
               private location: Location,
               private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params: any) => {
@@ -59,7 +61,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
           this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-
+          this.toastService.setMessage(err?.message, 'error');
         }
       });
   }
@@ -87,6 +89,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error(error, 'error');
+          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
         }
       });

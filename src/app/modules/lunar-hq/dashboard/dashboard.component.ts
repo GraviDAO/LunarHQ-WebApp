@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.profileObjError = true;
           console.error(error, 'error');
+          this.toastService.setMessage(error?.message, 'error');
           this.loaderService.stop();
         }
       });
@@ -126,7 +127,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.toastService.setMessage('Rule deleted successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage('Failed to delete Rule', 'error');
+            this.toastService.setMessage(err?.message, 'error');
           }
         });
     } else {
@@ -137,7 +138,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage('Failed to delete Rule', 'error');
+            this.toastService.setMessage(err?.message, 'error');
           }
         });
     }
@@ -183,6 +184,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.toastService.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },
         error: (err: any) => {
+          this.toastService.setMessage(err?.message, 'error');
           console.log('err', err);
         }
       });

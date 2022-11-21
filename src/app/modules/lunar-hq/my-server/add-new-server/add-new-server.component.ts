@@ -1,8 +1,8 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SideNavType } from 'src/app/shared/components/side-bar/side.nav.type';
-import { CssConstants } from 'src/app/shared/services/css-constants.service';
+import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {SideNavType} from 'src/app/shared/components/side-bar/side.nav.type';
+import {CssConstants} from 'src/app/shared/services/css-constants.service';
 
 @Component({
   selector: 'app-why-lunar-hq-add-new-server',
@@ -49,13 +49,16 @@ export class AddNewServerComponent implements OnInit {
     },
   ];
   license = true;
+
   constructor(private router: Router,
               private location: Location,
-              public cssClass: CssConstants) { }
+              public cssClass: CssConstants) {
+  }
 
   ngOnInit(): void {
     // console.log('testing2')
   }
+
   navigateToMyServer() {
     this.router.navigate(['my-server']);
   }
@@ -65,7 +68,7 @@ export class AddNewServerComponent implements OnInit {
   }
 
   navigateInstall() {
-
+    window.open('https://doc.lunar-hq.io/', '_blank');
   }
 
   addWallet() {
@@ -76,4 +79,8 @@ export class AddNewServerComponent implements OnInit {
 
   }
 
+  navigateToAdminRole() {
+    const url = 'https://support.discord.com/hc/en-us/articles/360055709773-View-as-Role-FAQ#:~:text=If you have the right,of roles in the server';
+    window.open(url, '_blank');
+  }
 }

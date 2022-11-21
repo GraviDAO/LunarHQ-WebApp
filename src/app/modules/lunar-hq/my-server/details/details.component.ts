@@ -60,7 +60,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-
+          this.toastService.setMessage(err?.message, 'error');
         }
       });
   }
@@ -75,6 +75,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error(error, 'error');
+          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
         }
       });
@@ -113,7 +114,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.toastService.setMessage('Rule deleted successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage('Failed to delete Rule', 'error');
+            this.toastService.setMessage(err?.message, 'error');
           }
         });
     } else {
@@ -124,7 +125,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage('Failed to delete Rule', 'error');
+            this.toastService.setMessage(err?.message, 'error');
           }
         });
     }
@@ -180,6 +181,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         },
         error: (err: any) => {
           console.log('err', err);
+          this.toastService.setMessage(err?.message, 'error');
           this.loader.stop();
         }
       });
