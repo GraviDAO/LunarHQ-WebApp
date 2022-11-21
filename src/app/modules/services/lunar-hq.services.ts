@@ -114,6 +114,13 @@ export class LunarHqAPIServices {
       }));
   }
 
+  getPermissions(discordServerId: any) {
+    return this.http.get<any>(environment.server + 'hasPermissions/?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   deleteRule(ruleId: any,discordServerId: any) {
     return this.http.delete<any>(environment.server + 'WAdeleteRule/' + ruleId + '?discordServerId=' + discordServerId)
       .pipe(map((result) => {

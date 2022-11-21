@@ -185,4 +185,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  navigateToPoll(value: any) {
+    this.router.navigate(['/polls'])
+  }
 }

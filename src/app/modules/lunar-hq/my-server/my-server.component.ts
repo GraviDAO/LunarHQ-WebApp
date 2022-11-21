@@ -36,6 +36,7 @@ export class MyServerComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.myServerList = data.message;
+          console.log(this.myServerList)
           if (data.message.length > 0) {
             for (let obj of this.myServerList) {
               // @ts-ignore
@@ -43,7 +44,7 @@ export class MyServerComponent implements OnInit {
                 title: obj.discordServerName,
                 route: '/my-server/details/' + obj.discordServerId,
                 permissionType: obj.userIsAdmin ? PermissionType.fullAccess : ((!obj?.userIsAdmin && !obj?.userOwnsLicense) ? PermissionType.noAccess : PermissionType.partialAccess),
-                nestedMenuList: [
+                nestedMenuList: obj.userIsAdmin ? [
                   {
                     title: 'Rules',
                     route: 'my-server/rules/' + obj.discordServerId
@@ -52,7 +53,7 @@ export class MyServerComponent implements OnInit {
                     title: 'Polls',
                     route: 'my-server/' + obj.discordServerId + '/polls'
                   }
-                ]
+                ] : []
               });
             }
           }

@@ -188,6 +188,7 @@
     </article>
 
     <app-why-lunar-hq-recent-polls
+      (openPoll)="navigateToPoll($event)"
       [currentDateTime]="currentDateTime"
       [pollArrayObj]="profileObj?.proposals"></app-why-lunar-hq-recent-polls>
 

@@ -84,7 +84,6 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes['sideNavList'], 'changes');
     if (changes['nestedMenu']) {
       this.sideNavList[1].subMenu = changes['nestedMenu'].currentValue;
     }

@@ -43,12 +43,25 @@ export class DetailsComponent implements OnInit, OnDestroy {
       }
     });
     this.nestedMenu = this.storageService.get('server_menu');
+    this.getPermission();
   }
 
   ngOnInit(): void {
     this._clockSubscription = this.everyFiveSeconds.subscribe(() => {
       this.currentDateTime = new Date();
     });
+  }
+
+  getPermission() {
+    this.lunarService.getPermissions(this.discordServerId)
+      .subscribe({
+        next: (value: any) => {
+          console.log(value, 'value');
+        },
+        error: (err: any) => {
+          console.log(err, 'err');
+        }
+      });
   }
 
   getServerDetails() {
@@ -169,5 +182,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.loader.stop();
         }
       });
+  }
+
+  navigateToPoll(value: any) {
+    this.router.navigate(['my-server/' + this.discordServerId + '/polls']);
+    // my-server/975751237242867742/polls
   }
 }

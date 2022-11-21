@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="announcement-container-three">
-    <div (click)="starAnnouncement(annObj)">
+    <div (click)="starAnnouncement(annObj)" class="show-cursor">
       <ion-icon class="app-why-icon ic18 light-70"
                 [ngClass]="{'primary': annObj?.starred}"
                 name="{{annObj?.starred ? 'star' : 'star-outline'}}"></ion-icon>
