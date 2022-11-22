@@ -39,11 +39,12 @@ body {
   background-size: 24px;
   box-shadow: 0 0 12px #999;
   font-size: 16px;
-  line-height: 2px;
+  //line-height: 2px;
   background: #51a351 no-repeat 15px center;
   min-height: 54px;
   display: flex;
   align-items: center;
+  word-break: break-word;
 
   &.error {
     background: #bd362f;

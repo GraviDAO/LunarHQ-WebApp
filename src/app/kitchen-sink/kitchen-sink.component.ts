@@ -30,7 +30,7 @@ export class KitchenSinkComponent {
 
   showToast() {
     // this.toast.success('Show');
-    this.toast.setMessage('Successfully starred the announcement', '');
+    this.toast.setMessage('You already have a wallet of that chain connected to this Discord account. Adding multiple wallets of one chain is not surpported yet!', '');
   }
 
   navigateToWelcome() {

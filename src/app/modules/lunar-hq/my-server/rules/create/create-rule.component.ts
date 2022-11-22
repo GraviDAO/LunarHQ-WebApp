@@ -382,9 +382,9 @@ export class CreateRuleComponent implements OnInit {
           this.location.back();
         },
         error: (error: any) => {
-          this.toastService.setMessage(error?.message, 'error');
-          console.error(error, 'error');
           this.loader.stop();
+          this.toastService.setMessage(error?.error.message, 'error');
+          console.error(error, 'error');
         }
       });
     // console.log(this.ruleObj, 'rule');
@@ -457,8 +457,8 @@ export class CreateRuleComponent implements OnInit {
           this.loader.stop();
         },
         error: (err: any) => {
-          this.toastService.setMessage(err?.message, 'error');
           this.loader.stop();
+          this.toastService.setMessage(err?.error.message, 'error');
         }
       });
   }

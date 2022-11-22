@@ -99,7 +99,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
           this.loader.stop();
         },
         error: (err) => {
-          this.toast.setMessage(err.message, 'error');
+          this.toast.setMessage(err?.error.message, 'error');
           console.error(err, 'err');
           this.loader.stop();
         }
@@ -123,6 +123,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
         error: (err) => {
           console.error(err, 'err');
           this.loader.stop();
+          this.toast.setMessage(err.error.message, 'error');
         }
       });
   }

@@ -12,6 +12,7 @@ import {getChainOptions, WalletController} from '@terra-money/wallet-provider';
 import {combineLatest, Subscription} from 'rxjs';
 import {MsgSend} from '@terra-money/terra.js';
 import {USER_AUTHENTICATED} from '../welcome/type';
+import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-profile',
@@ -43,12 +44,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   terraClassicWalletExists: boolean = false;
   terraIcon = 'https://assets.terra.money/icon/station-extension/icon.png';
   url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http://localhost:4401/welcome&response_type=code&scope=identify%20email%20connections';
+  terraConnectionRequested: boolean = false;
 
   constructor(private router: Router,
               private lunarHqService: LunarHqAPIServices,
               private loaderService: NgxUiLoaderService,
               private coreService: CoreService,
-              private toast: ToastrService,
+              private toast: ToastMsgService,
               private web3: Web3Service,
               private route: ActivatedRoute,
               private storageService: LocalStorageService,
@@ -68,6 +70,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           },
           error: (error) => {
             this.resetSteps();
+            this.toast.setMessage(error.error.message, 'error');
             this.loaderService.stop();
             this.closeDiscordPopUp();
           }
@@ -127,6 +130,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.signTerraTx(walletAddr, nonceResult.message);
               }
             }, (error) => {
+              this.toast.setMessage(error?.error.message, 'error');
               console.error('error', error);
             });
         }
@@ -144,12 +148,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           this.profileObj = data.message;
-          /*this.profileObj?.discordServers.forEach((discordObj: any) => {
-            if (discordObj.licences.length > 0) {
-              // @ts-ignore
-              this.licenseList.push(...discordObj.licences)
-            }
-          });*/
           this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
           this.terraWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra');
           this.loaderService.stop();
@@ -157,6 +155,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         error: (error) => {
           console.error(error, 'error');
           this.loaderService.stop();
+          this.toast.setMessage(error?.error.message, 'error');
         }
       });
   }
@@ -226,11 +225,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const oldJWT = lunarObj.token;
           lunarObj.token = token;
           this.storageService.set('lunar_user', lunarObj);
-          this.toast.success('Wallet removed!');
+          this.toast.setMessage('Wallet removed!');
           this.getProfileDetails();
         },
         error: (error) => {
-
+          this.toast.setMessage(error.error.message, 'error');
         }
       });
     this.cancelModal('removeWalletModal');
@@ -306,7 +305,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .subscribe((result) => {
           this.handleSignIn(result.message, walletAddr);
         });
-    } catch (error) {
+    } catch (error: any) {
+      this.toast.setMessage(error.error.message, 'error');
       console.error(error, 'error');
     }
   }
@@ -340,11 +340,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       };
       this.loaderService.stop();
       this.authenticateWalletAddress(dataObject, publicAddress, blockchainName);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e, 'e');
       this.loaderService.stop();
       this.terraController.disconnect();
-      this.toast.error('Failed to connect');
+      this.toast.setMessage('Failed to connect', 'error');
       this.modalService.open('terraWallet');
     }
   }
@@ -354,7 +354,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.walletChainId !== (classic ? 'columbus-5' : 'phoenix-1')) {
       this.terraController.disconnect();
       this.modalService.open('terraWallet');
-      this.toast.error('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'));
+      this.toast.setMessage('Wrong network! Switch to ' + (classic ? 'columbus-5' : 'phoenix-1'), 'error');
     } else {
       this.loaderService.start();
       const msg = new MsgSend(
@@ -382,7 +382,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         .catch((error) => {
           this.loaderService.stop();
           this.terraController.disconnect();
-          this.toast.error('Failed to connect');
+          this.toast.setMessage('Failed to connect', 'error');
           this.modalService.open('terraWallet');
         });
     }
@@ -413,10 +413,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       };
       this.loaderService.stop();
       this.authenticateWalletAddress(payLoad, publicAddress, blockchainName);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
       this.web3.disconnectAccount();
-      this.toast.error('Failed to connect');
+      this.toast.setMessage('Failed to connect', 'error');
     }
   }
 
@@ -446,7 +446,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           blockchainName: blockchainName,
           oldJWT
         }).subscribe((data) => {
-          this.toast.success('Wallet connected and Discord linked!');
+          this.toast.setMessage('Wallet connected and Discord linked!');
 
           if (blockchainName === 'polygon-mainnet') {
             this.polygonAddress = publicAddress;
@@ -455,24 +455,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }
 
           this.getProfileDetails();
-        }, error => {
-          console.error(error, 'error');
+        }, (error) => {
+          this.toast.setMessage(error.message, 'error');
           lunarObj.token = prevToken;
           this.storageService.set('lunar_user', lunarObj);
 
           if (error.status === 409) {
-            this.toast.error('Wallet is already linked to another account!');
+            this.toast.setMessage('Wallet is already linked to another account!', 'Error');
           }
         });
         this.exitModal();
       }, (error) => {
         console.error('Failed to connect wallet', error);
-        this.toast.error('Failed to connect wallet');
+        this.toast.setMessage('Failed to connect wallet', 'error');
       });
   }
 
   async handleTerraConnection(type: any, identifier: any, useLedgerStation?: boolean) {
     this.useLedgerStation = useLedgerStation;
+    this.terraConnectionRequested = true;
     let connect = await this.terraController.connect(type, identifier);
   }
 

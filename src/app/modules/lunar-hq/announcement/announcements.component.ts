@@ -79,9 +79,7 @@ export class AnnouncementsComponent implements OnInit {
         },
         error: (error: any) => {
           this.loader.stop();
-          console.error(error, 'error');
-          this.toast.setMessage('Failed to get announcements', 'error');
-
+          this.toast.setMessage(error.error.message, 'error');
         }
       });
   }
@@ -152,7 +150,7 @@ export class AnnouncementsComponent implements OnInit {
           this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },
         error: (err: any) => {
-          console.log('err', err);
+          this.toast.setMessage(err.error.message, 'error');
         }
       });
   }
@@ -170,6 +168,7 @@ export class AnnouncementsComponent implements OnInit {
         },
         error: (err: any) => {
           console.log('err', err);
+          this.toast.setMessage(err.error.message, 'error');
         }
       });
   }

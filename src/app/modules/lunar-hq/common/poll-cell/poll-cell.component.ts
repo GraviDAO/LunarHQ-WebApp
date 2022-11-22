@@ -40,7 +40,7 @@ export class PollCellComponent {
           link.click(); // This will download the data file named "my_data.csv"
         },
         error: (err: any) => {
-          this.toast.setMessage(err.message, 'error')
+          this.toast.setMessage(err.error.message, 'error');
           console.error(err, 'err');
         }
       });

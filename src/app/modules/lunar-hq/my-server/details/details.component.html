@@ -78,10 +78,11 @@
         </div>
       </div>
       <div class="server-detail-rules-license mr-top-8 d-flex">
-        <div class="server-detail-rules d-flex flex-column pd-top-24 pd-left-40">
-          <div class="rules-header-title d-flex justify-content-between pd-right-40">
+        <div class="server-detail-rules d-flex flex-column pd-top-24 pd-lr-40">
+          <div class="rules-header-title d-flex justify-content-between">
             <div class="app-why-lbl f16 ft-500 light text-uppercase">
-              {{serverDetails?.discordServerName}} DISCORD RULES [ {{serverDetails?.rules.length}} ]
+              DISCORD RULES [ {{serverDetails?.rules.length}} ]
+              <!--              {{serverDetails?.discordServerName}} DISCORD RULES [ {{serverDetails?.rules.length}} ]-->
             </div>
             <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
               <app-why-cta-three
@@ -89,18 +90,19 @@
                 [iconClass]="cssClass.cta3PrimaryIconNorm"
                 [iconType]="'chevron-forward-outline'"
                 (click)="navigateToRules()"
-                [btnLabel]="'RULES'"></app-why-cta-three>
+                [btnLabel]="'MANAGE RULES'"></app-why-cta-three>
             </div>
           </div>
-          <div class="title-underline mr-top-8 mr-right-40"></div>
+          <div class="title-underline mr-top-8"></div>
           <div class="pd-top-16 mr-right-40" *ngIf="serverDetails?.rules.length === 0">
             <label class="app-why-lbl f14 light-70">
               Lunar HQ is all about making communities work. It looks like you don't hold any community roles yet but
               we'll keep checking and place them here when we find them.
             </label>
           </div>
-          <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40" *ngIf="serverDetails?.rules.length > 0">
-            <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          <div class="rules-detail-title details-pg pd-top-16 d-flex flex-row pd-right-40" *ngIf="serverDetails?.rules.length > 0">
+            <div class="rule-name-title details-pg
+             app-why-lbl f10 ft-lato light-50 letter-spacing-02">
               RULE NAME
             </div>
             <div class="population-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
@@ -114,7 +116,8 @@
             <div class="server-detail-rules-content mr-top-16 d-flex flex-column">
               <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
                    *ngFor="let rule of serverDetails?.rules?.slice(0,2)">
-                <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
+                <div class="rules-item-name details-pg
+                d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                   {{rule?.roleName}}
                 </div>
                 <div class="divider"></div>

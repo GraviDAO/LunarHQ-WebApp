@@ -86,11 +86,19 @@
 .rules-detail-title {
   width: 65%;
   justify-content: center;
+
+  &.details-pg {
+    width: 74%;
+  }
   //margin: auto;
 }
 
 .rule-name-title {
   width: mixin.toRem(272);
+
+  &.details-pg {
+    width: mixin.toRem(368);
+  }
 }
 
 .population-title {
@@ -103,6 +111,10 @@
 
 .rules-item-name {
   width: mixin.toRem(272);
+
+  &.details-pg {
+    width: mixin.toRem(368);
+  }
 }
 
 .rules-item-population {

@@ -53,7 +53,7 @@ export class RulesComponent implements OnInit {
           this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-          this.toastService.setMessage(err?.message, 'error');
+          this.toastService.setMessage(err?.error.message, 'error');
         }
       });
   }
@@ -97,7 +97,7 @@ export class RulesComponent implements OnInit {
         },
         error: (error) => {
           console.error(error, 'error');
-          this.toastService.setMessage(error?.message, 'error');
+          this.toastService.setMessage(error?.error.message, 'error');
           this.loader.stop();
         }
       });
@@ -118,19 +118,18 @@ export class RulesComponent implements OnInit {
             this.getServerRules();
           },
           error: (err: any) => {
-            this.toastService.setMessage(err?.message, 'error');
+            this.toastService.setMessage(err?.error.message, 'error');
           }
         });
     } else {
-      obj.ruleObj.active = obj.action === 'resume';
-      this.lunarService.createRule(obj.ruleObj)
+      this.lunarService.activateDeactivate(obj.action === 'resume', obj.ruleObj.id, obj.ruleObj.discordServerId)
         .subscribe({
           next: (value: any) => {
-            this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
             this.getServerRules();
+            this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage(err?.message, 'error');
+            this.toastService.setMessage(err.error.message, 'error');
           }
         });
     }
