@@ -23,6 +23,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   everyFiveSeconds: Observable<number> = timer(0, 3000);
   pollType = '';
   nestedMenu = '';
+  uniqueServerList: Array<any> = [];
 
   constructor(
     private router: Router,
@@ -44,6 +45,7 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
           this.getMyParticipatedPolls();
         }
       } else {
+        this.nestedMenu = '';
         this.getPolls();
       }
     });
@@ -78,11 +80,15 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.pollsList = data.message.proposals;
           this.mainPollsList = data.message.proposals;
-          // console.log(this.pollsList);
+          const unique = this.mainPollsList
+            .map((item: any) => item.discordServerId)
+            .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
+          this.uniqueServerList.push(...unique);
+          this.getPermission();
           this.loader.stop();
         },
         error: (err) => {
-          console.error(err, 'err');
+          this.toast.setMessage(err?.error.message, 'error');
           this.loader.stop();
         }
       });
@@ -96,11 +102,15 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
         next: (data) => {
           // console.log(data);
           this.pollsList = data.message;
+          const unique = data.message
+            .map((item: any) => item.discordServerId)
+            .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
+          this.uniqueServerList.push(...unique);
+          this.getPermission();
           this.loader.stop();
         },
         error: (err) => {
           this.toast.setMessage(err?.error.message, 'error');
-          console.error(err, 'err');
           this.loader.stop();
         }
       });
@@ -116,12 +126,10 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.lunarHqService.getMyParticipatedPolls()
       .subscribe({
         next: (data) => {
-          // console.log(data);
           this.pollsList = data.message.length === 0 ? [] : data.message;
           this.loader.stop();
         },
         error: (err) => {
-          console.error(err, 'err');
           this.loader.stop();
           this.toast.setMessage(err.error.message, 'error');
         }
@@ -137,7 +145,6 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   }
 
   filterList(key: string) {
-    console.log(key);
     if (key.toLowerCase() === 'finished') {
       this.pollsList = this.mainPollsList.filter((obj: any) => (obj.status === 'Quorum Passed' || (obj.status === 'Quorum Failed')));
     } else if (key.toLowerCase() === 'pending') {
@@ -155,5 +162,24 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.storageService.set('poll_obj', obj);
     this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
       {queryParams: {pollId: obj.id}});
+  }
+
+  getPermission() {
+    for (let i = 0; i < this.uniqueServerList.length; i++) {
+      this.lunarHqService.getPermissions(this.uniqueServerList[i])
+        .subscribe({
+          next: (value: any) => {
+            this.pollsList.forEach((obj: any, index: number) => {
+              if (obj.discordServerId === this.uniqueServerList[i]) {
+                // @ts-ignore
+                this.pollsList[index].hasPermission = true;
+              }
+            });
+          },
+          error: (err: any) => {
+            // this.toastService.setMessage(err.error.message, 'error');
+          }
+        });
+    }
   }
 }

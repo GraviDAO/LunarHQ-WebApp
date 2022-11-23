@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.userDataObj.push({label: 'APPLIED ROLES', value: [this.profileObj.rules.length]});
           this.userDataObj.push({label: 'POLLS', value: [this.profileObj.proposals.length]});
           this.userDataObj.push({label: 'NEW ANNOUNCEMENTS', value: [this.profileObj.announcements.length]});
+          this.getPermission();
           this.loaderService.stop();
         },
         error: (error) => {
@@ -191,5 +192,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   navigateToPoll(value: any) {
     this.router.navigate(['/polls'])
+  }
+
+  getPermission() {
+    for (let i = 0; i < this.profileObj.discordServers.length; i++) {
+      this.lunarHqService.getPermissions(this.profileObj.discordServers[i].discordServerId)
+        .subscribe({
+          next: (value: any) => {
+            this.profileObj?.proposals.forEach((obj: any, index: number) => {
+              if (obj.discordServerId === this.profileObj.discordServers[i].discordServerId) {
+                // @ts-ignore
+                this.profileObj?.proposals[index].hasPermission = true;
+              }
+            });
+          },
+          error: (err: any) => {
+            // this.toastService.setMessage(err.error.message, 'error');
+          }
+        });
+    }
   }
 }
