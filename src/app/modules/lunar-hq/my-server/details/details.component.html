@@ -81,10 +81,10 @@
         <div class="server-detail-rules d-flex flex-column pd-top-24 pd-lr-40">
           <div class="rules-header-title d-flex justify-content-between">
             <div class="app-why-lbl f16 ft-500 light text-uppercase">
-              DISCORD RULES [ {{serverDetails?.rules.length}} ]
+              DISCORD RULES <span *ngIf="serverDetails?.rules.length !== 0">[ {{serverDetails?.rules.length}} ]</span>
               <!--              {{serverDetails?.discordServerName}} DISCORD RULES [ {{serverDetails?.rules.length}} ]-->
             </div>
-            <div class="rules d-flex- app-why-lbl f12 ft-bold primary">
+            <div class="rules d-flex- app-why-lbl f12 ft-bold primary" *ngIf="serverDetails?.rules.length !== 0">
               <app-why-cta-three
                 [btnClass]="cssClass.cta3PrimaryNorm"
                 [iconClass]="cssClass.cta3PrimaryIconNorm"
@@ -94,13 +94,17 @@
             </div>
           </div>
           <div class="title-underline mr-top-8"></div>
-          <div class="pd-top-16 mr-right-40" *ngIf="serverDetails?.rules.length === 0">
+          <div class="pd-top-16 empty-info-container" *ngIf="serverDetails?.rules?.length === 0">
+            <div class="app-why-lbl secondary ft-lato mr-bottom-8">
+              FIND YOUR COMMUNITIES
+            </div>
             <label class="app-why-lbl f14 light-70">
               Lunar HQ is all about making communities work. It looks like you don't hold any community roles yet but
               we'll keep checking and place them here when we find them.
             </label>
           </div>
-          <div class="rules-detail-title details-pg pd-top-16 d-flex flex-row pd-right-40" *ngIf="serverDetails?.rules.length > 0">
+          <div class="rules-detail-title details-pg pd-top-16 d-flex flex-row pd-right-40"
+               *ngIf="serverDetails?.rules?.length > 0">
             <div class="rule-name-title details-pg
              app-why-lbl f10 ft-lato light-50 letter-spacing-02">
               RULE NAME

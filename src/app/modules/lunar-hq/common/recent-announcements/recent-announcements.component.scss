@@ -3,9 +3,10 @@
 
 .server-announcements {
   width: 100%;
-  height: mixin.toRem(535);
+  //height: mixin.toRem(535);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
+  padding-bottom: mixin.toRem(48);
 }
 
 .announcement-items {

@@ -42,6 +42,13 @@ export class AnnouncementsComponent implements OnInit {
         this.getAnnouncementList();
       }
     });
+
+    this.route.queryParams.subscribe((query: any) => {
+      if (query.selectedServer) {
+        this.selectedServer = query.selectedServer;
+        this.setServer(this.selectedServer);
+      }
+    });
   }
 
   content = 'gm @everyone' +

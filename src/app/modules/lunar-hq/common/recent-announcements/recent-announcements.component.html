@@ -3,7 +3,7 @@
     <div class="app-why-lbl f16 ft-bold light">
       RECENT ANNOUNCEMENTS
     </div>
-    <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
+    <div class="polls d-flex- app-why-lbl f12 ft-bold primary" *ngIf="announcementArrayObj?.length > 0">
       <app-why-cta-three
         [btnClass]="cssClass.cta3PrimaryNorm"
         [iconClass]="cssClass.cta3PrimaryIconNorm"
@@ -19,5 +19,14 @@
       (previewAnnouncement)="previewAnnouncement($event)"
       [annObj]="annObj">
     </app-why-lunar-hq-announcement-cell>
+  </div>
+  <div class="empty-info-container" *ngIf="announcementArrayObj?.length === 0">
+    <div class="app-why-lbl secondary ft-lato mr-bottom-8">
+      Keep up to date
+    </div>
+    <label class="app-why-lbl f14 light-70">
+      Keeping track of all of your communities can be hard. Let Lunar HQ bring all of your important announcements to a
+      single place so you stay informed of the big news.
+    </label>
   </div>
 </div>

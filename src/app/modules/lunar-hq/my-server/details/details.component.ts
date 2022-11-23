@@ -82,7 +82,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   navigateToAnnouncement() {
-    this.router.navigate(['/announcement']);
+    // this.router.navigate(['/announcement']);
+    this.router.navigate(['/announcement'], {queryParams: {selectedServer: this.serverDetails?.discordServerName}});
   }
 
   navigateToMyServer() {
@@ -138,7 +139,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   showRule(ruleObj: any) {
-    console.log(ruleObj, 'obj');
+    // console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
     this.paused = false;

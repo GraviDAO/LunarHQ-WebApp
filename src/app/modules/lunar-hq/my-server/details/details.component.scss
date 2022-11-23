@@ -90,6 +90,7 @@
   &.details-pg {
     width: 74%;
   }
+
   //margin: auto;
 }
 
@@ -341,7 +342,7 @@
 .server-text-container {
   overflow: scroll;
   white-space: nowrap;
-  max-width: mixin.toRem(120);
+  //max-width: mixin.toRem(120);
 
   &::-webkit-scrollbar {
     width: 0;
