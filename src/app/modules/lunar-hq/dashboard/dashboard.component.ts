@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.profileObjError = true;
           console.error(error, 'error');
-          this.toastService.setMessage(error?.message, 'error');
+          this.toastService.setMessage(error.error.message, 'error');
           this.loaderService.stop();
         }
       });
@@ -127,18 +127,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.toastService.setMessage('Rule deleted successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage(err?.message, 'error');
+            this.toastService.setMessage(err.error.message, 'error');
           }
         });
     } else {
-      obj.ruleObj.active = obj.action === 'resume';
-      this.lunarHqService.createRule(obj.ruleObj)
+      this.lunarHqService.activateDeactivate(obj.action === 'resume', obj.ruleObj.id, obj.ruleObj.discordServerId)
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage(err?.message, 'error');
+            this.toastService.setMessage(err.error.message, 'error');
           }
         });
     }
@@ -184,7 +183,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.toastService.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },
         error: (err: any) => {
-          this.toastService.setMessage(err?.message, 'error');
+          this.toastService.setMessage(err.error.message, 'error');
           console.log('err', err);
         }
       });

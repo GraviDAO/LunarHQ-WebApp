@@ -61,7 +61,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
           this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-          this.toastService.setMessage(err?.message, 'error');
+          this.toastService.setMessage(err?.error.message, 'error');
         }
       });
   }
@@ -89,7 +89,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error(error, 'error');
-          this.toastService.setMessage(error?.message, 'error');
+          this.toastService.setMessage(error?.error.message, 'error');
           this.loader.stop();
         }
       });

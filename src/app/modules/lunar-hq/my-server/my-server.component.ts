@@ -7,6 +7,7 @@ import {PermissionType, SideNavType} from '../../../shared/components/side-bar/s
 import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
+import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-my-server',
@@ -20,6 +21,7 @@ export class MyServerComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private storageService: LocalStorageService,
               private router: Router,
+              private toastService: ToastMsgService,
               private loader: NgxUiLoaderService,
               private lunarHqService: LunarHqAPIServices,
               private location: Location,
@@ -44,7 +46,7 @@ export class MyServerComponent implements OnInit {
                 title: obj.discordServerName,
                 route: '/my-server/details/' + obj.discordServerId,
                 permissionType: obj.userIsAdmin ? PermissionType.fullAccess : ((!obj?.userIsAdmin && !obj?.userOwnsLicense) ? PermissionType.noAccess : PermissionType.partialAccess),
-                nestedMenuList: obj.userIsAdmin ? [
+                /*nestedMenuList: obj.userIsAdmin ? [
                   {
                     title: 'Rules',
                     route: 'my-server/rules/' + obj.discordServerId
@@ -53,7 +55,7 @@ export class MyServerComponent implements OnInit {
                     title: 'Polls',
                     route: 'my-server/' + obj.discordServerId + '/polls'
                   }
-                ] : []
+                ] : []*/
               });
             }
           }
@@ -62,6 +64,7 @@ export class MyServerComponent implements OnInit {
         },
         error: (err) => {
           console.error(err, 'err');
+          this.toastService.setMessage(err?.error?.message, 'error');
           this.loader.stop();
         }
       });

@@ -3,15 +3,16 @@
 .server-recent-polls {
   width: 100%;
   min-width: mixin.toRem(1080);
-  height: mixin.toRem(353);
+  //height: mixin.toRem(353);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
+  padding-bottom: mixin.toRem(48);
 }
 
 .poll-items {
   min-width: mixin.toRem(822);
   width: 80%;
-  height: mixin.toRem(200);
+  //height: mixin.toRem(200);
   margin-left: auto;
   margin-right: auto;
 }

@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <article class="mr-top-8 d-flex mr-bottom-80">
+    <article class="mr-top-8 d-flex mr-bottom-8">
       <article class="server-container pd-top-24 pd-lr-40">
 
         <div class="d-flex justify-content-between align-items-center">
@@ -157,10 +157,12 @@
 
         <div class="server-list-wrapper">
           <div class="rule-details-wrapper" *ngFor="let ruleObj of profileObj?.rules">
-            <div class="width-270 pd-left-16"><label class="app-why-lbl f16 light ft-bold">{{ruleObj?.roleName}}</label>
+            <div class="width-270 pd-left-16">
+              <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.roleName}}</label>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
-            <div class="width-94 pd-left-15"><label class="app-why-lbl f16 light ft-bold">{{ruleObj?.quantity}}</label>
+            <div class="width-94 pd-left-15">
+              <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.population}}</label>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
             <div class="width-178 pd-left-15 d-flex justify-content-between">

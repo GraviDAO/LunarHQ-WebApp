@@ -199,5 +199,15 @@ export class LunarHqAPIServices {
       }));
   }
 
+  activateDeactivate(flag: boolean, ruleId: any, discordServerId: any): Observable<any> {
+    const endPoint = flag ? 'WAdeactivateRule/' : 'WAdeactivateRule/';
+    const url = environment.server + endPoint + ruleId + '/?discordServerId=' + discordServerId;
+    console.log(url, 'url');
+    return this.http.put<any>(url, {})
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
 
 }

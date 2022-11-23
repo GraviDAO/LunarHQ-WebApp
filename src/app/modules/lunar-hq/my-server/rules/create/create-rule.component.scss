@@ -40,8 +40,9 @@
 
 .rule-details-container {
   width: 100%;
-  height: mixin.toRem(396);
+  //height: mixin.toRem(396);
   @include mixin.bg--wrapper;
+  padding-bottom: mixin.toRem(48);
   margin-left: auto;
   margin-right: auto;
   background: var(--tertiary);

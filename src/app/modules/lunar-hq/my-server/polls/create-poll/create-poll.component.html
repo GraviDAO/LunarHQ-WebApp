@@ -295,12 +295,14 @@
                 <input class="form-control date-time-input" type="date"
                        [min]="todayDate | date :'yyyy-MM-dd'"
                        id="closingDate" [ngModel]="closingDate | date:'yyyy-MM-dd'"
-                       (ngModelChange)="closingDate = $event"/>
+                       (ngModelChange)="setClosingDate($event)"/>
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">Closing
                   Time: </label>
-                <input class="form-control date-time-input" type="time"
+                <input class="form-control date-time-input"
+                       type="time"
+                       (ngModelChange)="validateClosingTime($event)"
                        [(ngModel)]="closingTime"/>
               </div>
             </div>

@@ -9,6 +9,7 @@ import {ToastMsgService} from '../../../../../shared/services/toast-msg-service'
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LunarHqAPIServices} from '../../../../services/lunar-hq.services';
 import {LocalStorageService} from '../../../../../shared/services/local.storage.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -61,7 +62,8 @@ export class CreatePollComponent implements OnInit {
     public toastService: ToastMsgService,
     private storageService: LocalStorageService,
     private fb: FormBuilder) {
-    this.todayDate.setDate(this.todayDate.getDate() + 1);
+    this.todayDate.setDate(this.todayDate.getDate());
+    // this.todayDate.setDate(this.todayDate.getDate() + 1);
     this.nestedMenu = this.storageService.get('server_menu');
 
     this.route.paramMap.subscribe((params: any) => {
@@ -91,41 +93,37 @@ export class CreatePollComponent implements OnInit {
   validatePoll(index: number): number {
     if (index === 0 || index === 4) {
       if (this.pollObj.title === '' || this.pollObj.title === undefined) {
-        // this.toastService.setMessage('Title cannot be empty', 'error');
         return 0;
       } else if (this.pollObj.description === '' || this.pollObj.description === undefined) {
-        // this.toastService.setMessage('Description cannot be empty', 'error');
         return 0;
       }
     } else if (index === 1 || index === 4) {
-      if (this.selectedNetwork === 'Select network' && this.voteWeight === 'tokenWeighted') {
-        // this.toastService.setMessage('Please select network', 'error');
-        return 0;
-      } else if (this.pollObj.quorum === undefined) {
-        this.pollObj.quorum = String(0);
-        // this.toastService.setMessage('Please set quorum', 'error');
-        return 0;
+      // console.log(this.pollObj.numberPerVote, 'voteWeight');
+      this.pollObj.quorum = String(0);
+      if (this.voteWeight === 'tokenWeighted') {
+        if (this.selectedNetwork === 'Select network') {
+          return 0;
+        }
+        if (this.pollObj.address === undefined || this.pollObj.numberPerVote === undefined) {
+          return 0;
+        }
       }
     } else if (index === 2 || index === 4) {
       if (this.startTime === undefined || this.startTime === '') {
-        // this.toastService.setMessage('Please set start time', 'error');
         return 0;
       }
       if (this.closingTime === undefined || this.closingTime === '') {
-        // this.toastService.setMessage('Please set closing time', 'error');
         return 0;
       }
       if (this.closingDate === undefined || this.closingDate === '') {
-        // this.toastService.setMessage('Please set closing date', 'error');
         return 0;
       }
       if ((this.dateRadioSelected !== 'today') && (this.startDate === undefined || this.startDate === '')) {
-        // this.toastService.setMessage('Please set start date', 'error');
         return 0;
       }
+      return this.validateClosingTime(this.closingTime);
     } else if (index === 3 || index === 4) {
       if (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '') {
-        // this.toastService.setMessage('Please select channel', 'error');
         return 0;
       }
     }
@@ -219,8 +217,8 @@ export class CreatePollComponent implements OnInit {
         },
         error: (error) => {
           console.error(error, 'error');
-          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
+          this.toastService.setMessage(error?.error?.message, 'error');
         }
       });
   }
@@ -236,7 +234,7 @@ export class CreatePollComponent implements OnInit {
         },
         error: (error) => {
           console.error(error, 'error');
-          this.toastService.setMessage(error?.message, 'error');
+          this.toastService.setMessage(error?.error?.message, 'error');
           this.loader.stop();
         }
       });
@@ -328,7 +326,7 @@ export class CreatePollComponent implements OnInit {
         error: (error) => {
           console.error(error, 'error');
           this.loader.stop();
-          this.toastService.setMessage(error?.message, 'error');
+          this.toastService.setMessage(error?.error?.message, 'error');
         }
       });
   }
@@ -345,6 +343,20 @@ export class CreatePollComponent implements OnInit {
     // console.log(startTime > this.currentTime, 'start');
     if (startTime < this.currentTime) {
       this.toastService.setMessage('Time should be greater than current UTC time', 'error');
+    }
+  }
+
+  validateClosingTime(closeTime: any) {
+    let closingDate = moment(this.closingDate).format('YYYY-MM-DD');
+    let today = moment(this.todayDate).format('YYYY-MM-DD');
+    // console.log(closingDate, 'closingDate');
+    // console.log(today, 'today');
+    // console.log(closingDate === today, 'compare');
+    if (closingDate === today && closeTime < this.startTime) {
+      this.toastService.setMessage('Time should be greater than current UTC time', 'error');
+      return 0;
+    } else {
+      return 1;
     }
   }
 
@@ -385,7 +397,7 @@ export class CreatePollComponent implements OnInit {
         error: (error) => {
           console.error(error, 'error');
           this.loader.stop();
-          this.toastService.setMessage(error?.message, 'error');
+          this.toastService.setMessage(error?.error.message, 'error');
         }
       });
   }
@@ -407,5 +419,9 @@ export class CreatePollComponent implements OnInit {
 
     this.closingDate = endTime;
     // console.log(this.pollObj, 'this.pollObj');
+  }
+
+  setClosingDate(value: any) {
+    this.closingDate = value;
   }
 }

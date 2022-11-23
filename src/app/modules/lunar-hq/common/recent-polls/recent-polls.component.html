@@ -3,13 +3,13 @@
     <div class="app-why-lbl f16 ft-bold light">
       RECENT POLLS
     </div>
-    <div class="polls d-flex- app-why-lbl f12 ft-bold primary">
+    <div class="polls d-flex- app-why-lbl f12 ft-bold primary" *ngIf="pollArrayObj?.length > 0">
       <app-why-cta-three
         [btnClass]="cssClass.cta3PrimaryNorm"
         [iconClass]="cssClass.cta3PrimaryIconNorm"
         [iconType]="'chevron-forward-outline'"
         (click)="navigateToPolls()"
-        [btnLabel]="'POLLS'"></app-why-cta-three>
+        [btnLabel]="'MANAGE POLLS'"></app-why-cta-three>
     </div>
   </div>
   <div class="horizontal-divider light-20 mr-top-8"></div>
@@ -20,5 +20,15 @@
                                   (editPollEvent)="editPoll($event)"
                                   [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
     </div>
+  </div>
+
+  <div class="empty-info-container" *ngIf="pollArrayObj?.length === 0">
+    <div class="app-why-lbl secondary ft-lato mr-bottom-8">
+      Make your vote count
+    </div>
+    <label class="app-why-lbl f14 light-70">
+      Participating in polls is at the heart of community governance. When you create a poll or are eligible to vote in
+      one it will appear here.
+    </label>
   </div>
 </div>

@@ -5,6 +5,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {ToastrService} from 'ngx-toastr';
 import {LocalStorageService} from '../../../../shared/services/local.storage.service';
+import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 
 @Component({
   selector: 'app-why-lunar-hq-announcement-settings',
@@ -27,6 +28,7 @@ export class AnnouncementSettingsComponent implements OnInit {
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
               private toast: ToastrService,
+              private toastService: ToastMsgService,
               private storageService: LocalStorageService,
               private lunarHqService: LunarHqAPIServices,
               private router: Router) {
@@ -109,7 +111,7 @@ export class AnnouncementSettingsComponent implements OnInit {
         error: (error: any) => {
           this.loader.stop();
           console.error(error, 'error');
-          this.toast.error('Failed to get announcements');
+          this.toastService.setMessage(error.error.message, 'error');
         }
       });
   }

@@ -42,7 +42,7 @@ export class RecentAnnouncementsComponent {
           this.refreshList.emit(true);
         },
         error: (err: any) => {
-          console.log('err', err);
+          this.toast.setMessage(err.error.message, 'error');
         }
       });
   }

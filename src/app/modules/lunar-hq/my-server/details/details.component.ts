@@ -7,6 +7,7 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 import {LocalStorageService} from '../../../../shared/services/local.storage.service';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-why-lunar-hq-details',
@@ -60,7 +61,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.hasPermission = value.message === 'Has enough permissions.';
         },
         error: (err: any) => {
-          this.toastService.setMessage(err?.message, 'error');
+          this.toastService.setMessage(err.error.message, 'error');
         }
       });
   }
@@ -74,15 +75,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.loader.stop();
         },
         error: (error) => {
-          console.error(error, 'error');
-          this.toastService.setMessage(error?.message, 'error');
           this.loader.stop();
+          this.toastService.setMessage(error.error.message, 'error');
         }
       });
   }
 
   navigateToAnnouncement() {
-    this.router.navigate(['/announcement']);
+    // this.router.navigate(['/announcement']);
+    this.router.navigate(['/announcement'], {queryParams: {selectedServer: this.serverDetails?.discordServerName}});
   }
 
   navigateToMyServer() {
@@ -114,18 +115,17 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.toastService.setMessage('Rule deleted successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage(err?.message, 'error');
+            this.toastService.setMessage(err.error.message, 'error');
           }
         });
     } else {
-      obj.ruleObj.active = obj.action === 'resume';
-      this.lunarService.createRule(obj.ruleObj)
+      this.lunarService.activateDeactivate(obj.action === 'resume', obj.ruleObj.id, obj.ruleObj.discordServerId)
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
           },
           error: (err: any) => {
-            this.toastService.setMessage(err?.message, 'error');
+            this.toastService.setMessage(err.error.message, 'error');
           }
         });
     }
@@ -139,7 +139,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   showRule(ruleObj: any) {
-    console.log(ruleObj, 'obj');
+    // console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
     this.paused = false;
@@ -181,7 +181,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         },
         error: (err: any) => {
           console.log('err', err);
-          this.toastService.setMessage(err?.message, 'error');
+          this.toastService.setMessage(err?.error?.message, 'error');
           this.loader.stop();
         }
       });

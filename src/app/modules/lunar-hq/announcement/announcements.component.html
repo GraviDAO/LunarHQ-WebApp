@@ -18,6 +18,7 @@
         <app-why-drop-down
           [leftIcon]="true"
           [dataList]="serverList"
+          (dataSet)="setServer($event)"
           [placeholderText]="selectedServer">
         </app-why-drop-down>
       </div>
