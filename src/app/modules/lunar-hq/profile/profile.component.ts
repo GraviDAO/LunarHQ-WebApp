@@ -329,7 +329,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         signature: res.result.signature.toString(),
         public_key: res.result.public_key.key ?? null,
       };
-      const blockchainName = 'Terra';
       const dataObject = {
         type: 'TerraArbitraryByte',
         signature: {
