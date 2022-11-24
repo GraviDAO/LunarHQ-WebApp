@@ -1,7 +1,7 @@
 <div>
   <ul>
     <li>
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center" *ngIf="!isProfile">
         <ion-icon name="{{!viewHide ? 'caret-down-outline' : 'caret-up-outline'}}"
                   class="mr-right-8 app-why-icon ic12 light" *ngIf="leftIcon"></ion-icon>
         <span class="app-why-lbl f12 ft-500 light text-uppercase"
@@ -9,7 +9,22 @@
         <ion-icon name="{{!viewHide ? 'caret-down-outline' : 'caret-up-outline'}}"
                   class="mr-left-8 app-why-icon ic12 light" *ngIf="rightIcon"></ion-icon>
       </div>
-      <ul class="dropdown" aria-label="submenu" [ngClass]="{'view-drop-down': viewHide}">
+      <div class="profile-wrapper" *ngIf="isProfile" (click)="showHideList(); activateList()"
+           [ngClass]="{'active-state': viewHide}">
+        <div class="d-flex align-items-center">
+          <img class="profile-img" [src]="profileObj?.img"
+               [ngClass]="{'add-notch': profileObj?.img === ''}"
+               alt="" imgFallback>
+          <span class="pd-lr-16 app-why-lbl f14 ft-bold light text-uppercase"
+                [ngClass]="{'active-state': viewHide}">{{profileObj?.userName}}</span>
+        </div>
+        <div>
+          <ion-icon name="{{!viewHide ? 'caret-down-outline' : 'caret-up-outline'}}"
+                    [ngClass]="{'active-state': viewHide}"
+                    class="app-why-icon ic12 light" *ngIf="rightIcon"></ion-icon>
+        </div>
+      </div>
+      <ul class="dropdown" aria-label="submenu" [ngClass]="{'view-drop-down': viewHide, 'right-align': isProfile}">
         <li (click)="showHideList(); activateList()" class="list-data-container" *ngFor="let i of dataList">
           <div class="text-wrapper text-uppercase" (click)="setData(i)">
             <div *ngIf="keyField">{{i[keyField]}}</div>

@@ -3,10 +3,8 @@
 .header-container {
   height: mixin.toRem(64);
   width: 100%;
-  // max-width: 1440px;
   background: var(--bg-dark);
   display: flex;
-  //position: fixed;
   z-index: 999;
   padding-left: 24px;
   padding-right: 24px;
@@ -70,7 +68,7 @@
 
 .profile-container {
   width: 192px;
-  height: 32px;
+  //height: 32px;
   background: var(--dark);
   display: flex;
   align-items: center;
@@ -128,4 +126,30 @@
     padding-bottom: mixin.toRem(12);
     z-index: 999;
   }
+}
+
+ul li ul {
+  visibility: hidden;
+  height: 2.375rem;
+  opacity: 0;
+  min-width: 5rem;
+  width: max-content;
+  position: absolute;
+  transition: all 0.5s ease;
+  left: 0;
+  display: none;
+
+  &:not(hover),
+  &:not(focus) {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+  }
+}
+
+ul li ul:not(hover),
+ul li ul:not(focus) {
+  visibility: hidden;
+  opacity: 0;
+  display: none;
 }

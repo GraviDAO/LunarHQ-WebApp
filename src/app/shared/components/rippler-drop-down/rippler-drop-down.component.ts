@@ -15,6 +15,8 @@ export class RipplerDropDownComponent {
   @Input() leftIcon = false;
   @Input() placeholderText = 'Select Server';
   @Output() dataSet: EventEmitter<any> = new EventEmitter<any>();
+  @Input() isProfile = false;
+  @Input() profileObj: any;
 
   constructor(private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: Event) => {
@@ -27,7 +29,6 @@ export class RipplerDropDownComponent {
   }
 
   showHideList() {
-    // console.log('in');
     this.viewHide = !this.viewHide;
   }
 

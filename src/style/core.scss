@@ -57,7 +57,7 @@
   width: 100%;
   height: mixin.toRem(64);
   margin-top: -3.5rem;
-  z-index: 999;
+  z-index: 990;
   backdrop-filter: blur(16px);
   background-color: var(--dark-50);
 }
@@ -269,7 +269,7 @@
 
 .empty-info-container {
   background: var(--dark-50);
-  margin-top: 16px;
+  //margin-top: 16px;
   padding: 16px;
   width: mixin.toRem(480);
   margin-left: auto;

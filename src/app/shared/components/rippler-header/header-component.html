@@ -37,7 +37,7 @@
           [cssClass]="cssClass.cta1SmFlex" [btnLabel]="buttonLabel"></app-why-cta-one>
       </div>
 
-      <div class="profile-container" *ngIf="profileObj?.viewProfile">
+      <!--<div class="profile-container" *ngIf="profileObj?.viewProfile">
         <div class="d-flex align-items-center">
           <img class="profile-img" [src]="profileObj?.img"
                [ngClass]="{'add-notch': profileObj?.img === ''}"
@@ -52,6 +52,15 @@
       <div class="log-out-container mr-left-16" (click)="logOut()">
         <div class="pd-left-16 app-why-lbl f14 ft-bold light">LOG OUT</div>
         <ion-icon class="app-why-icon ic14 light pd-right-16" name="log-out-outline"></ion-icon>
+      </div>-->
+
+      <div style="margin-top: -8px;">
+        <app-why-drop-down
+          [isProfile]="true"
+          [profileObj]="profileObj"
+          (dataSet)="navigate($event)"
+          [dataList]="['Manage profile', 'Log out']"
+          [rightIcon]="true"></app-why-drop-down>
       </div>
 
       <div *ngIf="rightLabel">
