@@ -275,3 +275,31 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+
+.app-why-toast {
+  position: fixed;
+  top: 32px;
+  color: var(--success);
+  z-index: 999;
+  padding: 16px;
+  min-width: 300px;
+  max-width: 400px;
+  right: 32px;
+  box-shadow: 0 9px 20px var(--success-20);
+  font-size: var(--font-size-16);
+  background: var(--dark);
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+  border: 2px solid var(--success);
+  font-family: Jura, serif;
+  font-weight: bold;
+
+  &.error {
+    color: var(--error);
+    border: 2px solid var(--error);
+    box-shadow: 0 9px 20px var(--error-20);
+  }
+}
