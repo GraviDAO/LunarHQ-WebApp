@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit {
     viewProfile: false,
     viewSettings: false
   };
+  viewHide = false;
+  clickOnButton = false;
 
   constructor(public cssClass: CssConstants,
               private router: Router) {
@@ -30,8 +32,21 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logOut() {
-    localStorage.clear();
-    this.router.navigate(['/welcome']);
+  showHideList() {
+    this.viewHide = !this.viewHide;
+  }
+
+  activateList() {
+    this.clickOnButton = true;
+  }
+
+  navigate(tab: any) {
+    if (tab === 'Log out') {
+      localStorage.clear();
+      this.router.navigate(['/welcome']);
+      location.reload();
+    } else {
+      this.router.navigate(['/profile']);
+    }
   }
 }

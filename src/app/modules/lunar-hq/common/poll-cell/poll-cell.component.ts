@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
+import {NgxUiLoaderService} from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-why-lunar-hq-poll-cell',
@@ -14,6 +15,7 @@ export class PollCellComponent {
   @Output() editPollEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private lunarService: LunarHqAPIServices,
+              private load: NgxUiLoaderService,
               private toast: ToastMsgService) {
   }
 
@@ -27,10 +29,12 @@ export class PollCellComponent {
   }
 
   exportSummary(id: any) {
+    this.load.start();
     this.lunarService.exportSummary(id, this.pollObj?.discordServerId)
       .subscribe({
         next: (value: any) => {
-          console.log(value, 'value');
+          this.load.stop();
+          this.toast.setMessage('Poll summary exported');
           let csvContent = 'data:text/csv;charset=utf-8,' + value.message;
           var encodedUri = encodeURI(csvContent);
           var link = document.createElement('a');

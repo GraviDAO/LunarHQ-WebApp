@@ -10,11 +10,11 @@ import {Component} from '@angular/core';
       <img class="social-container" (click)="navigateToDiscord()"
            src="../../../../assets/img/svg/discord-brands-light.svg" alt="discord">
 
-      <img class="social-container" (click)="navigateToTelegram()"
+      <!--<img class="social-container" (click)="navigateToTelegram()"
            src="../../../../assets/img/svg/telegram-brands.svg" alt="telegram">
 
       <img class=" social-container" (click)="navigateToMedium()" src="../../../../assets/img/svg/medium-brands.svg"
-           alt="medium">
+           alt="medium">-->
 
       <img class="social-container" (click)="navigateToGit()" src="../../../../assets/img/svg/github-brands.svg"
            alt="github">
@@ -41,7 +41,7 @@ export class SocialLinkContainerComponent {
   }
 
   navigateToGit() {
-
+    window.open('https://github.com/GraviDAO', '_blank');
   }
 
 }

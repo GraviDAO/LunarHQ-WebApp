@@ -46,6 +46,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http://localhost:4401/welcome&response_type=code&scope=identify%20email%20connections';
   terraConnectionRequested: boolean = false;
 
+  progressStatus = '';
+
   constructor(private router: Router,
               private lunarHqService: LunarHqAPIServices,
               private loaderService: NgxUiLoaderService,
@@ -118,16 +120,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (_states.status === 'WALLET_CONNECTED') {
           const walletAddr = _states.wallets[0].terraAddress;
           this.walletChainId = _states.network.chainID;
-          const blockchainName = 'Terra';
+          const blockchainName = this.selectedWallet !== 'terraClassic' ? 'Terra' : 'Terra Classic';
           const connectionType = _states.wallets[0].connectType;
           const connectionName = _states.connection.name;
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               this.modalService.close('terraWallet');
               if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
-                this.signTerra(nonceResult.message, walletAddr);
+                this.signTerra(nonceResult.message, walletAddr, blockchainName);
               } else {
-                this.signTerraTx(walletAddr, nonceResult.message);
+                this.signTerraTx(walletAddr, nonceResult.message, this.selectedWallet === 'terraClassic');
               }
             }, (error) => {
               this.toast.setMessage(error?.error.message, 'error');
@@ -315,7 +317,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  async signTerra(nonce: string, publicAddress: string) {
+  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {
