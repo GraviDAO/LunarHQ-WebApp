@@ -152,6 +152,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileObj = data.message;
           this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
           this.terraWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra');
+          this.terraClassicWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra Classic');
           this.loaderService.stop();
         },
         error: (error) => {

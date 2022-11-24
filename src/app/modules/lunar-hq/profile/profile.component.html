@@ -160,7 +160,7 @@
 <!-- Connect wallet chains Modal Start -->
 <app-why-modal id="addWalletModal" [popUpType]="'confirmation'">
   <app-why-modal-wrapper>
-    <div class="app-why-lbl f22 ft-uni ft-medium light">Connect {{polygonWalletExists}}</div>
+    <div class="app-why-lbl f22 ft-uni ft-medium light">Connect</div>
 
     <div class="d-flex justify-content-center pd-top-48">
       <app-why-cta-one
@@ -180,6 +180,7 @@
     </div>
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
+        *ngIf="!terraClassicWalletExists"
         [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('terraClassic')"
         [btnImage]="'./assets/img/webp/lunar_classic.webp'"
