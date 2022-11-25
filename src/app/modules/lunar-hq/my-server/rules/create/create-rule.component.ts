@@ -85,7 +85,7 @@ export class CreateRuleComponent implements OnInit {
 
       this.activeSubMenu = params.server;
     });
-    this.roles = rulesService.getRoles();
+    // this.roles = rulesService.getRoles();
     this.rules = rulesService.getRules();
     this.ruleTypes = rulesService.getRuleTypes();
     this.conditions = rulesService.getConditions();
@@ -403,7 +403,6 @@ export class CreateRuleComponent implements OnInit {
     this.lunarService.getRoles(this.discordServerId)
       .subscribe({
         next: (data) => {
-          // console.log(data.message, 'data');
           this.roles = data.message;
           if (this.ruleId) {
             this.getRuleById();

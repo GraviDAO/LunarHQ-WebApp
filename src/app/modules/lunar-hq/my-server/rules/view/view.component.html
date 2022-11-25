@@ -46,7 +46,7 @@
         <div class="pd-top-8">
           <span class="app-why-lbl f14 ft-lato light" *ngIf="ruleObj?.ruleType">{{ruleObj?.ruleType}}</span>
           <span class="app-why-lbl f14 ft-lato light" *ngIf="!ruleObj?.ruleType">
-            {{ruleObj?.id.includes('N-') ? 'NFT' : 'TOKEN'}}
+            {{ruleObj?.id?.includes('N-') ? 'NFT' : 'TOKEN'}}
           </span>
         </div>
         <div class="">
