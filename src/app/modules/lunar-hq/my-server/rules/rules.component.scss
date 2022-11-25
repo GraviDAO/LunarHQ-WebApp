@@ -44,7 +44,8 @@
 
 .rule-name-title {
   //width: mixin.toRem(272);
-  width: 21vw;
+  //width: 23vw;
+  width: 40%;
 }
 
 .population-title {
@@ -57,16 +58,19 @@
 
 .rules-item-name {
   //width: mixin.toRem(272);
-  width: 23vw;
+  //width: 23vw;
+  width: 40%;
 }
 
 .rules-item-population {
-  width: mixin.toRem(96);
+  //width: mixin.toRem(96);
+  width: 11%;
 }
 
 .rules-item-chain {
   min-width: mixin.toRem(178);
-  width: 20vw;
+  width: 32%;
+  //width: 20vw;
 }
 
 .rules-item-chain-icon-container {
@@ -97,6 +101,10 @@
   .rules-item-view {
     cursor: pointer;
   }
+}
+
+.visit-button {
+  width: 15%;
 }
 
 .rules-view {
