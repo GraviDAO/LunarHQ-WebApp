@@ -14,6 +14,7 @@ export class RecentPollsComponent {
   @Input() currentDateTime: Date;
   @Input() hasPermission = false;
   @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
+  @Input() buttonLabel = 'MANAGE POLLS';
 
 
   constructor(public cssClass: CssConstants,
