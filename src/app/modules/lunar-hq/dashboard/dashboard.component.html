@@ -89,7 +89,7 @@
               [iconClass]="cssClass.cta3Primary14Icon"
               [iconType]="'chevron-forward-outline'"
               (click)="navigateToServers()"
-              [btnLabel]="'ADMIN'"></app-why-cta-three>
+              [btnLabel]="'VIEW ALL'"></app-why-cta-three>
           </div>
         </div>
 
@@ -124,7 +124,7 @@
               (click)="serverDetails(serverObj)"
               [iconClass]="cssClass.cta3Light5014Icon"
               [iconType]="'chevron-forward-outline'"
-              [btnLabel]="'View'"></app-why-cta-three>
+              [btnLabel]="'MANAGE'"></app-why-cta-three>
           </div>
         </div>
       </article>
@@ -142,7 +142,7 @@
               [btnClass]="cssClass.cta3PrimaryNorm"
               [iconClass]="cssClass.cta3Primary14Icon"
               [iconType]="'chevron-forward-outline'"
-              [btnLabel]="'Rules'"></app-why-cta-three>
+              [btnLabel]="'View All'"></app-why-cta-three>
           </div>-->
         </div>
 
@@ -202,6 +202,7 @@
 
     <app-why-lunar-hq-recent-polls
       (openPoll)="navigateToPoll($event)"
+      [buttonLabel]="'VIEW ALL'"
       [currentDateTime]="currentDateTime"
       [pollArrayObj]="profileObj?.proposals"></app-why-lunar-hq-recent-polls>
 

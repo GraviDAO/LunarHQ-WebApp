@@ -76,6 +76,8 @@ export class CreatePollComponent implements OnInit {
       // console.log(this.pollId, 'pollId');
       if (this.pollId) {
         this.setPollObj();
+      } else {
+        this.pollObj.quorum = String(0);
       }
     });
 
@@ -99,7 +101,6 @@ export class CreatePollComponent implements OnInit {
       }
     } else if (index === 1 || index === 4) {
       // console.log(this.pollObj.numberPerVote, 'voteWeight');
-      this.pollObj.quorum = String(0);
       if (this.voteWeight === 'tokenWeighted') {
         if (this.selectedNetwork === 'Select network') {
           return 0;
@@ -252,10 +253,6 @@ export class CreatePollComponent implements OnInit {
     this.location.back();
   }
 
-  preview() {
-
-  }
-
   selectTimeZone(tz: string) {
     this.selectedTimeZone = tz;
   }
@@ -265,6 +262,7 @@ export class CreatePollComponent implements OnInit {
   }
 
   viewStep(stepIndex: number) {
+    console.log(this.pollObj, 'poll');
     // console.log(this.validatePoll(stepIndex), stepIndex, 'stepIndex');
     if (this.validatedStage >= stepIndex || this.validatePoll(stepIndex - 1) !== 0) {
       if (stepIndex === 4) {
@@ -282,10 +280,14 @@ export class CreatePollComponent implements OnInit {
 
   setRangValue(range: any) {
     this.value = range + '%';
-    this.pollObj.quorum = range;
+    this.pollObj.quorum = String(range);
+    this.quorumValue = range;
+    console.log(range, 'range');
+    console.log(this.pollObj.quorum, 'quorum');
   }
 
   closePreview() {
+    this.stepperIndex--;
     this.viewPreview = false;
   }
 
@@ -407,7 +409,7 @@ export class CreatePollComponent implements OnInit {
     this.selectedNetwork = this.pollObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.pollObj.blockchainName;
     this.value = this.pollObj.quorum;
     // @ts-ignore
-    this.quorumValue = this.pollObj.quorum;
+    this.quorumValue = Number(this.pollObj.quorum);
     this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted' : 'roleWeighted';
     // @ts-ignore
     const startTime = new Date(this.pollObj.startDate);
