@@ -119,6 +119,7 @@ export class AnnouncementsComponent implements OnInit {
   setServer(server: any) {
     this.selectedServer = server;
     if (this.selectedServer !== 'view all servers') {
+      this.announcementList = this.mainAnnouncementList;
       this.announcementList = this.announcementList.filter((obj: any) => obj.discordServerName.toLowerCase() === server.toLowerCase());
     } else {
       this.announcementList = this.mainAnnouncementList;

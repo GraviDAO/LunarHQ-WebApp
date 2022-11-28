@@ -30,6 +30,7 @@ export class CreatePollComponent implements OnInit {
   discordServerId = '';
   discordServerName = '';
   pollObj: PollModel = {};
+  errorList: Array<any> = [];
   voteWeight = 'tokenWeighted';
   selectedNetwork: string | undefined = 'Select network';
   contractAddress = '';
@@ -92,50 +93,48 @@ export class CreatePollComponent implements OnInit {
     this.stepTitle = this.stepTitles[this.stepperIndex];
   }
 
-  validatePoll(index: number): number {
+  validatePoll(index: number): boolean {
     if (index === 0 || index === 4) {
       if (this.pollObj.title === '' || this.pollObj.title === undefined) {
-        return 0;
-      } else if (this.pollObj.description === '' || this.pollObj.description === undefined) {
-        return 0;
+        this.errorList.push('title');
+        return false;
       }
     } else if (index === 1 || index === 4) {
       // console.log(this.pollObj.numberPerVote, 'voteWeight');
       if (this.voteWeight === 'tokenWeighted') {
         if (this.selectedNetwork === 'Select network') {
-          return 0;
+          return false;
         }
         if (this.pollObj.address === undefined || this.pollObj.numberPerVote === undefined) {
-          return 0;
+          return false;
         }
       }
     } else if (index === 2 || index === 4) {
       if (this.startTime === undefined || this.startTime === '') {
-        return 0;
+        return false;
       }
       if (this.closingTime === undefined || this.closingTime === '') {
-        return 0;
+        return false;
       }
       if (this.closingDate === undefined || this.closingDate === '') {
-        return 0;
+        return false;
       }
       if ((this.dateRadioSelected !== 'today') && (this.startDate === undefined || this.startDate === '')) {
-        return 0;
+        return false;
       }
       return this.validateClosingTime(this.closingTime);
-    } else if (index === 3 || index === 4) {
-      if (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '') {
-        return 0;
-      }
+    } else if ((index === 3 || index === 4) && (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '')) {
+      return false;
     }
-    return 1;
+    return true;
   }
 
   next() {
-    let validationStatus: any;
+    let validationStatus = false;
     if (this.stepperIndex === 0) {
       validationStatus = this.validatePoll(this.stepperIndex);
     } else if (this.stepperIndex === 1) {
+      this.errorList = [];
       if (this.voteWeight === 'tokenWeighted') {
         this.pollObj.votingSystem = 'Token Weighted Voting';
         validationStatus = this.validatePoll(this.stepperIndex);
@@ -169,7 +168,7 @@ export class CreatePollComponent implements OnInit {
     } else if (this.stepperIndex === 3) {
       validationStatus = this.validatePoll(this.stepperIndex);
     }
-    if (validationStatus === 1) {
+    if (validationStatus) {
       this.stepperIndex++;
       this.validatedStage = this.stepperIndex;
       if (this.stepperIndex === 4) {
@@ -262,9 +261,7 @@ export class CreatePollComponent implements OnInit {
   }
 
   viewStep(stepIndex: number) {
-    console.log(this.pollObj, 'poll');
-    // console.log(this.validatePoll(stepIndex), stepIndex, 'stepIndex');
-    if (this.validatedStage >= stepIndex || this.validatePoll(stepIndex - 1) !== 0) {
+    if (this.validatePoll(stepIndex - 1)) {
       if (stepIndex === 4) {
         this.viewPreview = true;
       } else {
@@ -351,14 +348,11 @@ export class CreatePollComponent implements OnInit {
   validateClosingTime(closeTime: any) {
     let closingDate = moment(this.closingDate).format('YYYY-MM-DD');
     let today = moment(this.todayDate).format('YYYY-MM-DD');
-    // console.log(closingDate, 'closingDate');
-    // console.log(today, 'today');
-    // console.log(closingDate === today, 'compare');
     if (closingDate === today && closeTime < this.startTime) {
       this.toastService.setMessage('Time should be greater than current UTC time', 'error');
-      return 0;
+      return false;
     } else {
-      return 1;
+      return true;
     }
   }
 
@@ -406,7 +400,10 @@ export class CreatePollComponent implements OnInit {
 
   private setPollObj() {
     this.pollObj = this.storageService.get('poll_obj');
-    this.selectedNetwork = this.pollObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.pollObj.blockchainName;
+    console.log(this.pollObj.blockchainName);
+    if (this.pollObj.blockchainName !== '') {
+      this.selectedNetwork = this.pollObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.pollObj.blockchainName;
+    }
     this.value = this.pollObj.quorum;
     // @ts-ignore
     this.quorumValue = Number(this.pollObj.quorum);

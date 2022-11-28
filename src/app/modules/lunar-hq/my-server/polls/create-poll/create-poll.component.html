@@ -59,8 +59,13 @@
             <div class="mr-top-48 pd-lr-78 form-control-wrapper">
               <div class="form-group">
                 <input type="text" id="name" class="form-control app-why-floating-input light-70"
-                       placeholder=" " [(ngModel)]="pollObj.title">
+                       placeholder=" " [(ngModel)]="pollObj.title"
+                       [ngClass]="{'error':errorList.includes('title') && (pollObj.title === undefined || pollObj.title === '')}">
                 <label class="app-why-floating-lbl" for="name">Name</label>
+              </div>
+              <div class="app-why-lbl error"
+                   *ngIf="errorList.includes('title') && (pollObj.title === undefined || pollObj.title === '')">
+                Title is required
               </div>
               <div class="app-why-lbl error ft-lato"
                    *ngIf="errorMessage.id ==='title' && pollObj.title !== ''">{{errorMessage.msg}}</div>
@@ -373,7 +378,6 @@
                                   (click)="previous()" [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
         </app-why-lunar-hq-cta-two>
         <app-why-cta-one (clickEvent)="next()"
-                         [isDisabled]="validatePoll(stepperIndex) === 0"
                          [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
                          [btnLabel]="stepperIndex === 3 ? 'PREVIEW' : 'NEXT'">
         </app-why-cta-one>
