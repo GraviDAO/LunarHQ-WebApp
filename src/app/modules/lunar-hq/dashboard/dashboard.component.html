@@ -95,36 +95,25 @@
 
         <div class="mr-top-8 horizontal-divider light-20 mr-bottom-48"></div>
 
-        <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let serverObj of profileObj?.discordServers">
-          <div class="d-flex align-items-center">
-            <div class="pd-left-4">
-              <img class="server-logo-container" [src]="serverObj?.discordServerImage" alt="server-logo" imgFallback/>
+        <div>
+          <div class="d-flex justify-content-between pd-bottom-24" *ngFor="let serverObj of profileObj?.discordServers">
+            <div class="d-flex align-items-center">
+              <div class="pd-left-4">
+                <img class="server-logo-container" [src]="serverObj?.discordServerImage" alt="server-logo" imgFallback/>
+              </div>
+              <div class="pd-left-12 pd-right-16">
+                <label class="app-why-lbl f16 light-70 long-text">{{serverObj?.discordServerName}}</label>
+              </div>
             </div>
-            <div class="pd-left-12 pd-right-16">
-              <label class="app-why-lbl f16 light-70">{{serverObj?.discordServerName}}</label>
+            <div class="d-flex align-items-center" [ngClass]="{'mr-left-22': !serverObj?.userIsAdmin}">
+              <app-why-cta-three
+                [parentClass]="'light-70-hover'"
+                [btnClass]="cssClass.cta3Light50F12"
+                (click)="serverDetails(serverObj)"
+                [iconClass]="cssClass.cta3Light5014Icon"
+                [iconType]="'chevron-forward-outline'"
+                [btnLabel]="serverObj?.userIsAdmin ? 'MANAGE' : 'VIEW'"></app-why-cta-three>
             </div>
-            <!--            Commented based on call with Adam-->
-            <!--<div class="pd-left-4">
-              <ion-icon *ngIf="serverObj?.userIsAdmin" class="app-why-icon ic14 light-70" name="key"></ion-icon>
-              <ion-icon *ngIf="!serverObj?.userIsAdmin && !serverObj?.userOwnsLicense" class="app-why-icon ic14 error"
-                        name="warning"></ion-icon>
-            </div>-->
-          </div>
-          <div class="d-flex align-items-center">
-            <!--<app-why-cta-three
-              [parentClass]="'light-70-hover'"
-              [btnClass]="cssClass.cta3Light50F12"
-              (click)="serverDetails(serverObj)"
-              [iconClass]="cssClass.cta3Light5014Icon"
-              [iconType]="'chevron-forward-circle-outline'"
-              [btnLabel]="'View'"></app-why-cta-three>-->
-            <app-why-cta-three
-              [parentClass]="'light-70-hover'"
-              [btnClass]="cssClass.cta3Light50F12"
-              (click)="serverDetails(serverObj)"
-              [iconClass]="cssClass.cta3Light5014Icon"
-              [iconType]="'chevron-forward-outline'"
-              [btnLabel]="'MANAGE'"></app-why-cta-three>
           </div>
         </div>
       </article>
@@ -203,6 +192,7 @@
     <app-why-lunar-hq-recent-polls
       (openPoll)="navigateToPoll($event)"
       [buttonLabel]="'VIEW ALL'"
+      (deletePollEvent)="getProfileDetails()"
       [currentDateTime]="currentDateTime"
       [pollArrayObj]="profileObj?.proposals"></app-why-lunar-hq-recent-polls>
 

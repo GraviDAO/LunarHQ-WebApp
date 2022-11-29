@@ -80,5 +80,13 @@
         EDIT
       </div>
     </div>
+    <div *ngIf="pollObj?.status === 'Draft' && (hasPermission || pollObj?.hasPermission)"
+         (click)="deletePoll()"
+         class="poll-item-discord-button pd-left-24 pd-right-24 show-cursor">
+      <ion-icon name="close-circle-outline" class="app-why-icon ic18 light-70"></ion-icon>
+      <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">
+        DELETE
+      </div>
+    </div>
   </div>
 </div>

@@ -69,6 +69,8 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['announcement']);
     } else if (tab === 'POLLS') {
       this.router.navigate(['polls']);
+    } else if (tab === 'MY ROLES') {
+      this.router.navigate(['rules']);
     }
   }
 

@@ -155,6 +155,10 @@
     color: var(--light-70) !important;
     border-bottom: 1px solid var(--secondary) !important;
   }
+
+  &.error {
+    border-bottom: 1px solid var(--error) !important;
+  }
 }
 
 .set-input-border {

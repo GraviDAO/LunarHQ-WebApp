@@ -21,16 +21,9 @@
                                  [dataList]="statusList"></app-why-drop-down>
             </div>
           </div>
-          <!--<div class="vertical-divider mr-left-16 mr-right-15"></div>
-          <div class="d-flex align-items-center">
-            <app-why-cta-one
-              [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
-              [iconType]="'add-circle-outline'"
-              [btnLabel]="'CREATE NEW POLL'"
-              [iconClass]="cssClass.cta1IconDark"
-              (click)="navigateToCreatePoll()">
-            </app-why-cta-one>
-          </div>-->
+        </div>
+        <div style="width: 76px;">
+
         </div>
       </div>
     </div>
@@ -38,6 +31,7 @@
     <div class="mr-top-56">
       <div *ngFor="let pollObj of pollsList" class="poll-list-wrapper">
         <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
+                                    (deletePollEvent)="pollsFn()"
                                     (editPollEvent)="editPoll($event)"
                                     [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
       </div>

@@ -1,0 +1,7 @@
+@use "src/style/mixin-core" as mixin;
+@import "src/app/modules/lunar-hq/my-server/rules/rules.component";
+
+
+.back-button {
+  width: 100%;
+}

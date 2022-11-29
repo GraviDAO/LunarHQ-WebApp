@@ -74,15 +74,12 @@ export class CreatePollComponent implements OnInit {
 
     this.route.queryParams.subscribe((params: any) => {
       this.pollId = params.pollId;
-      // console.log(this.pollId, 'pollId');
       if (this.pollId) {
         this.setPollObj();
       } else {
         this.pollObj.quorum = String(0);
       }
     });
-
-    // console.log(this.todayDate.getUTCHours().toString().length);
     const hours = this.todayDate.getUTCHours().toString().length === 1 ? '0' + this.todayDate.getUTCHours() : this.todayDate.getUTCHours();
     this.currentTime = hours + ':' + this.todayDate.getUTCMinutes();
   }
@@ -100,30 +97,40 @@ export class CreatePollComponent implements OnInit {
         return false;
       }
     } else if (index === 1 || index === 4) {
-      // console.log(this.pollObj.numberPerVote, 'voteWeight');
       if (this.voteWeight === 'tokenWeighted') {
         if (this.selectedNetwork === 'Select network') {
-          return false;
+          this.errorList.push('blockchainName');
         }
-        if (this.pollObj.address === undefined || this.pollObj.numberPerVote === undefined) {
+        if (this.pollObj.address === undefined || this.pollObj.address === '') {
+          this.errorList.push('address');
+        }
+        if (this.errorList.length > 0) {
           return false;
         }
       }
     } else if (index === 2 || index === 4) {
-      if (this.startTime === undefined || this.startTime === '') {
+      if (this.dateRadioSelected === '') {
+        this.errorList.push('dateRadioSelected');
         return false;
+      }
+      if (this.startTime === undefined || this.startTime === '') {
+        this.errorList.push('startTime');
       }
       if (this.closingTime === undefined || this.closingTime === '') {
-        return false;
+        this.errorList.push('closingTime');
       }
       if (this.closingDate === undefined || this.closingDate === '') {
-        return false;
+        this.errorList.push('closingDate');
       }
       if ((this.dateRadioSelected !== 'today') && (this.startDate === undefined || this.startDate === '')) {
+        this.errorList.push('startDate');
+      }
+      if (this.errorList.length > 0) {
         return false;
       }
       return this.validateClosingTime(this.closingTime);
     } else if ((index === 3 || index === 4) && (this.pollObj.discordChannelId === undefined || this.pollObj.discordChannelId === '')) {
+      this.errorList.push('discordChannelId');
       return false;
     }
     return true;
@@ -143,29 +150,34 @@ export class CreatePollComponent implements OnInit {
         validationStatus = this.validatePoll(this.stepperIndex);
       }
     } else if (this.stepperIndex === 2) {
+      this.errorList = [];
       validationStatus = this.validatePoll(this.stepperIndex);
-      const tempStartTime = this.startTime.split(':');
-      if (this.dateRadioSelected === 'today') {
-        this.detailsObj.isToday = true;
-        this.startDate = new Date();
-        this.pollObj.startDate = new Date(Date.UTC(this.startDate.getUTCFullYear(), this.startDate.getUTCMonth(),
-          this.startDate.getUTCDate(), tempStartTime[0],
-          tempStartTime[1]));
-      } else {
-        this.detailsObj.isToday = false;
-        this.startDate = new Date(this.startDate);
-        this.pollObj.startDate = new Date(Date.UTC(this.startDate.getUTCFullYear(), this.startDate.getUTCMonth(),
-          this.startDate.getUTCDate(), tempStartTime[0],
-          tempStartTime[1]));
+      if (this.startTime && this.closingTime) {
+        const tempStartTime = this.startTime.split(':');
+        if (this.dateRadioSelected === 'today') {
+          this.detailsObj.isToday = true;
+          this.startDate = new Date();
+          this.pollObj.startDate = new Date(Date.UTC(this.startDate.getUTCFullYear(), this.startDate.getUTCMonth(),
+            this.startDate.getUTCDate(), tempStartTime[0],
+            tempStartTime[1]));
+        } else {
+          this.errorList = [];
+          this.detailsObj.isToday = false;
+          this.startDate = new Date(this.startDate);
+          this.pollObj.startDate = new Date(Date.UTC(this.startDate.getUTCFullYear(), this.startDate.getUTCMonth(),
+            this.startDate.getUTCDate(), tempStartTime[0],
+            tempStartTime[1]));
+        }
+        const tempCloseTime = this.closingTime.split(':');
+        this.closingDate = new Date(this.closingDate);
+        this.pollObj.endDate = new Date(Date.UTC(this.closingDate.getUTCFullYear(), this.closingDate.getUTCMonth(),
+          this.closingDate.getUTCDate(), tempCloseTime[0],
+          tempCloseTime[1]));
+        this.detailsObj.startTime = this.startTime;
+        this.detailsObj.closingTime = this.closingTime;
       }
-      const tempCloseTime = this.closingTime.split(':');
-      this.closingDate = new Date(this.closingDate);
-      this.pollObj.endDate = new Date(Date.UTC(this.closingDate.getUTCFullYear(), this.closingDate.getUTCMonth(),
-        this.closingDate.getUTCDate(), tempCloseTime[0],
-        tempCloseTime[1]));
-      this.detailsObj.startTime = this.startTime;
-      this.detailsObj.closingTime = this.closingTime;
     } else if (this.stepperIndex === 3) {
+      this.errorList = [];
       validationStatus = this.validatePoll(this.stepperIndex);
     }
     if (validationStatus) {
@@ -208,7 +220,6 @@ export class CreatePollComponent implements OnInit {
   }
 
   getChannels() {
-    this.loader.start();
     this.lunarService.getChannels(this.discordServerId)
       .subscribe({
         next: (data) => {
@@ -229,7 +240,6 @@ export class CreatePollComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.roleList = data.message.rules;
-          this.loader.stop();
           this.getChannels();
         },
         error: (error) => {
@@ -258,6 +268,7 @@ export class CreatePollComponent implements OnInit {
 
   getDatePicker(date: string) {
     this.dateRadioSelected = date;
+    this.errorList = [];
   }
 
   viewStep(stepIndex: number) {
@@ -279,8 +290,6 @@ export class CreatePollComponent implements OnInit {
     this.value = range + '%';
     this.pollObj.quorum = String(range);
     this.quorumValue = range;
-    console.log(range, 'range');
-    console.log(this.pollObj.quorum, 'quorum');
   }
 
   closePreview() {
@@ -292,6 +301,7 @@ export class CreatePollComponent implements OnInit {
     this.pollObj.discordChannelId = obj.id;
     this.detailsObj.location = obj.name;
     this.channelName = obj.name;
+    this.errorList = [];
   }
 
   validateClosingDateFn(value: any) {
@@ -339,7 +349,6 @@ export class CreatePollComponent implements OnInit {
   }
 
   validateTime(startTime: Event) {
-    // console.log(startTime > this.currentTime, 'start');
     if (startTime < this.currentTime) {
       this.toastService.setMessage('Time should be greater than current UTC time', 'error');
     }
@@ -363,13 +372,11 @@ export class CreatePollComponent implements OnInit {
     if (this.detailsObj.rules === undefined) {
       this.detailsObj.rules = [];
     }
-    // console.log(obj, status.target.checked);
     if (status.target.checked) {
       this.pollObj.ruleIds?.push(obj.id);
       this.detailsObj.rules.push(obj.roleName);
     } else {
       // @ts-ignore
-      // console.log(tempRuleId, 'id');
       this.pollObj.ruleIds = this.pollObj.ruleIds.filter(function (value, index, arr) {
         return value !== obj.id;
       });
@@ -378,7 +385,6 @@ export class CreatePollComponent implements OnInit {
         return value !== obj.roleName;
       });
     }
-    // console.log(this.pollObj.ruleIds);
   }
 
   saveDraft() {
@@ -400,7 +406,6 @@ export class CreatePollComponent implements OnInit {
 
   private setPollObj() {
     this.pollObj = this.storageService.get('poll_obj');
-    console.log(this.pollObj.blockchainName);
     if (this.pollObj.blockchainName !== '') {
       this.selectedNetwork = this.pollObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.pollObj.blockchainName;
     }
@@ -417,7 +422,6 @@ export class CreatePollComponent implements OnInit {
     this.closingTime = endTime.getUTCHours() + ':' + endTime.getUTCMinutes();
 
     this.closingDate = endTime;
-    // console.log(this.pollObj, 'this.pollObj');
   }
 
   setClosingDate(value: any) {

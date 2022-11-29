@@ -28,6 +28,7 @@ import {AnnouncementSettingsComponent} from './common/announcement-settings/anno
 import {PollCellComponent} from './common/poll-cell/poll-cell.component';
 import { PollsMenuComponent } from './polls-menu/polls.menu.component';
 import {CreateRuleComponent} from './my-server/rules/create/create-rule.component';
+import {RulesListComponent} from './rules-list/rules-list.component';
 
 
 
@@ -54,6 +55,7 @@ const commonModules = [
   PreviewPollComponent,
   PollCellComponent,
   AnnouncementSettingsComponent,
+  RulesListComponent
 ];
 
 const ngBootstrapModules = [

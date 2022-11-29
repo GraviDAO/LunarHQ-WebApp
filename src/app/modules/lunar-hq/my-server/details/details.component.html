@@ -120,9 +120,19 @@
             <div class="server-detail-rules-content mr-top-16 d-flex flex-column">
               <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
                    *ngFor="let rule of serverDetails?.rules?.slice(0,2)">
-                <div class="rules-item-name details-pg
-                d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
-                  {{rule?.roleName}}
+                <div class="rules-item-name details-pg d-flex align-items-center">
+                  <div>
+                    <img class="mr-left-16 discord-server-image-container" [src]="rule?.discordServerImage"
+                         alt="discordServerImage">
+                  </div>
+                  <div class="pd-left-16">
+                    <div class="app-why-lbl f16 ft-500 light">
+                      {{rule?.roleName}}
+                    </div>
+                    <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+                      {{rule?.discordServerName}}
+                    </div>
+                  </div>
                 </div>
                 <div class="divider"></div>
                 <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
@@ -206,6 +216,7 @@
       <app-why-lunar-hq-recent-polls
         (openPoll)="navigateToPoll($event)"
         [hasPermission]="hasPermission"
+        (deletePollEvent)="getServerDetails()"
         [currentDateTime]="currentDateTime"
         [pollArrayObj]="serverDetails?.proposals"></app-why-lunar-hq-recent-polls>
 

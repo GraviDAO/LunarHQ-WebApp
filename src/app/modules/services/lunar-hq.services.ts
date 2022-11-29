@@ -100,6 +100,14 @@ export class LunarHqAPIServices {
       }));
   }
 
+  // Get all rules
+  getAllRules() {
+    return this.http.get<any>(environment.server + 'getAllRules')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   getRuleById(discordServerId: any, ruleId: any) {
     return this.http.get<any>(environment.server + 'WAgetRuleById?discordServerId=' + discordServerId + '&ruleId=' + ruleId)
       .pipe(map((result) => {
@@ -123,6 +131,14 @@ export class LunarHqAPIServices {
 
   deleteRule(ruleId: any, discordServerId: any) {
     return this.http.delete<any>(environment.server + 'WAdeleteRule/' + ruleId + '?discordServerId=' + discordServerId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+
+  deletePoll(pollId: any, discordServerId: any) {
+    return this.http.delete<any>(environment.server + 'WAdeleteProposal/' + pollId + '?discordServerId=' + discordServerId)
       .pipe(map((result) => {
         return result;
       }));
@@ -202,7 +218,6 @@ export class LunarHqAPIServices {
   activateDeactivate(flag: boolean, ruleId: any, discordServerId: any): Observable<any> {
     const endPoint = flag ? 'WAactivateRule/' : 'WAdeactivateRule/';
     const url = environment.server + endPoint + ruleId + '/?discordServerId=' + discordServerId;
-    console.log(url, 'url');
     return this.http.put<any>(url, {})
       .pipe(map((result) => {
         return result;
