@@ -24,6 +24,7 @@ import {
 } from './modules/lunar-hq/common/announcement-settings/announcement-settings.component';
 import {PollsMenuComponent} from './modules/lunar-hq/polls-menu/polls.menu.component';
 import {CreateRuleComponent} from './modules/lunar-hq/my-server/rules/create/create-rule.component';
+import {RulesListComponent} from './modules/lunar-hq/rules-list/rules-list.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,10 @@ const routes: Routes = [
   {
     path: 'polls',
     component: PollsMenuComponent
+  },
+  {
+    path: 'rules',
+    component: RulesListComponent
   },
   {
     path: 'admin',

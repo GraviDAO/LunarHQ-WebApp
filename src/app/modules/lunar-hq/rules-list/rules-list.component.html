@@ -1,34 +1,34 @@
 <app-why-header-side-nav
-  [title]="'my servers'"
-  [activeTab]="'MY SERVERS'"
-  [nestedMenu]="nestedMenu"
-  [activeSubMenuTab]="ruleItems[0]?.discordServerName"
-  [nestedMenuSelected]="'Rules'"
-  (profileClick)="navigateToMyServer()">
+  [title]="'MY ROLES'"
+  [activeTab]="'MY ROLES'">
   <div class="flex flex-nowrap">
     <div class="search-bar-container my-server">
-      <div class="back-button">
+      <div class="d-flex justify-content-between back-button">
         <div class="pd-left-24 pd-top-21 pd-bottom-21">
-          <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'"
-                             [leftIconType]="'chevron-back'" [iconClass]="cssClass.cta3PrimaryIcon"
-                             (click)="navigateBack()">
+          <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'" [leftIconType]="'chevron-back'"
+                             [iconClass]="cssClass.cta3PrimaryIcon" (click)="navigateBack()">
           </app-why-cta-three>
         </div>
-      </div>
-      <div class="mr-right-24 create-rule">
-        <app-why-cta-one
-          [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
-          [iconType]="'add-circle-outline'"
-          (click)="navigateToCreateRule()"
-          [btnLabel]="'Create New Rule'"></app-why-cta-one>
-      </div>
-    </div>
-    <div class="rules-details-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40">
-      <div class="rules-header-title d-flex justify-content-between pd-right-40">
-        <div class="app-why-lbl f16 ft-bold light text-uppercase">
-          {{ruleItems[0]?.discordServerName}} DISCORD RULES [ {{ruleItems?.length}} ]
+        <div class="d-flex pd-right-24 mr-right-24">
+          <div class="d-flex align-items-center">
+            <div class="d-flex">
+              <app-why-drop-down [leftIcon]="true"
+                                 (dataSet)="filterList($event)"
+                                 [placeholderText]="selectedServer"
+                                 [dataList]="uniqueServerList"></app-why-drop-down>
+            </div>
+          </div>
+        </div>
+        <div style="width: 76px;">
+
         </div>
       </div>
+    </div>
+    <div *ngIf="ruleItems?.length  === 0">
+      No rules found
+    </div>
+    <div class="rules-details-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40"
+         *ngIf="ruleItems?.length > 0">
       <div class="title-underline mr-top-8 mr-right-40"></div>
       <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40">
         <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center">
+    <div class="mr-top-40 mr-bottom-80 d-flex justify-content-center" *ngIf="ruleItems?.length > 0">
       <app-why-cta-three
         [btnClass]="cssClass.cta3BtnLabel + ' btn-hover'"
         [btnLabel]="'BACK TO TOP'"
@@ -89,9 +89,8 @@
       </app-why-cta-three>
     </div>
 
-    <div class="rules-view" [hidden]="!viewRule">
+    <div class="rules-view" *ngIf="viewRule">
       <app-why-lunar-hq-rules-view [paused]="paused"
-                                   [hasPermission]="hasPermission"
                                    [ruleObj]="ruleObj"
                                    (closeRule)="closeView()"
                                    (actionType)="ruleAction($event)"

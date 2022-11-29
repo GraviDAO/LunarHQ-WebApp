@@ -3,7 +3,6 @@ import {CssConstants} from '../../../shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
-import {ToastrService} from 'ngx-toastr';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
 import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
@@ -119,6 +118,7 @@ export class AnnouncementsComponent implements OnInit {
   setServer(server: any) {
     this.selectedServer = server;
     if (this.selectedServer !== 'view all servers') {
+      this.announcementList = this.mainAnnouncementList;
       this.announcementList = this.announcementList.filter((obj: any) => obj.discordServerName.toLowerCase() === server.toLowerCase());
     } else {
       this.announcementList = this.mainAnnouncementList;
@@ -138,10 +138,6 @@ export class AnnouncementsComponent implements OnInit {
     this.previewAnnouncementView = false;
   }
 
-  goToSettings() {
-    this.router.navigate(['/announcement/settings']);
-  }
-
   starAnnouncement(obj: any) {
     this.closePreview()
     let starAnnouncementObj: any = {
@@ -151,8 +147,7 @@ export class AnnouncementsComponent implements OnInit {
     };
     this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
       .subscribe({
-        next: (data: any) => {
-          // console.log('data', data);
+        next: () => {
           this.getAnnouncementList();
           this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },

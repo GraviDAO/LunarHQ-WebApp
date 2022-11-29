@@ -158,7 +158,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   previewAnnouncement(obj: any) {
-    console.log(obj, 'obj');
     this.selectedAnnouncementObj = obj;
     this.viewAnnouncement = true;
   }

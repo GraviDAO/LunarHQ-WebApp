@@ -36,19 +36,23 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     private lunarHqService: LunarHqAPIServices) {
     this.route.queryParams.subscribe((params: any) => {
       this.pollType = params.type;
-      if (this.pollType) {
-        if (this.pollType === 'owner') {
-          this.nestedMenu = 'Owner';
-          this.getMyPolls();
-        } else if (this.pollType === 'participant') {
-          this.nestedMenu = 'Participant';
-          this.getMyParticipatedPolls();
-        }
-      } else {
-        this.nestedMenu = '';
-        this.getPolls();
-      }
+      this.pollsFn()
     });
+  }
+
+  pollsFn() {
+    if (this.pollType) {
+      if (this.pollType === 'owner') {
+        this.nestedMenu = 'Owner';
+        this.getMyPolls();
+      } else if (this.pollType === 'participant') {
+        this.nestedMenu = 'Participant';
+        this.getMyParticipatedPolls();
+      }
+    } else {
+      this.nestedMenu = '';
+      this.getPolls();
+    }
   }
 
   ngOnInit(): void {

@@ -59,11 +59,14 @@
             <div class="mr-top-48 pd-lr-78 form-control-wrapper">
               <div class="form-group">
                 <input type="text" id="name" class="form-control app-why-floating-input light-70"
-                       placeholder=" " [(ngModel)]="pollObj.title">
-                <label class="app-why-floating-lbl" for="name">Name</label>
+                       placeholder=" " [(ngModel)]="pollObj.title"
+                       [ngClass]="{'error':errorList.includes('title') && (pollObj.title === undefined || pollObj.title === '')}">
+                <label class="app-why-floating-lbl" for="name">Name*</label>
               </div>
-              <div class="app-why-lbl error ft-lato"
-                   *ngIf="errorMessage.id ==='title' && pollObj.title !== ''">{{errorMessage.msg}}</div>
+              <div class="app-why-lbl error"
+                   *ngIf="errorList.includes('title') && (pollObj.title === undefined || pollObj.title === '')">
+                Name is required
+              </div>
               <div class="form-group mr-top-40 mr-bottom-84">
                 <label class="d-flex app-why-lbl ft-lato f10 light-50"
                        for="poll_description">Description</label>
@@ -75,10 +78,6 @@
                           placeholder="Enter description"></textarea>
                 <div class="d-flex justify-content-between app-why-lbl f10 ft-lato light-50"
                      id="description_count">
-                  <div>
-                    <div class="app-why-lbl error ft-lato"
-                         *ngIf="errorMessage.id ==='description'">{{errorMessage.msg}}</div>
-                  </div>
                   <div>
                     <span id="current_count">0 &nbsp;</span>
                     <span id="maximum_count"> / 2000</span>
@@ -108,9 +107,9 @@
               </label>
             </div>
             <div class="mr-top-16 d-flex" *ngIf="voteWeight === 'tokenWeighted'">
-              <div class="col-3">
+              <div class="col-3 d-flex flex-column">
                 <div>
-                  <div class="app-why-lbl light-50">Network</div>
+                  <div class="app-why-lbl light-50">Network*</div>
                   <div class="pd-top-4">
                     <div>
                       <app-why-drop-down
@@ -122,11 +121,15 @@
                     </div>
                   </div>
                 </div>
+                <div class="app-why-lbl error mr-top-8"
+                     *ngIf="errorList.includes('blockchainName') && (selectedNetwork === 'Select network')">
+                  Select Network
+                </div>
               </div>
               <div class="col-6">
                 <div class="max-width-240">
                   <div class="app-why-lbl light-50"
-                       [ngClass]="{'secondary': pollObj.address === undefined}">Contract address
+                       [ngClass]="{'secondary': pollObj.address === undefined}">Contract address*
                   </div>
                 </div>
                 <div class="max-width-240">
@@ -136,6 +139,10 @@
                            [ngClass]="{'set-input-border': pollObj.address === undefined}"
                            [(ngModel)]="pollObj.address">
                   </div>
+                </div>
+                <div class="app-why-lbl error"
+                     *ngIf="errorList.includes('address') && (pollObj.address === undefined || pollObj.address === '')">
+                  Contract address is required
                 </div>
               </div>
               <div class="col-3">
@@ -170,9 +177,9 @@
 
           <div class="mr-top-40" *ngIf="voteWeight === 'roleWeighted'">
             <div class="rules-detail-title pd-box-16 d-flex flex-row pd-right-40">
-              <div class="form-check">
+              <!--<div class="form-check">
                 <input class="form-check-input check-box" type="checkbox" value="" id="rule-name">
-              </div>
+              </div>-->
               <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
                 RULE NAME
               </div>
@@ -180,16 +187,16 @@
                 POPULATION
               </div>
               <div class="chain-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                CHAIN
+                CHAIN {{pollObj?.ruleIds === undefined}}
               </div>
             </div>
             <div class="rules-item d-flex flex-row align-items-center pd-lr-16 mr-bottom-8"
                  *ngFor="let rule of roleList"
-                 [ngStyle]="{'background': pollObj.ruleIds.indexOf(rule?.id) >= 0 ? '#231f20' : '#231f2033'}">
+                 [ngStyle]="{'background': (pollObj?.ruleIds !== undefined && pollObj?.ruleIds?.indexOf(rule?.id) >= 0) ? '#231f20' : '#231f2033'}">
               <div class="form-check d-flex align-items-center">
                 <input class="form-check-input check-box"
                        (change)="checkUncheck($event, rule)"
-                       [checked]="pollObj.ruleIds.indexOf(rule?.id) >= 0"
+                       [checked]="(pollObj?.ruleIds !== undefined && pollObj?.ruleIds?.indexOf(rule?.id) >= 0)"
                        type="checkbox" [value]="" id="{{rule?.roleName}}">
               </div>
               <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
@@ -276,38 +283,69 @@
           <div class="title-underline mr-top-8"></div>
           <div class="poll-timing-content mr-top-48">
             <div class="text-align-start d-flex align-items-center">
-              <input class="radio-button-primary" type="radio" (click)="getDatePicker('today')"
+              <input class="radio-button-primary" type="radio"
+                     [checked]="dateRadioSelected === 'today'"
+                     (click)="getDatePicker('today')"
                      name="dateSelected" id="today">
               <label class="app-why-lbl mr-left-8 light-70 f12" for="today">TODAY</label>
             </div>
             <div class="d-flex mr-top-16 mr-left-20 justify-content-between"
                  *ngIf="dateRadioSelected === 'today'">
               <div class="d-flex flex-column">
-                <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
-                  Start time:</label>
-                <input class="form-control date-time-input" type="time"
-                       (ngModelChange)="validateTime($event)"
-                       [(ngModel)]="startTime"/>
+                <div class="text-align-start">
+                  <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
+                    Start time*
+                  </label>
+                  <input class="form-control date-time-input" type="time"
+                         (ngModelChange)="validateTime($event)"
+                         [(ngModel)]="startTime"/>
+                </div>
+                <div>
+                  <div class="app-why-lbl error"
+                       *ngIf="errorList.includes('startTime') && (startTime === undefined || startTime === '')">
+                    required
+                  </div>
+                </div>
               </div>
               <div class="d-flex flex-column">
-                <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2" for="closingDate">Closing
-                  Date: </label>
-                <input class="form-control date-time-input" type="date"
-                       [min]="todayDate | date :'yyyy-MM-dd'"
-                       id="closingDate" [ngModel]="closingDate | date:'yyyy-MM-dd'"
-                       (ngModelChange)="setClosingDate($event)"/>
+                <div class="text-align-start">
+                  <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2" for="closingDate">
+                    Closing Date*
+                  </label>
+                  <input class="form-control date-time-input" type="date"
+                         [min]="todayDate | date :'yyyy-MM-dd'"
+                         id="closingDate" [ngModel]="closingDate | date:'yyyy-MM-dd'"
+                         (ngModelChange)="setClosingDate($event)"/>
+                </div>
+                <div>
+                  <div class="app-why-lbl error"
+                       *ngIf="errorList.includes('closingDate') && (closingDate === undefined || closingDate === '')">
+                    required
+                  </div>
+                </div>
               </div>
               <div class="d-flex flex-column">
-                <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">Closing
-                  Time: </label>
-                <input class="form-control date-time-input"
-                       type="time"
-                       (ngModelChange)="validateClosingTime($event)"
-                       [(ngModel)]="closingTime"/>
+                <div class="text-align-start">
+                  <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
+                    Closing Time*
+                  </label>
+                  <input class="form-control date-time-input"
+                         type="time"
+                         (ngModelChange)="validateClosingTime($event)"
+                         [(ngModel)]="closingTime"/>
+                </div>
+                <div>
+                  <div class="app-why-lbl error"
+                       *ngIf="errorList.includes('closingTime') && (closingTime === undefined || closingTime === '')">
+                    required
+                  </div>
+                </div>
               </div>
             </div>
             <div class="mr-top-16 text-align-start d-flex align-items-center">
-              <input class="radio-button-primary" type="radio" (click)="getDatePicker('pick_date')"
+              <input class="radio-button-primary" type="radio"
+                     [checked]="dateRadioSelected === 'pick_date'"
+                     (click)="getDatePicker('pick_date')"
                      name="dateSelected" id="pick_date">
               <label class="app-why-lbl pd-top-2 mr-left-8 light-70 f12" for="pick_date">PICK
                 DATE</label>
@@ -341,6 +379,12 @@
                 <input class="form-control date-time-input" type="time" id="pickClosingTime" [(ngModel)]="closingTime"/>
               </div>
             </div>
+            <div class="text-align-start">
+              <div class="app-why-lbl error"
+                   *ngIf="errorList.includes('dateRadioSelected') && (startTime === undefined || dateRadioSelected === '')">
+                Please select poll timings
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -351,10 +395,15 @@
           </div>
           <div class="title-underline mr-top-8"></div>
           <div class="create-rule-content mr-top-48">
+            <div class="app-why-lbl light-50 text-align-start">Network*</div>
             <app-why-drop-down [leftIcon]="true" [dataList]="channelList"
                                [placeholderText]="channelName"
                                [keyField]="'name'"
                                (dataSet)="setChannel($event)"></app-why-drop-down>
+          </div>
+          <div class="app-why-lbl error text-align-start"
+               *ngIf="errorList.includes('discordChannelId') && (channelName === 'Select Channel')">
+            Please select channel
           </div>
         </div>
       </div>
@@ -373,7 +422,6 @@
                                   (click)="previous()" [btnLabelClass]="'app-why-lbl f12 ft-lato ft-bold'">
         </app-why-lunar-hq-cta-two>
         <app-why-cta-one (clickEvent)="next()"
-                         [isDisabled]="validatePoll(stepperIndex) === 0"
                          [cssClass]="cssClass.cta1Sm + ' mr-left-24'"
                          [btnLabel]="stepperIndex === 3 ? 'PREVIEW' : 'NEXT'">
         </app-why-cta-one>

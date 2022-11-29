@@ -121,3 +121,11 @@
   background: var(--light-50);
   margin-left: 16px;
 }
+
+.long-text {
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 10vw;
+}

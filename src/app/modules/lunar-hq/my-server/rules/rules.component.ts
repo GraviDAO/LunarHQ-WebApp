@@ -76,7 +76,6 @@ export class RulesComponent implements OnInit {
   }
 
   showRule(ruleObj: any) {
-    console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
     this.paused = false;

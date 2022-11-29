@@ -14,6 +14,7 @@ export class RecentPollsComponent {
   @Input() currentDateTime: Date;
   @Input() hasPermission = false;
   @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deletePollEvent: EventEmitter<any> = new EventEmitter<any>();
   @Input() buttonLabel = 'MANAGE POLLS';
 
 
@@ -30,5 +31,9 @@ export class RecentPollsComponent {
     this.storageService.set('poll_obj', obj);
     this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
       {queryParams: {pollId: obj.id}});
+  }
+
+  deletePoll() {
+    this.deletePollEvent.emit(true);
   }
 }

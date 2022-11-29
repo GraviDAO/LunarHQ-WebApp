@@ -224,7 +224,7 @@
     </div>
   </div>
   <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24"
-       *ngIf="!paused && !update && hasPermission">
+       *ngIf="!paused && !update && (hasPermission || ruleObj?.hasPermission)">
     <div class="rules-action-item">
       <app-why-cta-three
         [parentClass]="'flex-column'"

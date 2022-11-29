@@ -13,6 +13,7 @@ export class PollCellComponent {
   @Input() hasPermission = false;
   @Input() currentDateTime: any;
   @Output() editPollEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deletePollEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private lunarService: LunarHqAPIServices,
               private load: NgxUiLoaderService,
@@ -24,7 +25,6 @@ export class PollCellComponent {
   }
 
   editPoll() {
-    console.log(this.pollObj, 'this.pollObj');
     this.editPollEvent.emit(this.pollObj);
   }
 
@@ -46,6 +46,19 @@ export class PollCellComponent {
         error: (err: any) => {
           this.toast.setMessage(err.error.message, 'error');
           console.error(err, 'err');
+        }
+      });
+  }
+
+  deletePoll() {
+    this.lunarService.deletePoll(this.pollObj.id, this.pollObj.discordServerId)
+      .subscribe({
+        next: (value: any) => {
+          this.toast.setMessage('Rule deleted successfully');
+          this.deletePollEvent.emit(true);
+        },
+        error: (err: any) => {
+          this.toast.setMessage(err?.error.message, 'error');
         }
       });
   }

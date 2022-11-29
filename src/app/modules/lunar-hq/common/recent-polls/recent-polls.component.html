@@ -16,6 +16,7 @@
   <div class="poll-items pd-top-48 d-flex flex-column">
     <div *ngFor="let pollObj of pollArrayObj?.slice(0,2)">
       <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
+                                  (deletePollEvent)="deletePoll()"
                                   [hasPermission]="hasPermission"
                                   (editPollEvent)="editPoll($event)"
                                   [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
