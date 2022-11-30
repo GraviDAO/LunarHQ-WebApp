@@ -73,150 +73,21 @@
                 *ngIf="!ruleObj?.operatorName">&nbsp;[&nbsp;{{getOperator(ruleObj?.quantityOperatorName)}}&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.quantity}}</span>
         </div>
-        <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1">
-          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;&nbsp;Filter by NFT ID </span>
+        <div
+          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1 && (ruleObj?.tokenIds?.length === 1 && ruleObj?.tokenIds[0] !== ''))">
+          <span
+            class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;&nbsp;Filter by NFT ID {{ruleObj?.tokenIds}}</span>
         </div>
-        <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1"
-             class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+        <div
+          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1 && (ruleObj?.tokenIds?.length === 1 && ruleObj?.tokenIds[0] !== ''))"
+          class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
           NFT ID
         </div>
-        <div *ngIf="ruleObj?.ruleType !== 'TOKEN' && ruleObj?.tokenIds?.length > 1" class="">
+        <div
+          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1 && (ruleObj?.tokenIds?.length === 1 && ruleObj?.tokenIds[0] !== ''))">
           <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.tokenIds}}</span>
         </div>
-        <!--<ng-container *ngFor="let ruleItem of rules; let ruleItemIndex = index;">
-          <div class="rule-item-existing-rule app-why-lbl f14 ft-lato light">
-            {{rulesService.getRuleType(ruleItem.ruleTypeId)?.name}}
-          </div>
-          <div class="rule-item-existing-rule-container d-flex flex-column">
-            <div class="rule-item-is-rule-container d-flex">
-              <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                [ {{rulesService.getCondition(ruleItem.condition)?.name?.toLowerCase()}} ]
-              </div>
-              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
-                   *ngIf="ruleItem.ruleTypeId == 'existing_rule'">
-                {{rulesService.getRule(ruleItem.ruleId)?.name}}
-              </div>
-              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
-                   *ngIf="ruleItem.ruleTypeId == 'nft' || ruleItem.ruleTypeId == 'token'">
-                {{ruleItem.contractAddress}}__[ {{rulesService.getOperator(ruleItem.operatorId)?.name}}
-                ]__{{ruleItem.quantityHeld}}
-              </div>
-            </div>
-            <div class="rule-item-is-rule-container d-flex">
-              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                   *ngIf="ruleItem.ruleTypeId == 'nft'"
-                   [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
-                [ {{rulesService.getCondition(ruleItem.filterCondition)?.name?.toLowerCase()}} ]
-              </div>
-              <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                   *ngIf="ruleItem.ruleTypeId == 'nft'"
-                   [ngClass]="{'success': ruleItem.filterCondition == 'and', 'error': ruleItem.filterCondition == 'not', 'warning': ruleItem.filterCondition == 'or', 'light-50': ruleItem.filterCondition == 'is'}">
-                <span *ngIf="ruleItem.filter == 'filter_nft'">Filter by NFT ID</span>
-                <span *ngIf="ruleItem.filter == 'filter_traits'">Filter by traits</span>
-              </div>
-            </div>
-            <div class="rule-item-criteria-filter-nft-traits mr-top-24 d-flex flex-column"
-                 *ngIf="ruleItem.ruleTypeId == 'nft' && ruleItem.filter == 'filter_traits'">
-              <div
-                class="rule-item-criteria-filter-nft-traits-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                NFT TRAITS
-              </div>
-              <ng-container *ngFor="let trait of ruleItem.traits; let traitIndex = index;">
-                <div class="rule-item-and-rule-container d-flex">
-                  <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
-                       [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                    [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
-                  </div>
-                  <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                       [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                    {{rulesService.getTraitType(trait.traitTypeId)?.name}}
-                  </div>
-                </div>
-                <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
-                  <div class="d-flex pd-left-24">
-                    <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
-                         [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
-                      [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
-                    </div>
-                    <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                      {{rulesService.getTraitRow(row.rowId)?.name}}
-                    </div>
-                  </div>
-                </ng-container>
-              </ng-container>
-            </div>
-            <ng-container *ngFor="let criteria of ruleItem.criterias; let criteriaIndex = index;">
-              <div class="rule-item-and-rule-container d-flex pd-left-24">
-                <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
-                     [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
-                  [ {{rulesService.getCondition(criteria.condition)?.name?.toLowerCase()}} ]
-                </div>
-                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                     [ngClass]="{'success': criteria.condition == 'and', 'error': criteria.condition == 'not', 'warning': criteria.condition == 'or', 'light-50': criteria.condition == 'is'}">
-                  {{rulesService.getRuleType(criteria.ruleTypeId)?.name}}
-                </div>
-              </div>
-              <div class="rule-item-is-rule-container d-flex pd-left-48">
-                <div class="rule-item-is-rule app-why-lbl f14 ft-lato light-50">
-                  [ {{rulesService.getCondition(criteria.ruleCondition)?.name?.toLowerCase()}} ]
-                </div>
-                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
-                     *ngIf="criteria.ruleTypeId == 'existing_rule'">
-                  {{rulesService.getRule(criteria.ruleId)?.name}}
-                </div>
-                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4"
-                     *ngIf="criteria.ruleTypeId == 'nft' || criteria.ruleTypeId == 'token'">
-                  {{criteria.contractAddress}}__[ {{rulesService.getOperator(criteria.operatorId)?.name}}
-                  ]__{{criteria.quantityHeld}}
-                </div>
-              </div>
-              <div class="rule-item-is-rule-container d-flex pd-left-48">
-                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                     *ngIf="criteria.ruleTypeId == 'nft'"
-                     [ngClass]="{'success': criteria.filterCondition == 'and', 'error': criteria.filterCondition == 'not', 'warning': criteria.filterCondition == 'or', 'light-50': criteria.filterCondition == 'is'}">
-                  [ {{rulesService.getCondition(criteria.filterCondition)?.name}} ]
-                </div>
-                <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                     *ngIf="criteria.ruleTypeId == 'nft'"
-                     [ngClass]="{'success': criteria.filterCondition == 'and', 'error': criteria.filterCondition == 'not', 'warning': criteria.filterCondition == 'or', 'light-50': criteria.filterCondition == 'is'}">
-                  <span *ngIf="criteria.filter == 'filter_nft'">Filter by NFT ID</span>
-                  <span *ngIf="criteria.filter == 'filter_traits'">Filter by traits</span>
-                </div>
-              </div>
-              <div class="rule-item-criteria-filter-nft-traits mr-top-24 d-flex flex-column"
-                   *ngIf="criteria.ruleTypeId == 'nft' && criteria.filter == 'filter_traits'">
-                <div
-                  class="rule-item-criteria-filter-nft-traits-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                  NFT TRAITS
-                </div>
-                <ng-container *ngFor="let trait of criteria.traits; let traitIndex = index;">
-                  <div class="rule-item-and-rule-container d-flex">
-                    <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
-                         [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                      [ {{rulesService.getCondition(trait.condition)?.name?.toLowerCase()}} ]
-                    </div>
-                    <div class="rule-item-base-role-text app-why-lbl f14 ft-lato pd-left-4"
-                         [ngClass]="{'success': trait.condition == 'and', 'error': trait.condition == 'not', 'warning': trait.condition == 'or', 'light-50': trait.condition == 'is'}">
-                      {{rulesService.getTraitType(trait.traitTypeId)?.name}}
-                    </div>
-                  </div>
-                  <ng-container *ngFor="let row of trait.rows; let rowIndex = index;">
-                    <div class="d-flex pd-left-24">
-                      <div class="rule-item-is-rule app-why-lbl f14 ft-lato"
-                           [ngClass]="{'success': row.condition == 'and', 'error': row.condition == 'not', 'warning': row.condition == 'or', 'light-50': row.condition == 'is'}">
-                        [ {{rulesService.getCondition(row.condition)?.name?.toLowerCase()}} ]
-                      </div>
-                      <div class="rule-item-base-role-text app-why-lbl f14 ft-lato light pd-left-4">
-                        {{rulesService.getTraitRow(row.rowId)?.name}}
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </ng-container>
-          </div>
-        </ng-container>-->
       </div>
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50 mr-top-8">
         &lt;END&gt;
