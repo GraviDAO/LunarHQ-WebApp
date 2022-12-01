@@ -37,9 +37,6 @@ export class AdminSideBarComponent implements OnInit {
   toggleMenu() {
     this.isToggled = !this.isToggled;
     $('#sidebar').toggleClass('active');
-    // console.log('click toggle');
-    /*
-   */
   }
 
   setIcon(icon: string): any {

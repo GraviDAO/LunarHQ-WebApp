@@ -28,7 +28,7 @@ export class RulesViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log('RulesViewComponent - ', this.rules);
+
   }
 
   closeView() {

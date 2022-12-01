@@ -56,7 +56,6 @@ export class AddNewServerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log('testing2')
   }
 
   navigateToMyServer() {

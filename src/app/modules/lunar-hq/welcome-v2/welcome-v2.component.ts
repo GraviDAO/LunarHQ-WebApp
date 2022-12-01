@@ -132,32 +132,6 @@ export class WelcomeV2Component implements OnDestroy {
     });
   }
 
-  // logStates() {
-  //   let sel = "";
-  //   let step = "";
-  //   let prog = "";
-  //   let user: any = "";
-
-  //   const newInt = setInterval(() => {
-  //     if(this.selected != sel) {
-  //       console.log("selected: " + this.selected);
-  //       sel = this.selected;
-  //     }
-  //     if(this.currentStep != step) {
-  //       console.log("step: " + this.currentStep);
-  //       step = this.currentStep;
-  //     }
-  //     if(this.progressStatus != prog) {
-  //       console.log("Progress: " + this.progressStatus);
-  //       prog = this.progressStatus;
-  //     }
-  //     if(this.storageService.get('user_progress') != user) {
-  //       console.log("user_progress: " + this.storageService.get('user_progress') + "\n");
-  //       user = this.storageService.get('user_progress');
-  //     }
-  //   }, 100)
-  // }
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
@@ -253,18 +227,14 @@ export class WelcomeV2Component implements OnDestroy {
   //function to connect to metamask & get nonce
   async connectToMetaMask() {
     try {
-      // console.log('mm called');
-
       this.exitModal();
       let response = await this.web3.connectAccount();
       // @ts-ignore
       const walletAddr = response[0];
-      // console.log(walletAddr);
 
       const blockchainName = 'polygon-mainnet';
       this.coreService.getNonce(walletAddr, blockchainName)
         .subscribe((result) => {
-          // console.log(result);
 
           this.handleSignIn(result.message, walletAddr);
         });
@@ -419,8 +389,6 @@ export class WelcomeV2Component implements OnDestroy {
   // To handle metamask sign in
   async handleSignIn(nonce: any, publicAddress: any) {
     try {
-      // console.log(publicAddress);
-
       this.loaderService.start();
       const signInMessage = `I am signing this message with my one-time nonce: ${nonce} to cryptographically verify that I am the owner of this wallet`;
       let resultObj = await this.web3.signIn(signInMessage, publicAddress);
@@ -529,7 +497,6 @@ export class WelcomeV2Component implements OnDestroy {
         queryParams: {code: null},
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
-    // commented for demo
     this.router.navigate(['/welcome']);
   }
 

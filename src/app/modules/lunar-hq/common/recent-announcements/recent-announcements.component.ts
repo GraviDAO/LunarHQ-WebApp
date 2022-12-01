@@ -28,7 +28,6 @@ export class RecentAnnouncementsComponent {
   }
 
   starAnnouncement(obj: any) {
-    // console.log(obj.type, 'obj');
     let starAnnouncementObj: any = {
       discordServerId: obj?.obj.discordServerId,
       discordChannelId: obj?.obj.discordChannelId,
@@ -37,7 +36,6 @@ export class RecentAnnouncementsComponent {
     this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
       .subscribe({
         next: (data: any) => {
-          // console.log('data', data);
           this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
           this.refreshList.emit(true);
         },

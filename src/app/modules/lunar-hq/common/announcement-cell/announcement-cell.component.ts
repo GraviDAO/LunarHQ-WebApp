@@ -19,7 +19,6 @@ export class AnnouncementCellComponent {
   }
 
   preView() {
-    // console.log('in');
     this.previewAnnouncement.emit(this.annObj);
   }
 

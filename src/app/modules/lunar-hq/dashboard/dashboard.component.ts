@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PermissionType, SideNavType} from '../../../shared/components/side-bar/side.nav.type';
 import {CssConstants} from '../../../shared/services/css-constants.service';
 import {ModalService} from '../../../shared/_modal/modal.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -54,9 +53,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.profileObj = data.message;
           this.localStorage.set('lunar_user_profile', this.profileObj);
           this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});
-          /*this.userDataObj.push({
-            label: 'LICENSES APPLIED VS HELD', value: [this.profileObj.licensesApplied, this.profileObj.licensesHeld]
-          });*/
           this.userDataObj.push({label: 'APPLIED ROLES', value: [this.profileObj.rules.length]});
           this.userDataObj.push({label: 'POLLS', value: [this.profileObj.proposals.length]});
           this.userDataObj.push({label: 'NEW ANNOUNCEMENTS', value: [this.profileObj.announcements.length]});
@@ -81,7 +77,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   goToTop() {
-    // console.log('in top');
     window.scroll({
       top: 0,
       left: 0,
@@ -113,7 +108,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   serverDetails(serverObj: any) {
     this.router.navigate(['my-server/details/' + serverObj.discordServerId]);
-    // my-server/details?server=
   }
 
   closeView() {
@@ -152,7 +146,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   showRule(ruleObj: any) {
-    // console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
   }
@@ -178,13 +171,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: any) => {
           // this.loader.stop();
-          // console.log('data', data);
           this.getProfileDetails();
           this.toastService.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
         },
         error: (err: any) => {
           this.toastService.setMessage(err.error.message, 'error');
-          console.log('err', err);
+          console.error('err', err);
         }
       });
   }
@@ -200,13 +192,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           next: (value: any) => {
             this.profileObj?.proposals.forEach((obj: any, index: number) => {
               if (obj.discordServerId === this.profileObj.discordServers[i].discordServerId) {
-                // @ts-ignore
-                this.profileObj?.proposals[index].hasPermission = true;
+                obj.hasPermission = true;
               }
             });
-          },
-          error: (err: any) => {
-            // this.toastService.setMessage(err.error.message, 'error');
           }
         });
     }

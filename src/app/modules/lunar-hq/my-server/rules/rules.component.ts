@@ -90,7 +90,6 @@ export class RulesComponent implements OnInit {
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
-          // console.log(data.message, 'data');
           this.ruleItems = data.message.rules;
           this.loader.stop();
         },
@@ -136,7 +135,6 @@ export class RulesComponent implements OnInit {
   }
 
   goToTop() {
-    // console.log('in top');
     window.scroll({
       top: 0,
       left: 0,
