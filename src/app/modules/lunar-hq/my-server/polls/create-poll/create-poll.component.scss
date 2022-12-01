@@ -35,6 +35,7 @@
   //height: mixin.toRem(500);
   @include mixin.bg--wrapper;
   background: var(--tertiary);
+  padding-bottom: 48px;
 }
 
 .title-underline {
@@ -74,7 +75,7 @@
 }
 
 .height-192 {
-  height: mixin.toRem(192) !important;
+  min-height: mixin.toRem(192) !important;
 }
 
 .link-dropdown {

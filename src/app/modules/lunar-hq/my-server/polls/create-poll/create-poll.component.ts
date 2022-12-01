@@ -97,7 +97,7 @@ export class CreatePollComponent implements OnInit {
         return false;
       }
     } else if (index === 1 || index === 4) {
-      if (this.voteWeight === 'tokenWeighted') {
+      if (this.voteWeight === 'tokenWeighted' || this.voteWeight === 'nftWeighted') {
         if (this.selectedNetwork === 'Select network') {
           this.errorList.push('blockchainName');
         }
@@ -283,6 +283,7 @@ export class CreatePollComponent implements OnInit {
 
   setWeight(weight: string) {
     this.voteWeight = weight;
+    // @TODO check with david on voting system
     this.pollObj.votingSystem = weight === 'tokenWeighted' ? 'Token Weighted Voting' : 'Role Weighted Voting';
   }
 
@@ -412,6 +413,7 @@ export class CreatePollComponent implements OnInit {
     this.value = this.pollObj.quorum;
     // @ts-ignore
     this.quorumValue = Number(this.pollObj.quorum);
+    // @TODO check with david on voting system
     this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted' : 'roleWeighted';
     // @ts-ignore
     const startTime = new Date(this.pollObj.startDate);

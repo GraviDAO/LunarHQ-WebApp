@@ -116,7 +116,7 @@
                 token weighted
               </label>
             </div>
-            <div class="mr-top-16 d-flex" *ngIf="voteWeight === 'tokenWeighted'">
+            <div class="mr-top-16 d-flex" *ngIf="voteWeight === 'tokenWeighted' || voteWeight === 'nftWeighted'">
               <div class="col-3 d-flex flex-column">
                 <div>
                   <div class="app-why-lbl light-50">Network*</div>
@@ -268,17 +268,33 @@
               </div>
             </div>
           </div>
-          <div class="empty-info-container">
-            <div class="app-why-lbl f14 light-70">
-              NFT weighted voting- Quorum is calculated from the total size of the chosen collection
+          <div class="empty-info-container mr-top-48 pd-bottom-16">
+            <div *ngIf="voteWeight === 'nftWeighted'">
+              <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                About NFT weighted voting
+              </div>
+              <label class="app-why-lbl f14 light-70">
+                Quorum is calculated from the total size of the chosen collection
+              </label>
             </div>
-            <div class="app-why-lbl f14 light-70">
-              About Token weighted voting- Quorum is calculated from the total supply of the chosen token held in Lunar
-              HQ linked wallets
+            <div *ngIf="voteWeight === 'tokenWeighted'">
+              <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                About Token weighted voting
+              </div>
+              <label class="app-why-lbl f14 light-70">
+                About Token weighted voting- Quorum is calculated from the total supply of the chosen token held in
+                Lunar
+                HQ linked wallets
+              </label>
             </div>
-            <div class="app-why-lbl f14 light-70">
-              About Role weighted voting- Quorum is calculated from the total number of people holding that role. For
-              multiple roles it is the sum of all roles held. (edited)
+            <div *ngIf="voteWeight === 'roleWeighted'">
+              <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                About Role weighted voting
+              </div>
+              <label class="app-why-lbl f14 light-70">
+                Quorum is calculated from the total number of people holding that role. For
+                multiple roles it is the sum of all roles held.
+              </label>
             </div>
           </div>
         </div>
