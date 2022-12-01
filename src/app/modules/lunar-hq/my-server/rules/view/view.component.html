@@ -74,17 +74,17 @@
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.quantity}}</span>
         </div>
         <div
-          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1 && (ruleObj?.tokenIds?.length === 1 && ruleObj?.tokenIds[0] !== ''))">
+          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1)">
           <span
             class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;&nbsp;Filter by NFT ID {{ruleObj?.tokenIds}}</span>
         </div>
         <div
-          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1 && (ruleObj?.tokenIds?.length === 1 && ruleObj?.tokenIds[0] !== ''))"
+          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1)"
           class="mr-top-24 rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
           NFT ID
         </div>
         <div
-          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1 && (ruleObj?.tokenIds?.length === 1 && ruleObj?.tokenIds[0] !== ''))">
+          *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1)">
           <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.tokenIds}}</span>
         </div>
