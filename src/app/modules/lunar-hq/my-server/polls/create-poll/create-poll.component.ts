@@ -31,7 +31,7 @@ export class CreatePollComponent implements OnInit {
   discordServerName = '';
   pollObj: PollModel = {};
   errorList: Array<any> = [];
-  voteWeight = 'tokenWeighted';
+  voteWeight = 'nftWeighted';
   selectedNetwork: string | undefined = 'Select network';
   contractAddress = '';
   roleList: any;
