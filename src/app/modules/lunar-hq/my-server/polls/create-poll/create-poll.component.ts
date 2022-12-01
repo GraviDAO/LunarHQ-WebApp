@@ -31,7 +31,7 @@ export class CreatePollComponent implements OnInit {
   discordServerName = '';
   pollObj: PollModel = {};
   errorList: Array<any> = [];
-  voteWeight = 'tokenWeighted';
+  voteWeight = 'nftWeighted';
   selectedNetwork: string | undefined = 'Select network';
   contractAddress = '';
   roleList: any;
@@ -97,7 +97,7 @@ export class CreatePollComponent implements OnInit {
         return false;
       }
     } else if (index === 1 || index === 4) {
-      if (this.voteWeight === 'tokenWeighted') {
+      if (this.voteWeight === 'tokenWeighted' || this.voteWeight === 'nftWeighted') {
         if (this.selectedNetwork === 'Select network') {
           this.errorList.push('blockchainName');
         }
@@ -142,7 +142,10 @@ export class CreatePollComponent implements OnInit {
       validationStatus = this.validatePoll(this.stepperIndex);
     } else if (this.stepperIndex === 1) {
       this.errorList = [];
-      if (this.voteWeight === 'tokenWeighted') {
+      if (this.voteWeight === 'nftWeighted') {
+        this.pollObj.votingSystem = 'Nft Weighted Voting';
+        validationStatus = this.validatePoll(this.stepperIndex);
+      } else if (this.voteWeight === 'tokenWeighted') {
         this.pollObj.votingSystem = 'Token Weighted Voting';
         validationStatus = this.validatePoll(this.stepperIndex);
       } else {
@@ -283,7 +286,8 @@ export class CreatePollComponent implements OnInit {
 
   setWeight(weight: string) {
     this.voteWeight = weight;
-    this.pollObj.votingSystem = weight === 'tokenWeighted' ? 'Token Weighted Voting' : 'Role Weighted Voting';
+    // @TODO check with david on voting system
+    this.pollObj.votingSystem = weight === 'tokenWeighted' ? 'Token Weighted Voting' : (weight === 'nftWeighted' ? 'Nft Weighted Voting' : 'Role Weighted Voting');
   }
 
   setRangValue(range: any) {
@@ -412,7 +416,9 @@ export class CreatePollComponent implements OnInit {
     this.value = this.pollObj.quorum;
     // @ts-ignore
     this.quorumValue = Number(this.pollObj.quorum);
-    this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted' : 'roleWeighted';
+    // @TODO check with david on voting system
+    this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted'
+      : (this.pollObj.votingSystem !== 'Role Weighted Voting' ? 'nftWeighted' : 'roleWeighted');
     // @ts-ignore
     const startTime = new Date(this.pollObj.startDate);
     // @ts-ignore

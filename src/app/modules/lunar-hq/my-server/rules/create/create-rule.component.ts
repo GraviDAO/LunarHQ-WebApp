@@ -54,6 +54,7 @@ export class CreateRuleComponent implements OnInit {
   discordServerId = '';
   discordServerName = '';
   ruleId = '';
+  errorList: Array<any> = [];
 
   nestedMenu: any;
 
@@ -162,20 +163,46 @@ export class CreateRuleComponent implements OnInit {
   }
 
   next() {
-    this.stepper.next();
-    this.getActiveStep();
+    let isValid = true;
+    if (this.stepTitle === 'RULE DETAILS') {
+      if (this.createRuleForm.get('name')?.value === '' || this.createRuleForm.get('name')?.value === undefined) {
+        isValid = false;
+        this.errorList.push('name');
+      }
+      if (this.selectedRole === 'SELECT ROLE') {
+        isValid = false;
+        this.errorList.push('selectedRole');
+      }
+    }
+    if (isValid) {
+      this.errorList = [];
+      this.stepper.next();
+      this.getActiveStep();
+    }
   }
 
   validate() {
     if (this.stepperIndex === 0) {
       this.ruleObj.name = this.createRuleForm.get('name')?.value;
       this.ruleObj.description = this.createRuleForm.get('description')?.value;
-      return this.ruleObj.name === '' || this.ruleObj.description === '' || this.ruleObj.roleName === undefined;
+      return this.ruleObj.name === '' || this.ruleObj.roleName === undefined;
     } else if (this.stepperIndex === 1) {
       this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
+      if (this.ruleObj.ruleTypeId === 'token') {
+        this.ruleObj.tokenAddress = this.ruleItems[0].contractAddress;
+      }
       this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
-      this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
-      return this.ruleObj.nftAddress === '' || this.ruleObj.quantity === '' || this.ruleObj.tokenIds === undefined || this.ruleObj.blockchainName === undefined;
+      if (this.ruleItems[0].filter === 'no_filter') {
+        delete this.ruleObj.tokenIds;
+      } else {
+        let tokens = this.ruleItems[0].nft_id.split(',');
+        let tokenArray = (tokens.length === 1 && tokens[0] === '') ? [] : tokens;
+        if (tokenArray.length > 0) {
+          this.ruleObj.tokenIds = tokenArray;
+        }
+      }
+      // this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
+      return this.ruleObj.nftAddress === '' || this.ruleObj.quantity === '' || this.ruleObj.blockchainName === undefined;
     }
     return false;
   }
@@ -194,6 +221,7 @@ export class CreateRuleComponent implements OnInit {
 
   selectRuleType(ruleItem: any, ruleType: any) {
     // console.log('selectRuleType - ', ruleType);
+    this.errorList = [];
     ruleItem.ruleTypeId = ruleType.id;
     ruleItem.ruleType = ruleType.name;
 
@@ -330,7 +358,44 @@ export class CreateRuleComponent implements OnInit {
   }
 
   preview() {
-    this.viewRule = true;
+    this.errorList = [];
+    let isValid = true;
+    if (this.ruleObj.ruleTypeId === undefined) {
+      isValid = false;
+      this.errorList.push('ruleTypeId');
+    }
+    if (this.ruleObj.ruleTypeId === 'nft' || this.ruleObj.ruleTypeId === 'token') {
+      if (this.selectedNetwork === 'Select Network') {
+        isValid = false;
+        this.errorList.push('blockchainName');
+      }
+      if (this.ruleItems[0].contractAddress === undefined || this.ruleItems[0].contractAddress === '') {
+        isValid = false;
+        this.errorList.push('contractAddress');
+      }
+      if (this.ruleItems[0].quantityHeld === undefined || this.ruleItems[0].quantityHeld === '') {
+        isValid = false;
+        this.errorList.push('quantityHeld');
+      }
+
+      if (this.ruleItems[0].filter === 'no_filter' && this.ruleObj.ruleTypeId === 'nft') {
+        this.ruleObj.tokenIds = [];
+      }
+      if (this.ruleItems[0].filter === 'filter_nft' && this.ruleObj.ruleTypeId === 'nft') {
+        console.log('in filter_nft');
+        let tokens = this.ruleItems[0].nft_id.split(',');
+        let tokenArray = (tokens.length === 1 && tokens[0] === '') ? [] : tokens;
+        if (tokenArray.length === 0) {
+          isValid = false;
+          this.errorList.push('nft_id');
+        } else {
+          this.ruleObj.tokenIds = tokenArray;
+        }
+      }
+    }
+    if (isValid) {
+      this.viewRule = true;
+    }
   }
 
   closeView() {
@@ -338,41 +403,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   updateRole() {
-    // console.log(this.ruleObj);
-    if (this.ruleObj.name === undefined || this.ruleObj.name === '') {
-      this.toastService.setMessage('Rule name cannot be empty', 'error');
-      return;
-    } else if (this.ruleObj.description === undefined || this.ruleObj.description === '') {
-      this.toastService.setMessage('Description cannot be empty', 'error');
-      return;
-    } else if (this.ruleObj.role === undefined || this.ruleObj.role === '') {
-      this.toastService.setMessage('Please select Role', 'error');
-      return;
-    }
-    if (this.ruleObj.ruleType === 'NFT') {
-      if (this.ruleObj.blockchainName === undefined || this.ruleObj.blockchainName === '') {
-        this.toastService.setMessage('Please select Chain', 'error');
-        return;
-      } else if (this.ruleObj.nftAddress === undefined || this.ruleObj.nftAddress === '') {
-        this.toastService.setMessage('Contract Address cannot be empty', 'error');
-        return;
-      } else if (this.ruleObj.quantity === undefined || this.ruleObj.quantity === '') {
-        this.toastService.setMessage('Please enter Qty', 'error');
-        return;
-      }
-      if (this.ruleItems[0].filter === 'no_filter') {
-        this.ruleObj.tokenIds = [];
-      } else if (this.ruleItems[0].filter === 'filter_nft') {
-        if (this.ruleItems[0].nft_id.length === 0) {
-          this.toastService.setMessage('Please enter NFT Ids', 'error');
-          return;
-        } else {
-          this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
-        }
-      }
-    } else if (this.ruleObj.ruleType === 'TOKEN') {
-      this.ruleObj.tokenAddress = this.ruleObj.nftAddress;
-    }
+    console.log(this.ruleObj, 'rule');
     this.lunarService.createRule(this.ruleObj)
       .subscribe({
         next: (data: any) => {
@@ -387,7 +418,6 @@ export class CreateRuleComponent implements OnInit {
           console.error(error, 'error');
         }
       });
-    // console.log(this.ruleObj, 'rule');
   }
 
   @HostListener('document:click', ['$event']) onDocumentClick() {
@@ -419,6 +449,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   setBlockChain(name: any) {
+    this.selectedNetwork = name;
     if (name === 'Polygon') {
       this.ruleObj.blockchainName = 'polygon-mainnet';
     } else {
@@ -439,13 +470,10 @@ export class CreateRuleComponent implements OnInit {
           this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
           this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
-          // this.tokenIds = this.ruleObj?.tokenIds[0];
-          // = this.ruleObj?.tokenIds.length === 0 ? 'no_filter' : 'filter_nft';
           if (this.ruleObj?.tokenIds.length === 0 || (this.ruleObj?.tokenIds.length === 1 && this.ruleObj?.tokenIds[0] === '')) {
             this.ruleItems[0].filter = 'no_filter';
           } else {
             const tokenList = this.ruleObj?.tokenIds.toString();
-            console.log(tokenList, 'tokenList');
             this.createRuleForm.controls['nft_id'].setValue(tokenList);
             this.ruleItems[0].filter = 'filter_nft';
           }

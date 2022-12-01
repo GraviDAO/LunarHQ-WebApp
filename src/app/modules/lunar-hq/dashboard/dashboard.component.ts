@@ -211,4 +211,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
     }
   }
+
+  navigateToRoles() {
+    this.router.navigate(['rules']);
+  }
 }

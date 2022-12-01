@@ -189,10 +189,11 @@
 
 .rule-item-detail {
   min-height: mixin.toRem(120);
+  padding-bottom: mixin.toRem(36);
   background-color: var(--dark);
 
   &.rule-item-detail-nft-token {
-    min-height: mixin.toRem(240);
+    min-height: mixin.toRem(280);
   }
 }
 
@@ -252,7 +253,7 @@
 }
 
 .rule-item-criteria-quantity-held {
-  width: mixin.toRem(96);
+  width: mixin.toRem(104);
 }
 
 .rule-item-criteria-trait-item {

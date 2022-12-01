@@ -97,6 +97,71 @@
           <div class="create-rule-content mr-top-40">
             <div class="d-flex align-items-center">
               <input type="radio" class="radio-button-primary"
+                     id="nftWeighted" name="filter"
+                     [checked]="voteWeight === 'nftWeighted'"
+                     (click)="setWeight('nftWeighted')">
+              <label class="app-why-lbl f12 mr-left-8 text-uppercase"
+                     [ngClass]="{'primary': voteWeight === 'nftWeighted', 'light-50': voteWeight !== 'nftWeighted'}">
+                nft weighted
+              </label>
+            </div>
+            <div class="mr-top-16 d-flex" *ngIf="voteWeight === 'nftWeighted'">
+              <div class="col-3 d-flex flex-column">
+                <div>
+                  <div class="app-why-lbl light-50">Network*</div>
+                  <div class="pd-top-4">
+                    <div>
+                      <app-why-drop-down
+                        [leftIcon]="true"
+                        (dataSet)="setBlockChain($event)"
+                        [dataList]="['Polygon','Terra', 'Terra Classic']"
+                        [placeholderText]="selectedNetwork">
+                      </app-why-drop-down>
+                    </div>
+                  </div>
+                </div>
+                <div class="app-why-lbl error mr-top-8"
+                     *ngIf="errorList.includes('blockchainName') && (selectedNetwork === 'Select network')">
+                  Select Network
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="max-width-240">
+                  <div class="app-why-lbl light-50"
+                       [ngClass]="{'secondary': pollObj.address === undefined}">Contract address*
+                  </div>
+                </div>
+                <div class="max-width-240">
+                  <div class="form-group">
+                    <input type="text" class="form-control app-why-floating-input light-70"
+                           placeholder="Enter contract address"
+                           [ngClass]="{'set-input-border': pollObj.address === undefined}"
+                           [(ngModel)]="pollObj.address">
+                  </div>
+                </div>
+                <div class="app-why-lbl error"
+                     *ngIf="errorList.includes('address') && (pollObj.address === undefined || pollObj.address === '')">
+                  Contract address is required
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="max-width-240">
+                  <div class="app-why-lbl light-50"
+                       [ngClass]="{'secondary': pollObj.numberPerVote === undefined}">Number per vote
+                  </div>
+                </div>
+                <div class="max-width-240">
+                  <div class="form-group">
+                    <input type="number" class="form-control app-why-floating-input light-70"
+                           placeholder="Number per vote"
+                           [ngClass]="{'set-input-border': pollObj.numberPerVote === undefined}"
+                           [(ngModel)]="pollObj.numberPerVote">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mr-top-40">
+              <input type="radio" class="radio-button-primary"
                      id="tokenWeighted" name="filter"
                      [checked]="voteWeight === 'tokenWeighted'"
                      (click)="setWeight('tokenWeighted')"
@@ -187,7 +252,7 @@
                 POPULATION
               </div>
               <div class="chain-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                CHAIN {{pollObj?.ruleIds === undefined}}
+                CHAIN
               </div>
             </div>
             <div class="rules-item d-flex flex-row align-items-center pd-lr-16 mr-bottom-8"
@@ -215,11 +280,11 @@
                        src="{{rule?.discordServerImage}}" alt="drop">
                 </div>
               </div>
-              <div class="divider"></div>
+              <!--<div class="divider"></div>
               <div class="rules-item-view visit-button d-flex justify-content-center">
                 <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
                 <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>
@@ -256,6 +321,35 @@
                          [(ngModel)]="value">
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="empty-info-container mr-top-48 pd-bottom-16">
+            <div *ngIf="voteWeight === 'nftWeighted'">
+              <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                About NFT weighted voting
+              </div>
+              <label class="app-why-lbl f14 light-70">
+                Quorum is calculated from the total size of the chosen collection
+              </label>
+            </div>
+            <div *ngIf="voteWeight === 'tokenWeighted'">
+              <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                About Token weighted voting
+              </div>
+              <label class="app-why-lbl f14 light-70">
+                About Token weighted voting- Quorum is calculated from the total supply of the chosen token held in
+                Lunar
+                HQ linked wallets
+              </label>
+            </div>
+            <div *ngIf="voteWeight === 'roleWeighted'">
+              <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                About Role weighted voting
+              </div>
+              <label class="app-why-lbl f14 light-70">
+                Quorum is calculated from the total number of people holding that role. For
+                multiple roles it is the sum of all roles held.
+              </label>
             </div>
           </div>
         </div>

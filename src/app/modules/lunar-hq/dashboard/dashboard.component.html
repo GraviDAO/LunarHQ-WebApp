@@ -81,7 +81,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <label class="app-why-lbl f16 ft-bold light">YOUR SERVERS [{{profileObj?.discordServers.length}}]</label>
+            <label class="app-why-lbl f16 ft-bold light">MY SERVERS [{{profileObj?.discordServers.length}}]</label>
           </div>
           <div>
             <app-why-cta-three
@@ -126,13 +126,14 @@
               My Applied Discord roles [{{profileObj?.rules.length}}]</label>
             <!--              Discord rules [{{profileObj?.rules.length}}]</label>-->
           </div>
-          <!--<div>
+          <div *ngIf="profileObj?.rules?.length > 0">
             <app-why-cta-three
               [btnClass]="cssClass.cta3PrimaryNorm"
               [iconClass]="cssClass.cta3Primary14Icon"
+              (click)="navigateToRoles()"
               [iconType]="'chevron-forward-outline'"
               [btnLabel]="'View All'"></app-why-cta-three>
-          </div>-->
+          </div>
         </div>
 
         <div class="mr-top-8 horizontal-divider light-20 mr-bottom-48"></div>
