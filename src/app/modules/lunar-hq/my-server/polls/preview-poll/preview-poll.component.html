@@ -49,7 +49,7 @@
           <span class="app-why-lbl f14 ft-lato light">{{rule}}</span>
         </div>
       </div>
-      <div *ngIf="pollObj.votingSystem === 'Token Weighted Voting'">
+      <div *ngIf="pollObj.votingSystem === 'Token Weighted Voting' || pollObj.votingSystem === 'Nft Weighted Voting'">
         <div class="pd-left-48">
           <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Network</span>

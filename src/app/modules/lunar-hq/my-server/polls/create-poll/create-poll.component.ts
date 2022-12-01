@@ -142,7 +142,10 @@ export class CreatePollComponent implements OnInit {
       validationStatus = this.validatePoll(this.stepperIndex);
     } else if (this.stepperIndex === 1) {
       this.errorList = [];
-      if (this.voteWeight === 'tokenWeighted') {
+      if (this.voteWeight === 'nftWeighted') {
+        this.pollObj.votingSystem = 'Nft Weighted Voting';
+        validationStatus = this.validatePoll(this.stepperIndex);
+      } else if (this.voteWeight === 'tokenWeighted') {
         this.pollObj.votingSystem = 'Token Weighted Voting';
         validationStatus = this.validatePoll(this.stepperIndex);
       } else {
@@ -284,7 +287,7 @@ export class CreatePollComponent implements OnInit {
   setWeight(weight: string) {
     this.voteWeight = weight;
     // @TODO check with david on voting system
-    this.pollObj.votingSystem = weight === 'tokenWeighted' ? 'Token Weighted Voting' : 'Role Weighted Voting';
+    this.pollObj.votingSystem = weight === 'tokenWeighted' ? 'Token Weighted Voting' : (weight === 'nftWeighted' ? 'Nft Weighted Voting' : 'Role Weighted Voting');
   }
 
   setRangValue(range: any) {
@@ -414,7 +417,8 @@ export class CreatePollComponent implements OnInit {
     // @ts-ignore
     this.quorumValue = Number(this.pollObj.quorum);
     // @TODO check with david on voting system
-    this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted' : 'roleWeighted';
+    this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted'
+      : (this.pollObj.votingSystem !== 'Role Weighted Voting' ? 'nftWeighted' : 'roleWeighted');
     // @ts-ignore
     const startTime = new Date(this.pollObj.startDate);
     // @ts-ignore
