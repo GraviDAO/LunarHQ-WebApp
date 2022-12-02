@@ -373,17 +373,15 @@ export class CreatePollComponent implements OnInit {
     }
   }
 
-  checkUncheck(status: any, obj: any) {
+  checkUncheck(obj: any) {
     if (this.pollObj.ruleIds === undefined) {
       this.pollObj.ruleIds = [];
     }
     if (this.detailsObj.rules === undefined) {
       this.detailsObj.rules = [];
     }
-    if (status.target.checked) {
-      this.pollObj.ruleIds?.push(obj.id);
-      this.detailsObj.rules.push(obj.roleName);
-    } else {
+    const isExists = this.pollObj.ruleIds.find((value) => value === obj.id);
+    if (isExists) {
       // @ts-ignore
       this.pollObj.ruleIds = this.pollObj.ruleIds.filter(function (value, index, arr) {
         return value !== obj.id;
@@ -392,6 +390,9 @@ export class CreatePollComponent implements OnInit {
       this.detailsObj.rules = this.detailsObj.rules.filter(function (value: any) {
         return value !== obj.roleName;
       });
+    } else {
+      this.pollObj.ruleIds?.push(obj.id);
+      this.detailsObj.rules.push(obj.roleName);
     }
   }
 

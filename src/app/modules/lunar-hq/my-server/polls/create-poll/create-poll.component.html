@@ -255,12 +255,12 @@
                 CHAIN
               </div>
             </div>
-            <div class="rules-item d-flex flex-row align-items-center pd-lr-16 mr-bottom-8"
+            <div class="rules-item add-rule-item-hover d-flex flex-row align-items-center pd-lr-16 mr-bottom-8"
                  *ngFor="let rule of roleList"
+                 (click)="checkUncheck(rule)"
                  [ngStyle]="{'background': (pollObj?.ruleIds !== undefined && pollObj?.ruleIds?.indexOf(rule?.id) >= 0) ? '#231f20' : '#231f2033'}">
               <div class="form-check d-flex align-items-center">
                 <input class="form-check-input check-box"
-                       (change)="checkUncheck($event, rule)"
                        [checked]="(pollObj?.ruleIds !== undefined && pollObj?.ruleIds?.indexOf(rule?.id) >= 0)"
                        type="checkbox" [value]="" id="{{rule?.roleName}}">
               </div>
@@ -277,7 +277,7 @@
                   class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName}}</div>
                 <div class="rules-item-chain-icon">
                   <img class="rules-item-chain-icon-container mr-right-16" imgFallback
-                       src="{{rule?.discordServerImage}}" alt="drop">
+                       src="{{rule?.blockchainImage}}" alt="drop">
                 </div>
               </div>
             </div>

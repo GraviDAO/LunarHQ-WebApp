@@ -358,3 +358,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: mixin.toRem(100);
 }
 
+
+.add-rule-item-hover:hover {
+  background: var(--dark-50) !important;
+}
