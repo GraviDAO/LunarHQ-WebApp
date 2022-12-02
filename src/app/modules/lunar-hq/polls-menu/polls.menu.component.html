@@ -32,6 +32,7 @@
       <div *ngFor="let pollObj of pollsList" class="poll-list-wrapper">
         <app-why-lunar-hq-poll-cell [pollObj]="pollObj"
                                     (deletePollEvent)="pollsFn()"
+                                    (previewPollEvent)="previewPoll($event)"
                                     (editPollEvent)="editPoll($event)"
                                     [currentDateTime]="currentDateTime"></app-why-lunar-hq-poll-cell>
       </div>
@@ -50,3 +51,9 @@
   </div>
   <!--</app-why-side-nav>-->
 </app-why-header-side-nav>
+<div class="preview-container" *ngIf="viewPreview">
+  <app-why-lunar-hq-preview-poll
+    [pollObj]="pollObj"
+    [isReadonly]="true"
+    (closeEvent)="viewPreview = false"></app-why-lunar-hq-preview-poll>
+</div>

@@ -24,6 +24,8 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   pollType = '';
   nestedMenu = '';
   uniqueServerList: Array<any> = [];
+  viewPreview = false;
+  pollObj: any;
 
   constructor(
     private router: Router,
@@ -180,5 +182,10 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
           }
         });
     }
+  }
+
+  previewPoll(obj: any) {
+    this.pollObj = obj;
+    this.viewPreview = true;
   }
 }

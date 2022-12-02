@@ -280,11 +280,6 @@
                        src="{{rule?.discordServerImage}}" alt="drop">
                 </div>
               </div>
-              <!--<div class="divider"></div>
-              <div class="rules-item-view visit-button d-flex justify-content-center">
-                <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VISIT</div>
-                <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
-              </div>-->
             </div>
           </div>
         </div>
@@ -294,27 +289,20 @@
           </div>
           <div class="title-underline mr-top-8"></div>
           <div class="create-rule-content mr-top-40 d-flex align-items-center">
-            <div class="col-3">
-              <div ngbDropdown container="body">
-                <button type="button"
-                        class="link-dropdown no-width app-why-lbl f12 ft-bold light text-uppercase"
-                        id="quorum"
-                        ngbDropdownToggle>Percentage
-                </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                </div>
+            <div class="col-6">
+              <div class="app-why-lbl light-50">Percentage
+              </div>
+              <div class="mr-top-4">
+                <app-why-slider [sliderValue]="quorumValue"
+                                (rangeValue)="setRangValue($event)"></app-why-slider>
               </div>
             </div>
-            <div class="col-6">
-              <app-why-slider [sliderValue]="quorumValue"
-                              (rangeValue)="setRangValue($event)"></app-why-slider>
-            </div>
             <div class="col-3">
-              <div class="max-width-240">
+              <div class="value-width">
                 <div class="app-why-lbl light-50">Set Value
                 </div>
               </div>
-              <div class="max-width-240">
+              <div class="value-width">
                 <div class="form-group">
                   <input type="text" class="form-control app-why-floating-input light-70"
                          placeholder="0%"
@@ -461,7 +449,8 @@
               </div>
               <div class="d-flex flex-column">
                 <label class="app-why-lbl f-10 ft-lato secondary text-start mr-bottom-2">
-                  Closing Date: {{validateClosingDate | date :'yyyy-MM-dd'}}</label>
+                  Closing Date:
+                </label>
                 <input class="form-control date-time-input" type="date"
                        [min]="validateClosingDate | date :'yyyy-MM-dd'"
                        id="pickClosingDate" [ngModel]="closingDate | date:'yyyy-MM-dd'"
@@ -505,10 +494,10 @@
 
     <div class="d-flex navigate-steps mr-top-24 mr-bottom-80">
       <div class="col-3">
-        <span (click)="saveDraft()" class="show-cursor">
-          <ion-icon name="save-outline" class="app-why-icon ic12 light-50"></ion-icon>
+        <div (click)="saveDraft()" class="show-cursor d-flex align-items-center">
+          <ion-icon name="save-outline" class="app-why-icon ic20 light-50"></ion-icon>
           <label class="show-cursor align-text-top app-why-lbl f12 ft-bold light-50 mr-left-8">SAVE DRAFT</label>
-        </span>
+        </div>
       </div>
       <div class="d-flex justify-content-end col-9">
         <app-why-lunar-hq-cta-two [btnLabel]="'BACK'" [btnTheme]="'bg--dark'"

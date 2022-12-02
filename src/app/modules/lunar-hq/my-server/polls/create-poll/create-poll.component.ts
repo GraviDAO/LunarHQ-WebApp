@@ -227,6 +227,10 @@ export class CreatePollComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.channelList = data.message;
+          if (this.channelList && this.pollObj.discordChannelId) {
+            const channelObj = this.channelList.find((obj: any) => obj.id === this.pollObj.discordChannelId);
+            this.channelName = channelObj.name;
+          }
           this.loader.stop();
         },
         error: (error) => {
@@ -416,18 +420,33 @@ export class CreatePollComponent implements OnInit {
     this.value = this.pollObj.quorum;
     // @ts-ignore
     this.quorumValue = Number(this.pollObj.quorum);
-    // @TODO check with david on voting system
     this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted'
       : (this.pollObj.votingSystem !== 'Role Weighted Voting' ? 'nftWeighted' : 'roleWeighted');
-    // @ts-ignore
-    const startTime = new Date(this.pollObj.startDate);
-    // @ts-ignore
-    const endTime = new Date(this.pollObj.endDate);
 
-    this.startTime = startTime.getUTCHours() + ':' + startTime.getUTCMinutes();
-    this.closingTime = endTime.getUTCHours() + ':' + endTime.getUTCMinutes();
+    // @ts-ignore
+    const startTime: any = new Date(this.pollObj.startDate);
+    // @ts-ignore
+    const endTime: any = new Date(this.pollObj.endDate);
+
+    let currentHours: any = startTime.getUTCHours();
+    currentHours = ('0' + currentHours).slice(-2);
+
+    let currentMinute: any = startTime.getUTCMinutes();
+    currentMinute = ('0' + currentMinute).slice(-2);
+
+    this.startTime = currentHours + ':' + currentMinute;
+
+    currentHours = endTime.getUTCHours();
+    currentHours = ('0' + currentHours).slice(-2);
+
+    currentMinute = endTime.getUTCMinutes();
+    currentMinute = ('0' + currentMinute).slice(-2);
+
+    this.closingTime = currentHours + ':' + currentMinute;
 
     this.closingDate = endTime;
+    this.startDate = startTime;
+    this.dateRadioSelected = 'pick_date';
   }
 
   setClosingDate(value: any) {

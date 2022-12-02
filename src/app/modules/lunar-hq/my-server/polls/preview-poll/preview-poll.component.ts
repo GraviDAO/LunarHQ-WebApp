@@ -11,6 +11,7 @@ import {CssConstants} from '../../../../../shared/services/css-constants.service
 export class PreviewPollComponent {
   @Input() pollObj: PollModel | undefined;
   @Input() detailsObj: any;
+  @Input() isReadonly = false;
   @Output() closeEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() createPollEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   viewMore = false;

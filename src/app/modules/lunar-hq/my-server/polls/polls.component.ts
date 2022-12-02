@@ -24,6 +24,8 @@ export class PollsListComponent implements OnInit, OnDestroy {
   statusList = ['VIEW ALL', 'ACTIVE', 'FINISHED', 'PENDING', 'DRAFT'];
   nestedMenu: any;
   hasPermission = false;
+  viewPreview = false;
+  pollObj: any;
 
   constructor(private router: Router,
               public cssClass: CssConstants,
@@ -125,5 +127,10 @@ export class PollsListComponent implements OnInit, OnDestroy {
     this.storageService.set('poll_obj', obj);
     this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
       {queryParams: {pollId: obj.id}});
+  }
+
+  previewPoll(obj: any) {
+    this.pollObj = obj;
+    this.viewPreview = true;
   }
 }

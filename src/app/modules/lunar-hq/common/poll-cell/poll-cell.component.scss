@@ -1,2 +1,8 @@
 @use "src/style/mixin-core" as mixin;
 @import "../recent-polls/recent-polls-component";
+
+
+.add-on-hover:hover {
+  color: var(--secondary) !important;
+  cursor: pointer;
+}

@@ -105,7 +105,7 @@ export class RulesListComponent implements OnInit {
             .map((item: any) => item.discordServerName)
             .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
           const uniqueId = data.message
-            .map((item: any) => item.discordServerName)
+            .map((item: any) => item.discordServerId)
             .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
           this.uniqueServerList.push(...unique);
           this.uniqueServerIDList.push(...uniqueId);
@@ -130,11 +130,11 @@ export class RulesListComponent implements OnInit {
 
   getPermission() {
     for (let i = 0; i < this.uniqueServerIDList.length; i++) {
-      this.lunarService.getPermissions(this.uniqueServerList[i])
+      this.lunarService.getPermissions(this.uniqueServerIDList[i])
         .subscribe({
           next: (value: any) => {
             this.ruleItems.forEach((obj: any, index: number) => {
-              if (obj.discordServerId === this.uniqueServerList[i]) {
+              if (obj.discordServerId === this.uniqueServerIDList[i]) {
                 // @ts-ignore
                 this.ruleItems[index].hasPermission = true;
               }
