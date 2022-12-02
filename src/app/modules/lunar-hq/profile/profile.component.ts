@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   terraWalletExists: boolean = false;
   terraClassicWalletExists: boolean = false;
   terraIcon = 'https://assets.terra.money/icon/station-extension/icon.png';
-  url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http://localhost:4401/profile&response_type=code&scope=identify%20email%20connections';
+  url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http://localhost:4401/welcome&response_type=code&scope=identify%20email%20connections';
   terraConnectionRequested: boolean = false;
 
   constructor(private router: Router,
