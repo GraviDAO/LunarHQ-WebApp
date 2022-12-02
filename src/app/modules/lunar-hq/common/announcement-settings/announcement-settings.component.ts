@@ -80,7 +80,6 @@ export class AnnouncementSettingsComponent implements OnInit {
     }
     this.storageService.set('announcement_settings', announcementSettings);
     this.router.navigate(['/announcement']);
-    // console.log(announcementSettings, 'announcementSettings');
   }
 
   onChangeServer(filter: boolean) {

@@ -23,12 +23,11 @@ export class LocalStorageService {
         // console.warn('STORAGE | local storage not available', error);
 
         if (error === 'QUOTA_EXCEEDED_ERR' || error === 'NS_ERROR_DOM_QUOTA_REACHED') {
-          console.log('localstorage error', error);
+          console.error('localstorage error', error);
         }
 
       }
     }
-    // console.log('STORAGE | basic store ready', '(localstorage: ' + (this.canLocalStore ? 'used' : 'UNAVAILABLE') + ')');
   }
 
   public set(key: string, value?: any): any {

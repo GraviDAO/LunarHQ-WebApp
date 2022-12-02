@@ -5,7 +5,7 @@
   <div class="vertical-divider ht64 light-20"></div>
   <div class="poll-item-desc d-flex flex-column pd-lr-24">
     <div class="poll-item-name app-why-lbl f16 ft-bold light">
-      {{pollObj?.title}}
+      <span class="add-on-hover" (click)="previewPoll()">{{pollObj?.title}}</span>
     </div>
     <div class="poll-item-details pd-top-8 d-flex justify-content-between">
       <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
@@ -51,10 +51,15 @@
         SUCCESS
       </div>
     </div>
+    <div *ngIf="pollObj?.status === 'Draft'">
+      <div class="poll-item-time app-why-lbl f16 ft-bold light-50">
+        DRAFT
+      </div>
+    </div>
   </div>
   <div class="vertical-divider ht64 light-20"></div>
   <div class="poll-item-discord-button-container">
-    <div class="poll-item-discord-button show-cursor pd-left-24"
+    <div class="poll-item-discord-button show-cursor"
          *ngIf="pollObj?.status !== 'Pending' && pollObj?.status !== 'Draft'"
          (click)="navigateToViewInDiscord(pollObj)">
       <ion-icon src="/assets/img/svg/discord-brands-primary.svg" class="app-why-icon ic18 primary"></ion-icon>
@@ -63,7 +68,7 @@
         DISCORD
       </div>
     </div>
-    <div class="poll-item-discord-button pd-left-24 pd-right-24 show-cursor"
+    <div class="poll-item-discord-button show-cursor"
          *ngIf="(pollObj?.status === 'Quorum Passed' || pollObj?.status === 'Quorum Failed') && (hasPermission || pollObj?.hasPermission)"
          (click)="exportSummary(pollObj?.id)">
       <ion-icon name="cloud-download" class="app-why-icon ic18 light-70"></ion-icon>
@@ -71,9 +76,10 @@
         EXPORT SUMMARY
       </div>
     </div>
-    <div *ngIf="pollObj?.status === 'Draft' && (hasPermission || pollObj?.hasPermission)"
-         (click)="editPoll()"
-         class="poll-item-discord-button pd-left-24 pd-right-24 show-cursor">
+    <div
+      *ngIf="(pollObj?.status === 'Draft') && (hasPermission || pollObj?.hasPermission)"
+      (click)="editPoll()"
+      class="poll-item-discord-button auto-ht show-cursor">
       <ion-icon name="pencil-outline" class="app-why-icon ic18 light-70"></ion-icon>
       <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">
         EDIT
@@ -82,7 +88,7 @@
     <div
       *ngIf="(pollObj?.status === 'Draft' || pollObj?.status === 'Pending') && (hasPermission || pollObj?.hasPermission)"
       (click)="deletePoll()"
-      class="poll-item-discord-button pd-left-24 pd-right-24 show-cursor">
+      class="poll-item-discord-button auto-ht  show-cursor">
       <ion-icon name="close-circle-outline" class="app-why-icon ic18 light-70"></ion-icon>
       <div class="view-in-discord pd-top-8 app-why-lbl f10 letter-spacing-02 ft-lato ft-bold light-70">
         DELETE

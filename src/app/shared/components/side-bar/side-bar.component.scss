@@ -14,7 +14,6 @@ body {
   color: lighten($black, 50%);
 }
 
-//
 a {
   transition: .3s all ease;
   color: var(--primary);
@@ -28,10 +27,8 @@ a {
 
 .submenu-list {
   min-height: 24px !important;
-
 }
 
-//
 .active-sub-menu {
   color: var(--secondary) !important;
 }
@@ -120,12 +117,11 @@ h1, h2, h3, h4, h5,
   display: none;
 }
 
-//
+
 #sidebar {
   margin-top: 64px;
   position: fixed;
   height: 100%;
-  //max-width: 25vw;
   min-width: 240px;
   background: var(--dark-70);
   color: #fff;

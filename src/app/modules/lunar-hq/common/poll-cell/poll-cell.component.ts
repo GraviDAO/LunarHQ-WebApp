@@ -14,6 +14,8 @@ export class PollCellComponent {
   @Input() currentDateTime: any;
   @Output() editPollEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() deletePollEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() previewPollEvent: EventEmitter<any> = new EventEmitter<any>();
+  viewPreview = false;
 
   constructor(private lunarService: LunarHqAPIServices,
               private load: NgxUiLoaderService,
@@ -61,5 +63,10 @@ export class PollCellComponent {
           this.toast.setMessage(err?.error.message, 'error');
         }
       });
+  }
+
+  previewPoll() {
+    // this.viewPreview = !this.viewPreview;
+    this.previewPollEvent.emit(this.pollObj);
   }
 }

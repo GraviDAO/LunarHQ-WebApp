@@ -20,7 +20,6 @@ export class RipplerDropDownComponent {
 
   constructor(private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: Event) => {
-      // console.log('in', this.viewHide);
       if (!this.clickOnButton) {
         this.viewHide = false;
       }

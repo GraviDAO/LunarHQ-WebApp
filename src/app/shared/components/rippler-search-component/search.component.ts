@@ -20,10 +20,7 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    // console.log(this.searchText);
-    // if (this.searchText.length > 3) {
     this.searchContent.emit(this.searchText);
-    // }
   }
 
   clearSearchText() {
@@ -34,6 +31,5 @@ export class SearchComponent implements OnInit {
 
   lostFocus() {
     this.isSearchSelected = false;
-    // this.isSearchSelected = this.searchText.length > 0;
   }
 }

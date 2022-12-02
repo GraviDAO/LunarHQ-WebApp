@@ -227,6 +227,10 @@ export class CreatePollComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.channelList = data.message;
+          if (this.channelList && this.pollObj.discordChannelId) {
+            const channelObj = this.channelList.find((obj: any) => obj.id === this.pollObj.discordChannelId);
+            this.channelName = channelObj.name;
+          }
           this.loader.stop();
         },
         error: (error) => {
@@ -369,17 +373,15 @@ export class CreatePollComponent implements OnInit {
     }
   }
 
-  checkUncheck(status: any, obj: any) {
+  checkUncheck(obj: any) {
     if (this.pollObj.ruleIds === undefined) {
       this.pollObj.ruleIds = [];
     }
     if (this.detailsObj.rules === undefined) {
       this.detailsObj.rules = [];
     }
-    if (status.target.checked) {
-      this.pollObj.ruleIds?.push(obj.id);
-      this.detailsObj.rules.push(obj.roleName);
-    } else {
+    const isExists = this.pollObj.ruleIds.find((value) => value === obj.id);
+    if (isExists) {
       // @ts-ignore
       this.pollObj.ruleIds = this.pollObj.ruleIds.filter(function (value, index, arr) {
         return value !== obj.id;
@@ -388,6 +390,9 @@ export class CreatePollComponent implements OnInit {
       this.detailsObj.rules = this.detailsObj.rules.filter(function (value: any) {
         return value !== obj.roleName;
       });
+    } else {
+      this.pollObj.ruleIds?.push(obj.id);
+      this.detailsObj.rules.push(obj.roleName);
     }
   }
 
@@ -416,18 +421,33 @@ export class CreatePollComponent implements OnInit {
     this.value = this.pollObj.quorum;
     // @ts-ignore
     this.quorumValue = Number(this.pollObj.quorum);
-    // @TODO check with david on voting system
     this.voteWeight = this.pollObj.votingSystem === 'Token Weighted Voting' ? 'tokenWeighted'
       : (this.pollObj.votingSystem !== 'Role Weighted Voting' ? 'nftWeighted' : 'roleWeighted');
-    // @ts-ignore
-    const startTime = new Date(this.pollObj.startDate);
-    // @ts-ignore
-    const endTime = new Date(this.pollObj.endDate);
 
-    this.startTime = startTime.getUTCHours() + ':' + startTime.getUTCMinutes();
-    this.closingTime = endTime.getUTCHours() + ':' + endTime.getUTCMinutes();
+    // @ts-ignore
+    const startTime: any = new Date(this.pollObj.startDate);
+    // @ts-ignore
+    const endTime: any = new Date(this.pollObj.endDate);
+
+    let currentHours: any = startTime.getUTCHours();
+    currentHours = ('0' + currentHours).slice(-2);
+
+    let currentMinute: any = startTime.getUTCMinutes();
+    currentMinute = ('0' + currentMinute).slice(-2);
+
+    this.startTime = currentHours + ':' + currentMinute;
+
+    currentHours = endTime.getUTCHours();
+    currentHours = ('0' + currentHours).slice(-2);
+
+    currentMinute = endTime.getUTCMinutes();
+    currentMinute = ('0' + currentMinute).slice(-2);
+
+    this.closingTime = currentHours + ':' + currentMinute;
 
     this.closingDate = endTime;
+    this.startDate = startTime;
+    this.dateRadioSelected = 'pick_date';
   }
 
   setClosingDate(value: any) {

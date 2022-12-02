@@ -95,7 +95,7 @@
 .rules-item {
   height: mixin.toRem(56);
   width: 100%;
-  @include mixin.bg--wrapper;
+  @include mixin.notch(8px);
   background: var(--dark-20);
 
   .rules-item-view {

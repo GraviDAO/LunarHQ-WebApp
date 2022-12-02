@@ -109,6 +109,12 @@
     font-weight: 300;
   }
 
+  &.info-label {
+    font-size: var(--font-size-10) !important;
+    line-height: var(--font-size-16) !important;
+    height: var(--font-size-16) !important;
+  }
+
   // label color
 
   &.error {

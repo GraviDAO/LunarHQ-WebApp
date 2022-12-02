@@ -114,7 +114,6 @@ export class CreateRuleComponent implements OnInit {
 
   getStepperIndex = (event: any) => {
     this.stepperIndex = event.detail?.indexStep;
-    // console.log('bs-stepper event - ', event, this.stepperIndex);
   }
   selectedNetwork = 'Select Network';
   tokenIds: any;
@@ -137,19 +136,10 @@ export class CreateRuleComponent implements OnInit {
   }
 
   selectRole(role: any) {
-    // console.log('selectRole - ', role);
     this.createRuleForm.controls['role'].setValue(role.id);
     this.selectedRole = role.name;
     this.ruleObj.role = role.id;
     this.ruleObj.roleName = role.name;
-  }
-
-  createRule() {
-
-  }
-
-  navigateNext() {
-
   }
 
   getActiveStep() {
@@ -220,24 +210,20 @@ export class CreateRuleComponent implements OnInit {
   }
 
   selectRuleType(ruleItem: any, ruleType: any) {
-    // console.log('selectRuleType - ', ruleType);
     this.errorList = [];
     ruleItem.ruleTypeId = ruleType.id;
     ruleItem.ruleType = ruleType.name;
 
     this.ruleObj.ruleTypeId = ruleType.id;
     this.ruleObj.ruleType = ruleType.name;
-    // console.log('ruleItems  - ', this.ruleItems);
   }
 
   selectRule(ruleItem: any, rule: any) {
-    // console.log('selectRule - ', rule);
     ruleItem.ruleId = rule.id;
     ruleItem.rule = rule.name;
   }
 
   selectOperator(criteria: any, operator: any) {
-    // console.log('selectOperator - ', operator);
     criteria.operatorId = operator.id;
     criteria.operator = operator.name;
     this.ruleObj.quantityOperatorName = operator.id;
@@ -252,7 +238,6 @@ export class CreateRuleComponent implements OnInit {
   }
 
   addCriteria(ruleItem: any) {
-    // console.log('addCriteria - ', ruleItem);
     ruleItem.criterias.push({
       condition: 'and',
       ruleCondition: 'is',
@@ -273,7 +258,6 @@ export class CreateRuleComponent implements OnInit {
   }
 
   addTrait(criteria: any) {
-    // console.log('addTrait - ', criteria);
     criteria.traits.push({
       condition: 'not',
       traitTypeId: '',
@@ -289,7 +273,6 @@ export class CreateRuleComponent implements OnInit {
   }
 
   addTraitRow(trait: any) {
-    // console.log('addTraitRow - ', trait);
     trait.rows.push({
       condition: 'or',
       rowId: '',
@@ -298,12 +281,10 @@ export class CreateRuleComponent implements OnInit {
   }
 
   selectCondition(criteria: any, condition: any) {
-    // console.log('selectCondition - ', condition);
     criteria.condition = condition.id;
   }
 
   selectCriteriaRole(criteria: any, role: any) {
-    // console.log('selectCriteriaRole - ', role);
     criteria.role = role.name;
   }
 
@@ -312,17 +293,13 @@ export class CreateRuleComponent implements OnInit {
   }
 
   selectTraitType(trait: any, traitType: any) {
-    // console.log('selectTraitType - ', traitType);
     trait.traitTypeId = traitType.id;
     trait.traitType = traitType.name;
-    // console.log('ruleItems  - ', this.ruleItems);
   }
 
   selectTraitRow(row: any, traitRow: any) {
-    // console.log('selectTraitRow - ', traitRow);
     row.rowId = traitRow.id;
     row.row = traitRow.name;
-    // console.log('ruleItems  - ', this.ruleItems);
   }
 
   removeTrait(criteria: any, traitIndex: number) {
@@ -334,9 +311,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   onChangeFilter(ruleItem: any, filterValue: string) {
-    // console.log('onChangeFilter - ', filterValue);
     ruleItem.filter = filterValue;
-    // console.log('ruleItems  - ', this.ruleItems);
   }
 
   uploadJsonFile(ruleItem: any) {
@@ -352,9 +327,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   updateNftId(ruleItem: any, value: any) {
-    // console.log('updateNftId - ', ruleItem, value);
     ruleItem.nft_id = value;
-    // console.log('ruleItems  - ', this.ruleItems);
   }
 
   preview() {
@@ -382,7 +355,6 @@ export class CreateRuleComponent implements OnInit {
         this.ruleObj.tokenIds = [];
       }
       if (this.ruleItems[0].filter === 'filter_nft' && this.ruleObj.ruleTypeId === 'nft') {
-        console.log('in filter_nft');
         let tokens = this.ruleItems[0].nft_id.split(',');
         let tokenArray = (tokens.length === 1 && tokens[0] === '') ? [] : tokens;
         if (tokenArray.length === 0) {
@@ -403,7 +375,6 @@ export class CreateRuleComponent implements OnInit {
   }
 
   updateRole() {
-    console.log(this.ruleObj, 'rule');
     this.lunarService.createRule(this.ruleObj)
       .subscribe({
         next: (data: any) => {

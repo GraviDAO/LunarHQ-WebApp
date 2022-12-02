@@ -24,6 +24,8 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   pollType = '';
   nestedMenu = '';
   uniqueServerList: Array<any> = [];
+  viewPreview = false;
+  pollObj: any;
 
   constructor(
     private router: Router,
@@ -73,7 +75,6 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
   }
 
   navigateToCreatePoll() {
-    // console.log('Suspected');
     this.router.navigate(['my-server/gravidao/create-poll']);
   }
 
@@ -104,7 +105,6 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
     this.lunarHqService.getMyPolls()
       .subscribe({
         next: (data) => {
-          // console.log(data);
           this.pollsList = data.message;
           const unique = data.message
             .map((item: any) => item.discordServerId)
@@ -179,11 +179,13 @@ export class PollsMenuComponent implements OnInit, OnDestroy {
                 this.pollsList[index].hasPermission = true;
               }
             });
-          },
-          error: (err: any) => {
-            // this.toastService.setMessage(err.error.message, 'error');
           }
         });
     }
+  }
+
+  previewPoll(obj: any) {
+    this.pollObj = obj;
+    this.viewPreview = true;
   }
 }

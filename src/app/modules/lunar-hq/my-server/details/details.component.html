@@ -126,8 +126,15 @@
                          alt="discordServerImage">
                   </div>
                   <div class="pd-left-16">
-                    <div class="app-why-lbl f16 ft-500 light">
-                      {{rule?.roleName}}
+                    <div>
+                      <span class="app-why-lbl f16 ft-500 light add-rule-hover"
+                            (click)="showRule(rule)">
+                        {{rule?.roleName}}
+                      </span>
+                      <span class="mr-left-2 app-why-lbl f10 ft-500 error letter-spacing-02 text-uppercase"
+                            *ngIf="!rule?.active">
+                        Paused
+                      </span>
                     </div>
                     <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
                       {{rule?.discordServerName}}

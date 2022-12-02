@@ -16,6 +16,8 @@ export class RecentPollsComponent {
   @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
   @Output() deletePollEvent: EventEmitter<any> = new EventEmitter<any>();
   @Input() buttonLabel = 'MANAGE POLLS';
+  viewPreview = false;
+  pollObj: any;
 
 
   constructor(public cssClass: CssConstants,
@@ -35,5 +37,10 @@ export class RecentPollsComponent {
 
   deletePoll() {
     this.deletePollEvent.emit(true);
+  }
+
+  previewPoll(obj?: any) {
+    this.pollObj = obj;
+    this.viewPreview = true;
   }
 }

@@ -7,7 +7,6 @@ import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 import {LocalStorageService} from '../../../../shared/services/local.storage.service';
-import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-why-lunar-hq-details',
@@ -139,7 +138,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   showRule(ruleObj: any) {
-    // console.log(ruleObj, 'obj');
     this.ruleObj = ruleObj;
     this.viewRule = true;
     this.paused = false;
@@ -174,12 +172,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data: any) => {
           // this.loader.stop();
-          // console.log('data', data);
           this.getServerDetails();
           this.toastService.setMessage(obj.type === 'star' ? 'Announcement starred' : 'Announcement unstarred', '');
         },
         error: (err: any) => {
-          console.log('err', err);
+          console.error('err', err);
           this.toastService.setMessage(err?.error?.message, 'error');
           this.loader.stop();
         }
@@ -188,6 +185,5 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   navigateToPoll(value: any) {
     this.router.navigate(['my-server/' + this.discordServerId + '/polls']);
-    // my-server/975751237242867742/polls
   }
 }

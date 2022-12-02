@@ -6,12 +6,10 @@ import {LunarHqAPIServices} from '../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {CoreService} from '../../services/core.service';
 import {LocalStorageService} from '../../../shared/services/local.storage.service';
-import {ToastrService} from 'ngx-toastr';
 import {Web3Service} from '../../web3-core/web3.service';
 import {getChainOptions, WalletController} from '@terra-money/wallet-provider';
 import {combineLatest, Subscription} from 'rxjs';
 import {MsgSend} from '@terra-money/terra.js';
-import {USER_AUTHENTICATED} from '../welcome/type';
 import {ToastMsgService} from '../../../shared/services/toast-msg-service';
 
 @Component({
@@ -26,10 +24,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   discordUnLinked = false;
   walletSelected = false;
   selectedWallet = '';
-  licenseList = [];
   licenseSelected = false;
   selectedLicenseId = '';
-  walletRemovingIndex = 0;
   profileObj: any;
   unlink: any;
   terraController!: WalletController;
@@ -38,15 +34,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   availableConnections: Array<any> = [];
   polygonAddress = 'polygon wallet';
   terraAddress = 'terra wallet';
-  terraClassicAddress = 'terra classic wallet';
   polygonWalletExists: boolean = false;
   terraWalletExists: boolean = false;
   terraClassicWalletExists: boolean = false;
   terraIcon = 'https://assets.terra.money/icon/station-extension/icon.png';
   url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http://localhost:4401/welcome&response_type=code&scope=identify%20email%20connections';
   terraConnectionRequested: boolean = false;
-
-  progressStatus = '';
 
   constructor(private router: Router,
               private lunarHqService: LunarHqAPIServices,
@@ -167,7 +160,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.lunarHqService.getMyLicenses()
       .subscribe({
         next: (data) => {
-          console.log(data);
           this.loaderService.stop();
         },
         error: (error) => {
@@ -208,12 +200,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   connectWallet() {
-    // console.log('Connect Wallet');
+
   }
 
   removeWallet(accountObj: any) {
     this.openModal('removeWalletModal');
-    // console.log(accountObj, 'accountObj');
     this.unlink = accountObj;
   }
 
@@ -318,7 +309,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  async signTerra(nonce: string, publicAddress: string, blockchainName: string = 'Terra') {
+  async signTerra(nonce: any, publicAddress: string, blockchainName: string = 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {

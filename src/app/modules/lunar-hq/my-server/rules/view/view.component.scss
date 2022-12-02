@@ -46,3 +46,9 @@
 .rule-item-is-rule {
   //width: mixin.toRem(26);
 }
+
+.add-hover:hover {
+  div, ion-icon {
+    color: var(--light) !important;
+  }
+}

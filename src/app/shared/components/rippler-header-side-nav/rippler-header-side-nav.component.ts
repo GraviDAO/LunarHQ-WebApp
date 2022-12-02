@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {PermissionType, SideNavType} from '../side-bar/side.nav.type';
+import {SideNavType} from '../side-bar/side.nav.type';
 import {LunarHqAPIServices} from '../../../modules/services/lunar-hq.services';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local.storage.service';
@@ -93,7 +93,6 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
 
     if (changes['nestedMenuValue']) {
       this.nestedMenuValue = changes['nestedMenuValue'].currentValue;
-      // console.log(this.nestedMenuValue);
       if (this.nestedMenuValue !== 0) {
         // @ts-ignore
         this.sideNavList[3].subMenu.push({

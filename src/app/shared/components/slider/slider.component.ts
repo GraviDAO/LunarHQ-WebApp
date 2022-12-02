@@ -30,7 +30,6 @@ export class SliderComponent implements OnInit {
   }
 
   changeValue(value: any) {
-    // console.log(value, 'value');
     this.rangeValue.emit(value);
   }
 

@@ -130,7 +130,7 @@
     </div>
   </div>
 
-  <div class="pd-top-40 pd-bottom-60 d-flex justify-content-center">
+  <div class="pd-top-40 pd-bottom-60 d-flex justify-content-center" *ngIf="!isReadonly">
     <app-why-cta-one [cssClass]="cssClass.cta1Sm"
                      (click)="createPoll()"
                      [btnLabel]="'Create Poll'">

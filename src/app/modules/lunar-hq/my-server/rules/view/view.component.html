@@ -14,12 +14,12 @@
           {{ruleObj?.name}}
           <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
         </div>
-        <div class="rule-title d-flex align-items-center add-cursor">
-          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="!viewMore" (click)="viewMore = true">
+        <div class="rule-title d-flex align-items-center add-cursor add-hover" (click)="viewMore = !viewMore">
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="!viewMore">
             MORE
           </div>
-          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="viewMore" (click)="viewMore = false">
-            Less
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="viewMore">
+            LESS
           </div>
           <ion-icon name="{{viewMore ? 'chevron-up-outline': 'chevron-down-outline'}}"
                     class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>

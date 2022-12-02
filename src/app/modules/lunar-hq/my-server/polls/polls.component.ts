@@ -2,7 +2,6 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
-import {SideNavType} from '../../../../shared/components/side-bar/side.nav.type';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {Observable, Subscription, timer} from 'rxjs';
@@ -25,6 +24,8 @@ export class PollsListComponent implements OnInit, OnDestroy {
   statusList = ['VIEW ALL', 'ACTIVE', 'FINISHED', 'PENDING', 'DRAFT'];
   nestedMenu: any;
   hasPermission = false;
+  viewPreview = false;
+  pollObj: any;
 
   constructor(private router: Router,
               public cssClass: CssConstants,
@@ -101,7 +102,6 @@ export class PollsListComponent implements OnInit, OnDestroy {
   }
 
   goToTop() {
-    // console.log('in top');
     window.scroll({
       top: 0,
       left: 0,
@@ -127,5 +127,10 @@ export class PollsListComponent implements OnInit, OnDestroy {
     this.storageService.set('poll_obj', obj);
     this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
       {queryParams: {pollId: obj.id}});
+  }
+
+  previewPoll(obj: any) {
+    this.pollObj = obj;
+    this.viewPreview = true;
   }
 }
