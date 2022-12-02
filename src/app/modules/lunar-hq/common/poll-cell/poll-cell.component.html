@@ -4,8 +4,8 @@
   </div>
   <div class="vertical-divider ht64 light-20"></div>
   <div class="poll-item-desc d-flex flex-column pd-lr-24">
-    <div class="poll-item-name app-why-lbl f16 ft-bold light add-on-hover" (click)="previewPoll()">
-      {{pollObj?.title}}
+    <div class="poll-item-name app-why-lbl f16 ft-bold light">
+      <span class="add-on-hover" (click)="previewPoll()">{{pollObj?.title}}</span>
     </div>
     <div class="poll-item-details pd-top-8 d-flex justify-content-between">
       <div class="poll-item-server app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
