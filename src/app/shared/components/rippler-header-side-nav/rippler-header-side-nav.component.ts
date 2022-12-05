@@ -29,7 +29,7 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
       subMenu: []
     },
     {
-      title: 'MY ROLES',
+      title: 'ROLES',
     },
     {
       title: 'POLLS',

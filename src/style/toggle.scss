@@ -38,23 +38,32 @@
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
+
+  &.light-70 {
+    background: var(--light-70);
+  }
 }
 
 .toggle-switch:before {
   position: absolute;
   content: "";
-  height: 12px;
-  width: 12px;
+  height: 11px;
+  width: 11px;
   left: 1px;
-  bottom: 1px;
-  background-color: white;
+  top: 1.5px;
+  background: var(--tertiary);
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .toggle-switch {
   background-color: var(--dark-70);
+
+  &.light-70 {
+    background: var(--primary);
+  }
 }
+
 
 input:focus + .toggle-switch {
   box-shadow: 0 0 1px var(--primary);

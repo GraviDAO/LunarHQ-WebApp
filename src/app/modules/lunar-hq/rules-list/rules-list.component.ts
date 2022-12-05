@@ -23,6 +23,7 @@ export class RulesListComponent implements OnInit {
   uniqueServerList: Array<any> = [];
   uniqueServerIDList: Array<any> = [];
   selectedServer = 'view all servers';
+  toggleFlag = false;
 
   constructor(private router: Router,
               private location: Location,
@@ -109,6 +110,8 @@ export class RulesListComponent implements OnInit {
             .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
           this.uniqueServerList.push(...unique);
           this.uniqueServerIDList.push(...uniqueId);
+          // this.ruleItems[2].held = true;
+          this.ruleItems = this.ruleItems.filter((obj: any) => obj.held === !this.toggleFlag);
           this.getPermission();
         },
         error: (error: any) => {
@@ -141,6 +144,14 @@ export class RulesListComponent implements OnInit {
             });
           }
         });
+    }
+  }
+
+  checkUncheck(obj: any) {
+    if (obj.target.checked) {
+      this.ruleItems = this.mainRuleItems;
+    } else {
+      this.ruleItems = this.ruleItems.filter((obj: any) => obj.held === !this.toggleFlag);
     }
   }
 }

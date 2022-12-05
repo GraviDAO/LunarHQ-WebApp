@@ -35,6 +35,10 @@
   padding-bottom: mixin.toRem(16);
   //height: mixin.toRem(657);
   background: var(--tertiary);
+
+  &.no-bg {
+    background: none;
+  }
 }
 
 .title-underline {
@@ -79,11 +83,15 @@
 }
 
 .divider {
-  margin-top: mixin.toRem(7);
-  margin-bottom: auto;
+  //margin-top: mixin.toRem(7);
+  //margin-bottom: auto;
   height: mixin.toRem(42);
   width: mixin.toRem(1);
   background: var(--light-10);
+
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+
 }
 
 .rules-content {
@@ -93,10 +101,14 @@
 }
 
 .rules-item {
-  height: mixin.toRem(56);
+  //height: mixin.toRem(56);
   width: 100%;
   @include mixin.notch(8px);
   background: var(--dark-20);
+
+  //&.my-role {
+    height: mixin.toRem(64);
+  //}
 
   .rules-item-view {
     cursor: pointer;
