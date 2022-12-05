@@ -177,13 +177,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.router.navigate(['dashboard']);
   }
 
-  resetStaticVars() {
-    /*    this.selectedWallet = '';
-        this.walletSelected = false;
-        this.walletRemovingIndex = 0;
-        this.selectedLicenseId = '';
-        this.licenseSelected = false;*/
-  }
 
   confirmUnlinkDiscord() {
     this.modalService.close('unlinkDiscordModal');
@@ -192,7 +185,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   openModal(id: string) {
     this.modalService.open(id);
-    this.resetStaticVars();
   }
 
   cancelModal(id: string) {
