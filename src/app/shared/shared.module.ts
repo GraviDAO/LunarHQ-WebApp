@@ -17,6 +17,7 @@ import {RipplerDropDownComponent} from './components/rippler-drop-down/rippler-d
 import {LongTextPipe} from './_helpers/long-text.pipe';
 import {TimerCounterPipe} from './_helpers/timer-counter.pipe';
 import {SliderComponent} from './components/slider/slider.component';
+import {FormatNftIdPipe} from './_helpers/format-nft-id.pipe';
 
 const commonModules = [
   CtaOneComponent,
@@ -33,7 +34,8 @@ const commonModules = [
   RipplerDropDownComponent,
   LongTextPipe,
   SliderComponent,
-  TimerCounterPipe
+  TimerCounterPipe,
+  FormatNftIdPipe
 ];
 
 @NgModule({
