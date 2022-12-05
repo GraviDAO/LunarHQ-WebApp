@@ -79,8 +79,7 @@
         </div>
         <div
           *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1)">
-          <span
-            class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;&nbsp;Filter by NFT ID {{ruleObj?.tokenIds}}</span>
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;&nbsp;Filter by NFT ID </span>
         </div>
         <div
           *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1)"
@@ -90,7 +89,7 @@
         <div
           *ngIf="ruleObj?.ruleType !== 'TOKEN' && (ruleObj?.tokenIds?.length >= 1)">
           <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
-          <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.tokenIds}}</span>
+          <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.tokenIds}}</span>
         </div>
       </div>
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50 mr-top-8">
