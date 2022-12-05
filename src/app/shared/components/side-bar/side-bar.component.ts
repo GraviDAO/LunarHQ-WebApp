@@ -43,7 +43,7 @@ export class SideBarComponent implements OnInit {
       return this.activeTab === icon ? 'home' : 'home-outline';
     } else if (icon === 'MY SERVERS') {
       return this.activeTab === icon ? 'server' : 'server-outline';
-    } else if (icon === 'MY ROLES') {
+    } else if (icon === 'ROLES') {
       return this.activeTab === icon ? 'people-circle' : 'people-circle-outline';
     } else if (icon === 'POLLS') {
       return this.activeTab === icon ? './assets/img/svg/poll.svg' : './assets/img/svg/poll-outline.svg';
@@ -69,7 +69,7 @@ export class SideBarComponent implements OnInit {
       this.router.navigate(['announcement']);
     } else if (tab === 'POLLS') {
       this.router.navigate(['polls']);
-    } else if (tab === 'MY ROLES') {
+    } else if (tab === 'ROLES') {
       this.router.navigate(['rules']);
     }
   }

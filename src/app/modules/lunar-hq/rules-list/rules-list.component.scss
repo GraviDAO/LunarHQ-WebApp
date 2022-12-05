@@ -5,3 +5,17 @@
 .back-button {
   width: 100%;
 }
+
+.held-wrapper {
+  width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.light--70 {
+  color: var(--light-70) !important;
+}
+
+.add-dark-50 {
+  background: var(--dark-50) !important;
+}

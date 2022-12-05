@@ -41,8 +41,12 @@ export class CssConstants {
   cta3BtnLabelSuccess = 'cta3 app-why-lbl f10 norm break-line success';
   cta3BtnLabelPrimary = 'cta3 app-why-lbl f10 norm break-line primary';
   cta3Icon = 'app-why-icon pd-right-15 pd-left-15 ic14 light-70 norm';
+
+  cta3Icon20 = 'app-why-icon pd-right-15 pd-left-15 ic20 light-70 norm';
   cta3SuccessIcon = 'app-why-icon pd-right-15 pd-left-15 ic14 success norm';
+  cta3SuccessIcon20 = 'app-why-icon pd-right-15 pd-left-15 ic20 success norm';
   cta3IconPrimary = 'app-why-icon pd-right-15 pd-left-15 ic14 primary norm';
+  cta3IconPrimary20 = 'app-why-icon pd-right-15 pd-left-15 ic20 primary norm';
 
   cta3PrimaryMedium = 'cta3 app-why-lbl f14 primary';
   // cta3Primary14 = 'cta3 app-why-lbl f14 norm primary';

@@ -1,8 +1,8 @@
 <app-why-header-side-nav
-  [title]="'MY ROLES'"
-  [activeTab]="'MY ROLES'">
+  [title]="'ROLES'"
+  [activeTab]="'ROLES'">
   <div class="flex flex-nowrap">
-    <div class="search-bar-container my-server">
+    <div class="search-bar-container">
       <div class="d-flex justify-content-between back-button">
         <div class="pd-left-24 pd-top-21 pd-bottom-21">
           <app-why-cta-three [btnClass]="cssClass.cta3Primary" [btnLabel]="'Back'" [leftIconType]="'chevron-back'"
@@ -24,13 +24,25 @@
         </div>
       </div>
     </div>
-    <div *ngIf="ruleItems?.length  === 0">
-      No rules found
-    </div>
-    <div class="rules-details-container d-flex flex-column mr-top-56 pd-top-24 pd-left-40"
-         *ngIf="ruleItems?.length > 0">
+    <div style="height: 56px;"></div>
+
+    <div class="rules-details-container d-flex flex-column pd-top-24 pd-left-40">
+      <div class="rules-header-title d-flex justify-content-between pd-right-40">
+        <div class="app-why-lbl f16 ft-bold light text-uppercase">
+          <span *ngIf="!toggleFlag">HELD</span><span *ngIf="toggleFlag">ALL</span> ROLES [ {{ruleItems?.length}} ]
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="app-why-lbl f12 primary text-uppercase pd-right-8"
+               [ngClass]="{'light--70': !toggleFlag}">Show ALL
+          </div>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="toggleFlag" (change)="checkUncheck($event)">
+            <span class="toggle-switch light-70 round"></span>
+          </label>
+        </div>
+      </div>
       <div class="title-underline mr-top-8 mr-right-40"></div>
-      <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40">
+      <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40" *ngIf="ruleItems?.length > 0">
         <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
           RULE NAME
         </div>
@@ -42,43 +54,58 @@
         </div>
       </div>
       <div class="rules-content mr-top-16 d-flex flex-column pd-right-40">
-        <div class="rules-item d-flex flex-row align-items-center mr-bottom-8" *ngFor="let ruleObj of ruleItems">
-          <div class="rules-item-name d-flex align-items-center">
-            <div>
-              <img class="mr-left-16 discord-server-image-container" [src]="ruleObj?.discordServerImage"
-                   alt="discordServerImage">
-            </div>
-            <div class="pd-left-16">
+        <div *ngIf="ruleItems?.length > 0">
+          <div class="rules-item d-flex flex-row align-items-center mr-bottom-8" *ngFor="let ruleObj of ruleItems"
+               [ngClass]="{'add-dark-50': ruleObj?.held}">
+            <div class="rules-item-name d-flex align-items-center">
               <div>
-                <span class="app-why-lbl f16 ft-500 light add-rule-hover"
-                      (click)="showRule(ruleObj)">{{ruleObj?.roleName}}</span>
-                <span class="mr-left-2 app-why-lbl f10 ft-500 error letter-spacing-02 text-uppercase"
-                      *ngIf="!ruleObj?.active">
-                  Paused
-                </span>
+                <img class="mr-left-16 discord-server-image-container" [src]="ruleObj?.discordServerImage"
+                     alt="discordServerImage">
               </div>
-              <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
-                {{ruleObj?.discordServerName}}
+              <div class="pd-left-16">
+                <div>
+                  <span class="app-why-lbl f16 ft-500 light add-rule-hover"
+                        (click)="showRule(ruleObj)">{{ruleObj?.roleName}}</span>
+                  <span class="mr-left-2 app-why-lbl f10 ft-500 error letter-spacing-02 text-uppercase"
+                        *ngIf="!ruleObj?.active">
+                    Paused
+                  </span>
+                </div>
+                <div class="d-flex">
+                  <div class="app-why-lbl f10 ft-lato secondary letter-spacing-02 text-uppercase" *ngIf="ruleObj?.held">
+                    HELD &nbsp;&nbsp;| &nbsp;
+                  </div>
+                  <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+                    {{ruleObj?.discordServerName}}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="divider"></div>
-          <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
-            {{ruleObj?.population}}
-          </div>
-          <div class="divider"></div>
-          <div class="rules-item-chain d-flex justify-content-between">
-            <div class="pd-left-16 app-why-lbl f16 ft-bold light block-chain-wrapper">{{ruleObj?.blockchainName}}</div>
-            <div class="rules-item-chain-icon pd-left-16">
-              <img class="rules-item-chain-icon-container mr-right-16" [src]="ruleObj?.blockchainImage" imgFallback
-                   alt="chainImage">
+            <div class="divider my-rule"></div>
+            <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
+              {{ruleObj?.population}}
+            </div>
+            <div class="divider my-rule"></div>
+            <div class="rules-item-chain d-flex justify-content-between">
+              <div
+                class="pd-left-16 app-why-lbl f16 ft-bold light block-chain-wrapper">{{ruleObj?.blockchainName}}</div>
+              <div class="rules-item-chain-icon pd-left-16">
+                <img class="rules-item-chain-icon-container mr-right-16" [src]="ruleObj?.blockchainImage" imgFallback
+                     alt="chainImage">
+              </div>
+            </div>
+            <div class="divider my-rule"></div>
+            <div class="rules-item-view visit-button d-flex justify-content-center" (click)="showRule(ruleObj)">
+              <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VIEW</div>
+              <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
             </div>
           </div>
-          <div class="divider"></div>
-          <div class="rules-item-view visit-button d-flex justify-content-center" (click)="showRule(ruleObj)">
-            <div class="pd-left-20 app-why-lbl f12 ft-bold light-50 letter-spacing-047">VIEW</div>
-            <ion-icon name="chevron-forward-outline" class="app-why-icon light-50 ic20"></ion-icon>
-          </div>
+        </div>
+      </div>
+
+      <div *ngIf="ruleItems?.length  === 0">
+        <div class="app-why-lbl f16 ft-bold error text-uppercase">
+          No roles found
         </div>
       </div>
     </div>
