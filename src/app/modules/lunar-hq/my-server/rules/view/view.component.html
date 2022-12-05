@@ -5,13 +5,16 @@
     </div>
   </div>
   <div class="rules-view-container d-flex flex-column mr-left-40">
-    <div class="rules-name-container pd-box-24 d-flex flex-column">
+    <div class="rules-name-container pd-box-24 d-flex flex-column"
+         [ngClass]="{'full-height': viewMore}">
       <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
         RULE NAME
       </div>
       <div class="rule-title-container pd-top-8 d-flex justify-content-between">
-        <div class="rule-title app-why-lbl f16 ft-bold light">
-          {{ruleObj?.name}}
+        <div class="title-container">
+          <label class="rule-title app-why-lbl f16 ft-bold light break-word">
+            {{ruleObj?.name}}
+          </label>
           <span *ngIf="paused" class="pd-top-2 pd-left-4 app-why-lbl f10 ft-lato error letter-spacing-02">Paused</span>
         </div>
         <div class="rule-title d-flex align-items-center add-cursor add-hover" (click)="viewMore = !viewMore">
@@ -25,8 +28,9 @@
                     class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
         </div>
       </div>
-      <div *ngIf="viewMore" class="pd-top-40">
-        <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+
+      <div *ngIf="viewMore" class="pd-top-24">
+        <div class="rule-name app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
           Description
         </div>
         <div class="app-why-lbl f14 light-70 ft-lato">
@@ -35,7 +39,7 @@
       </div>
     </div>
     <div class="rules-content pd-box-24 d-flex flex-column" *ngIf="!viewMore">
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
         Rules
       </div>
       <div class="rule-item d-flex flex-column mr-top-8">
@@ -59,10 +63,10 @@
           <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light">Address</span>
           <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
-          <span class="app-why-lbl f14 ft-lato light"
-                *ngIf="ruleObj?.nftAddress">{{ruleObj?.nftAddress | longTextPipe}}</span>
-          <span class="app-why-lbl f14 ft-lato light"
-                *ngIf="!ruleObj?.nftAddress">{{ruleObj?.address | longTextPipe}}</span>
+          <span class="app-why-lbl f14 ft-lato light word-break"
+                *ngIf="ruleObj?.nftAddress">{{ruleObj?.nftAddress}}</span>
+          <span class="app-why-lbl f14 ft-lato light word-break"
+                *ngIf="!ruleObj?.nftAddress">{{ruleObj?.address}}</span>
         </div>
         <div class="">
           <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
