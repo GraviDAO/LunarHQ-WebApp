@@ -20,7 +20,7 @@
   background: var(--bg-dark);
 
   .rules-name-container {
-    height: mixin.toRem(96);
+    //height: mixin.toRem(96);
     background: var(--dark);
 
     &.expand-more {
@@ -51,4 +51,20 @@
   div, ion-icon {
     color: var(--light) !important;
   }
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.title-container {
+  width: mixin.toRem(280);
+}
+
+.full-height {
+  height: 100vh;
 }
