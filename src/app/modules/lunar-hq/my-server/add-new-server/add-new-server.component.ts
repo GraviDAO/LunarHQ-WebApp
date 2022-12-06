@@ -67,14 +67,10 @@ export class AddNewServerComponent implements OnInit {
   }
 
   navigateInstall() {
-    window.open('https://doc.lunar-hq.io/', '_blank');
+    window.open('https://gravidaopublic.notion.site/Lunar-HQ-help-centre-6ea23c8690794ad8bd021fe64eb49014', '_blank');
   }
 
   addWallet() {
-
-  }
-
-  buyLicense() {
 
   }
 
