@@ -69,7 +69,8 @@ export class WelcomeV2Component implements OnDestroy {
         if (changeWallet !== null) {
           this.loaderService.start();
           this.coreService.changeDiscord({
-            discordAuthorizationCode: params.code
+            discordAuthorizationCode: params.code,
+            source: 'welcome'
           }).subscribe({
             next: () => {
               this.loaderService.stop();

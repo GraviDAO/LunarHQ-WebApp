@@ -56,7 +56,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (params.code) {
         this.loaderService.start();
         this.coreService.changeDiscord({
-          discordAuthorizationCode: params.code
+          discordAuthorizationCode: params.code,
+          source: 'profile'
         }).subscribe({
           next: (data) => {
             this.loaderService.stop();
