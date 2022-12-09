@@ -25,13 +25,20 @@
   </div>
 
   <div class="empty-info-container" *ngIf="pollArrayObj?.length === 0">
-    <div class="app-why-lbl secondary ft-lato mr-bottom-8">
+    <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
       Make your vote count
     </div>
     <label class="app-why-lbl f14 light-70">
       Participating in polls is at the heart of community governance. When you create a poll or are eligible to vote in
       one it will appear here.
     </label>
+  </div>
+  <div class="d-flex justify-content-center pd-top-24" *ngIf="pollArrayObj?.length === 0 && discordServerId !== ''">
+    <app-why-cta-one
+      [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
+      [iconType]="'add-circle-outline'"
+      (click)="navigateToCreatePoll()"
+      [btnLabel]="'Create Poll'"></app-why-cta-one>
   </div>
 </div>
 

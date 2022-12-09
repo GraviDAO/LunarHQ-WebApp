@@ -21,7 +21,7 @@
     </app-why-lunar-hq-announcement-cell>
   </div>
   <div class="empty-info-container" *ngIf="announcementArrayObj?.length === 0">
-    <div class="app-why-lbl secondary ft-lato mr-bottom-8">
+    <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
       Keep up to date
     </div>
     <label class="app-why-lbl f14 light-70">
@@ -29,4 +29,13 @@
       single place so you stay informed of the big news.
     </label>
   </div>
+  <!--<div class="no-announcement-wrapper"
+       *ngIf="announcementArrayObj?.length === 0 && discordServerId !== ''">
+    <app-why-cta-three
+      [btnClass]="cssClass.cta3PrimaryNorm"
+      [iconClass]="cssClass.cta3PrimaryIconNorm"
+      [iconType]="'chevron-forward-outline'"
+      (click)="announcementEvent()"
+      [btnLabel]="'Set up my ANNOUNCEMENTS'"></app-why-cta-three>
+  </div>-->
 </div>

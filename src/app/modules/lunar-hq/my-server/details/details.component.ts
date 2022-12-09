@@ -186,4 +186,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
   navigateToPoll(value: any) {
     this.router.navigate(['my-server/' + this.discordServerId + '/polls']);
   }
+
+  navigateToCreateRule() {
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.serverDetails?.discordServerName]);
+  }
+
+  navigateToCreatePoll() {
+    this.router.navigate(['my-server/' + this.discordServerId + '/create-poll/' + this.serverDetails?.discordServerName]);
+  }
 }

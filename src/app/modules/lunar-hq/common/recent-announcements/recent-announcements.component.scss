@@ -40,3 +40,12 @@
     height: auto;
   }
 }
+
+.no-announcement-wrapper {
+  width: mixin.toRem(480);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 24px;
+}
