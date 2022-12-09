@@ -11,6 +11,7 @@ import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
 
 export class RecentAnnouncementsComponent {
   @Input() announcementArrayObj: any;
+  @Input() discordServerId = '';
   @Output() navigateToAnnouncementEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() refreshList: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() viewAnnouncement: EventEmitter<any> = new EventEmitter<any>();

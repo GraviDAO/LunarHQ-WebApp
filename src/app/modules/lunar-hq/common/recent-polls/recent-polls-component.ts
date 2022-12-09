@@ -13,7 +13,9 @@ export class RecentPollsComponent {
   // @ts-ignore
   @Input() currentDateTime: Date;
   @Input() hasPermission = false;
+  @Input() discordServerId = '';
   @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
+  @Output() createPoll: EventEmitter<any> = new EventEmitter<any>();
   @Output() deletePollEvent: EventEmitter<any> = new EventEmitter<any>();
   @Input() buttonLabel = 'MANAGE POLLS';
   viewPreview = false;
@@ -42,5 +44,9 @@ export class RecentPollsComponent {
   previewPoll(obj?: any) {
     this.pollObj = obj;
     this.viewPreview = true;
+  }
+
+  navigateToCreatePoll() {
+    this.createPoll.emit(true);
   }
 }

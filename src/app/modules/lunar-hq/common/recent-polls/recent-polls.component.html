@@ -33,6 +33,13 @@
       one it will appear here.
     </label>
   </div>
+  <div class="d-flex justify-content-center pd-top-24" *ngIf="pollArrayObj?.length === 0 && discordServerId !== ''">
+    <app-why-cta-one
+      [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
+      [iconType]="'add-circle-outline'"
+      (click)="navigateToCreatePoll()"
+      [btnLabel]="'Create Poll'"></app-why-cta-one>
+  </div>
 </div>
 
 <div class="preview-container" *ngIf="viewPreview">

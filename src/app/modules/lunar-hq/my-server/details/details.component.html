@@ -98,10 +98,19 @@
             <div class="app-why-lbl secondary ft-lato mr-bottom-8">
               FIND YOUR COMMUNITIES
             </div>
-            <label class="app-why-lbl f14 light-70">
-              Lunar HQ is all about making communities work. It looks like you don't hold any community roles yet but
-              we'll keep checking and place them here when we find them.
-            </label>
+            <div>
+              <label class="app-why-lbl f14 light-70">
+                Lunar HQ is all about making communities work. It looks like you don't hold any community roles yet but
+                we'll keep checking and place them here when we find them.
+              </label>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center pd-top-24" *ngIf="serverDetails?.rules?.length === 0">
+            <app-why-cta-one
+              [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
+              [iconType]="'add-circle-outline'"
+              (click)="navigateToCreateRule()"
+              [btnLabel]="'Create Rule'"></app-why-cta-one>
           </div>
           <div class="rules-detail-title details-pg pd-top-48 d-flex flex-row pd-right-40"
                *ngIf="serverDetails?.rules?.length > 0">
@@ -116,7 +125,7 @@
               CHAIN
             </div>
           </div>
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center" *ngIf="serverDetails?.rules?.length > 0">
             <div class="server-detail-rules-content mr-top-16 d-flex flex-column">
               <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
                    *ngFor="let rule of serverDetails?.rules?.slice(0,2)">
@@ -163,73 +172,22 @@
               </div>
             </div>
           </div>
-          <!--          <div class="fade-effect mr-right-40"></div>-->
         </div>
-        <!--            Commented based on call with Adam-->
-        <!--<div class="server-detail-license d-flex flex-column pd-top-24 mr-left-8">
-          <div class="rules-header-title d-flex flex-column justify-content-between pd-left-40 pd-right-40">
-            <span class="app-why-lbl f16 ft-bold light text-uppercase">
-              LICENSES IN {{serverDetails?.discordServerName}} [ {{serverDetails?.licences.length}} ]
-            </span>
-            <div class="title-underline mr-top-8 mr-right-40"></div>
-          </div>
-          <div class="license-items mr-top-48 pd-left-40 pd-right-40">
-            <div class="license-item d-flex flex-column pd-box-8">
-              <div>
-                <img class="license-item-img" src="/assets/img/png/nft-profile.jpeg" alt="">
-              </div>
-              <div class="license-item-name app-why-lbl f16 ft-bold light pd-top-8">
-                The Giving #246
-              </div>
-              <div class="license-item-text app-why-lbl f10 ft-lato light-70 letter-spacing-02 pd-top-8">
-                POLYGON
-              </div>
-              <div class="license-item-actions d-flex pd-top-8">
-                <div class="d-flex overflow-hidden">
-                  <div ngbDropdown container="body">
-                    <button type="button" class="link-dropdown app-why-lbl f10 ft-lato primary letter-spacing-02"
-                            ngbDropdownToggle>OWNED BY DW00k #5732
-                    </button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                      <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REASSIGN
-                      </button>
-                      <div class="dropdown-divider"></div>
-                      <button ngbDropdownItem class="pd-left-24 app-why-lbl f12 ft-bold no-letter-spacing">REMOVE
-                        LICENSE
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="license-item d-flex flex-column mr-top-8 pd-box-8">
-              <div>
-                <img class="license-item-img" src="/assets/img/png/placeholder.png" alt="">
-              </div>
-              <div class="license-item-name app-why-lbl f16 ft-bold light pd-top-8">
-                The Crazy Cat Club #0270
-              </div>
-              <div class="license-item-text app-why-lbl f10 ft-lato light-70 letter-spacing-02 pd-top-8">
-                POLYGON
-              </div>
-              <div class="license-item-text app-why-lbl f10 ft-lato light-50 letter-spacing-02 pd-top-8">
-                OWNED BY ILO
-              </div>
-            </div>
-          </div>
-        </div>-->
       </div>
 
       <app-why-lunar-hq-recent-polls
         (openPoll)="navigateToPoll($event)"
         [hasPermission]="hasPermission"
+        [discordServerId]="discordServerId"
         (deletePollEvent)="getServerDetails()"
+        (createPoll)="navigateToCreatePoll()"
         [currentDateTime]="currentDateTime"
         [pollArrayObj]="serverDetails?.proposals"></app-why-lunar-hq-recent-polls>
 
       <div class="mr-bottom-60">
         <app-why-lunar-hq-recent-announcements
           (refreshList)="getServerDetails()"
+          [discordServerId]="discordServerId"
           (viewAnnouncement)="previewAnnouncement($event)"
           (navigateToAnnouncementEvent)="navigateToAnnouncement()"
           [announcementArrayObj]="serverDetails?.announcements"
