@@ -89,7 +89,8 @@ export class WelcomeV2Component implements OnDestroy {
           this.coreService.getDiscordUser({
             discordAuthorizationCode: params.code,
             walletAddress: lunarUserObj.walletAddress,
-            blockchainName: lunarUserObj.blockchainName
+            blockchainName: lunarUserObj.blockchainName,
+            source: 'welcome'
           }).subscribe((data) => {
             lunarUserObj.discordName = data.message.discordName;
             lunarUserObj.discordProfileImage = data.message.discordProfileImage;
