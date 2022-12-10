@@ -295,7 +295,8 @@ export class WelcomeV2Component implements OnDestroy {
             discordAuthorizationCode: '',
             walletAddress: publicAddress,
             blockchainName: blockchainName,
-            oldJWT
+            oldJWT,
+            source: 'welcome'
           }).subscribe((data) => {
             this.toast.success('Wallet connected and Discord linked!');
 

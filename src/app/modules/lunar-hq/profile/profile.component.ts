@@ -430,7 +430,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           discordAuthorizationCode: '',
           walletAddress: publicAddress,
           blockchainName: blockchainName,
-          oldJWT
+          oldJWT,
+          source: 'profile'
         }).subscribe((data) => {
           this.toast.setMessage('Wallet connected and Discord linked!');
 
