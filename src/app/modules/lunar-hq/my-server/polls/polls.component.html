@@ -31,7 +31,7 @@
           </div>-->
         </div>
         <div class="d-flex align-items-center pd-right-24">
-          <app-why-cta-one
+          <app-why-cta-one *ngIf="hasPermission"
             [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
             [iconType]="'add-circle-outline'"
             [btnLabel]="'CREATE NEW POLL'"

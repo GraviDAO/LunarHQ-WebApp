@@ -51,9 +51,6 @@ export class RulesComponent implements OnInit {
       .subscribe({
         next: (value: any) => {
           this.hasPermission = value.message === 'Has enough permissions.';
-        },
-        error: (err: any) => {
-          this.toastService.setMessage(err?.error.message, 'error');
         }
       });
   }

@@ -17,7 +17,7 @@ export class RecentPollsComponent {
   @Output() openPoll: EventEmitter<any> = new EventEmitter<any>();
   @Output() createPoll: EventEmitter<any> = new EventEmitter<any>();
   @Output() deletePollEvent: EventEmitter<any> = new EventEmitter<any>();
-  @Input() buttonLabel = 'MANAGE POLLS';
+  @Input() buttonLabel = 'VIEW ALL';
   viewPreview = false;
   pollObj: any;
 

@@ -58,9 +58,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (value: any) => {
           this.hasPermission = value.message === 'Has enough permissions.';
-        },
-        error: (err: any) => {
-          this.toastService.setMessage(err.error.message, 'error');
         }
       });
   }

@@ -105,7 +105,7 @@
                 <label class="app-why-lbl f16 light-70 long-text">{{serverObj?.discordServerName}}</label>
               </div>
             </div>
-            <div *ngIf="serverObj?.userIsAdmin" class="d-flex align-items-center" [ngClass]="{'mr-left-22': !serverObj?.userIsAdmin}">
+            <div class="d-flex align-items-center" [ngClass]="{'mr-left-22': !serverObj?.userIsAdmin}">
               <app-why-cta-three
                 [parentClass]="'light-70-hover'"
                 [btnClass]="cssClass.cta3Light50F12"

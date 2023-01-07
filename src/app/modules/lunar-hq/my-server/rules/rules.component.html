@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="mr-right-24 create-rule">
-        <app-why-cta-one
+        <app-why-cta-one *ngIf="hasPermission"
           [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
           [iconType]="'add-circle-outline'"
           (click)="navigateToCreateRule()"

@@ -90,7 +90,7 @@
                 [iconClass]="cssClass.cta3PrimaryIconNorm"
                 [iconType]="'chevron-forward-outline'"
                 (click)="navigateToRules()"
-                [btnLabel]="'MANAGE RULES'"></app-why-cta-three>
+                [btnLabel]="'VIEW ALL'"></app-why-cta-three>
             </div>
           </div>
           <div class="title-underline mr-top-8"></div>
@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-center pd-top-24" *ngIf="serverDetails?.rules?.length === 0">
-            <app-why-cta-one
+            <app-why-cta-one *ngIf="hasPermission"
               [cssClass]="cssClass.cta1Norm + ' cursor-pointer'"
               [iconType]="'add-circle-outline'"
               (click)="navigateToCreateRule()"

@@ -71,7 +71,7 @@
             [iconClass]="cssClass.cta3PrimaryIconNorm"
             [iconType]="'chevron-forward-outline'"
             (click)="navigateToDetails(serverObj?.discordServerId)"
-            [btnLabel]="'VISIT'"></app-why-cta-three>
+            [btnLabel]="serverObj?.userIsAdmin ? 'MANAGE' : 'VISIT'"></app-why-cta-three>
         </div>
       </div>
     </div>
