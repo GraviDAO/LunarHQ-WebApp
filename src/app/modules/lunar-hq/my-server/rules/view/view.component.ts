@@ -54,6 +54,7 @@ export class RulesViewComponent implements OnInit {
   confirmRemoveRule() {
     this.actionType.emit({action: 'remove', ruleObj: this.ruleObj});
     this.cancelModal('removeRuleModal');
+    location.reload();
   }
 
   pauseRule() {
@@ -62,11 +63,13 @@ export class RulesViewComponent implements OnInit {
 
   resumeRule() {
     this.actionType.emit({action: 'resume', ruleObj: this.ruleObj});
+    location.reload();
   }
 
   confirmPauseRule() {
     this.actionType.emit({action: 'pause', ruleObj: this.ruleObj});
     this.cancelModal('pauseRuleModal');
+    location.reload();
   }
 
   getOperator(operator: string) {
