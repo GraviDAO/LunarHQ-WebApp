@@ -74,7 +74,7 @@
               ></app-why-cta-one>
             </div>
             <div class="d-flex mr-top-32 mr-bottom-48">
-              <div *ngIf="profileObj?.accountWallets.length <= 2">
+              <div *ngIf="profileObj?.accountWallets.length <= 3">
                 <app-why-cta-three
                   [btnClass]="cssClass.cta3Primary14"
                   [btnLabel]="'ADD A WALLET'"
@@ -96,30 +96,34 @@
 <app-why-modal id="addWalletModal" [popUpType]="'confirmation'">
   <app-why-modal-wrapper>
     <div class="app-why-lbl f22 ft-uni ft-medium light">Connect</div>
-
-    <div class="d-flex justify-content-center pd-top-48">
+    <div class="pd-top-32"></div>
+    <div *ngIf="!polygonWalletExists" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
-        *ngIf="!polygonWalletExists"
         [cssClass]="selectedWallet === 'polygon' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('polygon')"
         [iconPath]="'./assets/img/svg/matic-logo.svg'"
         [btnLabel]="'Polygon'"></app-why-cta-one>
     </div>
-    <div class="d-flex justify-content-center pd-top-16">
+    <div *ngIf="!terraWalletExists" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
-        *ngIf="!terraWalletExists"
         [cssClass]="selectedWallet === 'terra' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('terra')"
         [iconPath]="'./assets/img/svg/terra_icon.svg'"
         [btnLabel]="'Terra'"></app-why-cta-one>
     </div>
-    <div class="d-flex justify-content-center pd-top-16">
+    <div *ngIf="!terraClassicWalletExists" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
-        *ngIf="!terraClassicWalletExists"
         [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('terraClassic')"
         [btnImage]="'./assets/img/webp/lunar_classic.webp'"
         [btnLabel]="'Terra Classic'"></app-why-cta-one>
+    </div>
+    <div *ngIf="!stargazeWalletExists" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'stargaze' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('stargaze')"
+        [btnImage]="'./assets/img/png/stargaze.png'"
+        [btnLabel]="'Stagaze'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
@@ -283,3 +287,21 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Terra wallet chains connection list Modal End -->
+
+<!-- Stargaze wallet chains connection list Modal Start -->
+<app-why-modal id="stargazeWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Stargaze Wallet</div>
+    <div *ngIf="!keplrInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Stargaze compatible wallet installed. Please install one such as Keplr!</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr()"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Stargaze wallet chains connection list Modal End -->

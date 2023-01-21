@@ -79,7 +79,7 @@
 
   &.on-connect {
     background: transparent;
-    min-height: mixin.toRem(200);
+    min-height: mixin.toRem(270);
     padding: 0;
   }
 }
@@ -87,7 +87,7 @@
 .option-content-wrapper {
   display: flex;
   flex-direction: row;
-  padding-top: 120px;
+  padding-top: 110px;
 }
 
 .light-text {

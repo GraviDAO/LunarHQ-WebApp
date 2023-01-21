@@ -37,6 +37,8 @@ export class WelcomeV2Component implements OnDestroy {
   polygonAddress = 'polygon wallet';
   terraAddress = 'terra wallet';
   terraClassicAddress = 'terra classic';
+  stargazeAddress = 'stargaze wallet';
+  keplrInstalled = false;
   useLedgerStation: boolean | undefined = false;
   // @ts-ignore
   subscription: Subscription;
@@ -168,9 +170,11 @@ export class WelcomeV2Component implements OnDestroy {
     this.selected = 'discord_connected';
     this.currentStep = 'connection success!';
     const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
+    const tempStargazeObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Stargaze');
     const tempTerraObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra');
     const tempTerraClassicObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra Classic');
     this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.address;
+    this.stargazeAddress = tempStargazeObj === undefined ? 'stargaze wallet' : tempStargazeObj.address;
     this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.address;
     this.terraClassicAddress = tempTerraClassicObj === undefined ? 'terra classic' : tempTerraClassicObj.address;
     this.discordProfileObj = {
@@ -216,7 +220,7 @@ export class WelcomeV2Component implements OnDestroy {
   // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
-    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : this.terraWalletConnect();
+    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stagazeWalletConnect() : this.terraWalletConnect());
   }
 
 
@@ -239,6 +243,72 @@ export class WelcomeV2Component implements OnDestroy {
         });
     } catch (error) {
       console.error(error, 'error');
+    }
+  }
+
+  async stagazeWalletConnect() {
+    this.exitModal();
+    // @ts-ignore
+    if(window.keplr) this.keplrInstalled = true;
+    this.modalService.open('stargazeWallet');
+  }
+
+  connectKeplr() {
+    // @ts-ignore
+    if (!window.keplr) {
+      alert("Please install keplr extension");
+    } else {
+      const chainId = "stargaze-1";
+      // @ts-ignore
+      window.keplr.enable(chainId).then(() => {
+        // @ts-ignore
+        window.keplr.getKey(chainId).then((o) => {
+          const stargazeAddress = o.bech32Address;
+          const publicAddressArray = o.pubKey;
+          this.coreService.getNonce(stargazeAddress, "Stargaze")
+            .subscribe((nonceResult) => {
+              this.modalService.close('stargazeWallet');
+              this.signKelpr(stargazeAddress, publicAddressArray, nonceResult);
+            }, (error) => {
+              console.error('error', error);
+            });
+        });
+      });
+    }
+  }
+
+  async signKelpr(stargazeAddress: string, publicAddressArray: Uint8Array, nonceResult: any) {
+    try {
+      this.loaderService.start();
+      setTimeout(() => {
+        this.loaderService.stop();
+      }, 15000);
+      const chainId = "stargaze-1";
+      // @ts-ignore
+      const signature = await window.keplr
+        .signArbitrary(
+          chainId,
+          stargazeAddress,
+          `I am signing this message with my one-time nonce: ${nonceResult.message} to cryptographically verify that I am the owner of this wallet`
+        )
+
+      this.loaderService.stop();
+      const dataObject = {
+        type: 'KeplrStargaze',
+        signature: {
+          signature: signature.signature,
+          publicAddressArray: JSON.stringify(publicAddressArray)
+        },
+        publicAddress: stargazeAddress,
+        blockchainName: "Stargaze"
+      };
+      this.authenticateWalletAddress(dataObject, stargazeAddress, "Stargaze");
+    } catch (e) {
+      console.error(e, 'e');
+      this.loaderService.stop();
+      this.terraController.disconnect();
+      this.toast.error('Failed to connect');
+      this.modalService.open('stargazeWallet');
     }
   }
 
@@ -278,6 +348,8 @@ export class WelcomeV2Component implements OnDestroy {
             this.polygonAddress = publicAddress;
           } else if (blockchainName === 'Terra') {
             this.terraAddress = publicAddress;
+          } else if (blockchainName === 'Stargaze') {
+            this.stargazeAddress = publicAddress;
           } else {
             this.terraClassicAddress = publicAddress;
           }
@@ -304,6 +376,8 @@ export class WelcomeV2Component implements OnDestroy {
               this.polygonAddress = publicAddress;
             } else if (blockchainName === 'Terra') {
               this.terraAddress = publicAddress;
+            } else if (blockchainName === 'Stargaze') {
+              this.stargazeAddress = publicAddress;
             } else {
               this.terraClassicAddress = publicAddress;
             }
@@ -530,7 +604,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.coreService.getNonce(walletAddr, blockchainName)
             .subscribe((nonceResult) => {
               this.modalService.close('terraWallet');
-              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
+              if ((connectionName === 'Terra Station Wallet' || connectionName === 'Station Wallet' || connectionName === 'Leap Wallet') && !this.useLedgerStation) {
                 this.signTerra(nonceResult.message, walletAddr, blockchainName);
               } else {
                 this.signTerraTx(walletAddr, nonceResult.message, this.selectedWallet === 'terraClassic');
@@ -560,10 +634,12 @@ export class WelcomeV2Component implements OnDestroy {
     } else {
       if (address === 'polygon wallet') {
         this.connectToMetaMask();
+      } else if(address === 'stargaze wallet') {
+        this.stagazeWalletConnect();
       } else if (address === 'terra wallet' || address === 'terra classic') {
         this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
         this.terraWalletConnect();
-      } else if (this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet' || this.terraClassicAddress !== 'terra classic') {
+      } else if (this.stargazeAddress !== 'stargaze wallet' || this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet' || this.terraClassicAddress !== 'terra classic') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
@@ -603,19 +679,35 @@ export class WelcomeV2Component implements OnDestroy {
       this.terraAddress = 'terra wallet';
       this.modalService.close('removeWalletModal');
       this.currentStep = 'step 1 : connect wallet';
+      if(this.unlink.chainType === 'stargaze') {
+        // @ts-ignore
+        if (window.keplr) {
+          const chainId = "stargaze-1";
+          // @ts-ignore
+          window.keplr.disable(chainId);
+        }
+      }
     } else {
-      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : 'Terra Classic');
+      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : (this.unlink.chainType === 'stargaze' ? 'Stargaze' : 'Terra Classic'));
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
           if (this.unlink.chainType === 'polygon') {
             this.polygonAddress = 'polygon wallet';
           } else if (this.unlink.chainType === 'terra') {
             this.terraAddress = 'terra wallet';
+          } else if (this.unlink.chainType === 'stargaze') {
+            this.stargazeAddress = 'stargaze wallet';
+            // @ts-ignore
+            if (window.keplr) {
+              const chainId = "stargaze-1";
+              // @ts-ignore
+              window.keplr.disable(chainId);
+            }
           } else {
             this.terraClassicAddress = 'terra classic';
           }
 
-          if ((this.polygonAddress == 'polygon wallet' && this.terraAddress == 'terra wallet' && this.terraClassicAddress == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
+          if ((this.polygonAddress == 'polygon wallet' && this.stargazeAddress == 'stargaze wallet' && this.terraAddress == 'terra wallet' && this.terraClassicAddress == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
             this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {

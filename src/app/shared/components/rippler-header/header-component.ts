@@ -44,7 +44,6 @@ export class HeaderComponent implements OnInit {
     if (tab === 'Log out') {
       localStorage.clear();
       this.router.navigate(['/welcome']);
-      location.reload();
     } else {
       this.router.navigate(['/profile']);
     }
