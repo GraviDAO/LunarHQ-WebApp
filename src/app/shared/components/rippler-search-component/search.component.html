@@ -10,12 +10,10 @@
              placeholder="{{placeholderText}}"
              type="text"/>
     </div>
-    <div class="search-icon-container" *ngIf="!isSearchSelected">
-      <ion-icon class="pd-left-8 app-why-icon ic18 light-50"
+    <div class="search-icon-container" (click)="clearSearchText(); $event.stopPropagation()">
+      <ion-icon *ngIf="!(isSearchSelected || justLostFocus)" class="app-why-icon ic18 light-50"
                 [ngClass]="{'secondary': isSearchSelected}" name="search"></ion-icon>
-    </div>
-    <div class="search-icon-container" *ngIf="isSearchSelected" (click)="clearSearchText()">
-      <ion-icon class="app-why-icon ic20 primary" name="close-circle-outline"></ion-icon>
+      <ion-icon if="clear" *ngIf="isSearchSelected || justLostFocus" [ngClass]="{'primary': !justLostFocus, 'light-50': justLostFocus}" class="app-why-icon ic20" name="close-circle-outline"></ion-icon>
     </div>
   </article>
 </section>

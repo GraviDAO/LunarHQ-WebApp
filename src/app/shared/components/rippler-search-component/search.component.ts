@@ -12,6 +12,7 @@ export class SearchComponent implements OnInit {
   @Output() searchContent: EventEmitter<string> = new EventEmitter<string>();
   @Output() clearSearch: EventEmitter<boolean> = new EventEmitter<boolean>();
   isSearchSelected = false;
+  justLostFocus = false;
 
   constructor() {
   }
@@ -26,10 +27,15 @@ export class SearchComponent implements OnInit {
   clearSearchText() {
     this.searchText = '';
     this.isSearchSelected = this.searchText.length > 0;
+    this.justLostFocus = true;
     this.clearSearch.emit(true);
   }
 
   lostFocus() {
     this.isSearchSelected = false;
+    this.justLostFocus = true;
+    setTimeout(() => {
+      this.justLostFocus = false;
+    },100);
   }
 }
