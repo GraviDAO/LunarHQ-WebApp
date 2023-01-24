@@ -49,6 +49,10 @@ body {
   //border: 3px solid orange;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 ion-icon:before {
   content: '';
   position: absolute;

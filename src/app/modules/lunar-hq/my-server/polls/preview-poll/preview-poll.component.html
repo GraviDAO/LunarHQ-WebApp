@@ -13,15 +13,15 @@
         <div class="rule-title app-why-lbl f16 ft-bold light">
           {{pollObj?.title}}
         </div>
-        <div class="rule-title d-flex align-items-center">
-          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="!viewMore" (click)="viewMore = true">
+        <div class="rule-title d-flex align-items-center cursor-pointer" (click)="viewMore = !viewMore">
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047 cursor-pointer" *ngIf="!viewMore">
             MORE
           </div>
-          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047" *ngIf="viewMore" (click)="viewMore = false">
+          <div class="app-why-lbl f12 ft-bold light-70 letter-spacing-047 cursor-pointer" *ngIf="viewMore">
             Less
           </div>
           <ion-icon name="{{viewMore ? 'chevron-down-outline' : 'chevron-up-outline'}}"
-                    class="pd-left-8 app-why-icon ic20 light-70"></ion-icon>
+                    class="pd-left-8 app-why-icon ic20 light-70 cursor-pointer"></ion-icon>
         </div>
       </div>
       <div *ngIf="viewMore" class="pd-top-40">
@@ -115,7 +115,7 @@
       </div>
 
       <div class="pd-left-24 pd-top-8">
-        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Channel name:\ {{detailsObj?.location}}</span>
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Channel name:\</span>
       </div>
       <div class="pd-left-48" *ngIf="pollObj?.discordChannelName">
         <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
