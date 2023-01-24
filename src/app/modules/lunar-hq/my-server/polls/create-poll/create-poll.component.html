@@ -159,6 +159,15 @@
                   </div>
                 </div>
               </div>
+            </div><div class="empty-info-container mr-top-48 pd-bottom-16" *ngIf="voteWeight === 'nftWeighted'">
+              <div>
+                <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                  Indexing
+                </div>
+                <label class="app-why-lbl f14 light-70">
+                  Be aware that any new NFT contract will take some time to index (worst case up to 3 minutes per 100 tokens, depending on chain and server load) and poll voting user feedback will be inacurate until done. Voting will be recalculated at the end and if the indexing is done by then the results will be acurate.
+                </label>
+              </div>
             </div>
             <div class="d-flex align-items-center mr-top-40">
               <input type="radio" class="radio-button-primary"
@@ -224,6 +233,16 @@
                            [(ngModel)]="pollObj.numberPerVote">
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="empty-info-container mr-top-48 pd-bottom-16" *ngIf="voteWeight === 'tokenWeighted'">
+              <div>
+                <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                  Indexing
+                </div>
+                <label class="app-why-lbl f14 light-70">
+                  Be aware that any new token contract will take some time to index and poll voting user feedback will be inacurate until done. Voting will be recalculated at the end and if the indexing is done by then the results will be acurate.
+                </label>
               </div>
             </div>
 
