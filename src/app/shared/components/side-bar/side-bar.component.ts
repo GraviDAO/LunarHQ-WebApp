@@ -74,8 +74,8 @@ export class SideBarComponent implements OnInit {
     }
   }
 
-  subMenu(event: any, tab: string, index: number, subMenuObj: any, nestedMenu?: any) {
-    if(this.activeSubMenuTab === '') {
+  subMenu(event: any, tab: string, index: number, subMenuObj: any, nestedMenu?: any) {    
+    if(tab.substring(0,4) !== 'Star' || (this.activeSubMenuTab === '' && tab.substring(0,4) === 'Star')) {
       this.activeSubMenuTab = tab;
       this.toggle[index] = true;
       this.selectedSubMenu.emit(subMenuObj || nestedMenu);

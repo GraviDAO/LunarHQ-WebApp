@@ -23,6 +23,7 @@ export class AnnouncementsComponent implements OnInit {
   starredAnnouncements = 0;
   // onlyStarred = false;
   byStarred = '';
+  queryFilterSet = false;
 
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
@@ -45,7 +46,6 @@ export class AnnouncementsComponent implements OnInit {
     this.route.queryParams.subscribe((query: any) => {
       if (query.selectedServer) {
         this.selectedServer = query.selectedServer;
-        this.setServer(this.selectedServer);
       }
     });
   }
@@ -73,8 +73,12 @@ export class AnnouncementsComponent implements OnInit {
           if (this.byStarred === 'starred') {
 
           }
-          this.announcementList = data;
           this.mainAnnouncementList = data;
+          if(this.selectedServer !== 'view all servers') {
+            this.setServer(this.selectedServer);
+          } else {
+            this.announcementList = data;
+          }
           const unique = data
             .map((item: any) => item.discordServerName)
             .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
@@ -161,8 +165,16 @@ export class AnnouncementsComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           if (this.byStarred === 'starred') {
-            this.announcementList = data.message;
             this.mainAnnouncementList = data.message;
+            if(this.selectedServer !== 'view all servers') {
+              this.setServer(this.selectedServer);
+            } else {
+              this.announcementList = data.message;
+            }
+            const unique = data.message
+              .map((item: any) => item.discordServerName)
+              .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
+            this.serverList.push(...unique);
           }
           this.starredAnnouncements = data.message.length;
         },
