@@ -220,7 +220,7 @@ export class WelcomeV2Component implements OnDestroy {
   // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
-    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stagazeWalletConnect() : this.terraWalletConnect());
+    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stargazeWalletConnect() : this.terraWalletConnect());
   }
 
 
@@ -246,7 +246,7 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  async stagazeWalletConnect() {
+  async stargazeWalletConnect() {
     this.exitModal();
     // @ts-ignore
     if(window.keplr) this.keplrInstalled = true;
@@ -635,7 +635,7 @@ export class WelcomeV2Component implements OnDestroy {
       if (address === 'polygon wallet') {
         this.connectToMetaMask();
       } else if(address === 'stargaze wallet') {
-        this.stagazeWalletConnect();
+        this.stargazeWalletConnect();
       } else if (address === 'terra wallet' || address === 'terra classic') {
         this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
         this.terraWalletConnect();

@@ -278,7 +278,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
-    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stagazeWalletConnect() : this.terraWalletConnect());
+    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stargazeWalletConnect() : this.terraWalletConnect());
   }
 
   exitModal() {
@@ -303,7 +303,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
   
-  async stagazeWalletConnect() {
+  async stargazeWalletConnect() {
     this.exitModal();
     // @ts-ignore
     if(window.keplr) this.keplrInstalled = true;
