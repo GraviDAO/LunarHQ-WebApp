@@ -95,7 +95,7 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
       this.nestedMenuValue = changes['nestedMenuValue'].currentValue;
       if (this.nestedMenuValue !== 0) {
         // @ts-ignore
-        this.sideNavList[3].subMenu.push({
+        this.sideNavList[4].subMenu.push({
           title: 'Starred [' + this.nestedMenuValue + ']',
           route: '/announcement/starred'
         });

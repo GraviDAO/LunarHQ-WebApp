@@ -146,8 +146,9 @@ export class AnnouncementsComponent implements OnInit {
     this.lunarHqService.starUnStarAnnouncement(starAnnouncementObj, obj.type)
       .subscribe({
         next: () => {
-          this.getAnnouncementList();
-          this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un starred the announcement', '');
+          if (this.byStarred === 'starred') this.getStaredAnnouncementList();
+          else this.getAnnouncementList();
+          this.toast.setMessage(obj.type === 'star' ? 'Successfully starred the announcement' : 'Successfully un-starred the announcement', '');
         },
         error: (err: any) => {
           this.toast.setMessage(err.error.message, 'error');
