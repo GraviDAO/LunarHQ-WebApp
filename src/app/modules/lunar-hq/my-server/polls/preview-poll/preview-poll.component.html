@@ -96,7 +96,7 @@
       <div class="pd-left-48">
         <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;start time&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
-        <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.startTime}}</span>
+        <span class="app-why-lbl f14 ft-lato light">{{(pollObj?.startDate| date: 'HH:mm')}}</span>
       </div>
       <div class="pd-left-24">
         <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Poll ends __</span>
@@ -107,7 +107,7 @@
       <div class="pd-left-48">
         <span class="app-why-lbl f14 ft-lato error">&nbsp;[&nbsp;closing time&nbsp;]&nbsp;</span>
         <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
-        <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.closingTime}}</span>
+        <span class="app-why-lbl f14 ft-lato light">{{(pollObj?.endDate| date: 'HH:mm')}}</span>
       </div>
 
       <div class="pd-top-16">
@@ -115,11 +115,11 @@
       </div>
 
       <div class="pd-left-24 pd-top-8">
-        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Channel group:\ {{detailsObj?.location}}</span>
+        <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Channel name:\ {{detailsObj?.location}}</span>
       </div>
-      <div class="pd-left-48" *ngIf="detailsObj?.channelName">
+      <div class="pd-left-48" *ngIf="pollObj?.discordChannelName">
         <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
-        <span class="app-why-lbl f14 ft-lato light">{{detailsObj?.channelName}}</span>
+        <span class="app-why-lbl f14 ft-lato light">{{pollObj?.discordChannelName}}</span>
       </div>
 
       <div class="d-flex flex-column mr-top-8">

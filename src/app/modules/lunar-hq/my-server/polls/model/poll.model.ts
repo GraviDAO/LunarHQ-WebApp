@@ -6,6 +6,7 @@ export interface PollModel {
   creatorDiscordId?: string;
   quorum?: string;
   discordChannelId?: string;
+  discordChannelName?: string;
   startDate?: Date;
   endDate?: Date;
   discordServerId?: string;
