@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="icon-wrapper">
-        <div (click)="starAnnouncement(announcementObj)">
+        <div class="cursor-pointer" (click)="starAnnouncement(announcementObj)">
           <ion-icon class="app-why-icon ic18 light-70"
                     [ngClass]="{'primary': announcementObj?.starred}"
                     name="{{announcementObj?.starred ? 'star' : 'star-outline'}}"></ion-icon>
