@@ -30,7 +30,15 @@ import {ToastMsgComponent} from './shared/_helpers/toast.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    NgxUiLoaderModule,
+    NgxUiLoaderModule.forRoot({
+    "masterLoaderId": "master",
+    "overlayBorderRadius": "0",
+    "pbDirection": "ltr",
+    "pbThickness": 5,
+    "hasProgressBar": true,
+    "maxTime": -1,
+    "minTime": 100,
+    "fgsSize": 0,}),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',
