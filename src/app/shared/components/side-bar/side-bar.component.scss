@@ -371,10 +371,23 @@ a[data-toggle="collapse"] {
 
 .lunar-hq-wrapper {
   position: absolute;
-  bottom: 92px;
+  bottom: 132px;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.beta {
+  position: absolute;
+  bottom: 63px;
+  width: 100%;
+  background-color: var(--light-20);
+  color: var(--secondary);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
 }
 
 .min-ht-22 {
