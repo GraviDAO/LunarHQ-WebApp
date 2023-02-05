@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ModalService} from '../../_modal/modal.service';
 import {PermissionType, SideNavType} from './side.nav.type';
 import {CssConstants} from '../../services/css-constants.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-why-side-nav',
@@ -29,13 +30,18 @@ export class SideBarComponent implements OnInit {
 
   constructor(private router: Router,
               public cssClass: CssConstants,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private deviceService: DeviceDetectorService) {
   }
 
   ngOnInit(): void {
     $('#sidebar').toggleClass('active');
     let pos = this.sideNavList.findIndex((navObj: any) => navObj.title === this.activeTab);
     this.toggle[pos] = true;
+  }
+
+  isMobile(): boolean {
+    return this.deviceService.isMobile()
   }
 
   setIcon(icon: string): any {
