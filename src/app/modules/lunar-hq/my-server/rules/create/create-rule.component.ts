@@ -119,12 +119,10 @@ export class CreateRuleComponent implements OnInit {
   tokenIds: any;
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit(): void {
     const stepperEl = document.getElementById('stepper2') as HTMLElement;
-    console.log(document.getElementById('stepper2'))
     this.stepper = new Stepper(stepperEl, {
       linear: false,
       animation: true
