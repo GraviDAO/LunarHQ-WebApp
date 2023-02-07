@@ -74,7 +74,7 @@ export class RipplerHeaderSideNavComponent implements OnChanges {
     }
   }
 
-  navigateToSubMenu(subMenu: any) {
+  navigateToSubMenu(subMenu: any) { 
     if (subMenu.route.includes('/polls?')) {
       const route = subMenu.route.substring(0, 6);
       const type = subMenu.route.substring(12, subMenu.route.length);

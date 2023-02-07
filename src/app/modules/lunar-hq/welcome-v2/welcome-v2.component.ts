@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Subscription} from 'rxjs';
 import {LCDClient, MsgSend} from '@terra-money/terra.js';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-why-lunar-hq-welcome-v2',
@@ -58,7 +59,8 @@ export class WelcomeV2Component implements OnDestroy {
               private loaderService: NgxUiLoaderService,
               private storageService: LocalStorageService,
               public coreService: CoreService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private deviceService: DeviceDetectorService ) {
     // this.logStates();
     this.walletInit();
     this.route.queryParams.subscribe((params: any) => {
@@ -136,6 +138,10 @@ export class WelcomeV2Component implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  isMobile(): boolean {
+    return this.deviceService.isMobile()
   }
 
   getUserProfile(resetIfError: boolean = false) {
@@ -732,6 +738,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.selected = 'connect'
     this.storageService.set('user_progress', null);
     this.progressStatus = this.storageService.get('user_progress');
+    localStorage.clear();
   }
 
   changeDiscord() {

@@ -249,6 +249,7 @@
     </div>
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
+        *ngIf="!isMobile()"
         [cssClass]="cssClass.cta1Dark50"
         (click)="handleTerraConnection('EXTENSION', 'station', true)"
         [walletIcon]="terraIcon"

@@ -119,7 +119,10 @@ export class CreateRuleComponent implements OnInit {
   tokenIds: any;
 
   ngOnInit(): void {
-    const stepperEl = document.querySelector('#stepper2') as HTMLElement;
+  }
+
+  ngAfterViewInit(): void {
+    const stepperEl = document.getElementById('stepper2') as HTMLElement;
     this.stepper = new Stepper(stepperEl, {
       linear: false,
       animation: true

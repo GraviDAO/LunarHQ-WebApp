@@ -1,6 +1,6 @@
 <section>
   <div class="wrapper d-flex align-items-stretch">
-    <nav id="sidebar" class="active">
+    <nav *ngIf="!isMobile()" id="sidebar" class="active">
       <ul class="list-unstyled components mr-bottom-5 pd-top-36">
         <li *ngFor="let sideNav of sideNavList; let i = index;"
             class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
@@ -21,7 +21,7 @@
                           *ngIf="sideNav.subMenu && isToggled"
                           [ngClass]="{'secondary': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase(), 'reverse-icon': !toggle[i]}"
                           name="caret-up-outline"></ion-icon>
-              </div>
+              </div> 
 
             </div>
             <div>
@@ -66,7 +66,7 @@
     </nav>
 
     <!-- Page Content  -->
-    <div id="content" class="">
+    <div id="content" [ngClass]="{'content-mobile': isMobile()}" class="">
       <div class="d-flex justify-content-between align-items-center toggle-wrapper">
         <div class="pd-left-24 toggle-container">
           <ion-icon *ngIf="isToggled" class="icon primary add-cursor"
@@ -77,8 +77,11 @@
         <div class="pd-right-16">
         </div>
       </div>
-      <section class="content-wrapper" [ngClass]="{'content-wrapper-toggled': !isToggled}">
+      <section *ngIf="!isMobile()" class="content-wrapper" [ngClass]="{'content-wrapper-toggled': !isToggled}">
         <ng-content></ng-content>
+      </section>
+      <section *ngIf="isMobile()" class="content-wrapper content-wrapper-mobile" [ngClass]="{'content-wrapper-toggled': !isToggled}">
+        Please switch to Desktop to use LunarHQ!
       </section>
     </div>
   </div>
