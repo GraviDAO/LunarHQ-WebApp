@@ -738,6 +738,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.selected = 'connect'
     this.storageService.set('user_progress', null);
     this.progressStatus = this.storageService.get('user_progress');
+    localStorage.clear();
   }
 
   changeDiscord() {
