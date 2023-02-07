@@ -1,7 +1,7 @@
 <section>
   <div class="wrapper d-flex align-items-stretch">
     <nav *ngIf="!isMobile()" id="sidebar" class="active">
-      <ul class="list-unstyled components mr-bottom-5 pd-top-36">
+      <ul class="list-unstyled components mr-bottom-5 pd-top-36 main-side">
         <li *ngFor="let sideNav of sideNavList; let i = index;"
             class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
             [ngClass]="{'no-height': sideNav.subMenu}">

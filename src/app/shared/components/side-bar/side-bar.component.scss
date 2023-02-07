@@ -150,6 +150,11 @@ h1, h2, h3, h4, h5,
     transition: .4s all ease;
   }
 
+  .main-side {
+    height: calc(100vh - 230px);
+    overflow-y: overlay;
+  }
+
   ul {
     li {
       font-size: 16px;
