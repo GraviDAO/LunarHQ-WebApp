@@ -23,26 +23,22 @@
         </app-why-drop-down>
       </div>
 
-      <div class="mr-right-48">
+      <div class="d-flex mr-right-48">
         <app-why-search-component
           (clearSearch)=clearSearch()
           (searchContent)="searchAnnouncement($event)"></app-why-search-component>
+        &lt;!&ndash;<div class="mr-left-16">
+          <app-why-cta-one
+            [cssClass]="cssClass.cta1DarkSm"
+            [iconType]="'cog-outline'"
+            (clickEvent)="goToSettings()"
+            [iconClass]="cssClass.ctaIcon16Primary"
+            [btnLabel]="'settings'"></app-why-cta-one>
+        </div>&ndash;&gt;
       </div>
     </div>
 
-    <!--<div class="d-flex mr-right-48">
-      <app-why-search-component
-        (clearSearch)=clearSearch()
-        (searchContent)="searchAnnouncement($event)"></app-why-search-component>
-      &lt;!&ndash;<div class="mr-left-16">
-        <app-why-cta-one
-          [cssClass]="cssClass.cta1DarkSm"
-          [iconType]="'cog-outline'"
-          (clickEvent)="goToSettings()"
-          [iconClass]="cssClass.ctaIcon16Primary"
-          [btnLabel]="'settings'"></app-why-cta-one>
-      </div>&ndash;&gt;
-    </div>-->
+   
   </div>
 
   <article class="mr-top-32">

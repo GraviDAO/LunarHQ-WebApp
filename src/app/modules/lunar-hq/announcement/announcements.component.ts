@@ -160,6 +160,10 @@ export class AnnouncementsComponent implements OnInit {
       });
   }
 
+  goToSettings() {
+    this.router.navigate(['/announcements/settings']);
+  }
+
   private getStaredAnnouncementList() {
     this.lunarHqService.getStaredAnnouncementList()
       .subscribe({

@@ -19,7 +19,7 @@ export class AnnouncementSettingsComponent implements OnInit {
   serverFilter: string[] = []
   channelFilter: string[] = []
   selectedServer = 'Select server';
-  serverFilterArray: any = [];
+  serverFilterArray: { discordServerName: string | undefined, discordServerId: string | undefined, discordChannelId: string | undefined, discordChannelName: string | undefined }[] = [];
   announcementList = [];
   mainAnnouncementList = [];
   serverList: Array<string> = [];
@@ -32,16 +32,23 @@ export class AnnouncementSettingsComponent implements OnInit {
               private storageService: LocalStorageService,
               private lunarHqService: LunarHqAPIServices,
               private router: Router) {
-    const announcementSettings = this.storageService.get('announcement_settings');
-    if (announcementSettings !== null && announcementSettings !== undefined) {
-      if (announcementSettings.mentionFilter) {
-        this.mentionFilter = true;
-        this.mention.push(...announcementSettings.mentionFilter);
-      }
-    } else {
-      this.mention.push('');
-      this.serverFilterArray.push('');
-    }
+    const announcementSettings = this.lunarHqService.getAnnouncementSettings()
+      .subscribe({
+        next: (data) => {
+          const announcementSettings = data.message;
+          if (announcementSettings.mentionHighlights && announcementSettings.mentionHighlights.length > 0) {
+            this.mentionFilter = true;
+            this.mention.push(...announcementSettings.mentionHighlights);
+          } else {
+            this.mention.push('');
+          }
+          if (announcementSettings.filters && announcementSettings.filters.length > 0) {
+            this.serverFilterArray.push(...announcementSettings.filters);
+          }
+          if (announcementSettings.visibility) {
+            this.visibilityFilter = announcementSettings.visibility;
+          }
+        }});
   }
 
 
