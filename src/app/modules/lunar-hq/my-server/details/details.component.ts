@@ -130,7 +130,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   updateRole(ruleObj: any) {
     // @ts-ignore
-    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.serverDetails?.discordServerName],
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId, this.serverDetails?.discordServerName],
       {queryParams: {ruleId: ruleObj.id}});
   }
 
@@ -185,10 +185,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   navigateToCreateRule() {
-    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.serverDetails?.discordServerName]);
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId, this.serverDetails?.discordServerName]);
   }
 
   navigateToCreatePoll() {
-    this.router.navigate(['my-server/' + this.discordServerId + '/create-poll/' + this.serverDetails?.discordServerName]);
+    this.router.navigate(['my-server/' + this.discordServerId + '/create-poll', this.serverDetails?.discordServerName]);
   }
 }

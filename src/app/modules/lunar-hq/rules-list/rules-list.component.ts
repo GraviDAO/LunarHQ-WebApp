@@ -85,7 +85,7 @@ export class RulesListComponent implements OnInit {
 
   updateRole(ruleObj: any) {
     // @ts-ignore
-    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.ruleItems[0]?.discordServerName],
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId, this.ruleItems[0]?.discordServerName],
       {queryParams: {ruleId: ruleObj.id}});
   }
 

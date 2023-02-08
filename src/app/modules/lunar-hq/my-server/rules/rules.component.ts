@@ -69,7 +69,7 @@ export class RulesComponent implements OnInit {
 
   navigateToCreateRule() {
     // @ts-ignore
-    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.ruleItems[0]?.discordServerName]);
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId, this.ruleItems[0]?.discordServerName]);
   }
 
   showRule(ruleObj: any) {
@@ -100,7 +100,7 @@ export class RulesComponent implements OnInit {
 
   updateRole(ruleObj: any) {
     // @ts-ignore
-    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.ruleItems[0]?.discordServerName],
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId, this.ruleItems[0]?.discordServerName],
       {queryParams: {ruleId: ruleObj.id}});
   }
 
