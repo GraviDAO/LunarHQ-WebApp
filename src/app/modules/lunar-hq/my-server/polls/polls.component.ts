@@ -73,7 +73,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
   }
 
   navigateToCreatePoll() {
-    this.router.navigate(['my-server/' + this.discordServerId + '/create-poll/' + this.pollsList[0]?.discordServerName]);
+    this.router.navigate(['my-server/' + this.discordServerId + '/create-poll', this.pollsList[0]?.discordServerName]);
   }
 
   getPollsList() {
@@ -122,7 +122,7 @@ export class PollsListComponent implements OnInit, OnDestroy {
 
   editPoll(obj: any) {
     this.storageService.set('poll_obj', obj);
-    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
+    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll', obj.discordServerName],
       {queryParams: {pollId: obj.id}});
   }
 

@@ -212,6 +212,9 @@ export class CreatePollComponent implements OnInit {
   channelName = 'Select Channel';
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
     // this.roleList = RuleList;
     this.getRoles();
     const stepperEl = document.querySelector('#stepper1') as HTMLElement;

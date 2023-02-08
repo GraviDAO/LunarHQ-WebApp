@@ -1,7 +1,7 @@
 <section>
   <div class="wrapper d-flex align-items-stretch">
     <nav *ngIf="!isMobile()" id="sidebar" class="active">
-      <ul class="list-unstyled components mr-bottom-5 pd-top-36">
+      <ul class="list-unstyled components mr-bottom-5 pd-top-36 main-side">
         <li *ngFor="let sideNav of sideNavList; let i = index;"
             class="show-cursor mr-bottom-16" (click)="navigate(sideNav.title, i, sideNav.subMenu)"
             [ngClass]="{'no-height': sideNav.subMenu}">
@@ -17,17 +17,18 @@
                 {{sideNav.title}}
               </span>
               <div>
-                <ion-icon class="app-why-icon ic12 light-70 pd-0 mr-left-16"
+                <ion-icon class="app-why-icon ic12 light-70 mr-left-8 arrow"
                           *ngIf="sideNav.subMenu && isToggled"
                           [ngClass]="{'secondary': activeTab.toLocaleLowerCase() === sideNav.title.toLocaleLowerCase(), 'reverse-icon': !toggle[i]}"
-                          name="caret-up-outline"></ion-icon>
+                          name="caret-up-outline"
+                          (click)="toggleSubmenu(i, $event, sideNav.title)"></ion-icon>
               </div> 
 
             </div>
             <div>
               <ul *ngIf="sideNav.subMenu && isToggled" [ngClass]="toggle[i] ? 'show': 'hide'" class="pd-0 mr-top-8">
                 <li *ngFor="let subMenuObj of sideNav.subMenu"
-                    class="submenu-list mr-bottom-8"
+                    class="submenu-list pd-bottom-8"
                     (click)="subMenu($event,subMenuObj.title, i, subMenuObj,'')">
                   <article>
                     <div class="add-cursor">

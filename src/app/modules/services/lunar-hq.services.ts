@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import {catchError, map, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
@@ -123,10 +123,15 @@ export class LunarHqAPIServices {
   }
 
   getPermissions(discordServerId: any) {
-    return this.http.get<any>(environment.server + 'hasPermissions/?discordServerId=' + discordServerId)
-      .pipe(map((result) => {
+    const res = this.http.get<any>(environment.server + 'hasPermissions/?discordServerId=' + discordServerId);
+    return res.pipe(
+      catchError((err) => {
+        return new Observable(o => o.next("Not enough permissions."))
+      }),
+      map((result) => {
         return result;
-      }));
+      })
+    );
   }
 
   deleteRule(ruleId: any, discordServerId: any) {

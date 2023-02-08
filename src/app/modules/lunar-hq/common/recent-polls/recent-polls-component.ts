@@ -33,7 +33,7 @@ export class RecentPollsComponent {
 
   editPoll(obj: any) {
     this.storageService.set('poll_obj', obj);
-    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll/' + obj.discordServerName],
+    this.router.navigate(['my-server/' + obj.discordServerId + '/create-poll', obj.discordServerName],
       {queryParams: {pollId: obj.id}});
   }
 

@@ -141,7 +141,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   updateRole(ruleObj: any) {
     // @ts-ignore
-    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId + '/' + this.serverDetails?.discordServerName],
+    this.router.navigate(['my-server/rules/create/rule/' + this.discordServerId, this.serverDetails?.discordServerName],
       {queryParams: {ruleId: ruleObj.id}});
   }
 

@@ -104,6 +104,12 @@ export class SideBarComponent implements OnInit {
     }
   }
 
+  toggleSubmenu(pos: number, event: Event, tab: string) {
+    if(this.activeTab === tab) event.stopPropagation();
+    this.toggle[pos] = !this.toggle[pos];
+    console.log(this.toggle)
+  }
+
   showLogOut() {
     this.modalService.open('log-out');
   }
