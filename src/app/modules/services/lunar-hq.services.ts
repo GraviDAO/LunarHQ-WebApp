@@ -244,7 +244,7 @@ export class LunarHqAPIServices {
   }
 
   saveAnnouncementSettings(data: any) {
-    return this.http.get<any>(environment.server + 'saveAnnouncementSettings', data)
+    return this.http.put<any>(environment.server + 'saveAnnouncementSettings', data)
       .pipe(map((result) => {
         return result;
       }));

@@ -25,6 +25,7 @@ export class AnnouncementSettingsComponent implements OnInit {
   serverList: Array<string> = [];
   channelList: any = [];
   serversChannels: any[] = [];
+  dontRemoveStarred: boolean | undefined;
 
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
@@ -49,6 +50,11 @@ export class AnnouncementSettingsComponent implements OnInit {
           if (announcementSettings.visibility) {
             this.visibilityFilter = announcementSettings.visibility;
           }
+          if(announcementSettings.dontRemoveStarred !== undefined) {
+            this.dontRemoveStarred = announcementSettings.dontRemoveStarred;
+          } else {
+            this.dontRemoveStarred = true;
+          }
         }});
 
     const serversChannels = this.lunarHqService.getServersChannels()
@@ -72,58 +78,55 @@ export class AnnouncementSettingsComponent implements OnInit {
   }
 
   confirm() {
-    // let announcementSettings: any = {};
-    // if (this.visibilityFilter) {
-    //   announcementSettings.visibility = this.visibilityFilter
-    // }
-    // let mentionFilterArray: string[] = [];
-    // if (this.mentionFilter && this.mention.length >= 1) {
-    //   this.mention.forEach((obj) => {
-    //     if (obj.length > 1) {
-    //       mentionFilterArray.push(obj);
-    //     }
-    //   });
+    let announcementSettings: any = {};
+    if (this.visibilityFilter) {
+      announcementSettings.visibility = this.visibilityFilter
+    }
+    let mentionFilterArray: string[] = [];
+    if (this.mentionFilter && this.mention.length >= 1) {
+      this.mention.forEach((m) => {
+        if (m.length > 1) {
+          mentionFilterArray.push(m);
+        }
+      });
 
-    //   if (mentionFilterArray.length >= 1) {
-    //     announcementSettings.mentionHighlights = mentionFilterArray;
-    //   }
-    // } else {
-    //   delete announcementSettings.mentionHighlights;
-    // }
-    // if (this.serverFilter.length >= 1) {
-    //   announcementSettings.filters = [];
+      if (mentionFilterArray.length >= 1) {
+        announcementSettings.mentionHighlights = mentionFilterArray;
+      }
+    } else {
+      delete announcementSettings.mentionHighlights;
+    }
+    if (this.serverFilterArray.length >= 1) {
+      announcementSettings.filters = [];
 
-    //   for(let i=0;i<this.serverFilter.length;i++) {
-    //     if(this.channelFilter[i]) {
-    //       announcementSettings.filters.push({ discordServerId })
-    //     }
-    //   }
-    // } else {
-    //   delete announcementSettings.filters;
-    // }
+      for(let i=0;i<this.serverFilterArray.length;i++) {
+        if(this.serverFilterArray[i].discordChannelId && this.serverFilterArray[i].discordServerId) {
+          announcementSettings.filters.push({ discordServerId: this.serverFilterArray[i].discordServerId, discordChannelId: this.serverFilterArray[i].discordChannelId })
+        }
+      }
+    } else {
+      delete announcementSettings.filters;
+    }
+    announcementSettings.dontRemoveStarred = this.dontRemoveStarred;
 
-    // this.loader.start();
-    // this.lunarHqService.saveAnnouncementSettings()
-    //   .subscribe({
-    //     next: (data: any) => {
-    //       this.loader.stop();
-    //       this.toastService.setMessage('Settings saved');
-    //     },
-    //     error: (error: any) => {
-    //       this.loader.stop();
-    //       this.toastService.setMessage(error?.error.message, 'error');
-    //       console.error(error, 'error');
-    //     }
-    //   });
+    this.loader.start();
+    this.lunarHqService.saveAnnouncementSettings(announcementSettings)
+      .subscribe({
+        next: (data: any) => {
+          this.loader.stop();
+          this.toastService.setMessage('Settings saved');
+        },
+        error: (error: any) => {
+          this.loader.stop();
+          this.toastService.setMessage(error?.error.message, 'error');
+          console.error(error, 'error');
+        }
+      });
     this.router.navigate(['/announcement']);
   }
 
   onChangeServer(filter: boolean) {
     this.mentionFilter = filter;
-  }
-
-  checkUncheck(status: Event) {
-
   }
 
   ngOnInit(): void {
@@ -151,14 +154,23 @@ export class AnnouncementSettingsComponent implements OnInit {
   //     });
   // }
 
-  setChannel(server: any, pos: any) {
-    console.log(server, pos)
-    // this.serverFilter.indexOf(server) === -1 ? this.serverFilter.push(server) : '';
+  setChannel(channelName: string, pos: any) {
+    const serverId = this.serverFilterArray[pos].discordServerId;
+    const channel = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels.find((c: { discordChannelName: string; discordChannelId: string }) => c.discordChannelName === channelName);
+    this.serverFilterArray[pos].discordChannelId = channel.discordChannelId;
+    this.serverFilterArray[pos].discordChannelName = channel.discordChannelName;
+    console.log(this.serverFilterArray[pos])
   }
 
-  setServer(channel: any, pos: any) {
-    console.log(channel, pos)
-    // this.serverFilter[pos]
+  getChannelList(serverId: string | undefined): string[] {
+    if(!serverId) return [];
+    return this.channelList[this.serversChannels.findIndex(sc => sc.discordServerId === serverId)];
+  }
+
+  setServer(serverName: string, pos: number) {
+    const serverChannel = this.serversChannels.find(sc => sc.discordServerName === serverName)
+    this.serverFilterArray[pos].discordServerId = serverChannel.discordServerId;
+    this.serverFilterArray[pos].discordServerName = serverChannel.discordServerName;
   }
 
   spliceMention(pos: number) {
