@@ -39,7 +39,7 @@ ul li ul {
   left: 0;
   display: none;
 
-  max-height: 120px !important;
+  max-height: 115px !important;
   overflow-y: scroll !important;
 
   &:not(hover),
@@ -84,6 +84,18 @@ ul li ul li {
   //padding-left: 24px;
   //padding-top: 8px;
   //padding-bottom: 8px;
+}
+
+.placeholderText {
+  line-height: 1.1;
+  padding-top: 3px;
+}
+
+.iconInner {
+  width: 15px;
+  height: 13px;
+  display: block;
+  margin: auto 5px auto 0;
 }
 
 .text-wrapper {

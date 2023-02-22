@@ -18,7 +18,7 @@
   <section class="form-wrapper">
 
 
-    <article class="main-wrapper mr-top-56">
+    <article class="main-wrapper mr-top-56 pd-bottom-70">
       <div class="app-why-lbl f16 text-uppercase ft-500 light">
         filter server / channels
       </div>
@@ -35,7 +35,7 @@
           <div class="app-why-lbl light-50 text-uppercase">Channels</div>
         </div>
       </div>
-      <div class="d-flex mr-bottom-12" *ngFor="let serverFilterObj of serverFilterArray; let pos = index;">
+      <div class="d-flex mr-bottom-15" *ngFor="let serverFilterObj of serverFilterArray; let pos = index;">
         <div class="server-channel-wrapper">
           <app-why-drop-down class="dropd" [leftIcon]="true" [placeholderText]="serverFilterObj.discordServerName ?? 'Select Server'" [dataList]="serverList"
                              (dataSet)="setServer($event, pos)"></app-why-drop-down>
@@ -43,7 +43,11 @@
         <div class="server-channel-wrapper mr-left-80">
           <app-why-drop-down class="dropd" [leftIcon]="true" [placeholderText]="serverFilterObj.discordChannelName ?? 'Select Channel'"
                              (dataSet)="setChannel($event, pos)"
-                             [dataList]="getChannelList(serverFilterObj.discordServerId)"></app-why-drop-down>
+                             [dataList]="getChannelList(serverFilterObj.discordServerId)"
+                             [icon]="getIconList(serverFilterObj.discordServerId)"></app-why-drop-down>
+        </div>
+        <div class="d-flex align-items-end pd-left-16 pd-bottom-8" (click)="spliceFilter(pos)">
+          <ion-icon class="app-why-icon ic14 light-70 show-cursor" name="remove-circle-outline"></ion-icon>
         </div>
       </div>
       <div class="mr-top-24">

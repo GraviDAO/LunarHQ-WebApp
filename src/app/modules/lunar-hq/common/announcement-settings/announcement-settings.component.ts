@@ -60,12 +60,14 @@ export class AnnouncementSettingsComponent implements OnInit {
     const serversChannels = this.lunarHqService.getServersChannels()
     .subscribe({
       next: (data) => {
-        this.serversChannels = data.message;
         for(let i=0;i<data.message.length;i++) {
-          this.serverList.push(data.message[i].discordServerName);
+          const curr = data.message[i];
+          curr.discordServerChannels.sort((a: any,b: any) => a.announcementChannel ? -1 : 1);
+          this.serversChannels.push(curr);
+          this.serverList.push(curr.discordServerName);
           const channels: string[] = [];
-          for(let j=0;j<data.message[i].discordServerChannels.length;j++) {
-            channels[j] = (data.message[i].discordServerChannels[j].discordChannelName);
+          for(let j=0;j<curr.discordServerChannels.length;j++) {
+            channels[j] = (curr.discordServerChannels[j].discordChannelName);
           }
           this.channelList.push(channels);
         }
@@ -154,6 +156,17 @@ export class AnnouncementSettingsComponent implements OnInit {
   //     });
   // }
 
+  getIconList(serverId: string | undefined): string[] | undefined {
+    if(!serverId) return undefined;
+    const channels = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels;
+    const iconSrcs = Array(channels.length);
+    for(let i=0;i<channels.length;i++) {
+      if(channels[i].announcementChannel) iconSrcs[i] = './assets/img/png/announce.png';
+      else iconSrcs[i] = ''
+    }
+    return iconSrcs;
+  }
+
   setChannel(channelName: string, pos: any) {
     const serverId = this.serverFilterArray[pos].discordServerId;
     const channel = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels.find((c: { discordChannelName: string; discordChannelId: string }) => c.discordChannelName === channelName);
@@ -171,6 +184,11 @@ export class AnnouncementSettingsComponent implements OnInit {
     const serverChannel = this.serversChannels.find(sc => sc.discordServerName === serverName)
     this.serverFilterArray[pos].discordServerId = serverChannel.discordServerId;
     this.serverFilterArray[pos].discordServerName = serverChannel.discordServerName;
+  }
+
+  spliceFilter(pos: number) {
+    this.serverFilterArray.splice(pos,1);
+    console.log(this.serverFilterArray)
   }
 
   spliceMention(pos: number) {
