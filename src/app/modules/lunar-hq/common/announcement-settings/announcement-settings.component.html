@@ -18,7 +18,7 @@
   <section class="form-wrapper">
 
 
-    <article class="main-wrapper mr-top-56 pd-bottom-70">
+    <article class="main-wrapper mr-top-56 pd-bottom-100">
       <div class="app-why-lbl f16 text-uppercase ft-500 light">
         filter server / channels
       </div>
@@ -57,7 +57,10 @@
                            (click)="serverFilterArray.push({discordServerId: undefined, discordChannelId: undefined, discordChannelName: undefined, discordServerName: undefined})"
                            [iconClass]="cssClass.cta3Light70Icon"></app-why-cta-three>
       </div>
-
+      <div class="notewrap">
+        <span class="note2">Default: All detectable announcement channels of all servers.</span>
+        <span class="note">Note: If messages are not showing, make sure that our bot has access to that channel or notify the server admins!</span>  
+      </div>
     </article>
 
     <div class="main-wrapper mr-top-8">
@@ -65,18 +68,18 @@
         <div class="app-why-lbl f16 text-uppercase ft-500 light">
           Content visibility
         </div>
-        <div class="d-flex align-items-center">
+        <!-- <div class="d-flex align-items-center">
           <div class="app-why-lbl f12 ft-500 light-50 pd-right-8 text-uppercase">do not remove starred items</div>
           <label class="switch primary">
             <input type="checkbox" [(ngModel)]="dontRemoveStarred">
             <span class="toggle-switch round"></span>
           </label>
-        </div>
+        </div> -->
       </div>
       <div class="horizontal-divider light-20 mr-top-8 mr-bottom-40">
       </div>
       <div>
-        <div class="app-why-lbl light-50 ft-lato ltr-spacing text-uppercase">Delete announcements after…</div>
+        <div class="app-why-lbl light-50 ft-lato ltr-spacing text-uppercase">Show announcements of last …</div>
       </div>
       <div class="d-flex align-items-center pd-top-12">
         <input type="radio" class="radio-button-secondary primary" [checked]="visibilityFilter === '1_day'" id="1_day"
@@ -122,7 +125,7 @@
 
     </div>
 
-    <div class="main-wrapper mr-top-8">
+    <!-- <div class="main-wrapper mr-top-8">
       <div class="app-why-lbl f16 text-uppercase ft-500 light">
         Highlight @ mentions
       </div>
@@ -170,7 +173,7 @@
       </div>
 
 
-    </div>
+    </div> -->
     <div class="d-flex justify-content-end mr-top-24 full-width mr-bottom-80">
       <div class="d-flex">
         <app-why-lunar-hq-cta-two [btnLabel]="'BACK'" [btnTheme]="'bg--dark'"

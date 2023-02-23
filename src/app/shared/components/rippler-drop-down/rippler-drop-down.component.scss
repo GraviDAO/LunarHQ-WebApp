@@ -39,7 +39,7 @@ ul li ul {
   left: 0;
   display: none;
 
-  max-height: 115px !important;
+  max-height: 135px !important;
   overflow-y: scroll !important;
 
   &:not(hover),
@@ -95,7 +95,7 @@ ul li ul li {
   width: 15px;
   height: 13px;
   display: block;
-  margin: auto 5px auto 0;
+  margin: auto 8px auto 0;
 }
 
 .text-wrapper {

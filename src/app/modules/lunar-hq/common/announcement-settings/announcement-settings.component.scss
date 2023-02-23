@@ -7,6 +7,7 @@
   @include mixin.bg--wrapper;
   background: var(--tertiary);
   padding: mixin.toRem(24) mixin.toRem(40);
+  position: relative;
 }
 
 .form-wrapper {
@@ -29,4 +30,22 @@
 
 .server-channel-wrapper {
   width: mixin.toRem(162);
+}
+
+.note {
+  color: #ffffff30;
+  font-size: 14px;
+}
+
+.notewrap {
+  position: absolute;
+  bottom: mixin.toRem(24);
+  padding-right: mixin.toRem(40);
+  display: flex;
+  flex-direction: column;
+}
+
+.note2 {
+  color: #ffffff60;
+  font-size: 15px;
 }

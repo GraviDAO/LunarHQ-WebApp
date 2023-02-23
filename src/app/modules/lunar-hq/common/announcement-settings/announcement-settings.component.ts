@@ -34,6 +34,7 @@ export class AnnouncementSettingsComponent implements OnInit {
               private storageService: LocalStorageService,
               private lunarHqService: LunarHqAPIServices,
               private router: Router) {
+    loader.start();
     const announcementSettings = this.lunarHqService.getAnnouncementSettings()
       .subscribe({
         next: (data) => {
@@ -55,6 +56,7 @@ export class AnnouncementSettingsComponent implements OnInit {
           } else {
             this.dontRemoveStarred = true;
           }
+          loader.stop();
         }});
 
     const serversChannels = this.lunarHqService.getServersChannels()
