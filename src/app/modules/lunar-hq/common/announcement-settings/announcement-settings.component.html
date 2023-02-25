@@ -21,6 +21,7 @@
     <article class="main-wrapper mr-top-56 pd-bottom-100">
       <div class="app-why-lbl f16 text-uppercase ft-500 light">
         filter server / channels
+        <span class="smallNote">Affects loading times</span>
       </div>
       <div class="horizontal-divider light-20 mr-top-8 mr-bottom-40">
       </div>
@@ -41,7 +42,7 @@
                              (dataSet)="setServer($event, pos)"></app-why-drop-down>
         </div>
         <div class="server-channel-wrapper mr-left-80">
-          <app-why-drop-down class="dropd" [leftIcon]="true" [placeholderText]="serverFilterObj.discordChannelName ?? 'Select Channel'"
+          <app-why-drop-down class="dropd" [leftIcon]="true" [placeholderText]="serverFilterObj.discordChannelId ? getChannelName(serverFilterObj.discordChannelId, pos) ?? 'Select Channel' : 'Select Channel'"
                              (dataSet)="setChannel($event, pos)"
                              [dataList]="getChannelList(serverFilterObj.discordServerId)"
                              [icon]="getIconList(serverFilterObj.discordServerId)"></app-why-drop-down>
@@ -67,6 +68,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="app-why-lbl f16 text-uppercase ft-500 light">
           Content visibility
+          <span class="smallNote">Affects loading times</span>
         </div>
         <!-- <div class="d-flex align-items-center">
           <div class="app-why-lbl f12 ft-500 light-50 pd-right-8 text-uppercase">do not remove starred items</div>

@@ -65,7 +65,21 @@ export class AnnouncementSettingsComponent implements OnInit {
       next: (data) => {
         for(let i=0;i<data.message.length;i++) {
           const curr = data.message[i];
-          curr.discordServerChannels.sort((a: any,b: any) => a.announcementChannel ? -1 : 1);
+          curr.discordServerChannels.sort((a:any, b:any) => {
+            if (a.announcementChannel && !b.announcementChannel) {
+              return -1;
+            } else if (!a.announcementChannel && b.announcementChannel) {
+              return 1;
+            } else {
+              if (a.position < b.position) {
+                return -1;
+              } else if (a.position > b.position) {
+                return 1;
+              } else {
+                return a.discordChannelName.localeCompare(b.discordChannelName);
+              }
+            }
+          });
           this.serversChannels.push(curr);
           this.serverList.push(curr.discordServerName);
           const channels: string[] = [];
@@ -175,6 +189,12 @@ export class AnnouncementSettingsComponent implements OnInit {
     return iconSrcs;
   }
 
+  getChannelName(channelId: string, pos: number): string | undefined {
+    const serverId = this.serverFilterArray[pos].discordServerId;
+    const channel = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels.find((c: { discordChannelName: string; discordChannelId: string }) => c.discordChannelId === channelId);
+    return channel.discordChannelName
+  }
+
   setChannel(channelName: string, pos: any) {
     const serverId = this.serverFilterArray[pos].discordServerId;
     const channel = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels.find((c: { discordChannelName: string; discordChannelId: string }) => c.discordChannelName === channelName);
@@ -196,7 +216,6 @@ export class AnnouncementSettingsComponent implements OnInit {
 
   spliceFilter(pos: number) {
     this.serverFilterArray.splice(pos,1);
-    console.log(this.serverFilterArray)
   }
 
   spliceMention(pos: number) {
