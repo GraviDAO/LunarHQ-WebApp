@@ -126,7 +126,7 @@ export class AnnouncementSettingsComponent implements OnInit {
         }
       }
     } else {
-      delete announcementSettings.filters;
+      announcementSettings.filters = [];
     }
     announcementSettings.dontRemoveStarred = this.dontRemoveStarred;
 
