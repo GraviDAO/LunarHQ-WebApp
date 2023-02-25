@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {ToastrService} from 'ngx-toastr';
@@ -30,6 +30,7 @@ export class AnnouncementSettingsComponent implements OnInit {
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
               private toast: ToastrService,
+              private route: ActivatedRoute,
               private toastService: ToastMsgService,
               private storageService: LocalStorageService,
               private lunarHqService: LunarHqAPIServices,
@@ -78,7 +79,9 @@ export class AnnouncementSettingsComponent implements OnInit {
 
 
   navigateBack() {
-    this.router.navigate(['/announcement']);
+    let from: string | null = null;
+    if(from = this.route.snapshot.paramMap.get('from')) this.router.navigate([from]);
+    else this.router.navigate(['/announcement']);
   }
 
   confirm() {
@@ -126,7 +129,9 @@ export class AnnouncementSettingsComponent implements OnInit {
           console.error(error, 'error');
         }
       });
-    this.router.navigate(['/announcement']);
+    let from: string | null = null;
+    if(from = this.route.snapshot.paramMap.get('from')) this.router.navigate([from]);
+    else this.router.navigate(['/announcement']);
   }
 
   onChangeServer(filter: boolean) {
@@ -160,6 +165,7 @@ export class AnnouncementSettingsComponent implements OnInit {
 
   getIconList(serverId: string | undefined): string[] | undefined {
     if(!serverId) return undefined;
+    if(this.serversChannels.length == 0) return undefined;
     const channels = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels;
     const iconSrcs = Array(channels.length);
     for(let i=0;i<channels.length;i++) {
