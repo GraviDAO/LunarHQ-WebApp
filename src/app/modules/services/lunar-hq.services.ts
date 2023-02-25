@@ -229,5 +229,24 @@ export class LunarHqAPIServices {
       }));
   }
 
+  getAnnouncementSettings() {
+    return this.http.get<any>(environment.server + 'getAnnouncementSettings')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
 
+  getServersChannels() {
+    return this.http.get<any>(environment.server + 'getServersChannels')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
+  saveAnnouncementSettings(data: any) {
+    return this.http.put<any>(environment.server + 'saveAnnouncementSettings', data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
 }

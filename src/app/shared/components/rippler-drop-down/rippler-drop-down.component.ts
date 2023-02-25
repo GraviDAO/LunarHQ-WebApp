@@ -17,6 +17,7 @@ export class RipplerDropDownComponent {
   @Output() dataSet: EventEmitter<any> = new EventEmitter<any>();
   @Input() isProfile = false;
   @Input() profileObj: any;
+  @Input() icon: any;
 
   constructor(private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: Event) => {

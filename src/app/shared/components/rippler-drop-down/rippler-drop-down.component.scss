@@ -31,7 +31,6 @@ li:focus-within {
 
 ul li ul {
   visibility: hidden;
-  height: 2.375rem;
   opacity: 0;
   min-width: 5rem;
   width: max-content;
@@ -39,6 +38,9 @@ ul li ul {
   transition: all 0.5s ease;
   left: 0;
   display: none;
+
+  max-height: 135px !important;
+  overflow-y: scroll !important;
 
   &:not(hover),
   &:not(focus) {
@@ -82,6 +84,18 @@ ul li ul li {
   //padding-left: 24px;
   //padding-top: 8px;
   //padding-bottom: 8px;
+}
+
+.placeholderText {
+  line-height: 1.1;
+  padding-top: 3px;
+}
+
+.iconInner {
+  width: 15px;
+  height: 13px;
+  display: block;
+  margin: auto 8px auto 0;
 }
 
 .text-wrapper {

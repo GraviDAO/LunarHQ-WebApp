@@ -54,7 +54,7 @@ const routes: Routes = [
     component: AnnouncementsComponent
   },
   {
-    path: 'announcement/settings',
+    path: 'announcements/settings',
     component: AnnouncementSettingsComponent
   },
   {

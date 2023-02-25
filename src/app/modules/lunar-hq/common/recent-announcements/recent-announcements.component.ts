@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {ToastMsgService} from '../../../../shared/services/toast-msg-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-why-lunar-hq-recent-announcements',
@@ -18,6 +19,8 @@ export class RecentAnnouncementsComponent {
 
   constructor(public cssClass: CssConstants,
               private lunarHqService: LunarHqAPIServices,
+              private router: Router,
+              private route: ActivatedRoute,
               private toast: ToastMsgService) {
   }
 
@@ -48,5 +51,11 @@ export class RecentAnnouncementsComponent {
 
   previewAnnouncement(obj: any) {
     this.viewAnnouncement.emit(obj);
+  }
+
+  navigateToAnnouncementSettings() {
+    let route = '';
+    this.route.url.forEach(r => r.forEach(rr => route += '/' + rr.path))
+    this.router.navigate(['/announcements/settings', { from: route }]);
   }
 }

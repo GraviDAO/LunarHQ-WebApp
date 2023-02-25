@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center" *ngIf="!isProfile">
         <ion-icon name="{{!viewHide ? 'caret-down-outline' : 'caret-up-outline'}}"
                   class="mr-right-8 app-why-icon ic12 light" *ngIf="leftIcon"></ion-icon>
-        <span class="app-why-lbl f12 ft-500 light text-uppercase"
+        <span class="app-why-lbl f12 ft-500 light text-uppercase placeholderText"
               (click)="showHideList(); activateList()">{{placeholderText}}</span>
         <ion-icon name="{{!viewHide ? 'caret-down-outline' : 'caret-up-outline'}}"
                   class="mr-left-8 app-why-icon ic12 light" *ngIf="rightIcon"></ion-icon>
@@ -25,8 +25,10 @@
         </div>
       </div>
       <ul class="dropdown" aria-label="submenu" [ngClass]="{'view-drop-down': viewHide, 'right-align': isProfile}">
-        <li (click)="showHideList(); activateList()" class="list-data-container" *ngFor="let i of dataList">
-          <div class="text-wrapper text-uppercase" (click)="setData(i)">
+        <li (click)="showHideList(); activateList()" class="list-data-container" *ngFor="let i of dataList; let pos = index;">
+          <div class="text-wrapper text-uppercase d-flex" (click)="setData(i)">
+            <img *ngIf="icon && icon[pos] && icon[pos] !== ''" [src]="icon[pos]" class="iconInner"
+               alt="">
             <div *ngIf="keyField">{{i[keyField]}}</div>
             <div *ngIf="!keyField">{{i}}</div>
           </div>
