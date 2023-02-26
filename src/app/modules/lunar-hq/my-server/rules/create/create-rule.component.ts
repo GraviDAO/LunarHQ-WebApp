@@ -407,7 +407,7 @@ export class CreateRuleComponent implements OnInit {
     this.lunarService.getRoles(this.discordServerId)
       .subscribe({
         next: (data) => {
-          this.roles = data.message;
+          this.roles = data.message.sort((a:any, b:any) => a.name.localeCompare(b.name));
           if (this.ruleId) {
             this.getRuleById();
           } else {
