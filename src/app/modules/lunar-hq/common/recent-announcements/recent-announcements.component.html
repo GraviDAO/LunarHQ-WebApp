@@ -27,6 +27,14 @@
     <label class="app-why-lbl f14 light-70">
       Keeping track of all of your communities can be hard. Let Lunar HQ bring all of your important announcements to a
       single place so you stay informed of the big news.
+      <div class="spacer"></div>
+      <app-why-cta-three
+        [btnClass]="cssClass.cta3PrimaryNorm"
+        [iconClass]="cssClass.cta3PrimaryIconNorm"
+        [iconType]="'chevron-forward-outline'"
+        (click)="navigateToAnnouncementSettings()"
+        routerLink="/my-server"
+        [btnLabel]="'Configure settings!'"></app-why-cta-three>
     </label>
   </div>
   <!--<div class="no-announcement-wrapper"

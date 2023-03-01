@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CssConstants} from '../../../../shared/services/css-constants.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import {LunarHqAPIServices} from '../../../services/lunar-hq.services';
 import {ToastrService} from 'ngx-toastr';
@@ -19,111 +19,203 @@ export class AnnouncementSettingsComponent implements OnInit {
   serverFilter: string[] = []
   channelFilter: string[] = []
   selectedServer = 'Select server';
-  serverFilterArray: any = [];
-  announcementList = [];
-  mainAnnouncementList = [];
+  serverFilterArray: { discordServerName: string | undefined, discordServerId: string | undefined, discordChannelId: string | undefined, discordChannelName: string | undefined }[] = [];
+  // announcementList = [];
+  // mainAnnouncementList = [];
   serverList: Array<string> = [];
   channelList: any = [];
+  serversChannels: any[] = [];
+  dontRemoveStarred: boolean | undefined;
 
   constructor(public cssClass: CssConstants,
               private loader: NgxUiLoaderService,
               private toast: ToastrService,
+              private route: ActivatedRoute,
               private toastService: ToastMsgService,
               private storageService: LocalStorageService,
               private lunarHqService: LunarHqAPIServices,
               private router: Router) {
-    const announcementSettings = this.storageService.get('announcement_settings');
-    if (announcementSettings !== null && announcementSettings !== undefined) {
-      if (announcementSettings.mentionFilter) {
-        this.mentionFilter = true;
-        this.mention.push(...announcementSettings.mentionFilter);
-      }
-    } else {
-      this.mention.push('');
-      this.serverFilterArray.push('');
-    }
+    loader.start();
+    const announcementSettings = this.lunarHqService.getAnnouncementSettings()
+      .subscribe({
+        next: (data) => {
+          const announcementSettings = data.message;
+          if (announcementSettings.mentionHighlights && announcementSettings.mentionHighlights.length > 0) {
+            this.mentionFilter = true;
+            this.mention.push(...announcementSettings.mentionHighlights);
+          } else {
+            this.mention.push('');
+          }
+          if (announcementSettings.filters && announcementSettings.filters.length > 0) {
+            this.serverFilterArray.push(...announcementSettings.filters);
+          }
+          if (announcementSettings.visibility) {
+            this.visibilityFilter = announcementSettings.visibility;
+          }
+          if(announcementSettings.dontRemoveStarred !== undefined) {
+            this.dontRemoveStarred = announcementSettings.dontRemoveStarred;
+          } else {
+            this.dontRemoveStarred = true;
+          }
+          loader.stop();
+        }});
+
+    const serversChannels = this.lunarHqService.getServersChannels()
+    .subscribe({
+      next: (data) => {
+        for(let i=0;i<data.message.length;i++) {
+          const curr = data.message[i];
+          curr.discordServerChannels.sort((a:any, b:any) => {
+            if (a.announcementChannel && !b.announcementChannel) {
+              return -1;
+            } else if (!a.announcementChannel && b.announcementChannel) {
+              return 1;
+            } else {
+              if (a.position < b.position) {
+                return -1;
+              } else if (a.position > b.position) {
+                return 1;
+              } else {
+                return a.discordChannelName.localeCompare(b.discordChannelName);
+              }
+            }
+          });
+          this.serversChannels.push(curr);
+          this.serverList.push(curr.discordServerName);
+          const channels: string[] = [];
+          for(let j=0;j<curr.discordServerChannels.length;j++) {
+            channels[j] = (curr.discordServerChannels[j].discordChannelName);
+          }
+          this.channelList.push(channels);
+        }
+      }});
   }
 
 
   navigateBack() {
-    this.router.navigate(['/announcement']);
+    let from: string | null = null;
+    if(from = this.route.snapshot.paramMap.get('from')) this.router.navigate([from]);
+    else this.router.navigate(['/announcement']);
   }
 
   confirm() {
-    let tempObj = this.storageService.get('announcement_settings');
     let announcementSettings: any = {};
-    if (tempObj !== null && tempObj !== undefined) {
-      announcementSettings = tempObj;
-    }
     if (this.visibilityFilter) {
-      announcementSettings.visibilityFilter = this.visibilityFilter
+      announcementSettings.visibility = this.visibilityFilter
     }
     let mentionFilterArray: string[] = [];
     if (this.mentionFilter && this.mention.length >= 1) {
-      this.mention.forEach((obj) => {
-        if (obj.length > 1) {
-          mentionFilterArray.push(obj);
+      this.mention.forEach((m) => {
+        if (m.length > 1) {
+          mentionFilterArray.push(m);
         }
       });
 
       if (mentionFilterArray.length >= 1) {
-        announcementSettings.mentionFilter = mentionFilterArray;
+        announcementSettings.mentionHighlights = mentionFilterArray;
       }
     } else {
-      delete announcementSettings.mentionFilter;
+      delete announcementSettings.mentionHighlights;
     }
-    if (this.serverFilter.length >= 1) {
-      announcementSettings.serverFilter = this.serverFilter;
+    if (this.serverFilterArray.length >= 1) {
+      announcementSettings.filters = [];
+
+      for(let i=0;i<this.serverFilterArray.length;i++) {
+        if(this.serverFilterArray[i].discordChannelId && this.serverFilterArray[i].discordServerId) {
+          announcementSettings.filters.push({ discordServerId: this.serverFilterArray[i].discordServerId, discordChannelId: this.serverFilterArray[i].discordChannelId })
+        }
+      }
+    } else {
+      announcementSettings.filters = [];
     }
-    if (this.channelFilter.length >= 1) {
-      announcementSettings.channelFilter = this.channelFilter;
-    }
-    this.storageService.set('announcement_settings', announcementSettings);
-    this.router.navigate(['/announcement']);
+    announcementSettings.dontRemoveStarred = this.dontRemoveStarred;
+
+    this.loader.start();
+    this.lunarHqService.saveAnnouncementSettings(announcementSettings)
+      .subscribe({
+        next: (data: any) => {
+          this.loader.stop();
+          this.toastService.setMessage('Settings saved');
+        },
+        error: (error: any) => {
+          this.loader.stop();
+          this.toastService.setMessage(error?.error.message, 'error');
+          console.error(error, 'error');
+        }
+      });
+    let from: string | null = null;
+    if(from = this.route.snapshot.paramMap.get('from')) this.router.navigate([from]);
+    else this.router.navigate(['/announcement']);
   }
 
   onChangeServer(filter: boolean) {
     this.mentionFilter = filter;
   }
 
-  checkUncheck(status: Event) {
-
-  }
-
   ngOnInit(): void {
-    this.getAnnouncementList();
+    // this.getAnnouncementList();
   }
 
-  getAnnouncementList() {
-    this.loader.start();
-    this.lunarHqService.getAnnouncements()
-      .subscribe({
-        next: (data: any) => {
-          this.announcementList = data;
-          this.mainAnnouncementList = data;
-          const unique = data
-            .map((item: any) => item.discordServerName)
-            .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
-          this.serverList.push(...unique);
-          this.loader.stop();
-        },
-        error: (error: any) => {
-          this.loader.stop();
-          console.error(error, 'error');
-          this.toastService.setMessage(error.error.message, 'error');
-        }
-      });
+  // getAnnouncementList() {
+  //   this.loader.start();
+  //   this.lunarHqService.getAnnouncements()
+  //     .subscribe({
+  //       next: (data: any) => {
+  //         this.announcementList = data;
+  //         this.mainAnnouncementList = data;
+  //         const unique = data
+  //           .map((item: any) => item.discordServerName)
+  //           .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
+  //         this.serverList.push(...unique);
+  //         this.loader.stop();
+  //       },
+  //       error: (error: any) => {
+  //         this.loader.stop();
+  //         console.error(error, 'error');
+  //         this.toastService.setMessage(error.error.message, 'error');
+  //       }
+  //     });
+  // }
+
+  getIconList(serverId: string | undefined): string[] | undefined {
+    if(!serverId) return undefined;
+    if(this.serversChannels.length == 0) return undefined;
+    const channels = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels;
+    const iconSrcs = Array(channels.length);
+    for(let i=0;i<channels.length;i++) {
+      if(channels[i].announcementChannel) iconSrcs[i] = './assets/img/png/announce.png';
+      else iconSrcs[i] = ''
+    }
+    return iconSrcs;
   }
 
-  setChannel(server: any, pos: any) {
-    const data = this.announcementList.filter((obj: any) => obj.discordServerName === server);
-    const unique = data
-      .map((item: any) => item.discordChannelName)
-      .filter((value: any, index: any, self: any) => self.indexOf(value) === index);
-    unique.push('old-announcements');
+  getChannelName(channelId: string, pos: number): string | undefined {
+    const serverId = this.serverFilterArray[pos].discordServerId;
+    const channel = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels.find((c: { discordChannelName: string; discordChannelId: string }) => c.discordChannelId === channelId);
+    return channel.discordChannelName
+  }
 
-    this.serverFilter.indexOf(server) === -1 ? this.serverFilter.push(server) : '';
-    this.channelList[pos] = [...unique];
+  setChannel(channelName: string, pos: any) {
+    const serverId = this.serverFilterArray[pos].discordServerId;
+    const channel = this.serversChannels.find(sc => sc.discordServerId === serverId).discordServerChannels.find((c: { discordChannelName: string; discordChannelId: string }) => c.discordChannelName === channelName);
+    this.serverFilterArray[pos].discordChannelId = channel.discordChannelId;
+    this.serverFilterArray[pos].discordChannelName = channel.discordChannelName;
+    console.log(this.serverFilterArray[pos])
+  }
+
+  getChannelList(serverId: string | undefined): string[] {
+    if(!serverId) return [];
+    return this.channelList[this.serversChannels.findIndex(sc => sc.discordServerId === serverId)];
+  }
+
+  setServer(serverName: string, pos: number) {
+    const serverChannel = this.serversChannels.find(sc => sc.discordServerName === serverName)
+    this.serverFilterArray[pos].discordServerId = serverChannel.discordServerId;
+    this.serverFilterArray[pos].discordServerName = serverChannel.discordServerName;
+  }
+
+  spliceFilter(pos: number) {
+    this.serverFilterArray.splice(pos,1);
   }
 
   spliceMention(pos: number) {
@@ -138,7 +230,7 @@ export class AnnouncementSettingsComponent implements OnInit {
     this.visibilityFilter = value;
   }
 
-  setChannelList(value: any) {
-    this.channelFilter.indexOf(value) === -1 ? this.channelFilter.push(value) : '';
-  }
+  // setChannelList(value: any) {
+  //   this.channelFilter.indexOf(value) === -1 ? this.channelFilter.push(value) : '';
+  // }
 }
