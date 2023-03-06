@@ -24,9 +24,9 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-       gtag('event', 'page_view', {
-          page_path: event.urlAfterRedirects
-       })
+       gtag('config', 'G-827D24HX9Y', {
+          'page_path': event.urlAfterRedirects
+       });
       })
       /** END : Code to Track Page View  using gtag.js */
 
