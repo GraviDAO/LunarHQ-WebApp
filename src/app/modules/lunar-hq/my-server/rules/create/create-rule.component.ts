@@ -207,7 +207,7 @@ export class CreateRuleComponent implements OnInit {
   countCharacter() {
     const currentCount = document.getElementById('current_count');
     const description = this.createRuleForm.controls['description'].value;
-    if (currentCount)
+    if (currentCount && description)
       currentCount.innerHTML = description.length + '&nbsp;';
     const maxCount = document.getElementById('maximum_count');
   }
@@ -444,7 +444,7 @@ export class CreateRuleComponent implements OnInit {
           this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
           this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
-          if (this.ruleObj?.tokenIds.length === 0 || (this.ruleObj?.tokenIds.length === 1 && this.ruleObj?.tokenIds[0] === '')) {
+          if (this.ruleObj.tokenIds || (this.ruleObj && this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === ''))) {
             this.ruleItems[0].filter = 'no_filter';
           } else {
             const tokenList = this.ruleObj?.tokenIds.toString();
@@ -452,7 +452,7 @@ export class CreateRuleComponent implements OnInit {
             this.ruleItems[0].filter = 'filter_nft';
           }
           const tempRole = this.roles.filter((obj: any) => obj.id === this.ruleObj.role);
-          if (tempRole.length >= 1) {
+          if (tempRole && tempRole.length >= 1) {
             this.selectedRole = tempRole[0].name;
           }
           this.loader.stop();

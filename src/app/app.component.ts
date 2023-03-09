@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, PRIMARY_OUTLET, Router} from '@angular/router';
 import {LunarHqAPIServices} from './modules/services/lunar-hq.services';
 import {LocalStorageService} from './shared/services/local.storage.service';
+import { filter } from 'rxjs/operators';
+
+declare const gtag: Function; // <------------Important: the declartion for gtag is required!
 
 @Component({
   selector: 'app-root',
@@ -17,6 +20,16 @@ export class AppComponent implements OnInit {
               private lunarService: LunarHqAPIServices,
               private router: Router) {
     this.checkUserJWT();
+    /** START : Code to Track Page View using gtag.js */
+    this.router.events.pipe(
+      filter((event: any) => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+       gtag('config', 'G-827D24HX9Y', {
+          'page_path': '/' + (this.router.parseUrl(event.urlAfterRedirects).root.children[PRIMARY_OUTLET] ?? event.urlAfterRedirects).toString()
+       });
+      })
+      /** END : Code to Track Page View  using gtag.js */
+
   }
 
   ngOnInit() {
