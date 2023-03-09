@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.profileObj = data.message;
           this.localStorage.set('lunar_user_profile', this.profileObj);
           this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});
-          this.userDataObj.push({label: 'APPLIED ROLES', value: [this.profileObj.rules.length]});
+          this.userDataObj.push({label: 'HELD ROLES', value: [this.profileObj.rules.length]});
           this.userDataObj.push({label: 'POLLS', value: [this.profileObj.proposals.length]});
           this.userDataObj.push({label: 'NEW ANNOUNCEMENTS', value: [this.profileObj.announcements.length]});
           this.getPermission();

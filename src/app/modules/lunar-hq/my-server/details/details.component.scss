@@ -84,8 +84,8 @@
 }
 
 .rules-detail-title {
-  width: 65%;
   justify-content: center;
+  padding-left: 53px !important;
 
   &.details-pg {
     width: 74%;
@@ -94,16 +94,20 @@
   //margin: auto;
 }
 
+.rule-id-title {
+  width: mixin.toRem(88);
+}
+
 .rule-name-title {
-  width: mixin.toRem(272);
+  width: mixin.toRem(213);
 
   &.details-pg {
-    width: mixin.toRem(368);
+    width: mixin.toRem(377);
   }
 }
 
 .population-title {
-  width: mixin.toRem(96);
+  width: mixin.toRem(90);
 }
 
 .chain-title {
@@ -111,11 +115,19 @@
 }
 
 .rules-item-name {
-  width: mixin.toRem(272);
+  width: mixin.toRem(252);
 
   &.details-pg {
     width: mixin.toRem(368);
   }
+}
+
+.rules-item-id {
+  width: mixin.toRem(95);
+}
+
+.rules-item-view {
+  padding-right: 16px;
 }
 
 .rules-item-population {

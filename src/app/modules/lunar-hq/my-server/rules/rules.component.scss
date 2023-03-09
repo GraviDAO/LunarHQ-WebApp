@@ -49,7 +49,7 @@
 .rule-name-title {
   //width: mixin.toRem(272);
   //width: 23vw;
-  width: 40%;
+  width: calc(40% - 60px);
 }
 
 .population-title {
@@ -64,6 +64,14 @@
   //width: mixin.toRem(272);
   //width: 23vw;
   width: 40%;
+}
+
+.rules-item-id {
+  width: mixin.toRem(95);
+}
+
+.rule-id-title {
+  width: mixin.toRem(88);
 }
 
 .rules-item-population {

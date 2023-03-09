@@ -118,7 +118,7 @@
         </div>
       </article>
 
-      <article class="rule-container mr-left-8 pd-top-24 pd-lr-40">
+      <article class="rule-container mr-left-8 pd-top-24 pd-lr-40 pd-bottom-24">
 
         <div class="d-flex justify-content-between align-items-center">
           <div>
@@ -149,32 +149,48 @@
         </div>
 
         <div class="d-flex mr-bottom-16" *ngIf="profileObj?.rules?.length > 0">
-          <div class="width-270"><label class="app-why-lbl light-50 ft-lato text-uppercase">Rule name</label></div>
-          <div class="width-94"><label class="app-why-lbl light-50 ft-lato text-uppercase">Population</label></div>
-          <div class="width-178"><label class="app-why-lbl light-50 ft-lato text-uppercase">Chain</label></div>
+          <div class="width-270"><label class="app-why-lbl light-50 ft-lato text-uppercase pd-left-60">Role name</label></div>
+          <div class="width-84"><label class="app-why-lbl light-50 ft-lato text-uppercase">Population</label></div>
+          <div class="width-118"><label class="app-why-lbl light-50 ft-lato text-uppercase">Chain</label></div>
           <div class="width-94"></div>
         </div>
 
         <div class="server-list-wrapper">
           <div class="rule-details-wrapper" *ngFor="let ruleObj of profileObj?.rules">
-            <div class="width-270 pd-left-16">
-              <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.roleName}}</label>
+            <div class=" width-270 rules-item-name d-flex align-items-center">
+              <div>
+                <img class="mr-left-16 discord-server-image-container" [src]="ruleObj?.discordServerImage"
+                     alt="discordServerImage">
+              </div>
+              <div class="pd-left-16">
+                <div>
+                  <span class="app-why-lbl f16 ft-500 light add-rule-hover"
+                        (click)="showRule(ruleObj)">{{ruleObj?.roleName}}</span>
+                  <span class="mr-left-2 app-why-lbl f10 ft-500 error letter-spacing-02 text-uppercase"
+                        *ngIf="!ruleObj?.active">
+                    Paused
+                  </span>
+                </div>
+                <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+                  {{ruleObj?.discordServerName}}
+                </div>
+              </div>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
-            <div class="width-94 pd-left-15">
+            <div class="width-84 pd-left-15">
               <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.population}}</label>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
-            <div class="width-178 pd-left-15 d-flex justify-content-between">
+            <div class="width-118 pd-left-15 d-flex justify-content-between">
               <div>
-                <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.blockchainName}}</label>
+                <label class="app-why-lbl f16 light ft-bold">{{ruleObj?.blockchainName === 'polygon-mainnet' ? 'Polygon' : ruleObj?.blockchainName}}</label>
               </div>
               <div class="pd-right-15">
-                <img class="chain-logo-container" [src]="ruleObj?.discordServerImage" alt="chain-logo">
+                <img class="chain-logo-container" [src]="ruleObj?.blockchainImage" alt="chain-logo">
               </div>
             </div>
             <div class="vertical-divider ht42 light-20"></div>
-            <div class="pd-left-18 width-94">
+            <div class="pd-left-18 width-84">
               <app-why-cta-three
                 [parentClass]="'light-70-hover'"
                 [btnClass]="cssClass.cta3Light50F12"

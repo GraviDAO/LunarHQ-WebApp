@@ -111,11 +111,14 @@
               (click)="navigateToCreateRule()"
               [btnLabel]="'Create Rule'"></app-why-cta-one>
           </div>
-          <div class="rules-detail-title details-pg pd-top-48 d-flex flex-row pd-right-40"
+          <div class="rules-detail-title details-pg pd-top-48 d-flex flex-row pd-right-40 justify-content-start align-items-start"
                *ngIf="serverDetails?.rules?.length > 0">
             <div class="rule-name-title details-pg
-             app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+             app-why-lbl f10 ft-lato light-50 letter-spacing-02 pd-left-110">
               RULE NAME
+            </div>
+            <div class="rule-id-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+              RULE ID
             </div>
             <div class="population-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
               POPULATION
@@ -150,13 +153,17 @@
                   </div>
                 </div>
                 <div class="divider"></div>
+                <div class="rules-item-id d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
+                  {{rule?.id}}
+                </div>
+                <div class="divider"></div>
                 <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                   {{rule?.population}}
                 </div>
                 <div class="divider"></div>
                 <div class="rules-item-chain d-flex justify-content-between">
                   <div
-                    class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName}}</div>
+                    class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName === 'polygon-mainnet' ? 'Polygon' : rule?.blockchainName}}</div>
                   <div class="rules-item-chain-icon">
                     <img class="rules-item-chain-icon-container mr-right-16 mr-left-16" [src]="rule?.blockchainImage"
                          alt="drop">

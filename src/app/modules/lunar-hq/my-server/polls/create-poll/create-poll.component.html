@@ -254,18 +254,21 @@
                      value="filter_traits">
               <label class="app-why-lbl f12 mr-left-8 text-uppercase"
                      [ngClass]="{'primary': voteWeight === 'roleWeighted', 'light-50': voteWeight !== 'roleWeighted'}">
-                role weighted
+                rule weighted
               </label>
             </div>
           </div>
 
           <div class="mr-top-40" *ngIf="voteWeight === 'roleWeighted'">
-            <div class="rules-detail-title pd-box-16 d-flex flex-row pd-right-40">
+            <div class="rules-detail-title pd-box-16 d-flex flex-row justify-content-start align-items-start pd-right-40">
               <!--<div class="form-check">
                 <input class="form-check-input check-box" type="checkbox" value="" id="rule-name">
               </div>-->
               <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-                RULE NAME
+                ROLE NAME
+              </div>
+              <div class="rule-id-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+                RULE ID
               </div>
               <div class="population-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
                 POPULATION
@@ -283,8 +286,13 @@
                        [checked]="(pollObj?.ruleIds !== undefined && pollObj?.ruleIds?.indexOf(rule?.id) >= 0)"
                        type="checkbox" [value]="" id="{{rule?.roleName}}">
               </div>
+              <div class="divider"></div>
               <div class="rules-item-name d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
                 {{rule?.roleName}}
+              </div>
+              <div class="divider"></div>
+              <div class="rules-item-id d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
+                {{rule?.id}}
               </div>
               <div class="divider"></div>
               <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
@@ -293,7 +301,7 @@
               <div class="divider"></div>
               <div class="rules-item-chain d-flex justify-content-between">
                 <div
-                  class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName}}</div>
+                  class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName === 'polygon-mainnet' ? 'Polygon' : rule?.blockchainName}}</div>
                 <div class="rules-item-chain-icon">
                   <img class="rules-item-chain-icon-container mr-right-16" imgFallback
                        src="{{rule?.blockchainImage}}" alt="drop">

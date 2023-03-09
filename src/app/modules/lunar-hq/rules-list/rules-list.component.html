@@ -42,9 +42,12 @@
         </div>
       </div>
       <div class="title-underline mr-top-8 mr-right-40"></div>
-      <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40" *ngIf="ruleItems?.length > 0">
+      <div class="rules-detail-title pd-top-16 d-flex flex-row pd-right-40 pd-left-60" *ngIf="ruleItems?.length > 0">
         <div class="rule-name-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
-          RULE NAME
+          ROLE NAME
+        </div>
+        <div class="rule-id-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
+          RULE ID
         </div>
         <div class="population-title app-why-lbl f10 ft-lato light-50 letter-spacing-02">
           POPULATION
@@ -82,6 +85,10 @@
                 </div>
               </div>
             </div>
+            <div class="divider"></div>
+            <div class="rules-item-id d-flex align-items-center pd-left-16 app-why-lbl f16 ft-500 light">
+              {{ruleObj?.id}}
+            </div>
             <div class="divider my-rule"></div>
             <div class="rules-item-population d-flex align-items-center pd-left-16 app-why-lbl f16 ft-bold light">
               {{ruleObj?.population}}
@@ -89,7 +96,7 @@
             <div class="divider my-rule"></div>
             <div class="rules-item-chain d-flex justify-content-between">
               <div
-                class="pd-left-16 app-why-lbl f16 ft-bold light block-chain-wrapper">{{ruleObj?.blockchainName}}</div>
+                class="pd-left-16 app-why-lbl f16 ft-bold light block-chain-wrapper">{{ruleObj?.blockchainName === 'polygon-mainnet' ? 'Polygon' : ruleObj?.blockchainName}}</div>
               <div class="rules-item-chain-icon pd-left-16">
                 <img class="rules-item-chain-icon-container mr-right-16" [src]="ruleObj?.blockchainImage" imgFallback
                      alt="chainImage">

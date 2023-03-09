@@ -23,6 +23,12 @@
   text-align: center;
 }
 
+.discord-server-image-container {
+  width: 2rem;
+  height: 2rem;
+  clip-path: polygon(0% 0px, 0px 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
 .tile-wrapper {
   //padding-right: mixin.toRem(8);
   flex: 1;
@@ -85,14 +91,14 @@
   min-width: mixin.toRem(240);
 }
 
-.width-94 {
+.width-84 {
   width: 10%;
-  min-width: mixin.toRem(94);
+  min-width: mixin.toRem(84);
 }
 
-.width-178 {
+.width-118 {
   width: 40%;
-  min-width: mixin.toRem(178);
+  min-width: mixin.toRem(118);
 }
 
 .chain-logo-container {

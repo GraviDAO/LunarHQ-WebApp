@@ -362,3 +362,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .add-rule-item-hover:hover {
   background: var(--dark-50) !important;
 }
+
+.rule-name-title {
+  width: mixin.toRem(207) !important;
+}
+
+.rule-id-title {
+  width: mixin.toRem(81) !important;
+}
