@@ -1,4 +1,5 @@
 @use "src/style/mixin-core" as mixin;
+@import "../../details/details.component";
 
 .create-rule-header {
   height: mixin.toRem(64);
@@ -59,6 +60,91 @@
 .title-underline {
   height: mixin.toRem(1);
   background: var(--light-20);
+}
+
+.rules-item {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #73717270!important;
+  }
+}
+
+.rules-detail-title {
+  padding-left: 30px !important;
+
+  .rule-name-title {
+    width: mixin.toRem(185);
+  }
+  .rule-id-title {
+    width: mixin.toRem(73);
+  }
+}
+
+.underline {
+  height: mixin.toRem(1);
+  background: var(--light-50);
+  width: 100%;
+}
+
+.gap {
+  gap: 8px;
+}
+
+.rule-list {
+  max-height: 500px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.build-block {
+  padding: 5px 8px 5px 8px;
+  border-radius: 3px;
+  background-color: var(--light-50);
+  color: var(--dark-50);
+  font-family: Jura, sans-serif;
+  font-size: var(--font-size-14);
+  letter-spacing: var(--label-letter-spacing);
+  line-height: var(--font-size-16);
+  cursor:default;
+  text-transform: uppercase;
+}
+
+.result-block {
+  background-color: var(--light-70);
+  color: var(--dark-70);
+}
+
+.selectable-block {
+  background-color: var(--primary);
+  color: var(--dark);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.selected-block {
+  opacity: 0.8;
+}
+
+.delete {
+  height: 26px;
+  width: 40px;
+  padding: 5px 8px 5px 8px;
+  border-radius: 3px;
+  background-color: var(--light-50);
+  align-self: flex-end;
+  margin-left: auto;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .description_area {

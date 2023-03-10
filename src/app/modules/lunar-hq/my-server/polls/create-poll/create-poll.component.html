@@ -277,7 +277,7 @@
                 CHAIN
               </div>
             </div>
-            <div class="rules-item add-rule-item-hover d-flex flex-row align-items-center pd-lr-16 mr-bottom-8"
+            <div class="rules-item add-rule-item-hover d-flex flex-row align-items-center pd-lr-16 mr-bottom-8 cursor-pointer"
                  *ngFor="let rule of roleList"
                  (click)="checkUncheck(rule)"
                  [ngStyle]="{'background': (pollObj?.ruleIds !== undefined && pollObj?.ruleIds?.indexOf(rule?.id) >= 0) ? '#231f20' : '#231f2033'}">

@@ -55,6 +55,13 @@ export class CreateRuleComponent implements OnInit {
   discordServerName = '';
   ruleId = '';
   errorList: Array<any> = [];
+  last = '';
+  complexBlocks: Array<string> = [];
+  openBracketRemaining = 0;
+  complexRules: Map<number, string> = new Map<number, string>();
+  complexRuleCount = 0;
+  ruleList: any[] = [];
+  selectedRule: number | undefined;
 
   nestedMenu: any;
 
@@ -204,6 +211,69 @@ export class CreateRuleComponent implements OnInit {
     this.stepper.previous();
   }
 
+  addBlock(block: string) {
+    if(this.validBlock(block)) {
+      this.errorList = [];
+      this.complexBlocks.push(block);
+      this.last = block;
+      if(block === 'open') this.openBracketRemaining++;
+      else if(block === 'close') this.openBracketRemaining--;
+      else if(block === 'rule') {
+        this.complexRuleCount++;
+        this.selectedRule = this.complexBlocks.length - 1;
+      }
+    }
+  }
+
+  removeBlock() {
+    const removedBlock = this.complexBlocks.pop();
+    if(removedBlock === 'open') this.openBracketRemaining--;
+    else if(removedBlock === 'close') this.openBracketRemaining++;
+    else if(this.isRuleBlock(removedBlock!)) {
+      this.complexRuleCount--;
+      this.complexRules.delete(this.complexBlocks.length);
+    }
+    this.last = this.complexBlocks[this.complexBlocks.length-1];
+  }
+
+  validBlock(block: string): boolean {
+    if(block === 'rule') {
+      return this.last !== 'rule' && this.last !== 'close'
+    } else if(block === 'and') {
+      return this.last === 'rule' || this.last === 'close'
+    } else if(block === 'or') {
+      return this.last === 'rule' || this.last === 'close'
+    } else if(block === 'open') {
+      return this.last !== 'close' && this.last !== 'rule'
+    } else if(block === 'close') {
+      return this.last !== 'open' && this.last !== 'and'  && this.last !== 'or' && this.openBracketRemaining > 0
+    } else {
+      return false
+    }
+  }
+
+  isRuleBlock(block: string): boolean {
+    return block !== 'open' && block !== 'close' && block !== 'and' && block !== 'or'
+  }
+
+  showRules(ruleIndex: number) {
+    if(this.selectedRule !== undefined && this.selectedRule === ruleIndex) {
+      this.selectedRule = undefined;
+    } else {
+      this.selectedRule = ruleIndex;
+    }
+  }
+
+  selectRuleForComplex(ruleId: string, roleName: string) {
+    this.complexBlocks[this.selectedRule!] = ruleId + ' | ' + roleName;
+    this.complexRules.set(this.selectedRule!, ruleId);
+    this.selectedRule = undefined;
+  }
+
+  isSelected(ruleId: string): boolean {
+    return this.complexRules.get(this.selectedRule!) === ruleId
+  }
+
   countCharacter() {
     const currentCount = document.getElementById('current_count');
     const description = this.createRuleForm.controls['description'].value;
@@ -219,6 +289,10 @@ export class CreateRuleComponent implements OnInit {
 
     this.ruleObj.ruleTypeId = ruleType.id;
     this.ruleObj.ruleType = ruleType.name;
+
+    if(ruleType.id === 'complex' && this.ruleList.length === 0) {
+      this.getRules();
+    }
   }
 
   selectRule(ruleItem: any, rule: any) {
@@ -367,6 +441,31 @@ export class CreateRuleComponent implements OnInit {
           this.ruleObj.tokenIds = tokenArray;
         }
       }
+    } else if(this.ruleObj.ruleTypeId === 'complex') {
+      if(this.complexBlocks.length === 0) {
+        this.errorList.push(`Rule empty!`);
+        isValid = false;
+      }
+      if(this.complexBlocks.filter(cb => cb === 'rule')?.length === 1) {
+        this.errorList.push(`Add more than one rule!`);
+        isValid = false;
+      }
+      if(this.openBracketRemaining > 0) {
+        this.errorList.push(`${this.openBracketRemaining} Bracket${this.openBracketRemaining !== 1 ? 's are not' : ' is not'} closed!`);
+        isValid = false;
+      }
+      if(this.complexRuleCount > this.complexRules.size) {
+        const remaining = this.complexRuleCount - this.complexRules.size;
+        this.errorList.push(`${remaining} Rule${remaining !== 1 ? 's are not' : ' is not'} selected!`);
+        isValid = false;
+      }
+      if(this.complexBlocks[this.complexBlocks.length-1] === 'and') {
+        this.errorList.push(`Rule cannot end with an 'AND'!`);
+        isValid = false;
+      } else if(this.complexBlocks[this.complexBlocks.length-1] === 'or') {
+        this.errorList.push(`Rule cannot end with an 'OR'!`);
+        isValid = false;
+      }
     }
     if (isValid) {
       this.viewRule = true;
@@ -422,6 +521,19 @@ export class CreateRuleComponent implements OnInit {
       });
   }
 
+  getRules() {
+    this.lunarService.getServerRules(this.discordServerId)
+      .subscribe({
+        next: (data) => {
+          this.ruleList = data.message.rules;
+        },
+        error: (error) => {
+          console.error(error, 'error');
+          this.toastService.setMessage(error?.error?.message, 'error');
+        }
+      });
+  }
+
   setBlockChain(name: any) {
     this.selectedNetwork = name;
     if (name === 'Polygon') {
@@ -456,6 +568,7 @@ export class CreateRuleComponent implements OnInit {
             this.selectedRole = tempRole[0].name;
           }
           this.loader.stop();
+          this.next();
         },
         error: (err: any) => {
           this.loader.stop();
