@@ -185,6 +185,14 @@ export class LunarHqAPIServices {
       }));
   }
 
+  createComplexRule(data: any) {
+    const url = environment.server + 'WAaddComplexRule/?discordServerId=' + data.discordServerId;
+    return this.http.post<any>(url, data)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
+
   //Star Announcement for the user
   starUnStarAnnouncement(data: any, type: string): Observable<any> {
     let url = environment.server;

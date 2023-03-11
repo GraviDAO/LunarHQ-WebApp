@@ -62,6 +62,7 @@ export class CreateRuleComponent implements OnInit {
   complexRuleCount = 0;
   ruleList: any[] = [];
   selectedRule: number | undefined;
+  fixedType = false;
 
   nestedMenu: any;
 
@@ -238,13 +239,13 @@ export class CreateRuleComponent implements OnInit {
 
   validBlock(block: string): boolean {
     if(block === 'rule') {
-      return this.last !== 'rule' && this.last !== 'close'
+      return !this.isRuleBlock(this.last) && this.last !== 'close'
     } else if(block === 'and') {
-      return this.last === 'rule' || this.last === 'close'
+      return this.isRuleBlock(this.last) || this.last === 'close'
     } else if(block === 'or') {
-      return this.last === 'rule' || this.last === 'close'
+      return this.isRuleBlock(this.last) || this.last === 'close'
     } else if(block === 'open') {
-      return this.last !== 'close' && this.last !== 'rule'
+      return this.last !== 'close' && !this.isRuleBlock(this.last)
     } else if(block === 'close') {
       return this.last !== 'open' && this.last !== 'and'  && this.last !== 'or' && this.openBracketRemaining > 0
     } else {
@@ -253,7 +254,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   isRuleBlock(block: string): boolean {
-    return block !== 'open' && block !== 'close' && block !== 'and' && block !== 'or'
+    return block !== 'open' && block !== 'close' && block !== 'and' && block !== 'or' && block !== ''
   }
 
   showRules(ruleIndex: number) {
@@ -446,7 +447,7 @@ export class CreateRuleComponent implements OnInit {
         this.errorList.push(`Rule empty!`);
         isValid = false;
       }
-      if(this.complexBlocks.filter(cb => cb === 'rule')?.length === 1) {
+      if(this.complexBlocks.filter(cb => this.isRuleBlock(cb))?.length === 1) {
         this.errorList.push(`Add more than one rule!`);
         isValid = false;
       }
@@ -466,6 +467,23 @@ export class CreateRuleComponent implements OnInit {
         this.errorList.push(`Rule cannot end with an 'OR'!`);
         isValid = false;
       }
+      if(isValid) {
+        let expression = "";
+        for(let i=0;i<this.complexBlocks.length;i++) {
+          if(this.complexBlocks[i] === 'and') {
+            expression += ' && ';
+          } else if(this.complexBlocks[i] === 'or') {
+            expression += ' || ';
+          } else if(this.complexBlocks[i] === 'close') {
+            expression += ') ';
+          } else if(this.complexBlocks[i] === 'open') {
+            expression += ' (';
+          } else {
+            expression += this.complexRules.get(i);
+          }
+        }
+        this.ruleObj.complexExpression = expression.trim();
+      }
     }
     if (isValid) {
       this.viewRule = true;
@@ -477,20 +495,45 @@ export class CreateRuleComponent implements OnInit {
   }
 
   updateRole() {
-    this.lunarService.createRule(this.ruleObj)
-      .subscribe({
-        next: (data: any) => {
-          // this.roles = data.message;
-          this.loader.stop();
-          this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
-          this.location.back();
-        },
-        error: (error: any) => {
-          this.loader.stop();
-          this.toastService.setMessage(error?.error.message, 'error');
-          console.error(error, 'error');
-        }
-      });
+    if(this.ruleObj.ruleTypeId !== 'complex') {
+      this.lunarService.createRule(this.ruleObj)
+        .subscribe({
+          next: (data: any) => {
+            // this.roles = data.message;
+            this.loader.stop();
+            this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
+            this.location.back();
+          },
+          error: (error: any) => {
+            this.loader.stop();
+            this.toastService.setMessage(error?.error.message, 'error');
+            console.error(error, 'error');
+          }
+        });
+    } else {
+      const data = {
+        id: this.ruleObj.id ?? undefined,
+        name: this.ruleObj.name,
+        description: this.ruleObj.description,
+        complexExpression: this.ruleObj.complexExpression,
+        active: this.ruleObj.active ?? true,
+        role: this.ruleObj.role,
+        discordServerId: this.ruleObj.discordServerId
+      }
+      this.lunarService.createComplexRule(data)
+        .subscribe({
+          next: (data: any) => {
+            this.loader.stop();
+            this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
+            this.location.back();
+          },
+          error: (error: any) => {
+            this.loader.stop();
+            this.toastService.setMessage(error?.error.message, 'error');
+            console.error(error, 'error');
+          }
+        });
+    }
   }
 
   @HostListener('document:click', ['$event']) onDocumentClick() {
@@ -508,6 +551,7 @@ export class CreateRuleComponent implements OnInit {
         next: (data) => {
           this.roles = data.message.sort((a:any, b:any) => a.name.localeCompare(b.name));
           if (this.ruleId) {
+            this.fixedType = true;
             this.getRuleById();
           } else {
             this.loader.stop();
@@ -568,7 +612,6 @@ export class CreateRuleComponent implements OnInit {
             this.selectedRole = tempRole[0].name;
           }
           this.loader.stop();
-          this.next();
         },
         error: (err: any) => {
           this.loader.stop();

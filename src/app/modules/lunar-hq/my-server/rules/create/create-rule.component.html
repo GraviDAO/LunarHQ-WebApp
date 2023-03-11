@@ -116,9 +116,16 @@
                     <div class="d-flex overflow-hidden rule-item-type pd-top-16">
                       <div ngbDropdown container="body">
                         <button type="button"
+                                *ngIf="!fixedType"
                                 class="link-dropdown left-arrow app-why-lbl f12 ft-bold light-50 text-uppercase"
                                 [ngClass]="{'highlight': ruleItem.ruleTypeId == ''}"
                                 ngbDropdownToggle>{{ruleItem.ruleTypeId != '' ? ruleItem.ruleType : 'SELECT RULE TYPE'}}
+                        </button>
+                        <button type="button"
+                                *ngIf="fixedType"
+                                class="fixed-type link-dropdown left-arrow app-why-lbl f12 ft-bold light-50 text-uppercase"
+                                [ngClass]="{'highlight': ruleItem.ruleTypeId == ''}">
+                                {{ruleItem.ruleType}}
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic" class="left-dropdown-menu">
                           <ng-container *ngFor="let ruleType of ruleTypes">
