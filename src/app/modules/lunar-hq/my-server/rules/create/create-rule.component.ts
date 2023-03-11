@@ -565,11 +565,28 @@ export class CreateRuleComponent implements OnInit {
       });
   }
 
-  getRules() {
+  getRules(afterBuildComplexBlocks = false) {
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
           this.ruleList = data.message.rules;
+
+          if(afterBuildComplexBlocks) {
+            this.ruleItems[0].complexExpression = this.ruleObj.complexExpression;
+            const complexRegex = /(?:\(|\)|&&|\|\||[NST]-\d+)/g;
+            const matches = this.ruleItems[0].complexExpression.match(complexRegex);
+            if(matches != null) for(const [index, match] of matches.entries()) {
+              if(match === '&&') this.complexBlocks.push('and');
+              else if(match === '||') this.complexBlocks.push('or');
+              else if(match === '(') this.complexBlocks.push('(');
+              else if(match === ')') this.complexBlocks.push(')');
+              else {
+                this.complexBlocks.push(match + ' | ' + this.ruleList.find(r => r.id === match).roleName);
+                this.complexRules.set(index, match);
+                this.complexRuleCount += 1;
+              }
+            }
+          }
         },
         error: (error) => {
           console.error(error, 'error');
@@ -597,8 +614,13 @@ export class CreateRuleComponent implements OnInit {
           this.createRuleForm.controls['description'].setValue(this.ruleObj.description);
           this.ruleItems[0].contractAddress = this.ruleObj.address;
           this.ruleItems[0].quantityHeld = this.ruleObj.quantity;
-          this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
-          this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
+          this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : (this.ruleObj?.id?.includes('T-') ? 'TOKEN' : 'COMPLEX');
+          this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : (this.ruleObj?.id?.includes('T-') ? 'token' : 'complex');
+          this.ruleObj.ruleTypeId = this.ruleItems[0].ruleTypeId;
+          this.ruleObj.ruleType = this.ruleItems[0].ruleType;
+          if(this.ruleItems[0].ruleTypeId === 'complex') {
+            this.getRules(true);
+          }
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
           if (this.ruleObj.tokenIds || (this.ruleObj && this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === ''))) {
             this.ruleItems[0].filter = 'no_filter';
