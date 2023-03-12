@@ -374,3 +374,7 @@
   height: 2rem;
   clip-path: polygon(0% 0px, 0px 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
+
+.add-dark-50 {
+  background: var(--dark-50) !important;
+}

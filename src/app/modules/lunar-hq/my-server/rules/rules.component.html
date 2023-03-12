@@ -45,7 +45,9 @@
         </div>
       </div>
       <div class="rules-content mr-top-16 d-flex flex-column pd-right-40">
-        <div class="rules-item d-flex flex-row align-items-center mr-bottom-8" *ngFor="let ruleObj of ruleItems">
+        <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
+         *ngFor="let ruleObj of ruleItems"
+         [ngClass]="{'add-dark-50': ruleObj?.held}">
           <div class="rules-item-name d-flex align-items-center">
             <div>
               <img class="mr-left-16 discord-server-image-container" [src]="ruleObj?.discordServerImage"
@@ -60,9 +62,15 @@
                   Paused
                 </span>
               </div>
-              <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
-                {{ruleObj?.discordServerName}}
-              </div>
+              <div class="d-flex">
+                  <div class="app-why-lbl f10 ft-lato secondary letter-spacing-02 text-uppercase"
+                       *ngIf="ruleObj?.held">
+                    HELD &nbsp;&nbsp;| &nbsp;
+                  </div>
+                  <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+                    {{ruleObj?.discordServerName}}
+                  </div>
+                </div>
             </div>
           </div>
           <div class="divider"></div>

@@ -147,8 +147,14 @@
                         Paused
                       </span>
                     </div>
-                    <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
-                      {{rule?.discordServerName}}
+                    <div class="d-flex">
+                      <div class="app-why-lbl f10 ft-lato secondary letter-spacing-02 text-uppercase"
+                           *ngIf="rule?.held">
+                        HELD &nbsp;&nbsp;| &nbsp;
+                      </div>
+                      <div class="app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+                        {{rule?.discordServerName}}
+                      </div>
                     </div>
                   </div>
                 </div>
