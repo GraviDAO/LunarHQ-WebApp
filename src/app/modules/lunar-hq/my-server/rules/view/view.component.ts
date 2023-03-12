@@ -29,7 +29,7 @@ export class RulesViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.complex = !(this.ruleObj?.ruleType || this.ruleObj?.id?.includes('N-') || this.ruleObj?.id?.includes('T-'));
+    this.complex = this.ruleObj?.ruleType && this.ruleObj?.id?.includes('C-');
   }
 
   closeView() {
