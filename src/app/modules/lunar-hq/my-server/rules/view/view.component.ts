@@ -21,7 +21,6 @@ export class RulesViewComponent implements OnInit {
   @Output() updateRole: EventEmitter<any> = new EventEmitter<any>();
   @Output() actionType: EventEmitter<any> = new EventEmitter<any>();
   viewMore = false;
-  complex = false;
 
   constructor(public cssClass: CssConstants,
               public rulesService: RulesService,
@@ -29,7 +28,10 @@ export class RulesViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.complex = this.ruleObj?.ruleType && this.ruleObj?.id?.includes('C-');
+  }
+
+  isComplex(): boolean {
+    return this.ruleObj?.ruleType?.toLowerCase() === 'complex' || this.ruleObj?.id?.includes('C-');
   }
 
   closeView() {

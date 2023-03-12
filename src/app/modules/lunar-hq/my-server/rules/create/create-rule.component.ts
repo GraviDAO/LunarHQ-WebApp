@@ -147,9 +147,14 @@ export class CreateRuleComponent implements OnInit {
   }
 
   selectRole(role: any) {
-    this.createRuleForm.controls['role'].setValue(role.id);
+    if(role.id === 'none') {
+      this.ruleObj.role = null;
+      this.createRuleForm.controls['role'].setValue(null);
+    } else {
+      this.createRuleForm.controls['role'].setValue(role.id);
+      this.ruleObj.role = role.id;
+    }
     this.selectedRole = role.name;
-    this.ruleObj.role = role.id;
     this.ruleObj.roleName = role.name;
   }
 
@@ -171,8 +176,10 @@ export class CreateRuleComponent implements OnInit {
         this.errorList.push('name');
       }
       if (this.selectedRole === 'SELECT ROLE') {
-        isValid = false;
-        this.errorList.push('selectedRole');
+        this.ruleObj.role = null;
+        this.createRuleForm.controls['role'].setValue(null);
+        this.selectedRole = 'NONE';
+        this.ruleObj.roleName = 'NONE';
       }
     }
     if (isValid) {
@@ -549,7 +556,8 @@ export class CreateRuleComponent implements OnInit {
     this.lunarService.getRoles(this.discordServerId)
       .subscribe({
         next: (data) => {
-          this.roles = data.message.sort((a:any, b:any) => a.name.localeCompare(b.name));
+          this.roles = [{name:'NONE',id:'none'}];
+          this.roles = this.roles.concat(data.message.sort((a:any, b:any) => a.name.localeCompare(b.name)));
           if (this.ruleId) {
             this.fixedType = true;
             this.getRuleById();
