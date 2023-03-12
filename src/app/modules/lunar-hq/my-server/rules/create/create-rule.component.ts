@@ -240,8 +240,9 @@ export class CreateRuleComponent implements OnInit {
     else if(this.isRuleBlock(removedBlock!)) {
       this.complexRuleCount--;
       this.complexRules.delete(this.complexBlocks.length);
+      this.selectedRule = undefined;
     }
-    this.last = this.complexBlocks[this.complexBlocks.length-1];
+    this.last = this.complexBlocks.length === 0 ? '' : this.complexBlocks[this.complexBlocks.length-1];
   }
 
   validBlock(block: string): boolean {
@@ -557,7 +558,7 @@ export class CreateRuleComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.roles = [{name:'NONE',id:'none'}];
-          this.roles = this.roles.concat(data.message.sort((a:any, b:any) => a.name.localeCompare(b.name)));
+          this.roles = this.roles.concat(data.message.sort((a: any, b: any) => a.name.localeCompare(b.name)));
           if (this.ruleId) {
             this.fixedType = true;
             this.getRuleById();
@@ -577,7 +578,7 @@ export class CreateRuleComponent implements OnInit {
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
-          this.ruleList = data.message.rules;
+          this.ruleList = data.message.rules.filter((rule: any) => !rule.id.startsWith("C-"));
 
           if(afterBuildComplexBlocks) {
             this.ruleItems[0].complexExpression = this.ruleObj.complexExpression;
@@ -594,6 +595,7 @@ export class CreateRuleComponent implements OnInit {
                 this.complexRuleCount += 1;
               }
             }
+            this.last = this.complexBlocks[this.complexBlocks.length - 1];
           }
         },
         error: (error) => {
