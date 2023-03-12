@@ -262,7 +262,7 @@ export class CreateRuleComponent implements OnInit {
   }
 
   isRuleBlock(block: string): boolean {
-    return block !== 'open' && block !== 'close' && block !== 'and' && block !== 'or' && block !== ''
+    return block !== '(' && block !== ')' &&block !== 'open' && block !== 'close' && block !== 'and' && block !== 'or' && block !== ''
   }
 
   showRules(ruleIndex: number) {
