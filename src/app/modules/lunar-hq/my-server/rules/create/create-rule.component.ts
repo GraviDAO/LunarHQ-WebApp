@@ -630,9 +630,9 @@ export class CreateRuleComponent implements OnInit {
             this.getRules(true);
           }
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
-          if (this.ruleObj.tokenIds || (this.ruleObj && this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === ''))) {
+          if (this.ruleObj.tokenIds || (this.ruleObj.tokenIds && this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds && this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === ''))) {
             this.ruleItems[0].filter = 'no_filter';
-          } else {
+          } else if(this.ruleObj.tokenIds) {
             const tokenList = this.ruleObj?.tokenIds.toString();
             this.createRuleForm.controls['nft_id'].setValue(tokenList);
             this.ruleItems[0].filter = 'filter_nft';
