@@ -37,7 +37,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  margin-top: 15vh;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 5vh;
+  }
 }
 
 .option-main-wrapper {

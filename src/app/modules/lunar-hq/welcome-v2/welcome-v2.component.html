@@ -21,7 +21,7 @@
               {{walletTitle}}
             </label>
           </div>
-          <div class="option-wrapper"
+          <div class="option-wrapper mr-bottom-36"
                [ngClass]="{'on-done': selected === 'discord', 'on-connect': selected === 'discord_connected'}">
             <div class="pd-bottom-32" *ngIf="selected !== 'discord_connected'">
               <label class="app-why-lbl f16 light-70 ft-lato">
@@ -39,47 +39,217 @@
             </div>
 
             <div class="d-flex justify-content-center flex-column"
-                 *ngIf="selected === 'discord' || selected === 'discord_connected'">
+                 *ngIf="selected === 'discord_connected'">
               <div class="d-flex justify-content-center"
-                   *ngIf="!(polygonAddress === 'polygon wallet' && selected === 'discord')">
+                   *ngIf="polygonAddresses[0] === 'polygon wallet'">
                 <app-why-cta-one
-                  [cssClass]="polygonAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('polygon', polygonAddress)"
-                  [rightIconType]="(polygonAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [cssClass]="polygonAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('polygon', polygonAddresses[0])"
+                  [rightIconType]="(polygonAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [iconPath]="'./assets/img/svg/matic-logo.svg'"
-                  [btnLabel]="polygonAddress"></app-why-cta-one>
+                  [btnLabel]="polygonAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="d-flex justify-content-center"
+                   *ngIf="polygonAddresses[0] !== 'polygon wallet'">
+                <app-why-cta-one
+                  [cssClass]="polygonAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="polygonExtended = !polygonExtended"
+                  [rightIconType]="(polygonExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [iconPath]="'./assets/img/svg/matic-logo.svg'"
+                  [btnLabel]="'Polygon: ' + polygonAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="polygonExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of polygonAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('polygon', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16'"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
+                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('polygon', 'polygon wallet')">
+                </app-why-cta-three>
               </div>
 
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="!(terraAddress === 'terra wallet' && selected === 'discord')">
+                   *ngIf="terraAddresses[0] === 'terra wallet'">
                 <app-why-cta-one
-                  [cssClass]="terraAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('terra', terraAddress)"
-                  [rightIconType]="(terraAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [cssClass]="terraAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('terra', terraAddresses[0])"
+                  [rightIconType]="(terraAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [iconPath]="'./assets/img/svg/terra_icon.svg'"
-                  [btnLabel]="terraAddress"></app-why-cta-one>
+                  [btnLabel]="terraAddresses[0]"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="!(terraClassicAddress === 'terra classic' && selected === 'discord')">
+                   *ngIf="terraAddresses[0] !== 'terra wallet'">
                 <app-why-cta-one
-                  [cssClass]="terraClassicAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('terraClassic', terraClassicAddress)"
-                  [rightIconType]="(terraClassicAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [cssClass]="terraAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="terraExtended = !terraExtended"
+                  [rightIconType]="(terraExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [iconPath]="'./assets/img/svg/terra_icon.svg'"
+                  [btnLabel]="'Terra: ' + terraAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="terraExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of terraAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('terra', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16'"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
+                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('terra', 'terra wallet')">
+                </app-why-cta-three>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="terraClassicAddresses[0] === 'terra classic'">
+                <app-why-cta-one
+                  [cssClass]="terraClassicAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('terraClassic', terraClassicAddresses[0])"
+                  [rightIconType]="(terraClassicAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [btnImage]="'./assets/img/png/LunaClassic_color.png'"
-                  [btnLabel]="terraClassicAddress"></app-why-cta-one>
+                  [btnLabel]="terraClassicAddresses[0]"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="!(stargazeAddress === 'stargaze wallet' && selected === 'discord')">
+                   *ngIf="terraClassicAddresses[0] !== 'terra classic'">
                 <app-why-cta-one
-                  [cssClass]="stargazeAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('stargaze', stargazeAddress)"
-                  [rightIconType]="(stargazeAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [cssClass]="terraClassicAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="terraClassicExtended = !terraClassicExtended"
+                  [rightIconType]="(terraClassicExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/LunaClassic_color.png'"
+                  [btnLabel]="'Terra Classic: ' + terraClassicAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="terraClassicExtended" class="pd-top-10 wallet-drop-down">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of terraClassicAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('terraClassic', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16'"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
+                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('terraClassic', 'terra classic')">
+                </app-why-cta-three>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="stargazeAddresses[0] === 'stargaze wallet'">
+                <app-why-cta-one
+                  [cssClass]="stargazeAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('stargaze', stargazeAddresses[0])"
+                  [rightIconType]="(stargazeAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [btnImage]="'./assets/img/png/stargaze.png'"
-                  [btnLabel]="stargazeAddress"></app-why-cta-one>
+                  [btnLabel]="stargazeAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="stargazeAddresses[0] !== 'stargaze wallet'">
+                <app-why-cta-one
+                  [cssClass]="stargazeAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="stargazeExtended = !stargazeExtended"
+                  [rightIconType]="(stargazeExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/stargaze.png'"
+                  [btnLabel]="'Stargaze: ' + stargazeAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="stargazeExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of stargazeAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('stargaze', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16'"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
+                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('stargaze', 'stargaze wallet')">
+                </app-why-cta-three>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center flex-column"
+                 *ngIf="selected === 'discord'">
+              <div class="d-flex justify-content-center"
+                   *ngIf="polygonAddresses[0] !== 'polygon wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('polygon', polygonAddresses[0])"
+                  [rightIconType]="(polygonAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [iconPath]="'./assets/img/svg/matic-logo.svg'"
+                  [btnLabel]="polygonAddresses[0]"></app-why-cta-one>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="terraAddresses[0] !== 'terra wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('terra', terraAddresses[0])"
+                  [rightIconType]="(terraAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [iconPath]="'./assets/img/svg/terra_icon.svg'"
+                  [btnLabel]="terraAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="terraClassicAddresses[0] !== 'terra classic'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('terraClassic', terraClassicAddresses[0])"
+                  [rightIconType]="(terraClassicAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/LunaClassic_color.png'"
+                  [btnLabel]="terraClassicAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="stargazeAddresses[0] !== 'stargaze wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('stargaze', stargazeAddresses[0])"
+                  [rightIconType]="(stargazeAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/stargaze.png'"
+                  [btnLabel]="stargazeAddresses[0]"></app-why-cta-one>
               </div>
             </div>
           </div>
@@ -329,3 +499,23 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Unlink Discord Confirmation Modal End -->
+
+<!-- No User Premium rights Modal Start -->
+<app-why-modal id="notPremiumUser" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-30">Premium required</div>
+    <div class="">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
+        <div>
+          To add multiple wallets of the same chain premium is required. <br>
+          Either stake x STARS with our Stargaze validator or aquire one these NFTs:
+        </div>
+      </label>
+    </div>
+    <div class="mr-top-30 d-flex justify-content-center">
+      <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Close'" (click)="closeNoPremium()">
+      </app-why-cta-one>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- No User Premium rights Modal End -->

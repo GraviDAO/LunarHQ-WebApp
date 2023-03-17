@@ -35,10 +35,10 @@ export class WelcomeV2Component implements OnDestroy {
   progressStatus = '';
   lunarUserObj = {};
   walletDescription = 'Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.';
-  polygonAddress = 'polygon wallet';
-  terraAddress = 'terra wallet';
-  terraClassicAddress = 'terra classic';
-  stargazeAddress = 'stargaze wallet';
+  polygonAddresses = ['polygon wallet'];
+  terraAddresses = ['terra wallet'];
+  terraClassicAddresses = ['terra classic'];
+  stargazeAddresses = ['stargaze wallet'];
   keplrInstalled = false;
   useLedgerStation: boolean | undefined = false;
   // @ts-ignore
@@ -49,6 +49,11 @@ export class WelcomeV2Component implements OnDestroy {
   discordProfileObj: any;
   terraConnectionRequested: boolean = false;
   unlink: { chainType: string, address: string } = {chainType: '', address: ''};
+  polygonExtended = false;
+  terraExtended = false;
+  terraClassicExtended = false;
+  stargazeExtended = false;
+  isPremium: boolean | undefined;
 
 
   constructor(public cssClass: CssConstants,
@@ -111,11 +116,31 @@ export class WelcomeV2Component implements OnDestroy {
             this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
             this.getUserProfile();
           }, (error) => {
-            this.resetSteps();
-            console.error(error, 'error');
             this.loaderService.stop();
             if (error.status === 403) {
+              this.modalService.open('notPremiumUser');
               this.toast.error('You already have the wallet ' + error.error.wallet.substring(0, 8) + '...' + error.error.wallet.substring(error.error.wallet.length - 4) + ' of that chain connected to this Discord account.');
+              lunarUserObj.discordName = error.error.data.discordName;
+              lunarUserObj.discordProfileImage = error.error.data.discordProfileImage;
+              this.storageService.set('lunar_user', lunarUserObj);
+              this.selected = 'discord_connected';
+              this.discordTitle = 'discord connected';
+              this.currentStep = 'connection success!';
+              this.discordProfileObj = {
+                discordName: lunarUserObj.discordName,
+                discordProfileImage: lunarUserObj.discordProfileImage
+              };
+
+              let lunarObj: any = this.storageService.get('lunar_user');
+              lunarObj.token = error.error.validJwt;
+              this.storageService.set('lunar_user', lunarObj);
+
+              this.storageService.set('lunar_user', lunarObj);
+              this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
+              this.getUserProfile();
+            } else {
+              this.resetSteps();
+              this.toast.error(error.message ?? error);
             }
             this.closeDiscordPopUp();
           });
@@ -175,14 +200,25 @@ export class WelcomeV2Component implements OnDestroy {
     this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
     this.selected = 'discord_connected';
     this.currentStep = 'connection success!';
-    const tempPolygonObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
-    const tempStargazeObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Stargaze');
-    const tempTerraObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra');
-    const tempTerraClassicObj = dataObj.accountWallets.find((obj: any) => obj.blockchainName === 'Terra Classic');
-    this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.address;
-    this.stargazeAddress = tempStargazeObj === undefined ? 'stargaze wallet' : tempStargazeObj.address;
-    this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.address;
-    this.terraClassicAddress = tempTerraClassicObj === undefined ? 'terra classic' : tempTerraClassicObj.address;
+    this.polygonAddresses = ['polygon wallet'];
+    this.stargazeAddresses = ['stargaze wallet'];
+    this.terraAddresses = ['terra wallet'];
+    this.terraClassicAddresses = ['terra classic'];
+    dataObj.accountWallets.forEach((obj: any) => {
+      if(obj.blockchainName === 'polygon-mainnet') {
+        if(this.polygonAddresses[0] === 'polygon wallet') this.polygonAddresses = [];
+        this.polygonAddresses.push(obj.address);
+      } else if(obj.blockchainName === 'Stargaze') {
+        if(this.stargazeAddresses[0] === 'stargaze wallet') this.stargazeAddresses = [];
+        this.stargazeAddresses.push(obj.address);
+      } else if(obj.blockchainName === 'Terra') {
+        if(this.terraAddresses[0] === 'terra wallet') this.terraAddresses = [];
+        this.terraAddresses.push(obj.address);
+      } else if(obj.blockchainName === 'Terra Classic') {
+        if(this.terraClassicAddresses[0] === 'terra classic') this.terraClassicAddresses = [];
+        this.terraClassicAddresses.push(obj.address);
+      }
+    });
     this.discordProfileObj = {
       discordName: dataObj.discordName,
       discordProfileImage: dataObj.discordProfileImage
@@ -202,8 +238,8 @@ export class WelcomeV2Component implements OnDestroy {
         tempPolygonObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
         tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
       }
-      this.polygonAddress = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.publicAddress;
-      this.terraAddress = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.publicAddress;
+      this.polygonAddresses = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.publicAddress;
+      this.terraAddresses = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.publicAddress;
     }
   }
 
@@ -351,13 +387,13 @@ export class WelcomeV2Component implements OnDestroy {
           this.toast.success('Wallet connected');
 
           if (blockchainName === 'polygon-mainnet') {
-            this.polygonAddress = publicAddress;
+            this.polygonAddresses = [publicAddress];
           } else if (blockchainName === 'Terra') {
-            this.terraAddress = publicAddress;
+            this.terraAddresses = [publicAddress];
           } else if (blockchainName === 'Stargaze') {
-            this.stargazeAddress = publicAddress;
+            this.stargazeAddresses = [publicAddress];
           } else {
-            this.terraClassicAddress = publicAddress;
+            this.terraClassicAddresses = [publicAddress];
           }
 
           this.coreService.getLiteProfileDetails()
@@ -379,13 +415,13 @@ export class WelcomeV2Component implements OnDestroy {
             this.toast.success('Wallet connected and Discord linked!');
 
             if (blockchainName === 'polygon-mainnet') {
-              this.polygonAddress = publicAddress;
+              this.polygonAddresses = [publicAddress];
             } else if (blockchainName === 'Terra') {
-              this.terraAddress = publicAddress;
+              this.terraAddresses = [publicAddress];
             } else if (blockchainName === 'Stargaze') {
-              this.stargazeAddress = publicAddress;
+              this.stargazeAddresses = [publicAddress];
             } else {
-              this.terraClassicAddress = publicAddress;
+              this.terraClassicAddresses = [publicAddress];
             }
 
             this.getUserProfile();
@@ -633,24 +669,96 @@ export class WelcomeV2Component implements OnDestroy {
     this.router.navigate(['/welcome']);
   }
 
+  userIsPremium(): Promise<boolean> {    
+    if(this.isPremium !== undefined) {
+      return new Promise(resolve => resolve(this.isPremium!));
+    } else {
+      return new Promise(resolve => this.coreService.checkPremiumUser()
+        .subscribe({
+          next: (value) => {
+            this.isPremium = true;
+            resolve(true);
+          },
+          error: (err) => {
+            this.isPremium = false;
+            resolve(false);
+          }
+        }
+      ));
+    }
+  }
+
   editConnection(chainType: string, address: string) {
     // this.walletInit();
     if (this.selected === 'discord') {
       this.modalService.open('removeWalletModal');
     } else {
       if (address === 'polygon wallet') {
-        this.connectToMetaMask();
+        if(this.polygonAddresses[0] !== 'polygon wallet') {
+          this.userIsPremium().then(r => {
+            if(r) {
+              this.connectToMetaMask();
+            } else {
+              this.exitModal();
+              this.modalService.open('notPremiumUser');
+            }
+          });
+        } else {
+          this.connectToMetaMask();
+        }
       } else if(address === 'stargaze wallet') {
-        this.stargazeWalletConnect();
-      } else if (address === 'terra wallet' || address === 'terra classic') {
-        this.selectedWallet = address === 'terra classic' ? 'terraClassic' : 'terra';
-        this.terraWalletConnect();
-      } else if (this.stargazeAddress !== 'stargaze wallet' || this.terraAddress !== 'terra wallet' || this.polygonAddress !== 'polygon wallet' || this.terraClassicAddress !== 'terra classic') {
+        if(this.stargazeAddresses[0] !== 'stargaze wallet') {
+          this.userIsPremium().then(r => {
+            if(r) {
+              this.stargazeWalletConnect();
+            } else {
+              this.exitModal();
+              this.modalService.open('notPremiumUser');
+            }
+          });
+        } else {
+          this.stargazeWalletConnect();
+        }
+      } else if (address === 'terra wallet') {
+        if(this.terraAddresses[0] !== 'terra wallet') {
+          this.userIsPremium().then(r => {
+            if(r) {
+              this.selectedWallet = 'terra';
+              this.terraWalletConnect();
+            } else {
+              this.exitModal();
+              this.modalService.open('notPremiumUser');
+            }
+          });
+        } else {
+          this.selectedWallet = 'terra';
+          this.terraWalletConnect();
+        }
+      } else if(address === 'terra classic') {
+        if(this.terraAddresses[0] !== 'terra classic') {
+          this.userIsPremium().then(r => {
+            if(r) {
+              this.selectedWallet = 'terraClassic';
+              this.terraWalletConnect();
+            } else {
+              this.exitModal();
+              this.modalService.open('notPremiumUser');
+            }
+          });
+        } else {
+          this.selectedWallet = 'terraClassic';
+          this.terraWalletConnect();
+        }
+      } else if (this.stargazeAddresses[0] !== 'stargaze wallet' || this.terraAddresses[0] !== 'terra wallet' || this.polygonAddresses[0] !== 'polygon wallet' || this.terraClassicAddresses[0] !== 'terra classic') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
       }
     }
+  }
+
+  closeNoPremium() {
+    this.modalService.close('notPremiumUser');
   }
 
   gotToMyDiscord() {
@@ -681,8 +789,8 @@ export class WelcomeV2Component implements OnDestroy {
       this.storageService.delete('lunar_user');
       this.storageService.delete('user_progress');
       this.selected = 'connect';
-      this.polygonAddress = 'polygon wallet';
-      this.terraAddress = 'terra wallet';
+      this.polygonAddresses = ['polygon wallet'];
+      this.terraAddresses = ['terra wallet'];
       this.modalService.close('removeWalletModal');
       this.currentStep = 'step 1 : connect wallet';
       if(this.unlink.chainType === 'stargaze') {
@@ -698,11 +806,17 @@ export class WelcomeV2Component implements OnDestroy {
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
           if (this.unlink.chainType === 'polygon') {
-            this.polygonAddress = 'polygon wallet';
+            this.polygonAddresses = this.polygonAddresses.filter(a => a !== this.unlink.address);
+            if(this.polygonAddresses.length === 0) this.polygonAddresses = ['polygon wallet'];
+            this.polygonExtended = false;
           } else if (this.unlink.chainType === 'terra') {
-            this.terraAddress = 'terra wallet';
+            this.terraAddresses = this.terraAddresses.filter(a => a !== this.unlink.address);
+            if(this.terraAddresses.length === 0) this.terraAddresses = ['terra wallet'];
+            this.terraExtended = false;
           } else if (this.unlink.chainType === 'stargaze') {
-            this.stargazeAddress = 'stargaze wallet';
+            this.stargazeExtended = false;
+            this.stargazeAddresses = this.stargazeAddresses.filter(a => a !== this.unlink.address);
+            if(this.stargazeAddresses.length === 0) this.stargazeAddresses = ['stargaze wallet'];
             // @ts-ignore
             if (window.keplr) {
               const chainId = "stargaze-1";
@@ -710,10 +824,12 @@ export class WelcomeV2Component implements OnDestroy {
               window.keplr.disable(chainId);
             }
           } else {
-            this.terraClassicAddress = 'terra classic';
+            this.terraClassicExtended = false;
+            this.terraClassicAddresses = this.terraClassicAddresses.filter(a => a !== this.unlink.address);
+            if(this.terraClassicAddresses.length === 0) this.terraClassicAddresses = ['terra classic'];
           }
 
-          if ((this.polygonAddress == 'polygon wallet' && this.stargazeAddress == 'stargaze wallet' && this.terraAddress == 'terra wallet' && this.terraClassicAddress == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
+          if ((this.polygonAddresses[0] == 'polygon wallet' && this.stargazeAddresses[0] == 'stargaze wallet' && this.terraAddresses[0] == 'terra wallet' && this.terraClassicAddresses[0] == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
             this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {

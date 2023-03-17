@@ -5,9 +5,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class LongTextPipe implements PipeTransform {
 
-  transform(value: string): any {
+  transform(value: string, lengthOverride?: number): any {
     if (value !== undefined && value !== null) {
-      return value.length > 20 ? value.substring(0, 6) + '...' + value.substring(value.length - 6, value.length) : value;
+      return value.length > 20 ? value.substring(0, lengthOverride ?? 6) + '...' + value.substring(value.length - (lengthOverride ?? 6), value.length) : value;
     }
   }
 }

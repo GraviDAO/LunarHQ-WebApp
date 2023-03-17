@@ -19,6 +19,7 @@ export class CtaOneComponent implements OnInit {
   @Input() isDisabled = false;
   @Output() clickEvent: EventEmitter<any> = new EventEmitter<any>();
   @Input() transform = '';
+  @Input() lengthOverride: number | undefined;
 
   constructor() { }
 

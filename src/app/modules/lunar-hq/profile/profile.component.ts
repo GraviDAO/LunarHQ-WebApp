@@ -141,6 +141,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.getProfileDetails();
   }
 
+  userIsPremium(): Promise<boolean> {    
+    return new Promise(resolve => this.coreService.checkPremiumUser()
+      .subscribe({
+        next: (value) => {
+          resolve(true);
+        },
+        error: (err) => {
+          resolve(false);
+        }
+      }
+    ));
+  }
+
 
   getProfileDetails() {
     this.loaderService.start();
@@ -148,10 +161,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (data) => {
           this.profileObj = data.message;
-          this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
-          this.stargazeWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'stargaze');
-          this.terraWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra');
-          this.terraClassicWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra Classic');
+          this.profileObj.accountWallets.sort((a: any, b: any) => a.blockchainName.localeCompare(b.blockchainName));
           this.loaderService.stop();
         },
         error: (error) => {
@@ -278,7 +288,63 @@ export class ProfileComponent implements OnInit, OnDestroy {
   // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
-    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stargazeWalletConnect() : this.terraWalletConnect());
+    if(this.selectedWallet === 'polygon') {
+      if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'polygon-mainnet')) {
+        this.userIsPremium().then(r => {
+          if(r) {
+            this.connectToMetaMask();
+          } else {
+            this.exitModal();
+            this.modalService.open('notPremiumUser');
+          }
+        });
+      } else {
+        this.connectToMetaMask();
+      }
+    } else if(this.selectedWallet === 'stargaze') {
+      if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Stargaze')) {
+        this.userIsPremium().then(r => {
+          if(r) {
+            this.stargazeWalletConnect();
+          } else {
+            this.exitModal();
+            this.modalService.open('notPremiumUser');
+          }
+        });
+      } else {
+        this.stargazeWalletConnect();
+      }
+    } else if(this.selectedWallet === 'terra') {
+      if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Terra')) {
+        this.userIsPremium().then(r => {
+          if(r) {
+            this.terraWalletConnect();
+          } else {
+            this.exitModal();
+            this.modalService.open('notPremiumUser');
+          }
+        });
+      } else {
+        this.terraWalletConnect();
+      }
+    } else if(this.selectedWallet === 'terraClassic') {
+      if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Terra Classic')) {
+        this.userIsPremium().then(r => {
+          if(r) {
+            this.terraWalletConnect();
+          } else {
+            this.exitModal();
+            this.modalService.open('notPremiumUser');
+          }
+        });
+      } else {
+        this.terraWalletConnect();
+      }
+    }
+  }
+
+  closeNoPremium() {
+    this.modalService.close('notPremiumUser');
   }
 
   exitModal() {
