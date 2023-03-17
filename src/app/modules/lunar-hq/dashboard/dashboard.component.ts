@@ -52,6 +52,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.profileObj = data.message;
           this.profileObj.accountWallets.sort((a: any, b: any) => a.blockchainName.localeCompare(b.blockchainName));
+          if(this.profileObj.accountWallets.length > 6) {
+            const prevLen: number = this.profileObj.accountWallets.length;
+            this.profileObj.accountWallets = this.profileObj.accountWallets.splice(0,6);
+            this.profileObj.accountWallets.push({ address: (prevLen - 6) + ' More ...' });
+          }
           this.localStorage.set('lunar_user_profile', this.profileObj);
           this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});
           this.userDataObj.push({label: 'HELD ROLES', value: [this.profileObj.rules.length]});

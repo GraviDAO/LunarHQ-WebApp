@@ -42,7 +42,7 @@
       </div>
       <div class="pd-left-16 d-flex align-items-center"
            *ngFor="let walletObj of profileObj?.accountWallets; let isLast = last ">
-        <img [src]="walletObj?.blockchainImageUrl" alt="blockchainImage" imgFallback
+        <img *ngIf="walletObj?.blockchainImageUrl" [src]="walletObj?.blockchainImageUrl" alt="blockchainImage" imgFallback
              class="app-why-icon ic20 mr-right-8">
         <label class="app-why-lbl f14 ft-lato light-50">
           {{walletObj?.address | longTextPipe}}
