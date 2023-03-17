@@ -227,7 +227,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   setDataObj(lunarUserObj: any) {
     if (this.progressStatus === 'wallet_connected') {
-      this.walletDescription = 'Lunar HQ can connect one wallet per supported chain. You can connect additional chains after linking your Discord.';
+      this.walletDescription = 'Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.';
       // this.walletDescription = 'Lunar Assistant currently supports one wallet from each chain listed below. Multi wallet support is coming with Lunar HQ. Watch this space';
       this.walletTitle = 'wallet connected';
       this.selected = 'discord';
@@ -440,7 +440,7 @@ export class WelcomeV2Component implements OnDestroy {
         if (userProgress !== 'discord_connected') {
           this.storageService.set('user_progress', USER_AUTHENTICATED.WALLET_CONNECTED);
           this.selected = 'discord';
-          this.walletDescription = 'Lunar Assistant currently supports one wallet per chain. Multi wallet support is coming with Lunar HQ. Watch this space';
+          this.walletDescription = 'Connect your crypto wallets to let all of your assets shine. Join diverse Discord communities and become an active part of making them great.';
           this.walletTitle = 'wallet connected';
           this.currentStep = 'step 2 : connect discord';
         }
