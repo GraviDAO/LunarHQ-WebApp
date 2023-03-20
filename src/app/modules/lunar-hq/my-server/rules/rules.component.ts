@@ -110,7 +110,8 @@ export class RulesComponent implements OnInit {
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage('Rule deleted successfully');
-            this.getServerRules();
+            if(this.ruleItems.length <= 1) this.navigateBack();
+            else this.getServerRules();
           },
           error: (err: any) => {
             this.toastService.setMessage(err?.error.message, 'error');
