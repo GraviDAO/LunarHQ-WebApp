@@ -65,13 +65,11 @@ export class RulesViewComponent implements OnInit {
 
   resumeRule() {
     this.actionType.emit({action: 'resume', ruleObj: this.ruleObj});
-    location.reload();
   }
 
   confirmPauseRule() {
     this.actionType.emit({action: 'pause', ruleObj: this.ruleObj});
     this.cancelModal('pauseRuleModal');
-    location.reload();
   }
 
   getOperator(operator: string) {

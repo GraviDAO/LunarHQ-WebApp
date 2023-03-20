@@ -75,6 +75,7 @@ export class RulesListComponent implements OnInit {
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
+            this.getAllRules();
           },
           error: (err: any) => {
             this.toastService.setMessage(err.error.message, 'error');

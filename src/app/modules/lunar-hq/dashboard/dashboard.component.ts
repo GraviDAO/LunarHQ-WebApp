@@ -137,6 +137,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage(obj.action === 'resume' ? 'Rule resumed successfully' : 'Rule paused successfully');
+            this.getProfileDetails();
           },
           error: (err: any) => {
             this.toastService.setMessage(err.error.message, 'error');

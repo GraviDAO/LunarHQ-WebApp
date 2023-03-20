@@ -111,7 +111,6 @@ export class RulesComponent implements OnInit {
           next: (value: any) => {
             this.toastService.setMessage('Rule deleted successfully');
             this.getServerRules();
-            this.getServerRules();
           },
           error: (err: any) => {
             this.toastService.setMessage(err?.error.message, 'error');
