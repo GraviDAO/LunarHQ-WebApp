@@ -587,8 +587,8 @@ export class CreateRuleComponent implements OnInit {
             if(matches != null) for(const [index, match] of matches.entries()) {
               if(match === '&&') this.complexBlocks.push('and');
               else if(match === '||') this.complexBlocks.push('or');
-              else if(match === '(') this.complexBlocks.push('(');
-              else if(match === ')') this.complexBlocks.push(')');
+              else if(match === '(') this.complexBlocks.push('open');
+              else if(match === ')') this.complexBlocks.push('close');
               else {
                 this.complexBlocks.push(match + ' | ' + this.ruleList.find(r => r.id === match).roleName);
                 this.complexRules.set(index, match);
