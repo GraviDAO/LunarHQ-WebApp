@@ -109,6 +109,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage('Rule deleted successfully');
+            location.reload();
           },
           error: (err: any) => {
             this.toastService.setMessage(err.error.message, 'error');

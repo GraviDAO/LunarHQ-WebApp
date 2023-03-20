@@ -64,6 +64,7 @@ export class RulesListComponent implements OnInit {
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage('Rule deleted successfully');
+            location.reload();
           },
           error: (err: any) => {
             this.toastService.setMessage(err?.error.message, 'error');

@@ -57,7 +57,6 @@ export class RulesViewComponent implements OnInit {
   confirmRemoveRule() {
     this.actionType.emit({action: 'remove', ruleObj: this.ruleObj});
     this.cancelModal('removeRuleModal');
-    location.reload();
   }
 
   pauseRule() {
