@@ -407,7 +407,7 @@ export class CreateRuleComponent implements OnInit {
     this.lunarService.getRoles(this.discordServerId)
       .subscribe({
         next: (data) => {
-          this.roles = data.message.sort((a:any, b:any) => a.name.localeCompare(b.name));
+          this.roles = data.message.filter((role: any) => role.name).sort((a:any, b:any) => a.name.localeCompare(b.name));
           if (this.ruleId) {
             this.getRuleById();
           } else {
@@ -444,7 +444,7 @@ export class CreateRuleComponent implements OnInit {
           this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
           this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
-          if (this.ruleObj.tokenIds || (this.ruleObj.tokenIds && this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds && this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === ''))) {
+          if (!this.ruleObj.tokenIds || (this.ruleObj.tokenIds && (this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === '')))) {
             this.ruleItems[0].filter = 'no_filter';
           } else if(this.ruleObj.tokenIds) {
             const tokenList = this.ruleObj?.tokenIds.toString();
