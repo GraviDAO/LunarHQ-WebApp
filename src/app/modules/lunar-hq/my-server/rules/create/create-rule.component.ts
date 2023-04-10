@@ -448,6 +448,7 @@ export class CreateRuleComponent implements OnInit {
             this.ruleItems[0].filter = 'no_filter';
           } else if(this.ruleObj.tokenIds) {
             const tokenList = this.ruleObj?.tokenIds.toString();
+            this.ruleItems[0].nft_id = tokenList;
             this.createRuleForm.controls['nft_id'].setValue(tokenList);
             this.ruleItems[0].filter = 'filter_nft';
           }
