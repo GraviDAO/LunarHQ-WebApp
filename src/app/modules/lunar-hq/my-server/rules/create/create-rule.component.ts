@@ -366,6 +366,20 @@ export class CreateRuleComponent implements OnInit {
         } else {
           this.ruleObj.tokenIds = tokenArray;
         }
+      } else if(this.ruleItems[0].filter === 'starts_with' && this.ruleObj.ruleTypeId === 'nft') {
+        if(!this.ruleItems[0].starts_with || this.ruleItems[0].starts_with === "") {
+          this.errorList.push('starts_with');
+        } else {
+          this.ruleObj.startsWith = this.ruleItems[0].starts_with;
+          this.ruleObj.endsWith = null;
+        }
+      } else if(this.ruleItems[0].filter === 'ends_with' && this.ruleObj.ruleTypeId === 'nft') {
+        if(!this.ruleItems[0].ends_with || this.ruleItems[0].ends_with === "") {
+          this.errorList.push('ends_with');
+        } else {
+          this.ruleObj.endsWith = this.ruleItems[0].ends_with;
+          this.ruleObj.startsWith = null;
+        }
       }
     }
     if (isValid) {
@@ -444,7 +458,13 @@ export class CreateRuleComponent implements OnInit {
           this.ruleItems[0].ruleType = this.ruleObj.id.includes('N-') ? 'NFT' : 'TOKEN';
           this.ruleItems[0].ruleTypeId = this.ruleObj.id.includes('N-') ? 'nft' : 'token';
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
-          if (!this.ruleObj.tokenIds || (this.ruleObj.tokenIds && (this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === '')))) {
+          if(this.ruleObj.startsWith && this.ruleObj.startsWith !== "") {
+            this.ruleItems[0].filter = 'starts_with';
+            this.ruleItems[0].starts_with = this.ruleObj.startsWith;
+          } else if(this.ruleObj.endsWith && this.ruleObj.endsWith !== "") {
+            this.ruleItems[0].filter = 'ends_with';
+            this.ruleItems[0].ends_with = this.ruleObj.endsWith;
+          } else if (!this.ruleObj.tokenIds || (this.ruleObj.tokenIds && (this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === '')))) {
             this.ruleItems[0].filter = 'no_filter';
           } else if(this.ruleObj.tokenIds) {
             const tokenList = this.ruleObj?.tokenIds.toString();

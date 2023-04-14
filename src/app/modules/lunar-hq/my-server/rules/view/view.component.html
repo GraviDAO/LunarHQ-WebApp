@@ -91,6 +91,20 @@
           <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.tokenIds | formatNFTID}}</span>
         </div>
+        <div class="" *ngIf="ruleObj?.startsWith">
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato success">Filter by</span>
+          <span class="app-why-lbl f14 ft-lato light">&nbsp;NFT ID STARTS WITH</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;:&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.startsWith}}</span>
+        </div>
+        <div class="" *ngIf="ruleObj?.endsWith">
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato success">Filter by&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light">&nbsp;NFT ID ENDS WITH</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;:&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.endsWith}}</span>
+        </div>
       </div>
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50 mr-top-8">
         &lt;END&gt;
