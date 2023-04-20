@@ -63,13 +63,27 @@
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
                    *ngIf="!(terraClassicAddress === 'terra classic' && selected === 'discord')">
-                <app-why-cta-one
+                <app-why-cta-one *ngIf="terraClassicAddress === 'terra classic'"
+                  [cssClass]="terraClassicAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  [rightIconType]="(terraClassicAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [isDisabled]="true"
+                  [btnImage]="'./assets/img/png/LunaClassic_color.png'"
+                  [btnLabel]="terraClassicAddress"></app-why-cta-one>
+                  <app-why-cta-one *ngIf="terraClassicAddress !== 'terra classic'"
                   [cssClass]="terraClassicAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
                   (click)="editConnection('terraClassic', terraClassicAddress)"
                   [rightIconType]="(terraClassicAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
                   [btnImage]="'./assets/img/png/LunaClassic_color.png'"
                   [btnLabel]="terraClassicAddress"></app-why-cta-one>
+                  <!-- <app-why-cta-one
+                  [cssClass]="terraClassicAddress.length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('terraClassic', terraClassicAddress)"
+                  [rightIconType]="(terraClassicAddress.length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/LunaClassic_color.png'"
+                  [btnLabel]="terraClassicAddress"></app-why-cta-one> -->
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
                    *ngIf="!(stargazeAddress === 'stargaze wallet' && selected === 'discord')">
@@ -206,10 +220,17 @@
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
-        (click)="selectOption('terraClassic')"
+        [isDisabled]="true"
         [btnImage]="'./assets/img/png/LunaClassic_color.png'"
         [btnLabel]="'Terra Classic'"></app-why-cta-one>
     </div>
+    <!-- <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('terraClassic')"
+        [btnImage]="'./assets/img/png/LunaClassic_color.png'"
+        [btnLabel]="'Terra Classic'"></app-why-cta-one>
+    </div> -->
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'stargaze' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"

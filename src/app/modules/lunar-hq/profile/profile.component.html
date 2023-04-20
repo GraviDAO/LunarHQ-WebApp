@@ -114,10 +114,17 @@
     <div *ngIf="!terraClassicWalletExists" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        [btnImage]="'./assets/img/webp/lunar_classic.webp'"
+        [isDisabled]="true"
+        [btnLabel]="'Terra Classic'"></app-why-cta-one>
+    </div>
+    <!-- <div *ngIf="!terraClassicWalletExists" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('terraClassic')"
         [btnImage]="'./assets/img/webp/lunar_classic.webp'"
         [btnLabel]="'Terra Classic'"></app-why-cta-one>
-    </div>
+    </div> -->
     <div *ngIf="!stargazeWalletExists" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'stargaze' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"

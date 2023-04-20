@@ -287,3 +287,7 @@
   background-color: var(--tertiary);
   box-shadow: -(mixin.toRem(16)) mixin.toRem(2) mixin.toRem(18) 0 var(--bg-dark);
 }
+
+.info-containter {
+  background-color: rgba(255, 255, 255, 0.05);
+}

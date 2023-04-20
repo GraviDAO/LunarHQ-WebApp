@@ -147,7 +147,7 @@
                             <div class="app-why-lbl light-50">Network*</div>
                             <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
-                                               [dataList]="['Polygon','Terra', 'Terra Classic', 'Stargaze']"
+                                               [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down>
                           </div>
                         </div>
@@ -199,6 +199,17 @@
                         <div class="app-why-lbl error mr-top-8 mr-left-80"
                              *ngIf="errorList.includes('quantityHeld') && (ruleItems[0].quantityHeld === undefined || ruleItems[0].quantityHeld === '')">
                           required
+                        </div>
+                        <div class="empty-info-container info-containter mr-top-48 pd-bottom-16" *ngIf="ruleItem.ruleTypeId == 'nft'">
+                          <div>
+                            <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                              Max Collection Size
+                            </div>
+                            <label class="app-why-lbl f14 light-70">
+                              Be aware that any Collection with a size bigger than 20,000 will not be indexed, but still return a successful rule creation. For such sizes please reach out to us on 
+                              <a class="link" href="https://discord.gg/nD6YFKQTRF" target="_blank">Discord</a>.
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
