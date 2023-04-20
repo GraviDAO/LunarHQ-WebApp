@@ -66,7 +66,9 @@
           <span class="app-why-lbl f14 ft-lato light word-break"
                 *ngIf="ruleObj?.nftAddress">{{ruleObj?.nftAddress}}</span>
           <span class="app-why-lbl f14 ft-lato light word-break"
-                *ngIf="!ruleObj?.nftAddress">{{ruleObj?.address}}</span>
+                *ngIf="!ruleObj?.nftAddress && ruleObj?.tokenAddress">{{ruleObj?.tokenAddress}}</span>
+          <span class="app-why-lbl f14 ft-lato light word-break"
+                *ngIf="!ruleObj?.nftAddress && !ruleObj?.tokenAddress">{{ruleObj?.address}}</span>
         </div>
         <div class="">
           <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>

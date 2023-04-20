@@ -179,23 +179,6 @@ export class CreateRuleComponent implements OnInit {
       this.ruleObj.name = this.createRuleForm.get('name')?.value;
       this.ruleObj.description = this.createRuleForm.get('description')?.value;
       return this.ruleObj.name === '' || this.ruleObj.roleName === undefined;
-    } else if (this.stepperIndex === 1) {
-      this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
-      if (this.ruleObj.ruleTypeId === 'token') {
-        this.ruleObj.tokenAddress = this.ruleItems[0].contractAddress;
-      }
-      this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
-      if (this.ruleItems[0].filter === 'no_filter') {
-        delete this.ruleObj.tokenIds;
-      } else {
-        let tokens = this.ruleItems[0].nft_id.split(',');
-        let tokenArray = (tokens.length === 1 && tokens[0] === '') ? [] : tokens;
-        if (tokenArray.length > 0) {
-          this.ruleObj.tokenIds = tokenArray;
-        }
-      }
-      // this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
-      return this.ruleObj.nftAddress === '' || this.ruleObj.quantity === '' || this.ruleObj.blockchainName === undefined;
     }
     return false;
   }
@@ -348,10 +331,18 @@ export class CreateRuleComponent implements OnInit {
       if (this.ruleItems[0].contractAddress === undefined || this.ruleItems[0].contractAddress === '') {
         isValid = false;
         this.errorList.push('contractAddress');
+      } else if(this.ruleObj.ruleTypeId === 'nft') {
+        this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
+        this.ruleObj.address = this.ruleItems[0].contractAddress;
+      } else if(this.ruleObj.ruleTypeId === 'token') {
+        this.ruleObj.tokenAddress = this.ruleItems[0].contractAddress;
+        this.ruleObj.address = this.ruleItems[0].contractAddress;
       }
       if (this.ruleItems[0].quantityHeld === undefined || this.ruleItems[0].quantityHeld === '') {
         isValid = false;
         this.errorList.push('quantityHeld');
+      } else {
+        this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
       }
 
       if (this.ruleItems[0].filter === 'no_filter' && this.ruleObj.ruleTypeId === 'nft') {
