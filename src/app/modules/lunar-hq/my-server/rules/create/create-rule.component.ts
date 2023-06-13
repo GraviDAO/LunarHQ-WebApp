@@ -383,6 +383,14 @@ export class CreateRuleComponent implements OnInit {
   }
 
   updateRole() {
+    //Remove id if an error rule since it could cause db issues as in updating the wrong rule
+    let ruleConsiderErrorRule;
+    if(this.ruleObj.error) {
+      ruleConsiderErrorRule = { ... this.ruleObj };
+      delete ruleConsiderErrorRule.id;
+    } else {
+      ruleConsiderErrorRule = this.ruleObj;
+    }
     this.lunarService.createRule(this.ruleObj)
       .subscribe({
         next: (data: any) => {
