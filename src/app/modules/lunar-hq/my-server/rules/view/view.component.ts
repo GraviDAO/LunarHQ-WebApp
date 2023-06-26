@@ -16,6 +16,7 @@ export class RulesViewComponent implements OnInit {
   @Input() paused: boolean = false;
   @Input() hasPermission: boolean = false;
   @Input() update: boolean = false;
+  @Input() overrideDontShowError: boolean = false;
   @Input() ruleObj: any;
   @Output() closeRule: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateRole: EventEmitter<any> = new EventEmitter<any>();
@@ -54,7 +55,7 @@ export class RulesViewComponent implements OnInit {
   confirmRemoveRule() {
     this.actionType.emit({action: 'remove', ruleObj: this.ruleObj});
     this.cancelModal('removeRuleModal');
-    location.reload();
+    // location.reload(); //now getting new data inside component not whole site load (error toasts)
   }
 
   pauseRule() {

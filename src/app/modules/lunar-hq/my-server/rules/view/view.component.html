@@ -39,15 +39,17 @@
       </div>
     </div>
     <div class="rules-content pd-box-24 d-flex flex-column" *ngIf="!viewMore">
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+      <!-- <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
         Rules
-      </div>
+      </div> -->
       <div class="rule-item d-flex flex-column mr-top-8">
         <div>
           <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Base Role:\ </span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.roleName}}</span>
         </div>
         <div class="pd-top-8">
+          <span class="app-why-lbl f14 ft-lato light">Rule-Type</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light" *ngIf="ruleObj?.ruleType">{{ruleObj?.ruleType}}</span>
           <span class="app-why-lbl f14 ft-lato light" *ngIf="!ruleObj?.ruleType">
             {{ruleObj?.id?.includes('N-') ? 'NFT' : 'TOKEN'}}
@@ -111,6 +113,11 @@
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50 mr-top-8">
         &lt;END&gt;
       </div>
+      <div *ngIf="ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError">
+        <br />
+        <span class="app-why-lbl f14 ft-lato error">[Error] </span>
+        <span class="app-why-lbl f14 ft-lato error">{{ ruleObj?.error }}</span>
+      </div>
     </div>
   </div>
   <div class="rules-action-container justify-content-center d-flex mr-left-40 pd-top-24"
@@ -125,7 +132,7 @@
         (click)="removeRule()">
       </app-why-cta-three>
     </div>
-    <div class="rules-action-item mr-left-24" *ngIf="ruleObj?.active">
+    <div class="rules-action-item mr-left-24" *ngIf="ruleObj?.active && !(ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError)">
       <app-why-cta-three
         [parentClass]="'flex-column'"
         [btnClass]="cssClass.cta3BtnLabel"
@@ -135,7 +142,7 @@
         (click)="pauseRule()">
       </app-why-cta-three>
     </div>
-    <div class="rules-action-item mr-left-24" *ngIf="!ruleObj?.active">
+    <div class="rules-action-item mr-left-24" *ngIf="!ruleObj?.active && !(ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError)">
       <app-why-cta-three
         [parentClass]="'flex-column'"
         [btnClass]="cssClass.cta3BtnLabelSuccess"

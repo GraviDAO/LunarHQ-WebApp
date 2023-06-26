@@ -127,6 +127,7 @@
           <div class="d-flex justify-content-center" *ngIf="serverDetails?.rules?.length > 0">
             <div class="server-detail-rules-content mr-top-16 d-flex flex-column">
               <div class="rules-item d-flex flex-row align-items-center mr-bottom-8"
+                   [ngClass]="{'errorRule': rule?.error && rule?.error !== ''}"
                    *ngFor="let rule of serverDetails?.rules?.slice(0,2)">
                 <div class="rules-item-name details-pg d-flex align-items-center">
                   <div>

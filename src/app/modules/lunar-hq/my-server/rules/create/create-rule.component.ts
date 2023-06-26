@@ -385,7 +385,7 @@ export class CreateRuleComponent implements OnInit {
   updateRole() {
     //Remove id if an error rule since it could cause db issues as in updating the wrong rule
     let ruleConsiderErrorRule;
-    if(this.ruleObj.error) {
+    if(this.ruleObj.error && this.ruleObj.error !== '') {
       ruleConsiderErrorRule = { ... this.ruleObj };
       delete ruleConsiderErrorRule.id;
     } else {
@@ -395,6 +395,16 @@ export class CreateRuleComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           // this.roles = data.message;
+          if(this.ruleObj.error && this.ruleObj.error !== '') {
+            this.lunarService.deleteErrorRule(this.ruleObj.id).subscribe({
+              next: (data:any) => {},
+              error: (error: any) => {
+                this.loader.stop();
+                this.toastService.setMessage('New Rule created successfully, but could not remove old Rule with Error, please notify us on Discord!');
+                this.location.back();
+              }
+            })
+          }
           this.loader.stop();
           this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
           this.location.back();

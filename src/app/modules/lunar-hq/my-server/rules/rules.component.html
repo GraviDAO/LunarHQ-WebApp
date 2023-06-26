@@ -42,7 +42,8 @@
         </div>
       </div>
       <div class="rules-content mr-top-16 d-flex flex-column pd-right-40">
-        <div class="rules-item d-flex flex-row align-items-center mr-bottom-8" *ngFor="let ruleObj of ruleItems">
+        <div class="rules-item d-flex flex-row align-items-center mr-bottom-8" *ngFor="let ruleObj of ruleItems"
+          [ngClass]="{'errorRule': ruleObj?.error && ruleObj?.error !== ''}">
           <div class="rules-item-name d-flex align-items-center">
             <div>
               <img class="mr-left-16 discord-server-image-container" [src]="ruleObj?.discordServerImage"
