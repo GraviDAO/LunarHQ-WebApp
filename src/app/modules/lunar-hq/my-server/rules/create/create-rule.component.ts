@@ -194,23 +194,6 @@ export class CreateRuleComponent implements OnInit {
       this.ruleObj.name = this.createRuleForm.get('name')?.value;
       this.ruleObj.description = this.createRuleForm.get('description')?.value;
       return this.ruleObj.name === '' || this.ruleObj.roleName === undefined;
-    } else if (this.stepperIndex === 1) {
-      this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
-      if (this.ruleObj.ruleTypeId === 'token') {
-        this.ruleObj.tokenAddress = this.ruleItems[0].contractAddress;
-      }
-      this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
-      if (this.ruleItems[0].filter === 'no_filter') {
-        delete this.ruleObj.tokenIds;
-      } else {
-        let tokens = this.ruleItems[0].nft_id.split(',');
-        let tokenArray = (tokens.length === 1 && tokens[0] === '') ? [] : tokens;
-        if (tokenArray.length > 0) {
-          this.ruleObj.tokenIds = tokenArray;
-        }
-      }
-      // this.ruleObj.tokenIds = this.ruleItems[0].nft_id.split(',');
-      return this.ruleObj.nftAddress === '' || this.ruleObj.quantity === '' || this.ruleObj.blockchainName === undefined;
     }
     return false;
   }
@@ -431,10 +414,18 @@ export class CreateRuleComponent implements OnInit {
       if (this.ruleItems[0].contractAddress === undefined || this.ruleItems[0].contractAddress === '') {
         isValid = false;
         this.errorList.push('contractAddress');
+      } else if(this.ruleObj.ruleTypeId === 'nft') {
+        this.ruleObj.nftAddress = this.ruleItems[0].contractAddress;
+        this.ruleObj.address = this.ruleItems[0].contractAddress;
+      } else if(this.ruleObj.ruleTypeId === 'token') {
+        this.ruleObj.tokenAddress = this.ruleItems[0].contractAddress;
+        this.ruleObj.address = this.ruleItems[0].contractAddress;
       }
       if (this.ruleItems[0].quantityHeld === undefined || this.ruleItems[0].quantityHeld === '') {
         isValid = false;
         this.errorList.push('quantityHeld');
+      } else {
+        this.ruleObj.quantity = this.ruleItems[0].quantityHeld;
       }
 
       if (this.ruleItems[0].filter === 'no_filter' && this.ruleObj.ruleTypeId === 'nft') {
@@ -448,6 +439,20 @@ export class CreateRuleComponent implements OnInit {
           this.errorList.push('nft_id');
         } else {
           this.ruleObj.tokenIds = tokenArray;
+        }
+      } else if(this.ruleItems[0].filter === 'starts_with' && this.ruleObj.ruleTypeId === 'nft') {
+        if(!this.ruleItems[0].starts_with || this.ruleItems[0].starts_with === "") {
+          this.errorList.push('starts_with');
+        } else {
+          this.ruleObj.startsWith = this.ruleItems[0].starts_with;
+          this.ruleObj.endsWith = null;
+        }
+      } else if(this.ruleItems[0].filter === 'ends_with' && this.ruleObj.ruleTypeId === 'nft') {
+        if(!this.ruleItems[0].ends_with || this.ruleItems[0].ends_with === "") {
+          this.errorList.push('ends_with');
+        } else {
+          this.ruleObj.endsWith = this.ruleItems[0].ends_with;
+          this.ruleObj.startsWith = null;
         }
       }
     } else if(this.ruleObj.ruleTypeId === 'complex') {
@@ -503,24 +508,42 @@ export class CreateRuleComponent implements OnInit {
   }
 
   updateRole() {
+    //Remove id if an error rule since it could cause db issues as in updating the wrong rule
+    let ruleConsiderErrorRule;
+    if(this.ruleObj.error && this.ruleObj.error !== '') {
+      ruleConsiderErrorRule = { ... this.ruleObj };
+      delete ruleConsiderErrorRule.id;
+    } else {
+      ruleConsiderErrorRule = this.ruleObj;
+    }
     if(this.ruleObj.ruleTypeId !== 'complex') {
-      this.lunarService.createRule(this.ruleObj)
-        .subscribe({
-          next: (data: any) => {
-            // this.roles = data.message;
-            this.loader.stop();
-            this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
-            this.location.back();
-          },
-          error: (error: any) => {
-            this.loader.stop();
-            this.toastService.setMessage(error?.error.message, 'error');
-            console.error(error, 'error');
+      this.lunarService.createRule(ruleConsiderErrorRule)
+      .subscribe({
+        next: (data: any) => {
+          // this.roles = data.message;
+          if(this.ruleObj.error && this.ruleObj.error !== '') {
+            this.lunarService.deleteErrorRule(this.ruleObj.id).subscribe({
+              next: (data:any) => {},
+              error: (error: any) => {
+                this.loader.stop();
+                this.toastService.setMessage('New Rule created successfully, but could not remove old Rule with Error, please notify us on Discord!');
+                this.location.back();
+              }
+            })
           }
-        });
+          this.loader.stop();
+          this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
+          this.location.back();
+        },
+        error: (error: any) => {
+          this.loader.stop();
+          this.toastService.setMessage(error?.error.message, 'error');
+          console.error(error, 'error');
+        }
+      });
     } else {
       const data = {
-        id: this.ruleObj.id ?? undefined,
+        id: ruleConsiderErrorRule.id ?? undefined,
         name: this.ruleObj.name,
         description: this.ruleObj.description,
         complexExpression: this.ruleObj.complexExpression,
@@ -531,6 +554,16 @@ export class CreateRuleComponent implements OnInit {
       this.lunarService.createComplexRule(data)
         .subscribe({
           next: (data: any) => {
+            if(this.ruleObj.error && this.ruleObj.error !== '') {
+              this.lunarService.deleteErrorRule(this.ruleObj.id).subscribe({
+                next: (data:any) => {},
+                error: (error: any) => {
+                  this.loader.stop();
+                  this.toastService.setMessage('New Rule created successfully, but could not remove old Rule with Error, please notify us on Discord!');
+                  this.location.back();
+                }
+              })
+            }
             this.loader.stop();
             this.toastService.setMessage(this.ruleObj.id ? 'Rule Updated successfully' : 'Rule created successfully');
             this.location.back();
@@ -632,10 +665,17 @@ export class CreateRuleComponent implements OnInit {
             this.getRules(true);
           }
           this.selectedNetwork = this.ruleObj.blockchainName === 'polygon-mainnet' ? 'Polygon' : this.ruleObj.blockchainName;
-          if (this.ruleObj.tokenIds || (this.ruleObj.tokenIds && this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds && this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === ''))) {
+          if(this.ruleObj.startsWith && this.ruleObj.startsWith !== "") {
+            this.ruleItems[0].filter = 'starts_with';
+            this.ruleItems[0].starts_with = this.ruleObj.startsWith;
+          } else if(this.ruleObj.endsWith && this.ruleObj.endsWith !== "") {
+            this.ruleItems[0].filter = 'ends_with';
+            this.ruleItems[0].ends_with = this.ruleObj.endsWith;
+          } else if (!this.ruleObj.tokenIds || (this.ruleObj.tokenIds && (this.ruleObj.tokenIds.length === 0 || (this.ruleObj.tokenIds.length === 1 && this.ruleObj.tokenIds[0] === '')))) {
             this.ruleItems[0].filter = 'no_filter';
           } else if(this.ruleObj.tokenIds) {
             const tokenList = this.ruleObj?.tokenIds.toString();
+            this.ruleItems[0].nft_id = tokenList;
             this.createRuleForm.controls['nft_id'].setValue(tokenList);
             this.ruleItems[0].filter = 'filter_nft';
           }

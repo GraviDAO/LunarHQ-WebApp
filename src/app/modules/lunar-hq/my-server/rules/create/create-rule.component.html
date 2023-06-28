@@ -34,7 +34,7 @@
             </button>
           </div>
           <div class="step" id="step-2">
-            <button class="step-trigger" [disabled]="validate()" (click)="preview()">
+            <button class="step-trigger" [disabled]="true">
               <span class="bs-stepper-label app-why-lbl f10 text-center light-50 ft-lato"
                     [ngClass]="{'secondary': viewRule}">
                 {{stepTitles[2]}}
@@ -222,7 +222,7 @@
                             <div class="app-why-lbl light-50">Network*</div>
                             <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
-                                               [dataList]="['Polygon','Terra', 'Terra Classic', 'Stargaze']"
+                                               [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down>
                           </div>
                         </div>
@@ -275,6 +275,17 @@
                              *ngIf="errorList.includes('quantityHeld') && (ruleItems[0].quantityHeld === undefined || ruleItems[0].quantityHeld === '')">
                           required
                         </div>
+                        <div class="empty-info-container info-containter mr-top-48 pd-bottom-16" *ngIf="ruleItem.ruleTypeId == 'nft'">
+                          <div>
+                            <div class="app-why-lbl secondary ft-lato mr-bottom-8 text-uppercase">
+                              Max Collection Size
+                            </div>
+                            <label class="app-why-lbl f14 light-70">
+                              Be aware that any Collection with a size bigger than 50,000 will not be indexed, but still return a successful rule creation. For such sizes please reach out to us on 
+                              <a class="link" href="https://discord.gg/nD6YFKQTRF" target="_blank">Discord</a>.
+                            </label>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -322,6 +333,56 @@
                           required
                         </div>
                       </div>
+                      <div class="rule-item-nft-filter-item d-flex flex-column mr-top-16">
+                        <div class="d-flex align-items-center">
+                          <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'starts_with'"
+                                 id="starts_with" name="filter"
+                                 value="starts_with" (click)="onChangeFilter(ruleItem, 'starts_with')">
+                          <label class="app-why-lbl f12 mr-left-8"
+                                 [ngClass]="{'primary': ruleItem.filter === 'starts_with', 'light-50': ruleItem.filter !== 'starts_with'}">
+                            FILTER BY ID STARTS WITH
+                          </label>
+                        </div>
+                        <div class="rule-item-nft-filter-nft-id mr-top-8 mr-left-22"
+                             *ngIf="ruleItem.filter === 'starts_with'">
+                          <div [ngClass]="{'opacity-20': ruleItem.file == 'uploaded'}">
+                            <label class="d-flex app-why-lbl ft-lato f10 light-50 letter-spacing-02" for="description">STARTS WITH</label>
+                              <input type="text"
+                              class="form-control app-why-floating-input"
+                              placeholder="" name="startsWith" [(ngModel)]="ruleItems[0].starts_with"
+                              [ngModelOptions]="{standalone: true}">
+                          </div>
+                        </div>
+                        <div class="app-why-lbl error mr-left-24"
+                             *ngIf="errorList.includes('starts_with') && (ruleItems[0].starts_with === undefined || ruleItems[0].starts_with === '')">
+                          required
+                        </div>
+                      </div>
+                      <div class="rule-item-nft-filter-item d-flex flex-column mr-top-16">
+                        <div class="d-flex align-items-center">
+                          <input type="radio" class="radio-button-primary" [checked]="ruleItem.filter === 'ends_with'"
+                                 id="ends_with" name="filter"
+                                 value="ends_with" (click)="onChangeFilter(ruleItem, 'ends_with')">
+                          <label class="app-why-lbl f12 mr-left-8"
+                                 [ngClass]="{'primary': ruleItem.filter === 'ends_with', 'light-50': ruleItem.filter !== 'ends_with'}">
+                            FILTER BY ID ENDS WITH
+                          </label>
+                        </div>
+                        <div class="rule-item-nft-filter-nft-id mr-top-8 mr-left-22"
+                             *ngIf="ruleItem.filter === 'ends_with'">
+                          <div [ngClass]="{'opacity-20': ruleItem.file == 'uploaded'}">
+                            <label class="d-flex app-why-lbl ft-lato f10 light-50 letter-spacing-02" for="description">ENDS WITH</label>
+                              <input type="text"
+                              class="form-control app-why-floating-input"
+                              placeholder="" name="endsWith" [(ngModel)]="ruleItems[0].ends_with"
+                              [ngModelOptions]="{standalone: true}">
+                          </div>
+                        </div>
+                        <div class="app-why-lbl error mr-left-24"
+                             *ngIf="errorList.includes('ends_with') && (ruleItems[0].ends_with === undefined || ruleItems[0].ends_with === '')">
+                          required
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -355,6 +416,7 @@
     <div class="rules-view" [hidden]="!viewRule" (click)="$event.stopPropagation()">
       <app-why-lunar-hq-rules-view [update]="true"
                                    [ruleObj]="ruleObj"
+                                   [overrideDontShowError]="true"
                                    (closeRule)="closeView()" (updateRole)="updateRole()"></app-why-lunar-hq-rules-view>
     </div>
   </div>

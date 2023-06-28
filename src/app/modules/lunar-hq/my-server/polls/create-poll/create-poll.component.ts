@@ -249,7 +249,7 @@ export class CreatePollComponent implements OnInit {
     this.lunarService.getServerRules(this.discordServerId)
       .subscribe({
         next: (data) => {
-          this.roleList = data.message.rules;
+          this.roleList = data.message.rules.filter((r: any) => !r.error || r.error === "" );
           this.getChannels();
         },
         error: (error) => {

@@ -56,7 +56,7 @@ export class PollCellComponent {
     this.lunarService.deletePoll(this.pollObj.id, this.pollObj.discordServerId)
       .subscribe({
         next: (value: any) => {
-          this.toast.setMessage('Rule deleted successfully');
+          this.toast.setMessage('Poll deleted successfully');
           this.deletePollEvent.emit(true);
         },
         error: (err: any) => {

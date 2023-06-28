@@ -39,15 +39,17 @@
       </div>
     </div>
     <div class="rules-content pd-box-24 d-flex flex-column" *ngIf="!viewMore">
-      <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
+      <!-- <div class="rules-rule-title app-why-lbl f10 ft-lato light-50 letter-spacing-02 text-uppercase">
         Rules
-      </div>
+      </div> -->
       <div class="rule-item d-flex flex-column mr-top-8">
         <div>
           <span class="app-why-lbl f14 ft-lato light-50 letter-spacing-02">Base Role:\ </span>
           <span class="app-why-lbl f14 ft-lato light">{{ruleObj?.roleName}}</span>
         </div>
         <div class="pd-top-8">
+          <span class="app-why-lbl f14 ft-lato light">Rule-Type</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light" *ngIf="ruleObj?.ruleType">{{ruleObj?.ruleType}}</span>
           <span class="app-why-lbl f14 ft-lato light" *ngIf="!ruleObj?.ruleType">
             {{ruleObj?.id?.includes('N-') ? 'NFT' : (ruleObj?.id?.includes('T-') ? 'TOKEN' : 'COMPLEX')}}
@@ -72,7 +74,9 @@
           <span class="app-why-lbl f14 ft-lato light word-break"
                 *ngIf="ruleObj?.nftAddress">{{ruleObj?.nftAddress}}</span>
           <span class="app-why-lbl f14 ft-lato light word-break"
-                *ngIf="!ruleObj?.nftAddress">{{ruleObj?.address}}</span>
+                *ngIf="!ruleObj?.nftAddress && ruleObj?.tokenAddress">{{ruleObj?.tokenAddress}}</span>
+          <span class="app-why-lbl f14 ft-lato light word-break"
+                *ngIf="!ruleObj?.nftAddress && !ruleObj?.tokenAddress">{{ruleObj?.address}}</span>
         </div>
         <div class="" *ngIf="!isComplex()">
           <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
@@ -97,9 +101,28 @@
           <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;is&nbsp;]&nbsp;</span>
           <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.tokenIds | formatNFTID}}</span>
         </div>
+        <div class="" *ngIf="ruleObj?.startsWith">
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato success">Filter by</span>
+          <span class="app-why-lbl f14 ft-lato light">&nbsp;NFT ID STARTS WITH</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;:&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.startsWith}}</span>
+        </div>
+        <div class="" *ngIf="ruleObj?.endsWith">
+          <span class="app-why-lbl f14 ft-lato success">&nbsp;[&nbsp;and&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato success">Filter by&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light">&nbsp;NFT ID ENDS WITH</span>
+          <span class="app-why-lbl f14 ft-lato light-50">&nbsp;[&nbsp;:&nbsp;]&nbsp;</span>
+          <span class="app-why-lbl f14 ft-lato light word-break">{{ruleObj?.endsWith}}</span>
+        </div>
       </div>
       <div class="rule-item-existing-rule-end app-why-lbl f14 ft-lato light-50 mr-top-8">
         &lt;END&gt;
+      </div>
+      <div *ngIf="ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError">
+        <br />
+        <span class="app-why-lbl f14 ft-lato error">[Error] </span>
+        <span class="app-why-lbl f14 ft-lato error">{{ ruleObj?.error }}</span>
       </div>
     </div>
   </div>
@@ -115,7 +138,7 @@
         (click)="removeRule()">
       </app-why-cta-three>
     </div>
-    <div class="rules-action-item mr-left-24" *ngIf="ruleObj?.active">
+    <div class="rules-action-item mr-left-24" *ngIf="ruleObj?.active && !(ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError)">
       <app-why-cta-three
         [parentClass]="'flex-column'"
         [btnClass]="cssClass.cta3BtnLabel"
@@ -125,7 +148,7 @@
         (click)="pauseRule()">
       </app-why-cta-three>
     </div>
-    <div class="rules-action-item mr-left-24" *ngIf="!ruleObj?.active">
+    <div class="rules-action-item mr-left-24" *ngIf="!ruleObj?.active && !(ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError)">
       <app-why-cta-three
         [parentClass]="'flex-column'"
         [btnClass]="cssClass.cta3BtnLabelSuccess"

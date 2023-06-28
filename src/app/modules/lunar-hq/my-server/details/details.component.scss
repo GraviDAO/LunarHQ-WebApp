@@ -375,6 +375,16 @@
   clip-path: polygon(0% 0px, 0px 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 100% 100%, 8px 100%, 0 calc(100% - 8px));
 }
 
+.errorRule {
+  --color: var(--error) !important;
+  color: var(--error) !important;
+  background-color: #4d000027;
+
+  * {
+    --color: var(--error) !important;
+    color: var(--error) !important;
+  }
+}
 .add-dark-50 {
   background: var(--dark-50) !important;
 }

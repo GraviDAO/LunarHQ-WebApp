@@ -105,7 +105,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   ruleAction(obj: any) {
     if (obj.action === 'remove') {
-      this.lunarService.deleteRule(obj.ruleObj.id, obj.ruleObj.discordServerId)
+      if(obj.ruleObj.error && obj.ruleObj.error !== "") {
+        this.lunarService.deleteErrorRule(obj.ruleObj.id)
         .subscribe({
           next: (value: any) => {
             this.toastService.setMessage('Rule deleted successfully');
@@ -115,6 +116,18 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.toastService.setMessage(err.error.message, 'error');
           }
         });
+      } else {
+        this.lunarService.deleteRule(obj.ruleObj.id, obj.ruleObj.discordServerId)
+          .subscribe({
+            next: (value: any) => {
+              this.toastService.setMessage('Rule deleted successfully');
+            },
+            error: (err: any) => {
+              this.toastService.setMessage(err.error.message, 'error');
+            }
+          });
+      }
+      this.getServerDetails();
     } else {
       this.lunarService.activateDeactivate(obj.action === 'resume', obj.ruleObj.id, obj.ruleObj.discordServerId)
         .subscribe({

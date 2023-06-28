@@ -69,3 +69,10 @@ ion-icon:before {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+.link {
+  @extend .app-why-lbl;
+  @extend .primary;
+
+  text-decoration: none;
+  font-size: inherit;
+}

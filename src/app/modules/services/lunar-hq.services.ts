@@ -257,4 +257,11 @@ export class LunarHqAPIServices {
         return result;
       }));
   }
+
+  deleteErrorRule(ruleId: number) {
+    return this.http.delete<any>(environment.server + 'deleteErrorRule?ruleId=' + ruleId)
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
 }

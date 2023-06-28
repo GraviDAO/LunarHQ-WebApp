@@ -125,12 +125,12 @@
               </div>
 
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="terraClassicAddresses[0] === 'terra classic'">
+                *ngIf="terraClassicAddresses[0] === 'terra classic'">
                 <app-why-cta-one
                   [cssClass]="terraClassicAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('terraClassic', terraClassicAddresses[0])"
                   [rightIconType]="(terraClassicAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
+                  [isDisabled]="true"
                   [btnImage]="'./assets/img/png/LunaClassic_color.png'"
                   [btnLabel]="terraClassicAddresses[0]"></app-why-cta-one>
               </div>
@@ -371,10 +371,17 @@
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
-        (click)="selectOption('terraClassic')"
+        [isDisabled]="true"
         [btnImage]="'./assets/img/png/LunaClassic_color.png'"
         [btnLabel]="'Terra Classic'"></app-why-cta-one>
     </div>
+    <!-- <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'terraClassic' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('terraClassic')"
+        [btnImage]="'./assets/img/png/LunaClassic_color.png'"
+        [btnLabel]="'Terra Classic'"></app-why-cta-one>
+    </div> -->
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'stargaze' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
