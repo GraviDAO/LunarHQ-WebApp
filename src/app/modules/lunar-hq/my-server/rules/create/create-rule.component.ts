@@ -681,7 +681,7 @@ export class CreateRuleComponent implements OnInit {
           }
           const tempRole = this.roles.filter((obj: any) => obj.id === this.ruleObj.role);
           if (tempRole && tempRole.length >= 1) {
-            this.selectedRole = tempRole[0].name;
+            this.selectRole(tempRole[0]);
           }
           this.loader.stop();
         },
