@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // server: 'https://staging.lunar-hq.io/'
-  server: 'http://localhost:6060/',
+  server: 'https://staging.lunar-hq.io/'
+  // server: 'http://localhost:6060/',
 };
 
 /*
