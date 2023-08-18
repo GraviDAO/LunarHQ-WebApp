@@ -222,7 +222,7 @@
                             <div class="app-why-lbl light-50">Network*</div>
                             <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
-                                               [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze']"
+                                               [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze', 'Archway']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down>
                           </div>
                         </div>

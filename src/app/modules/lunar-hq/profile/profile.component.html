@@ -125,12 +125,19 @@
         [btnImage]="'./assets/img/webp/lunar_classic.webp'"
         [btnLabel]="'Terra Classic'"></app-why-cta-one>
     </div> -->
-    <div *ngIf="!stargazeWalletExists" class="d-flex justify-content-center pd-top-16">
+    <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'stargaze' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('stargaze')"
         [btnImage]="'./assets/img/png/stargaze.png'"
         [btnLabel]="'Stargaze'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'archway' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('archway')"
+        [btnImage]="'./assets/img/png/archway.png'"
+        [btnLabel]="'Archway'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
@@ -301,7 +308,7 @@
     <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"
-        (click)="connectKeplr()"
+        (click)="connectKeplr('Stargaze')"
         [btnImage]="'./assets/img/png/keplr.png'"
         [btnLabel]="'Keplr Wallet'">
       </app-why-cta-one>
@@ -310,6 +317,24 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Stargaze wallet chains connection list Modal End -->
+
+<!-- Archway wallet chains connection list Modal Start -->
+<app-why-modal id="archwayWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Archway Wallet</div>
+    <div *ngIf="!keplrInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Archway compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Archway')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Archway wallet chains connection list Modal End -->
 
 <!-- No User Premium rights Modal Start -->
 <app-why-modal id="notPremiumUser" [popUpType]="'confirmation'">

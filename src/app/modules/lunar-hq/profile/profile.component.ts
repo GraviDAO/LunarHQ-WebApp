@@ -36,7 +36,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   terraAddress = 'terra wallet';
   polygonWalletExists: boolean = false;
   stargazeWalletExists: boolean = false;
-  stargazeAddress = 'stargaze wallet';
+  stargazeAddress = 'archway wallet';
+  archwayWalletExists: boolean = false;
+  archwayAddress = 'archway wallet';
   keplrInstalled = false;
   terraWalletExists: boolean = false;
   terraClassicWalletExists: boolean = false;
@@ -164,6 +166,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileObj.accountWallets.sort((a: any, b: any) => a.blockchainName.localeCompare(b.blockchainName));
           this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
           this.stargazeWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName.toLowerCase() === 'stargaze');
+          this.archwayWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName.toLowerCase() === 'archway');
           this.terraWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra');
           this.terraClassicWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Terra Classic');
           this.loaderService.stop();
@@ -318,6 +321,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       } else {
         this.stargazeWalletConnect();
       }
+    } else if(this.selectedWallet === 'archway') {
+      if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Archway')) {
+        this.userIsPremium().then(r => {
+          if(r) {
+            this.archwayWalletConnect();
+          } else {
+            this.exitModal();
+            this.modalService.open('notPremiumUser');
+          }
+        });
+      } else {
+        this.archwayWalletConnect();
+      }
     } else if(this.selectedWallet === 'terra') {
       if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Terra')) {
         this.userIsPremium().then(r => {
@@ -380,22 +396,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.modalService.open('stargazeWallet');
   }
 
-  connectKeplr() {
+  async archwayWalletConnect() {
+    this.exitModal();
+    // @ts-ignore
+    if(window.keplr) this.keplrInstalled = true;
+    this.modalService.open('archwayWallet');
+  }
+
+  connectKeplr(chain: 'Stargaze'| 'Archway') {
     // @ts-ignore
     if (!window.keplr) {
       alert("Please install keplr extension");
     } else {
-      const chainId = "stargaze-1";
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : "archway-1");
       // @ts-ignore
       window.keplr.enable(chainId).then(() => {
         // @ts-ignore
         window.keplr.getKey(chainId).then((o) => {
-          const stargazeAddress = o.bech32Address;
+          const address = o.bech32Address;
           const publicAddressArray = o.pubKey;
-          this.coreService.getNonce(stargazeAddress, "Stargaze")
+          this.coreService.getNonce(address, chain === "Stargaze" ? "Stargaze" : "Archway")
             .subscribe((nonceResult) => {
-              this.modalService.close('stargazeWallet');
-              this.signKelpr(stargazeAddress, publicAddressArray, nonceResult);
+              chain === "Stargaze" ? this.modalService.close('stargazeWallet') : this.modalService.close('archwayWallet');
+              this.signKelpr(address, publicAddressArray, nonceResult, chain);
             }, (error) => {
               console.error('error', error);
             });
@@ -404,38 +427,38 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  async signKelpr(stargazeAddress: string, publicAddressArray: Uint8Array, nonceResult: any) {
+  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Archway') {
     try {
       this.loaderService.start();
       setTimeout(() => {
         this.loaderService.stop();
       }, 15000);
-      const chainId = "stargaze-1";
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : "archway-1");
       // @ts-ignore
       const signature = await window.keplr
         .signArbitrary(
           chainId,
-          stargazeAddress,
+          address,
           `I am signing this message with my one-time nonce: ${nonceResult.message} to cryptographically verify that I am the owner of this wallet`
         )
 
       this.loaderService.stop();
       const dataObject = {
-        type: 'KeplrStargaze',
+        type: chain === "Stargaze" ? 'KeplrStargaze' : 'KeplrArchway',
         signature: {
           signature: signature.signature,
           publicAddressArray: JSON.stringify(publicAddressArray)
         },
-        publicAddress: stargazeAddress,
-        blockchainName: "Stargaze"
+        publicAddress: address,
+        blockchainName: chain
       };
-      this.authenticateWalletAddress(dataObject, stargazeAddress, "Stargaze");
+      this.authenticateWalletAddress(dataObject, address, chain);
     } catch (e) {
       console.error(e, 'e');
       this.loaderService.stop();
       this.terraController.disconnect();
       this.toast.setMessage('Failed to connect', 'error');
-      this.modalService.open('stargazeWallet');
+      chain === "Stargaze" ? this.modalService.open('stargazeWallet') : this.modalService.open('archwayWallet');
     }
   }
 
