@@ -200,11 +200,15 @@
                       <app-why-drop-down
                         [leftIcon]="true"
                         (dataSet)="setBlockChain($event)"
-                        [dataList]="['Polygon','Terra']"
+                        [dataList]="['Polygon','Terra','Stargaze']"
                         [placeholderText]="selectedNetwork">
                       </app-why-drop-down>
                     </div>
                   </div>
+                </div>
+                <div class="app-why-lbl error mr-top-8"
+                     *ngIf="selectedNetwork === 'Stargaze'">
+                  Tokens not supported on Stargaze
                 </div>
                 <div class="app-why-lbl error mr-top-8"
                      *ngIf="errorList.includes('blockchainName') && (selectedNetwork === 'Select network')">

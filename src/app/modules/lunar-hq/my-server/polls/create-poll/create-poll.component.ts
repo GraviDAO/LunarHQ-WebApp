@@ -101,6 +101,9 @@ export class CreatePollComponent implements OnInit {
         if (this.selectedNetwork === 'Select network') {
           this.errorList.push('blockchainName');
         }
+        if(this.selectedNetwork === 'Stargaze' && this.voteWeight === 'tokenWeighted'){
+          this.errorList.push('stargazeToken');
+        } 
         if (this.pollObj.address === undefined || this.pollObj.address === '') {
           this.errorList.push('address');
         }
