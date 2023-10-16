@@ -27,6 +27,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   viewAnnouncement = false;
   selectedAnnouncementObj: any;
   profileObjError = false;
+  terraInactiveWallets: string[] = [];
+  terraClassicInactiveWallets: string[] = [];
+  stargazeInactiveWallets: string[] = [];
+  polygonInactiveWallets: string[] = [];
+  archwayInactiveWallets: string[] = [];
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
@@ -56,6 +61,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
             const prevLen: number = this.profileObj.accountWallets.length;
             this.profileObj.accountWallets = this.profileObj.accountWallets.splice(0,6);
             this.profileObj.accountWallets.push({ address: (prevLen - 6) + ' More ...' });
+          }
+          for(const aw of this.profileObj.accountWallets) {
+            if(!aw.active) {
+              if(aw.blockchainName === "polygon-mainnet") this.polygonInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Terra") this.terraInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Terra Classic") this.terraClassicInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Stargaze") this.stargazeInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Archway") this.archwayInactiveWallets.push(aw.address)
+            }
           }
           this.localStorage.set('lunar_user_profile', this.profileObj);
           this.userDataObj.push({label: 'MY SERVERS', value: [this.profileObj.discordServers.length]});

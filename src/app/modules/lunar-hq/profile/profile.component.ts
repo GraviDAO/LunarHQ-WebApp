@@ -45,6 +45,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   terraIcon = 'https://assets.terra.money/icon/station-extension/icon.png';
   url = 'https://discord.com/api/oauth2/authorize?client_id=973603855990411325&redirect_uri=http://localhost:4401/welcome&response_type=code&scope=identify%20email%20connections';
   terraConnectionRequested: boolean = false;
+  terraInactiveWallets: string[] = [];
+  terraClassicInactiveWallets: string[] = [];
+  stargazeInactiveWallets: string[] = [];
+  polygonInactiveWallets: string[] = [];
+  archwayInactiveWallets: string[] = [];
 
   constructor(private router: Router,
               private lunarHqService: LunarHqAPIServices,
@@ -156,6 +161,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     ));
   }
 
+  walletIsInactive(wallet: string, blockchainName: string): boolean {
+    if(blockchainName === "polygon-mainnet") return this.polygonInactiveWallets.includes(wallet)
+    else if(blockchainName === "Terra") return this.terraInactiveWallets.includes(wallet)
+    else if(blockchainName === "Terra Classic") return this.terraClassicInactiveWallets.includes(wallet)
+    else if(blockchainName === "Stargaze") return this.stargazeInactiveWallets.includes(wallet)
+    else if(blockchainName === "Archway") return this.archwayInactiveWallets.includes(wallet)
+    else return false
+  }
 
   getProfileDetails() {
     this.loaderService.start();
@@ -164,6 +177,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.profileObj = data.message;
           this.profileObj.accountWallets.sort((a: any, b: any) => a.blockchainName.localeCompare(b.blockchainName));
+          this.terraInactiveWallets = [];
+          this.terraClassicInactiveWallets = [];
+          this.polygonInactiveWallets = [];
+          this.stargazeInactiveWallets = [];
+          this.archwayInactiveWallets = [];
+          for(const aw of this.profileObj.accountWallets) {
+            if(!aw.active) {
+              if(aw.blockchainName === "polygon-mainnet") this.polygonInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Terra") this.terraInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Terra Classic") this.terraClassicInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Stargaze") this.stargazeInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Archway") this.archwayInactiveWallets.push(aw.address)
+            }
+          }
           this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
           this.stargazeWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName.toLowerCase() === 'stargaze');
           this.archwayWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName.toLowerCase() === 'archway');

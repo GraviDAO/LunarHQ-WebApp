@@ -276,6 +276,10 @@
       }
     }
   }
+
+  &.error {
+    color: var(--error) !important;
+  }
 }
 
 .fab-2 {

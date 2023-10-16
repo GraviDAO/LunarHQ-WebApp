@@ -25,8 +25,11 @@
         <div>
           <label class="app-why-lbl f28 light ft-bold">{{profileObj?.discordName}}</label>
         </div>
-        <div class="pd-top-8">
-          <label class="app-why-lbl f16 light-50 ft-lato">Hi there {{profileObj?.discordStatus}}</label>
+        <div class="pd-top-8" *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || archwayInactiveWallets.length > 0">
+          <label class="app-why-lbl f16 error ft-lato">You lost premium access, resulting in some wallets being deactivated.
+            <span (click)="navigateToProfile()" class="cursor-pointer text-decoration-underline">Manage profile</span>
+             to learn more.
+          </label>
         </div>
       </div>
     </div>

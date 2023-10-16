@@ -56,6 +56,11 @@ export class WelcomeV2Component implements OnDestroy {
   stargazeExtended = false;
   archwayExtended = false;
   isPremium: boolean | undefined;
+  terraInactiveWallets: string[] = [];
+  terraClassicInactiveWallets: string[] = [];
+  stargazeInactiveWallets: string[] = [];
+  polygonInactiveWallets: string[] = [];
+  archwayInactiveWallets: string[] = [];
 
 
   constructor(public cssClass: CssConstants,
@@ -211,18 +216,33 @@ export class WelcomeV2Component implements OnDestroy {
       if(obj.blockchainName === 'polygon-mainnet') {
         if(this.polygonAddresses[0] === 'polygon wallet') this.polygonAddresses = [];
         this.polygonAddresses.push(obj.address);
+        if(!obj.active) {
+          this.polygonInactiveWallets.push(obj.address);
+        }
       } else if(obj.blockchainName === 'Stargaze') {
         if(this.stargazeAddresses[0] === 'stargaze wallet') this.stargazeAddresses = [];
         this.stargazeAddresses.push(obj.address);
+        if(!obj.active) {
+          this.stargazeInactiveWallets.push(obj.address);
+        }
       } else if(obj.blockchainName === 'Archway') {
         if(this.archwayAddresses[0] === 'archway wallet') this.archwayAddresses = [];
         this.archwayAddresses.push(obj.address);
+        if(!obj.active) {
+          this.archwayInactiveWallets.push(obj.address);
+        }
       } else if(obj.blockchainName === 'Terra') {
         if(this.terraAddresses[0] === 'terra wallet') this.terraAddresses = [];
         this.terraAddresses.push(obj.address);
+        if(!obj.active) {
+          this.terraInactiveWallets.push(obj.address);
+        }
       } else if(obj.blockchainName === 'Terra Classic') {
         if(this.terraClassicAddresses[0] === 'terra classic') this.terraClassicAddresses = [];
         this.terraClassicAddresses.push(obj.address);
+        if(!obj.active) {
+          this.terraClassicInactiveWallets.push(obj.address);
+        }
       }
     });
     this.discordProfileObj = {
@@ -240,12 +260,18 @@ export class WelcomeV2Component implements OnDestroy {
       this.currentStep = 'step 2 : connect discord';
       let tempPolygonObj: any;
       let tempTerraObj: any;
+      let tempStargazeObj: any;
+      let tempArchwayObj: any;
       if (typeof lunarUserObj.walletAddress !== 'string' && lunarUserObj.walletAddress !== undefined) {
         tempPolygonObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
         tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
+        tempStargazeObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Stargaze');
+        tempArchwayObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Archway');
       }
       this.polygonAddresses = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.publicAddress;
       this.terraAddresses = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.publicAddress;
+      this.stargazeAddresses = tempStargazeObj === undefined ? 'stargaze wallet' : tempStargazeObj.publicAddress;
+      this.archwayAddresses = tempArchwayObj === undefined ? 'archway wallet' : tempArchwayObj.publicAddress;
     }
   }
 
@@ -826,6 +852,9 @@ export class WelcomeV2Component implements OnDestroy {
       this.selected = 'connect';
       this.polygonAddresses = ['polygon wallet'];
       this.terraAddresses = ['terra wallet'];
+      this.stargazeAddresses = ['stargaze wallet'];
+      this.archwayAddresses = ['archway wallet'];
+      this.terraClassicAddresses = ['terra classic'];
       this.modalService.close('removeWalletModal');
       this.currentStep = 'step 1 : connect wallet';
       if(this.unlink.chainType === 'stargaze') {
@@ -845,19 +874,23 @@ export class WelcomeV2Component implements OnDestroy {
       } 
     } else {
       const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : (this.unlink.chainType === 'stargaze' ? 'Stargaze' : (this.unlink.chainType === 'archway' ? 'Archway' : 'Terra Classic')));
+      this.loaderService.start();
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
           if (this.unlink.chainType === 'polygon') {
             this.polygonAddresses = this.polygonAddresses.filter(a => a !== this.unlink.address);
+            this.polygonInactiveWallets = this.polygonInactiveWallets.filter(a => a !== this.unlink.address);
             if(this.polygonAddresses.length === 0) this.polygonAddresses = ['polygon wallet'];
             this.polygonExtended = false;
           } else if (this.unlink.chainType === 'terra') {
             this.terraAddresses = this.terraAddresses.filter(a => a !== this.unlink.address);
+            this.terraInactiveWallets = this.terraInactiveWallets.filter(a => a !== this.unlink.address);
             if(this.terraAddresses.length === 0) this.terraAddresses = ['terra wallet'];
             this.terraExtended = false;
           } else if (this.unlink.chainType === 'stargaze') {
             this.stargazeExtended = false;
             this.stargazeAddresses = this.stargazeAddresses.filter(a => a !== this.unlink.address);
+            this.stargazeInactiveWallets = this.stargazeInactiveWallets.filter(a => a !== this.unlink.address);
             if(this.stargazeAddresses.length === 0) this.stargazeAddresses = ['stargaze wallet'];
             // @ts-ignore
             if (window.keplr) {
@@ -868,6 +901,7 @@ export class WelcomeV2Component implements OnDestroy {
           } else if (this.unlink.chainType === 'archway') {
             this.archwayExtended = false;
             this.archwayAddresses = this.archwayAddresses.filter(a => a !== this.unlink.address);
+            this.archwayInactiveWallets = this.archwayInactiveWallets.filter(a => a !== this.unlink.address);
             if(this.archwayAddresses.length === 0) this.archwayAddresses = ['archway wallet'];
             // @ts-ignore
             if (window.keplr) {
@@ -878,6 +912,7 @@ export class WelcomeV2Component implements OnDestroy {
           } else {
             this.terraClassicExtended = false;
             this.terraClassicAddresses = this.terraClassicAddresses.filter(a => a !== this.unlink.address);
+            this.terraClassicInactiveWallets = this.terraClassicInactiveWallets.filter(a => a !== this.unlink.address);
             if(this.terraClassicAddresses.length === 0) this.terraClassicAddresses = ['terra classic'];
           }
 
@@ -895,6 +930,7 @@ export class WelcomeV2Component implements OnDestroy {
             this.getUserProfile();
           }
 
+          this.loaderService.stop();
           this.modalService.close('removeWalletModal')
           this.unlink.chainType = '';
           this.unlink.address = '';

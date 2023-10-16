@@ -53,14 +53,18 @@
           <div class="mr-left-40 mr-right-40 mr-top-24 profile-header">
             <label class="app-why-lbl f16 ft-bold no-letter-spacing light">WALLETS</label>
             <div class="divider mr-top-9"></div>
+              <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || archwayInactiveWallets.length > 0" class="app-why-lbl f16 error ft-lato">
+                You lost premium access, resulting in some wallets being deactivated.
+            </label>
           </div>
           <div class="mr-left-109 mr-right-147 mr-top-48">
             <div class="wallet-container" [class.mr-top-32]="profileObj?.accountWallets.length > 1 && i != 0"
                  *ngFor="let wallet of profileObj?.accountWallets let i = index;">
-              <label class="app-why-lbl light-50 f10 ft-lato" for="wallet{{i+1}}">Wallet {{ i + 1 }}</label>
+              <label class="app-why-lbl f10 ft-lato" for="wallet{{i+1}}"
+              [ngClass]="walletIsInactive(wallet?.address, wallet?.blockchainName) ? 'error' : 'light-50'">Wallet {{ i + 1 }}</label>
               <div class="pd-top-4" id="wallet{{i+1}}">
                 <div class="d-flex flex-row justify-content-between">
-                  <label class="app-why-lbl light-70 ft-lato f16 no-letter-spacing"> {{ wallet?.address }} </label>
+                  <label class="app-why-lbl ft-lato f16 no-letter-spacing" [ngClass]="walletIsInactive(wallet?.address, wallet?.blockchainName) ? 'error' : 'light-70'"> {{ wallet?.address }} </label>
                   <img class="app-why-icon ic20 light" src="{{wallet?.blockchainImageUrl}}" role="img" imgFallback/>
                 </div>
                 <div class="wallet-devider pd-bottom-4"></div>
@@ -70,7 +74,7 @@
                 [cssClass]="cssClass.cta1SmFlex + ' remove-wallet-btn'"
                 [iconType]="'close-circle-outline'"
                 (click)="removeWallet(wallet)"
-                [iconClass]="cssClass.cta1IconLight"
+                [iconClass]="cssClass.cta1IconLight + (walletIsInactive(wallet?.address, wallet?.blockchainName) ? ' error' : '')"
               ></app-why-cta-one>
             </div>
             <div class="d-flex mr-top-32 mr-bottom-48">
