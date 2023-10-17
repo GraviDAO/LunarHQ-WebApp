@@ -411,6 +411,10 @@ export class CreateRuleComponent implements OnInit {
         isValid = false;
         this.errorList.push('blockchainName');
       }
+      if(this.selectedNetwork === 'Stargaze' && this.ruleObj.ruleTypeId === 'token'){
+        this.errorList.push('stargazeToken');
+        isValid = false;
+      } 
       if (this.ruleItems[0].contractAddress === undefined || this.ruleItems[0].contractAddress === '') {
         isValid = false;
         this.errorList.push('contractAddress');

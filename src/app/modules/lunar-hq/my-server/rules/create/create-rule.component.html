@@ -222,13 +222,17 @@
                             <div class="app-why-lbl light-50">Network*</div>
                             <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
-                                               [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze']"
+                                               [dataList]="['Polygon','Terra','Stargaze']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down>
                               <!-- <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
                                                [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze', 'Archway']"
                                                (dataSet)="setBlockChain($event)"></app-why-drop-down> -->
                           </div>
+                        </div>
+                        <div class="app-why-lbl error mr-top-8"
+                            *ngIf="selectedNetwork === 'Stargaze' && ruleItem.ruleTypeId == 'token'">
+                          Tokens not supported on Stargaze
                         </div>
                         <div class="app-why-lbl error mr-top-8"
                              *ngIf="errorList.includes('blockchainName') && selectedNetwork === 'Select Network' ">
