@@ -304,3 +304,13 @@
     color: var(--light);
   }
 }
+
+.feature-link {
+  color: var(--primary);
+}
+
+.mascot {
+  margin-top: 20px;
+  width: mixin.toRem(150);
+  height: mixin.toRem(150);
+}
