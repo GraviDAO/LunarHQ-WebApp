@@ -47,7 +47,7 @@
            *ngFor="let walletObj of profileObj?.accountWallets; let isLast = last ">
         <img *ngIf="walletObj?.blockchainImageUrl" [src]="walletObj?.blockchainImageUrl" alt="blockchainImage" imgFallback
              class="app-why-icon ic20 mr-right-8">
-        <label class="app-why-lbl f14 ft-lato light-50">
+        <label class="app-why-lbl f14 ft-lato" [ngClass]="walletIsInactive(walletObj?.address, walletObj?.blockchainName) ? 'error' : 'light-50'">
           {{walletObj?.address | longTextPipe}}
         </label>
         <div [ngClass]="{'wallet-divider': !isLast}"></div>

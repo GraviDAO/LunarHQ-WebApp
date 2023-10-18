@@ -113,6 +113,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
   }
 
+  walletIsInactive(wallet: string, blockchainName: string): boolean {
+    if(blockchainName === "polygon-mainnet") return this.polygonInactiveWallets.includes(wallet)
+    else if(blockchainName === "Terra") return this.terraInactiveWallets.includes(wallet)
+    else if(blockchainName === "Terra Classic") return this.terraClassicInactiveWallets.includes(wallet)
+    else if(blockchainName === "Stargaze") return this.stargazeInactiveWallets.includes(wallet)
+    else if(blockchainName === "Archway") return this.archwayInactiveWallets.includes(wallet)
+    else return false
+  }
+
   ngOnDestroy(): void {
     // @ts-ignore
     this._clockSubscription.unsubscribe();

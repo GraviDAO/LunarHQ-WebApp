@@ -87,10 +87,10 @@ export class RulesService {
       id: 'token',
       name: 'TOKEN',
     },
-    {
-      id: 'complex',
-      name: 'COMPLEX',
-    }
+    // {
+    //   id: 'complex',
+    //   name: 'COMPLEX',
+    // }
   ];
   conditions = [
     {
