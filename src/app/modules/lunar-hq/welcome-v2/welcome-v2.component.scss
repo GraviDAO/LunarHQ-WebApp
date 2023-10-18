@@ -106,6 +106,16 @@
   display: none;
 }
 
+.feature-link {
+  color: var(--primary);
+}
+
+.mascot {
+  margin-top: 20px;
+  width: mixin.toRem(150);
+  height: mixin.toRem(150);
+}
+
 @media only screen and (min-width: 321px) and (max-width: 768px) {
   .option-main-wrapper {
     flex-direction: column;

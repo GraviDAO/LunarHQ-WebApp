@@ -61,6 +61,7 @@ export class WelcomeV2Component implements OnDestroy {
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
   archwayInactiveWallets: string[] = [];
+  codeWasPresentOnLoad = false;
 
 
   constructor(public cssClass: CssConstants,
@@ -77,6 +78,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.walletInit();
     this.route.queryParams.subscribe((params: any) => {
       if (params.code) {
+        this.codeWasPresentOnLoad = true;
         this.selected = 'discord_connected';
         this.discordTitle = 'discord connected';
         this.storageService.set('user_progress', USER_AUTHENTICATED.DISCORD_CONNECTED);
@@ -170,6 +172,10 @@ export class WelcomeV2Component implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    if(!this.codeWasPresentOnLoad) this.openNewFeature();
   }
 
   isMobile(): boolean {
@@ -820,6 +826,14 @@ export class WelcomeV2Component implements OnDestroy {
 
   closeNoPremium() {
     this.modalService.close('notPremiumUser');
+  }
+
+  closeNewFeature() {
+    this.modalService.close('newFeature');
+  }
+
+  openNewFeature() {
+    this.modalService.open('newFeature');
   }
 
   gotToMyDiscord() {

@@ -590,10 +590,13 @@
     <div class="">
       <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
         <div>
-          To add multiple wallets of the same chain premium is required. <br>
-          Either stake x STARS with our Stargaze validator or aquire one these NFTs:
+          By getting LunarHQ Premium access you can get access to to adding multiple wallets per chain and many more features to come! <a target="_blank" href="https://gravidaopublic.notion.site/Lunar-HQ-Welcome-986ffa421f5d47c5905e6499b25a3ed0" class="cursor-pointer text-decoration-underline feature-link">Find out more</a>
         </div>
       </label>
+      <div>
+        <img class="mascot"
+             src="../../../../assets/img/png/happy_mascot.png" alt="">
+      </div>
     </div>
     <div class="mr-top-30 d-flex justify-content-center">
       <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Close'" (click)="closeNoPremium()">
@@ -602,3 +605,26 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- No User Premium rights Modal End -->
+
+<!-- New Feature Modal Start -->
+<app-why-modal id="newFeature" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-30">Premium now available!</div>
+    <div class="">
+      <label class="app-why-lbl f16 ft-lato no-letter-spacing light-70">
+        <div><br>
+          By getting LunarHQ Premium access you can get access to add multiple wallets per chain and many more features to come! <a target="_blank" href="https://gravidaopublic.notion.site/Lunar-HQ-Welcome-986ffa421f5d47c5905e6499b25a3ed0" class="cursor-pointer text-decoration-underline feature-link">Find out more</a>
+        </div>
+      </label>
+      <div>
+        <img class="mascot"
+             src="../../../../assets/img/png/happy_mascot.png" alt="">
+      </div>
+    </div>
+    <div class="mr-top-30 d-flex justify-content-center">
+      <app-why-cta-one [cssClass]="cssClass.cta1Md" [btnLabel]="'Close'" (click)="closeNewFeature()">
+      </app-why-cta-one>
+    </div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- New Feature Modal Modal End -->
