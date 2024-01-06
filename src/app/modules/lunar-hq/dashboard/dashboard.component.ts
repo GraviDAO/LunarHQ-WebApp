@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
   archwayInactiveWallets: string[] = [];
+  isPremium: boolean | undefined;
 
   constructor(public cssClass: CssConstants,
               private route: ActivatedRoute,
@@ -45,6 +46,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProfileDetails();
+    this.userIsPremium();
     this._clockSubscription = this.everyFiveSeconds.subscribe(() => {
       this.currentDateTime = new Date();
     });
@@ -141,6 +143,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   closeView() {
     this.viewRule = false;
+  }
+
+  closeNewFeature() {
+    this.modalService.close('newFeature');
+  }
+
+  openNewFeature() {
+    this.modalService.open('newFeature');
+  }
+
+  userIsPremium(): Promise<boolean> {    
+      return new Promise(resolve => this.lunarHqService.checkPremiumUser()
+        .subscribe({
+          next: (value) => {
+            this.isPremium = true;
+            resolve(true);
+          },
+          error: (err) => {
+            this.isPremium = false;
+            resolve(false);
+          }
+        }
+      ));
   }
 
   ruleAction(obj: any) {

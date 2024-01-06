@@ -176,6 +176,7 @@ export class WelcomeV2Component implements OnDestroy {
 
   ngAfterViewInit(): void {
     if(!this.codeWasPresentOnLoad) this.openNewFeature();
+    this.userIsPremium();
   }
 
   isMobile(): boolean {
@@ -724,9 +725,6 @@ export class WelcomeV2Component implements OnDestroy {
   }
 
   userIsPremium(): Promise<boolean> {    
-    if(this.isPremium !== undefined) {
-      return new Promise(resolve => resolve(this.isPremium!));
-    } else {
       return new Promise(resolve => this.coreService.checkPremiumUser()
         .subscribe({
           next: (value) => {
@@ -739,7 +737,6 @@ export class WelcomeV2Component implements OnDestroy {
           }
         }
       ));
-    }
   }
 
   editConnection(chainType: string, address: string) {

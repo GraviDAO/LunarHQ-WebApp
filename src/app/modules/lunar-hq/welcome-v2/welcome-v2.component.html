@@ -348,6 +348,10 @@
       </div>
 
       <div class="discord-con-text-container" *ngIf="selected === 'discord_connected'">
+        <div class="pd-top-8" *ngIf="isPremium">
+          <label class="app-why-lbl f16 ft-lato primary">Congratulations, you have Premium Access!
+          </label>
+        </div>
         <div>
           <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || archwayInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
             You lost premium access, resulting in some wallets being deactivated.

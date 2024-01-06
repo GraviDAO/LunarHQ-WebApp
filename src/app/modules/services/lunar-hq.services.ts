@@ -264,4 +264,11 @@ export class LunarHqAPIServices {
         return result;
       }));
   }
+
+  checkPremiumUser(): Observable<any> {
+    return this.http.get<any>(environment.server + 'checkPremiumUser')
+      .pipe(map((result) => {
+        return result;
+      }));
+  }
 }
