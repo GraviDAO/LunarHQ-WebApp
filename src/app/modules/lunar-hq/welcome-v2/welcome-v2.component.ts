@@ -13,6 +13,12 @@ import {LCDClient, MsgSend} from '@terra-money/terra.js';
 import {NgxUiLoaderService} from 'ngx-ui-loader';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
+declare global {
+  interface Window {
+      leap:any;
+  }
+}
+
 @Component({
   selector: 'app-why-lunar-hq-welcome-v2',
   templateUrl: './welcome-v2.component.html',
@@ -41,6 +47,7 @@ export class WelcomeV2Component implements OnDestroy {
   stargazeAddresses = ['stargaze wallet'];
   archwayAddresses = ['archway wallet'];
   keplrInstalled = false;
+  leapInstalled = false;
   useLedgerStation: boolean | undefined = false;
   // @ts-ignore
   subscription: Subscription;
@@ -331,6 +338,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.exitModal();
     // @ts-ignore
     if(window.keplr) this.keplrInstalled = true;
+    if(window.leap) this.leapInstalled = true;
     this.modalService.open('stargazeWallet');
   }
 
@@ -338,6 +346,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.exitModal();
     // @ts-ignore
     if(window.keplr) this.keplrInstalled = true;
+    if(window.leap) this.leapInstalled = true;
     this.modalService.open('archwayWallet');
   }
 
@@ -402,6 +411,73 @@ export class WelcomeV2Component implements OnDestroy {
       this.terraController.disconnect();
       this.toast.error('Failed to connect', 'error');
       chain === "Stargaze" ? this.modalService.open('stargazeWallet') : this.modalService.open('archwayWallet');
+    }
+  }
+
+  connectLeap(chain: 'Stargaze'| 'Archway' | 'Terra') {
+    // @ts-ignore
+    if (!window.leap) {
+      alert("Please install leap extension");
+    } else {
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : ( chain === 'Archway' ? "archway-1" : 'phoenix-1'));
+      // @ts-ignore
+      window.leap.enable(chainId).then(() => {
+        // @ts-ignore
+        window.leap.getKey(chainId).then((o) => {
+          const address = o.bech32Address;
+          const publicAddressArray = o.pubKey;
+          this.coreService.getNonce(address, chain === "Stargaze" ? "Stargaze" : (chain === "Archway" ? "Archway" : "Terra"))
+            .subscribe((nonceResult) => {
+              chain === "Stargaze" ? this.modalService.close('stargazeWallet') : (chain === "Archway" ? this.modalService.close('archwayWallet') : this.modalService.close('terraWallet'));
+              // do signleap after delay
+              setTimeout(() => {
+                this.signLeap(address, publicAddressArray, nonceResult, chain);
+              }, 200);
+            }, (error) => {
+              console.error("her")
+              console.error('error', error);
+            });
+        });
+      }).catch((e: any) => {
+        if(e instanceof Error && e.message.includes("no chain info")){
+          this.toast.error(`Please add ${chain} to Kelpr`);
+        } 
+      } );
+    }
+  }
+
+  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Archway' | 'Terra') {
+    try {
+      this.loaderService.start();
+      setTimeout(() => {
+        this.loaderService.stop();
+      }, 15000);
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : ( chain === 'Archway' ? "archway-1" : 'phoenix-1'));
+      // @ts-ignore
+      const signature = await window.leap
+        .signArbitrary(
+          chainId,
+          address,
+          `I am signing this message with my one-time nonce: ${nonceResult.message} to cryptographically verify that I am the owner of this wallet`
+        )
+
+      this.loaderService.stop();
+      const dataObject = {
+        type: chain === "Stargaze" ? 'KeplrStargaze' : (chain === "Archway" ? 'KeplrArchway' : 'KeplrTerra'),
+        signature: {
+          signature: signature.signature,
+          publicAddressArray: JSON.stringify(publicAddressArray)
+        },
+        publicAddress: address,
+        blockchainName: chain
+      };
+      this.authenticateWalletAddress(dataObject, address, chain);
+    } catch (e) {
+      console.error(e, 'e');
+      this.loaderService.stop();
+      this.terraController.disconnect();
+      this.toast.error('Failed to connect', 'error');
+      chain === "Stargaze" ? this.modalService.open('stargazeWallet') : (chain === "Archway" ? this.modalService.open('archwayWallet') : this.modalService.open('terraWallet'));
     }
   }
 
@@ -509,6 +585,7 @@ export class WelcomeV2Component implements OnDestroy {
   // function to subscribe to terra list availableConnections & state
   async terraWalletConnect() {
     this.exitModal();
+    if(window.leap) this.leapInstalled = true;
     this.modalService.open('terraWallet');
   }
 
@@ -874,14 +951,14 @@ export class WelcomeV2Component implements OnDestroy {
           const chainId = "stargaze-1";
           // @ts-ignore
           window.keplr.disable(chainId);
-        }
+        } 
       } else if(this.unlink.chainType === 'archway') {
         // @ts-ignore
         if (window.keplr) {
           const chainId = "archway-1";
           // @ts-ignore
           window.keplr.disable(chainId);
-        }
+        } 
       } 
     } else {
       const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : (this.unlink.chainType === 'stargaze' ? 'Stargaze' : (this.unlink.chainType === 'archway' ? 'Archway' : 'Terra Classic')));
