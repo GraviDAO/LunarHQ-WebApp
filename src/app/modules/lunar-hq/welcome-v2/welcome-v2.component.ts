@@ -16,6 +16,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 declare global {
   interface Window {
       leap:any;
+      station:any;
   }
 }
 
@@ -48,6 +49,7 @@ export class WelcomeV2Component implements OnDestroy {
   archwayAddresses = ['archway wallet'];
   keplrInstalled = false;
   leapInstalled = false;
+  stationInstalled = false;
   useLedgerStation: boolean | undefined = false;
   // @ts-ignore
   subscription: Subscription;
@@ -586,6 +588,7 @@ export class WelcomeV2Component implements OnDestroy {
   async terraWalletConnect() {
     this.exitModal();
     if(window.leap) this.leapInstalled = true;
+    if(window.station) this.stationInstalled = true;
     this.modalService.open('terraWallet');
   }
 

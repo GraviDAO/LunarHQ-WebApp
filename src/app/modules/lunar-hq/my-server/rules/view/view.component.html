@@ -130,7 +130,7 @@
        *ngIf="!paused && !update && (hasPermission || ruleObj?.hasPermission)">
     <div class="rules-action-item">
       <app-why-cta-three
-        [parentClass]="'flex-column'"
+        [parentClass]="'flex-column h-100'"
         [btnClass]="cssClass.cta3BtnLabel"
         [btnLabel]="'Remove'"
         [leftIconType]="'close-circle-outline'"
@@ -140,7 +140,7 @@
     </div>
     <div class="rules-action-item mr-left-24" *ngIf="ruleObj?.active && !(ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError)">
       <app-why-cta-three
-        [parentClass]="'flex-column'"
+        [parentClass]="'flex-column h-100'"
         [btnClass]="cssClass.cta3BtnLabel"
         [btnLabel]="'Pause'"
         [leftIconType]="'pause-circle-outline'"
@@ -150,7 +150,7 @@
     </div>
     <div class="rules-action-item mr-left-24" *ngIf="!ruleObj?.active && !(ruleObj?.error && ruleObj?.error !== '' && !overrideDontShowError)">
       <app-why-cta-three
-        [parentClass]="'flex-column'"
+        [parentClass]="'flex-column h-100'"
         [btnClass]="cssClass.cta3BtnLabelSuccess"
         [btnLabel]="'Resume'"
         [leftIconType]="'play-circle-outline'"
@@ -160,7 +160,7 @@
     </div>
     <div class="rules-action-item mr-left-24">
       <app-why-cta-three
-        [parentClass]="'flex-column'"
+        [parentClass]="'flex-column h-100'"
         [btnClass]="cssClass.cta3BtnLabelPrimary"
         [btnLabel]="'Edit'"
         [leftIconType]="'pencil'"

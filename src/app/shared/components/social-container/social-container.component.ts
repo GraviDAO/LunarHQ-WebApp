@@ -29,7 +29,7 @@ export class SocialLinkContainerComponent {
   }
 
   navigateToDiscord() {
-    window.open('https://discord.com/invite/nD6YFKQTRF', '_blank');
+    window.open('https://discord.gg/Mm7DeQHE9J', '_blank');
   }
 
   navigateToTelegram() {

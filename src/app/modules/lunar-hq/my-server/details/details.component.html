@@ -170,7 +170,7 @@
                 <div class="divider"></div>
                 <div class="rules-item-chain d-flex justify-content-between">
                   <div
-                    class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container">{{rule?.blockchainName === 'polygon-mainnet' ? 'Polygon' : rule?.blockchainName}}</div>
+                    class="pd-left-16 app-why-lbl f16 ft-500 light server-text-container overflow-hidden">{{rule?.blockchainName === 'polygon-mainnet' ? 'Polygon' : rule?.blockchainName}}</div>
                   <div class="rules-item-chain-icon">
                     <img class="rules-item-chain-icon-container mr-right-16 mr-left-16" [src]="rule?.blockchainImage"
                          alt="drop">
@@ -214,7 +214,7 @@
         [btnLabel]="'BACK TO TOP'"
         [leftIconType]="'chevron-up-outline'"
         [iconClass]="cssClass.cta3Icon + ' btn-hover'"
-        [parentClass]="'flex-column'"
+        [parentClass]="'flex-column h-100'"
         (click)="goToTop()">
       </app-why-cta-three>
     </div>
