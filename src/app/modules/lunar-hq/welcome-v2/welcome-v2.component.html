@@ -208,7 +208,7 @@
                 </app-why-cta-three>
               </div>
 
-              <!-- <div class="pd-top-16 d-flex justify-content-center"
+                <div class="pd-top-16 d-flex justify-content-center"
                    *ngIf="archwayAddresses[0] === 'archway wallet'">
                 <app-why-cta-one
                   [cssClass]="archwayAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
@@ -248,7 +248,7 @@
                   [iconClass]="cssClass.cta3PrimaryIcon"
                   (click)="editConnection('archway', 'archway wallet')">
                 </app-why-cta-three>
-              </div> -->
+              </div>
           </div>
             <div class="d-flex justify-content-center flex-column"
                  *ngIf="selected === 'discord'">
@@ -449,13 +449,13 @@
         [btnImage]="'./assets/img/png/stargaze.png'"
         [btnLabel]="'Stargaze'"></app-why-cta-one>
     </div>
-    <!-- <div class="d-flex justify-content-center pd-top-16">
+    <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="selectedWallet === 'archway' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('archway')"
         [btnImage]="'./assets/img/png/archway.png'"
         [btnLabel]="'Archway'"></app-why-cta-one>
-    </div> -->
+    </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
         <app-why-lunar-hq-cta-two

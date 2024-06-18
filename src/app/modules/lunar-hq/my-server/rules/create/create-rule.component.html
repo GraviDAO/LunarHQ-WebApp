@@ -220,14 +220,14 @@
                         <div class="d-flex align-items-center">
                           <div class="pd-top-12 pd-right-16">
                             <div class="app-why-lbl light-50">Network*</div>
-                            <app-why-drop-down [leftIcon]="true"
+                            <!-- <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
                                                [dataList]="['Polygon','Terra','Stargaze']"
-                                               (dataSet)="setBlockChain($event)"></app-why-drop-down>
-                              <!-- <app-why-drop-down [leftIcon]="true"
+                                               (dataSet)="setBlockChain($event)"></app-why-drop-down> -->
+                              <app-why-drop-down [leftIcon]="true"
                                                [placeholderText]="selectedNetwork"
                                                [dataList]="ruleItem.ruleTypeId === 'token' ? ['Polygon','Terra'] : ['Polygon','Terra','Stargaze', 'Archway']"
-                                               (dataSet)="setBlockChain($event)"></app-why-drop-down> -->
+                                               (dataSet)="setBlockChain($event)"></app-why-drop-down>
                           </div>
                         </div>
                         <div class="app-why-lbl error mr-top-8"
