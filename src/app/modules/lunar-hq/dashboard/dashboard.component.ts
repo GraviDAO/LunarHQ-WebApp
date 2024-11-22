@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   terraClassicInactiveWallets: string[] = [];
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
-  archwayInactiveWallets: string[] = [];
+  injectiveInactiveWallets: string[] = [];
   isPremium: boolean | undefined;
 
   constructor(public cssClass: CssConstants,
@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               else if(aw.blockchainName === "Terra") this.terraInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Terra Classic") this.terraClassicInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Stargaze") this.stargazeInactiveWallets.push(aw.address)
-              else if(aw.blockchainName === "Archway") this.archwayInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Injective") this.injectiveInactiveWallets.push(aw.address)
             }
           }
           this.localStorage.set('lunar_user_profile', this.profileObj);
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     else if(blockchainName === "Terra") return this.terraInactiveWallets.includes(wallet)
     else if(blockchainName === "Terra Classic") return this.terraClassicInactiveWallets.includes(wallet)
     else if(blockchainName === "Stargaze") return this.stargazeInactiveWallets.includes(wallet)
-    else if(blockchainName === "Archway") return this.archwayInactiveWallets.includes(wallet)
+    else if(blockchainName === "Injective") return this.injectiveInactiveWallets.includes(wallet)
     else return false
   }
 

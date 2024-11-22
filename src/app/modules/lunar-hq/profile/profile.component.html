@@ -53,7 +53,7 @@
           <div class="mr-left-40 mr-right-40 mr-top-24 profile-header">
             <label class="app-why-lbl f16 ft-bold no-letter-spacing light">WALLETS</label>
             <div class="divider mr-top-9"></div>
-              <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || archwayInactiveWallets.length > 0" class="app-why-lbl f16 error ft-lato">
+              <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0" class="app-why-lbl f16 error ft-lato">
                 You lost premium access, resulting in some wallets being deactivated.
             </label>
           </div>
@@ -138,10 +138,10 @@
     </div>
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
-        [cssClass]="selectedWallet === 'archway' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
-        (click)="selectOption('archway')"
-        [btnImage]="'./assets/img/png/archway.png'"
-        [btnLabel]="'Archway'"></app-why-cta-one>
+        [cssClass]="selectedWallet === 'injective' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('injective')"
+        [btnImage]="'./assets/img/png/injective.png'"
+        [btnLabel]="'Injective'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
@@ -338,15 +338,15 @@
 </app-why-modal>
 <!-- Stargaze wallet chains connection list Modal End -->
 
-<!-- Archway wallet chains connection list Modal Start -->
-<app-why-modal id="archwayWallet" [popUpType]="'confirmation'">
+<!-- Injective wallet chains connection list Modal Start -->
+<app-why-modal id="injectiveWallet" [popUpType]="'confirmation'">
   <app-why-modal-wrapper>
-    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Archway Wallet</div>
-    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Archway compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Injective Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Injective compatible wallet installed. If you're on mobile please switch to desktop.</div>
     <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"
-        (click)="connectKeplr('Archway')"
+        (click)="connectKeplr('Injective')"
         [btnImage]="'./assets/img/png/keplr.png'"
         [btnLabel]="'Keplr Wallet'">
       </app-why-cta-one>
@@ -354,7 +354,7 @@
     <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"
-        (click)="connectLeap('Archway')"
+        (click)="connectLeap('Injective')"
         [btnImage]="'./assets/img/svg/leap.svg'"
         [btnLabel]="'Leap Wallet'">
       </app-why-cta-one>
@@ -362,7 +362,7 @@
     <div class="mr-bottom-64"></div>
   </app-why-modal-wrapper>
 </app-why-modal>
-<!-- Archway wallet chains connection list Modal End -->
+<!-- Injective wallet chains connection list Modal End -->
 
 <!-- No User Premium rights Modal Start -->
 <app-why-modal id="notPremiumUser" [popUpType]="'confirmation'">

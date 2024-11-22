@@ -46,7 +46,7 @@ export class WelcomeV2Component implements OnDestroy {
   terraAddresses = ['terra wallet'];
   terraClassicAddresses = ['terra classic'];
   stargazeAddresses = ['stargaze wallet'];
-  archwayAddresses = ['archway wallet'];
+  injectiveAddresses = ['injective wallet'];
   keplrInstalled = false;
   leapInstalled = false;
   stationInstalled = false;
@@ -63,13 +63,13 @@ export class WelcomeV2Component implements OnDestroy {
   terraExtended = false;
   terraClassicExtended = false;
   stargazeExtended = false;
-  archwayExtended = false;
+  injectiveExtended = false;
   isPremium: boolean | undefined;
   terraInactiveWallets: string[] = [];
   terraClassicInactiveWallets: string[] = [];
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
-  archwayInactiveWallets: string[] = [];
+  injectiveInactiveWallets: string[] = [];
   codeWasPresentOnLoad = false;
 
 
@@ -225,7 +225,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.currentStep = 'connection success!';
     this.polygonAddresses = ['polygon wallet'];
     this.stargazeAddresses = ['stargaze wallet'];
-    this.archwayAddresses = ['archway wallet'];
+    this.injectiveAddresses = ['injective wallet'];
     this.terraAddresses = ['terra wallet'];
     this.terraClassicAddresses = ['terra classic'];
     dataObj.accountWallets.forEach((obj: any) => {
@@ -241,11 +241,11 @@ export class WelcomeV2Component implements OnDestroy {
         if(!obj.active) {
           this.stargazeInactiveWallets.push(obj.address);
         }
-      } else if(obj.blockchainName === 'Archway') {
-        if(this.archwayAddresses[0] === 'archway wallet') this.archwayAddresses = [];
-        this.archwayAddresses.push(obj.address);
+      } else if(obj.blockchainName === 'Injective') {
+        if(this.injectiveAddresses[0] === 'injective wallet') this.injectiveAddresses = [];
+        this.injectiveAddresses.push(obj.address);
         if(!obj.active) {
-          this.archwayInactiveWallets.push(obj.address);
+          this.injectiveInactiveWallets.push(obj.address);
         }
       } else if(obj.blockchainName === 'Terra') {
         if(this.terraAddresses[0] === 'terra wallet') this.terraAddresses = [];
@@ -277,17 +277,17 @@ export class WelcomeV2Component implements OnDestroy {
       let tempPolygonObj: any;
       let tempTerraObj: any;
       let tempStargazeObj: any;
-      let tempArchwayObj: any;
+      let tempInjectiveObj: any;
       if (typeof lunarUserObj.walletAddress !== 'string' && lunarUserObj.walletAddress !== undefined) {
         tempPolygonObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'polygon-mainnet');
         tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
         tempStargazeObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Stargaze');
-        tempArchwayObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Archway');
+        tempInjectiveObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Injective');
       }
       this.polygonAddresses = tempPolygonObj === undefined ? 'polygon wallet' : tempPolygonObj.publicAddress;
       this.terraAddresses = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.publicAddress;
       this.stargazeAddresses = tempStargazeObj === undefined ? 'stargaze wallet' : tempStargazeObj.publicAddress;
-      this.archwayAddresses = tempArchwayObj === undefined ? 'archway wallet' : tempArchwayObj.publicAddress;
+      this.injectiveAddresses = tempInjectiveObj === undefined ? 'injective wallet' : tempInjectiveObj.publicAddress;
     }
   }
 
@@ -310,7 +310,7 @@ export class WelcomeV2Component implements OnDestroy {
   // function to connect to metamask or terra based onselect option
   createConnection() {
     this.web3.disconnectAccount();
-    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stargazeWalletConnect() : ( this.selectedWallet === 'archway' ? this.archwayWalletConnect() : this.terraWalletConnect()));
+    this.selectedWallet === 'polygon' ? this.connectToMetaMask() : ( this.selectedWallet === 'stargaze' ? this.stargazeWalletConnect() : ( this.selectedWallet === 'injective' ? this.injectiveWalletConnect() : this.terraWalletConnect()));
   }
 
 
@@ -344,29 +344,29 @@ export class WelcomeV2Component implements OnDestroy {
     this.modalService.open('stargazeWallet');
   }
 
-  async archwayWalletConnect() {
+  async injectiveWalletConnect() {
     this.exitModal();
     // @ts-ignore
     if(window.keplr) this.keplrInstalled = true;
     if(window.leap) this.leapInstalled = true;
-    this.modalService.open('archwayWallet');
+    this.modalService.open('injectiveWallet');
   }
 
-  connectKeplr(chain: 'Stargaze'| 'Archway') {
+  connectKeplr(chain: 'Stargaze'| 'Injective') {
     // @ts-ignore
     if (!window.keplr) {
       alert("Please install keplr extension");
     } else {
-      const chainId = (chain === "Stargaze" ? "stargaze-1" : "archway-1");
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : "injective-1");
       // @ts-ignore
       window.keplr.enable(chainId).then(() => {
         // @ts-ignore
         window.keplr.getKey(chainId).then((o) => {
           const address = o.bech32Address;
           const publicAddressArray = o.pubKey;
-          this.coreService.getNonce(address, chain === "Stargaze" ? "Stargaze" : "Archway")
+          this.coreService.getNonce(address, chain === "Stargaze" ? "Stargaze" : "Injective")
             .subscribe((nonceResult) => {
-              chain === "Stargaze" ? this.modalService.close('stargazeWallet') : this.modalService.close('archwayWallet');
+              chain === "Stargaze" ? this.modalService.close('stargazeWallet') : this.modalService.close('injectiveWallet');
               this.signKelpr(address, publicAddressArray, nonceResult, chain);
             }, (error) => {
               console.error("her")
@@ -381,13 +381,13 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Archway') {
+  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective') {
     try {
       this.loaderService.start();
       setTimeout(() => {
         this.loaderService.stop();
       }, 15000);
-      const chainId = (chain === "Stargaze" ? "stargaze-1" : "archway-1");
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : "injective-1");
       // @ts-ignore
       const signature = await window.keplr
         .signArbitrary(
@@ -398,7 +398,7 @@ export class WelcomeV2Component implements OnDestroy {
 
       this.loaderService.stop();
       const dataObject = {
-        type: chain === "Stargaze" ? 'KeplrStargaze' : 'KeplrArchway',
+        type: chain === "Stargaze" ? 'KeplrStargaze' : 'KeplrInjective',
         signature: {
           signature: signature.signature,
           publicAddressArray: JSON.stringify(publicAddressArray)
@@ -412,25 +412,25 @@ export class WelcomeV2Component implements OnDestroy {
       this.loaderService.stop();
       this.terraController.disconnect();
       this.toast.error('Failed to connect', 'error');
-      chain === "Stargaze" ? this.modalService.open('stargazeWallet') : this.modalService.open('archwayWallet');
+      chain === "Stargaze" ? this.modalService.open('stargazeWallet') : this.modalService.open('injectiveWallet');
     }
   }
 
-  connectLeap(chain: 'Stargaze'| 'Archway' | 'Terra') {
+  connectLeap(chain: 'Stargaze'| 'Injective' | 'Terra') {
     // @ts-ignore
     if (!window.leap) {
       alert("Please install leap extension");
     } else {
-      const chainId = (chain === "Stargaze" ? "stargaze-1" : ( chain === 'Archway' ? "archway-1" : 'phoenix-1'));
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : ( chain === 'Injective' ? "injective-1" : 'phoenix-1'));
       // @ts-ignore
       window.leap.enable(chainId).then(() => {
         // @ts-ignore
         window.leap.getKey(chainId).then((o) => {
           const address = o.bech32Address;
           const publicAddressArray = o.pubKey;
-          this.coreService.getNonce(address, chain === "Stargaze" ? "Stargaze" : (chain === "Archway" ? "Archway" : "Terra"))
+          this.coreService.getNonce(address, chain === "Stargaze" ? "Stargaze" : (chain === "Injective" ? "Injective" : "Terra"))
             .subscribe((nonceResult) => {
-              chain === "Stargaze" ? this.modalService.close('stargazeWallet') : (chain === "Archway" ? this.modalService.close('archwayWallet') : this.modalService.close('terraWallet'));
+              chain === "Stargaze" ? this.modalService.close('stargazeWallet') : (chain === "Injective" ? this.modalService.close('injectiveWallet') : this.modalService.close('terraWallet'));
               // do signleap after delay
               setTimeout(() => {
                 this.signLeap(address, publicAddressArray, nonceResult, chain);
@@ -448,13 +448,13 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Archway' | 'Terra') {
+  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {
         this.loaderService.stop();
       }, 15000);
-      const chainId = (chain === "Stargaze" ? "stargaze-1" : ( chain === 'Archway' ? "archway-1" : 'phoenix-1'));
+      const chainId = (chain === "Stargaze" ? "stargaze-1" : ( chain === 'Injective' ? "injective-1" : 'phoenix-1'));
       // @ts-ignore
       const signature = await window.leap
         .signArbitrary(
@@ -465,7 +465,7 @@ export class WelcomeV2Component implements OnDestroy {
 
       this.loaderService.stop();
       const dataObject = {
-        type: chain === "Stargaze" ? 'KeplrStargaze' : (chain === "Archway" ? 'KeplrArchway' : 'KeplrTerra'),
+        type: chain === "Stargaze" ? 'KeplrStargaze' : (chain === "Injective" ? 'KeplrInjective' : 'KeplrTerra'),
         signature: {
           signature: signature.signature,
           publicAddressArray: JSON.stringify(publicAddressArray)
@@ -479,7 +479,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.loaderService.stop();
       this.terraController.disconnect();
       this.toast.error('Failed to connect', 'error');
-      chain === "Stargaze" ? this.modalService.open('stargazeWallet') : (chain === "Archway" ? this.modalService.open('archwayWallet') : this.modalService.open('terraWallet'));
+      chain === "Stargaze" ? this.modalService.open('stargazeWallet') : (chain === "Injective" ? this.modalService.open('injectiveWallet') : this.modalService.open('terraWallet'));
     }
   }
 
@@ -521,8 +521,8 @@ export class WelcomeV2Component implements OnDestroy {
             this.terraAddresses = [publicAddress];
           } else if (blockchainName === 'Stargaze') {
             this.stargazeAddresses = [publicAddress];
-          } else if (blockchainName === 'Archway') {
-            this.archwayAddresses = [publicAddress];
+          } else if (blockchainName === 'Injective') {
+            this.injectiveAddresses = [publicAddress];
           } else {
             this.terraClassicAddresses = [publicAddress];
           }
@@ -551,8 +551,8 @@ export class WelcomeV2Component implements OnDestroy {
               this.terraAddresses = [publicAddress];
             } else if (blockchainName === 'Stargaze') {
               this.stargazeAddresses = [publicAddress];
-            } else if (blockchainName === 'Archway') {
-              this.archwayAddresses = [publicAddress];
+            } else if (blockchainName === 'Injective') {
+              this.injectiveAddresses = [publicAddress];
             } else {
               this.terraClassicAddresses = [publicAddress];
             }
@@ -850,18 +850,18 @@ export class WelcomeV2Component implements OnDestroy {
         } else {
           this.stargazeWalletConnect();
         }
-      } else if(address === 'archway wallet') {
-        if(this.archwayAddresses[0] !== 'archway wallet') {
+      } else if(address === 'injective wallet') {
+        if(this.injectiveAddresses[0] !== 'injective wallet') {
           this.userIsPremium().then(r => {
             if(r) {
-              this.archwayWalletConnect();
+              this.injectiveWalletConnect();
             } else {
               this.exitModal();
               this.modalService.open('notPremiumUser');
             }
           });
         } else {
-          this.archwayWalletConnect();
+          this.injectiveWalletConnect();
         }
       } else if (address === 'terra wallet') {
         if(this.terraAddresses[0] !== 'terra wallet') {
@@ -893,7 +893,7 @@ export class WelcomeV2Component implements OnDestroy {
           this.selectedWallet = 'terraClassic';
           this.terraWalletConnect();
         }
-      } else if (this.archwayAddresses[0] !== 'archway wallet'|| this.stargazeAddresses[0] !== 'stargaze wallet' || this.terraAddresses[0] !== 'terra wallet' || this.polygonAddresses[0] !== 'polygon wallet' || this.terraClassicAddresses[0] !== 'terra classic') {
+      } else if (this.injectiveAddresses[0] !== 'injective wallet'|| this.stargazeAddresses[0] !== 'stargaze wallet' || this.terraAddresses[0] !== 'terra wallet' || this.polygonAddresses[0] !== 'polygon wallet' || this.terraClassicAddresses[0] !== 'terra classic') {
         this.unlink.chainType = chainType;
         this.unlink.address = address;
         this.modalService.open('removeWalletModal');
@@ -944,7 +944,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.polygonAddresses = ['polygon wallet'];
       this.terraAddresses = ['terra wallet'];
       this.stargazeAddresses = ['stargaze wallet'];
-      this.archwayAddresses = ['archway wallet'];
+      this.injectiveAddresses = ['injective wallet'];
       this.terraClassicAddresses = ['terra classic'];
       this.modalService.close('removeWalletModal');
       this.currentStep = 'step 1 : connect wallet';
@@ -955,16 +955,16 @@ export class WelcomeV2Component implements OnDestroy {
           // @ts-ignore
           window.keplr.disable(chainId);
         } 
-      } else if(this.unlink.chainType === 'archway') {
+      } else if(this.unlink.chainType === 'injective') {
         // @ts-ignore
         if (window.keplr) {
-          const chainId = "archway-1";
+          const chainId = "injective-1";
           // @ts-ignore
           window.keplr.disable(chainId);
         } 
       } 
     } else {
-      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : (this.unlink.chainType === 'stargaze' ? 'Stargaze' : (this.unlink.chainType === 'archway' ? 'Archway' : 'Terra Classic')));
+      const blockChainName = this.unlink.chainType === 'polygon' ? 'polygon-mainnet' : (this.unlink.chainType === 'terra' ? 'Terra' : (this.unlink.chainType === 'stargaze' ? 'Stargaze' : (this.unlink.chainType === 'injective' ? 'Injective' : 'Terra Classic')));
       this.loaderService.start();
       this.coreService.unLinkWallet(blockChainName, this.unlink.address)
         .subscribe((data) => {
@@ -989,14 +989,14 @@ export class WelcomeV2Component implements OnDestroy {
               // @ts-ignore
               window.keplr.disable(chainId);
             }
-          } else if (this.unlink.chainType === 'archway') {
-            this.archwayExtended = false;
-            this.archwayAddresses = this.archwayAddresses.filter(a => a !== this.unlink.address);
-            this.archwayInactiveWallets = this.archwayInactiveWallets.filter(a => a !== this.unlink.address);
-            if(this.archwayAddresses.length === 0) this.archwayAddresses = ['archway wallet'];
+          } else if (this.unlink.chainType === 'injective') {
+            this.injectiveExtended = false;
+            this.injectiveAddresses = this.injectiveAddresses.filter(a => a !== this.unlink.address);
+            this.injectiveInactiveWallets = this.injectiveInactiveWallets.filter(a => a !== this.unlink.address);
+            if(this.injectiveAddresses.length === 0) this.injectiveAddresses = ['injective wallet'];
             // @ts-ignore
             if (window.keplr) {
-              const chainId = "archway-1";
+              const chainId = "injective-1";
               // @ts-ignore
               window.keplr.disable(chainId);
             }
@@ -1007,7 +1007,7 @@ export class WelcomeV2Component implements OnDestroy {
             if(this.terraClassicAddresses.length === 0) this.terraClassicAddresses = ['terra classic'];
           }
 
-          if ((this.polygonAddresses[0] == 'polygon wallet' && this.stargazeAddresses[0] == 'stargaze wallet' && this.archwayAddresses[0] == 'archway wallet' && this.terraAddresses[0] == 'terra wallet' && this.terraClassicAddresses[0] == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
+          if ((this.polygonAddresses[0] == 'polygon wallet' && this.stargazeAddresses[0] == 'stargaze wallet' && this.injectiveAddresses[0] == 'injective wallet' && this.terraAddresses[0] == 'terra wallet' && this.terraClassicAddresses[0] == 'terra classic') || ((data.message as string).toLowerCase().includes('no') && (data.message as string).toLowerCase().includes('remaining'))) {
             this.resetSteps();
             this.toast.success('Last Wallet of Account removed!');
           } else {

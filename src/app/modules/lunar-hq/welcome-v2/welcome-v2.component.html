@@ -209,34 +209,34 @@
               </div>
 
                 <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="archwayAddresses[0] === 'archway wallet'">
+                   *ngIf="injectiveAddresses[0] === 'injective wallet'">
                 <app-why-cta-one
-                  [cssClass]="archwayAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('archway', archwayAddresses[0])"
-                  [rightIconType]="(archwayAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="editConnection('injective', injectiveAddresses[0])"
+                  [rightIconType]="(injectiveAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/png/archway.png'"
-                  [btnLabel]="archwayAddresses[0]"></app-why-cta-one>
+                  [btnImage]="'./assets/img/png/injective.png'"
+                  [btnLabel]="injectiveAddresses[0]"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="archwayAddresses[0] !== 'archway wallet'">
+                   *ngIf="injectiveAddresses[0] !== 'injective wallet'">
                 <app-why-cta-one
-                  [cssClass]="archwayAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="archwayExtended = !archwayExtended"
-                  [rightIconType]="(archwayExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="injectiveExtended = !injectiveExtended"
+                  [rightIconType]="(injectiveExtended ? 'caret-up-outline' : 'caret-down-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/png/archway.png'"
-                  [btnLabel]="'Archway: ' + archwayAddresses.length"></app-why-cta-one>
+                  [btnImage]="'./assets/img/png/injective.png'"
+                  [btnLabel]="'Injective: ' + injectiveAddresses.length"></app-why-cta-one>
               </div>
-              <div *ngIf="archwayExtended" class="mr-top-10">
+              <div *ngIf="injectiveExtended" class="mr-top-10">
                 <div class="wallet-container d-flex justify-content-center" 
-                    *ngFor="let wallet of archwayAddresses let i = index;">
+                    *ngFor="let wallet of injectiveAddresses let i = index;">
                     <app-why-cta-one
                     class="mr-left-25 wallet-in-drop-down"
-                    [cssClass]="(archwayInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
-                    (click)="editConnection('archway', wallet)"
+                    [cssClass]="(injectiveInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('injective', wallet)"
                     [rightIconType]="'close-circle-outline'"
-                    [rightIconClass]="'ic16' + (archwayInactiveWallets.includes(wallet) ? ' error ' : '')"
+                    [rightIconClass]="'ic16' + (injectiveInactiveWallets.includes(wallet) ? ' error ' : '')"
                     [lengthOverride]="7"
                     [btnLabel]="wallet"></app-why-cta-one>
                 </div>
@@ -246,7 +246,7 @@
                   [btnLabel]="'ADD A WALLET'"
                   [leftIconType]="'add-circle-outline'"
                   [iconClass]="cssClass.cta3PrimaryIcon"
-                  (click)="editConnection('archway', 'archway wallet')">
+                  (click)="editConnection('injective', 'injective wallet')">
                 </app-why-cta-three>
               </div>
           </div>
@@ -295,14 +295,14 @@
               </div>
 
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="archwayAddresses[0] !== 'archway wallet'">
+                   *ngIf="injectiveAddresses[0] !== 'injective wallet'">
                 <app-why-cta-one
                   [cssClass]="cssClass.cta1Dark100Active"
-                  (click)="editConnection('archway', archwayAddresses[0])"
-                  [rightIconType]="(archwayAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  (click)="editConnection('injective', injectiveAddresses[0])"
+                  [rightIconType]="(injectiveAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/png/archway.png'"
-                  [btnLabel]="archwayAddresses[0]"></app-why-cta-one>
+                  [btnImage]="'./assets/img/png/injective.png'"
+                  [btnLabel]="injectiveAddresses[0]"></app-why-cta-one>
               </div>
             </div>
           </div>
@@ -353,7 +353,7 @@
           </label>
         </div>
         <div>
-          <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || archwayInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
+          <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
             You lost premium access, resulting in some wallets being deactivated.
           </label>
           <label class="app-why-lbl f16 light-70 ft-lato">
@@ -451,10 +451,10 @@
     </div>
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
-        [cssClass]="selectedWallet === 'archway' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
-        (click)="selectOption('archway')"
-        [btnImage]="'./assets/img/png/archway.png'"
-        [btnLabel]="'Archway'"></app-why-cta-one>
+        [cssClass]="selectedWallet === 'injective' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('injective')"
+        [btnImage]="'./assets/img/png/injective.png'"
+        [btnLabel]="'Injective'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
@@ -534,15 +534,15 @@
 </app-why-modal>
 <!-- Stargaze wallet chains connection list Modal End -->
 
-<!-- Archway wallet chains connection list Modal Start -->
-<app-why-modal id="archwayWallet" [popUpType]="'confirmation'">
+<!-- Injective wallet chains connection list Modal Start -->
+<app-why-modal id="injectiveWallet" [popUpType]="'confirmation'">
   <app-why-modal-wrapper>
-    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Archway Wallet</div>
-    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Archway compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Injective Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Injective compatible wallet installed. If you're on mobile please switch to desktop.</div>
     <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"
-        (click)="connectKeplr('Archway')"
+        (click)="connectKeplr('Injective')"
         [btnImage]="'./assets/img/png/keplr.png'"
         [btnLabel]="'Keplr Wallet'">
       </app-why-cta-one>
@@ -550,7 +550,7 @@
     <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"
-        (click)="connectLeap('Archway')"
+        (click)="connectLeap('Injective')"
         [btnImage]="'./assets/img/svg/leap.svg'"
         [btnLabel]="'Leap Wallet'">
       </app-why-cta-one>
@@ -558,7 +558,7 @@
     <div class="mr-bottom-64"></div>
   </app-why-modal-wrapper>
 </app-why-modal>
-<!-- Archway wallet chains connection list Modal End -->
+<!-- Injective wallet chains connection list Modal End -->
 
 <!-- Remove wallet Modal Start -->
 <app-why-modal id="removeWalletModal" [popUpType]="'confirmation'">
