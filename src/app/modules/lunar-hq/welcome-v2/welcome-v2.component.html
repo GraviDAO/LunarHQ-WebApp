@@ -217,26 +217,68 @@
                   [rightIconClass]="'ic16'"
                   [btnImage]="'./assets/img/png/injective.png'"
                   [btnLabel]="injectiveAddresses[0]"></app-why-cta-one>
+                </div>
+                <div class="pd-top-16 d-flex justify-content-center"
+                    *ngIf="injectiveAddresses[0] !== 'injective wallet'">
+                  <app-why-cta-one
+                    [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                    (click)="injectiveExtended = !injectiveExtended"
+                    [rightIconType]="(injectiveExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                    [rightIconClass]="'ic16'"
+                    [btnImage]="'./assets/img/png/injective.png'"
+                    [btnLabel]="'Injective: ' + injectiveAddresses.length"></app-why-cta-one>
+                </div>
+                <div *ngIf="injectiveExtended" class="mr-top-10">
+                  <div class="wallet-container d-flex justify-content-center" 
+                      *ngFor="let wallet of injectiveAddresses let i = index;">
+                      <app-why-cta-one
+                      class="mr-left-25 wallet-in-drop-down"
+                      [cssClass]="(injectiveInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                      (click)="editConnection('injective', wallet)"
+                      [rightIconType]="'close-circle-outline'"
+                      [rightIconClass]="'ic16' + (injectiveInactiveWallets.includes(wallet) ? ' error ' : '')"
+                      [lengthOverride]="7"
+                      [btnLabel]="wallet"></app-why-cta-one>
+                  </div>
+                  <app-why-cta-three
+                    class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                    [btnClass]="cssClass.cta3Primary14"
+                    [btnLabel]="'ADD A WALLET'"
+                    [leftIconType]="'add-circle-outline'"
+                    [iconClass]="cssClass.cta3PrimaryIcon"
+                    (click)="editConnection('injective', 'injective wallet')">
+                  </app-why-cta-three>
+                </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="osmosisAddresses[0] === 'osmosis wallet'">
+              <app-why-cta-one
+                [cssClass]="osmosisAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('osmosis', osmosisAddresses[0])"
+                [rightIconType]="(osmosisAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                [rightIconClass]="'ic16'"
+                [btnImage]="'./assets/img/png/osmosis.png'"
+                [btnLabel]="osmosisAddresses[0]"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="injectiveAddresses[0] !== 'injective wallet'">
+                  *ngIf="osmosisAddresses[0] !== 'osmosis wallet'">
                 <app-why-cta-one
-                  [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="injectiveExtended = !injectiveExtended"
-                  [rightIconType]="(injectiveExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [cssClass]="osmosisAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="osmosisExtended = !osmosisExtended"
+                  [rightIconType]="(osmosisExtended ? 'caret-up-outline' : 'caret-down-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/png/injective.png'"
-                  [btnLabel]="'Injective: ' + injectiveAddresses.length"></app-why-cta-one>
+                  [btnImage]="'./assets/img/png/osmosis.png'"
+                  [btnLabel]="'Osmosis: ' + osmosisAddresses.length"></app-why-cta-one>
               </div>
-              <div *ngIf="injectiveExtended" class="mr-top-10">
+              <div *ngIf="osmosisExtended" class="mr-top-10">
                 <div class="wallet-container d-flex justify-content-center" 
-                    *ngFor="let wallet of injectiveAddresses let i = index;">
+                    *ngFor="let wallet of osmosisAddresses let i = index;">
                     <app-why-cta-one
                     class="mr-left-25 wallet-in-drop-down"
-                    [cssClass]="(injectiveInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
-                    (click)="editConnection('injective', wallet)"
+                    [cssClass]="(osmosisInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('osmosis', wallet)"
                     [rightIconType]="'close-circle-outline'"
-                    [rightIconClass]="'ic16' + (injectiveInactiveWallets.includes(wallet) ? ' error ' : '')"
+                    [rightIconClass]="'ic16' + (osmosisInactiveWallets.includes(wallet) ? ' error ' : '')"
                     [lengthOverride]="7"
                     [btnLabel]="wallet"></app-why-cta-one>
                 </div>
@@ -246,7 +288,91 @@
                   [btnLabel]="'ADD A WALLET'"
                   [leftIconType]="'add-circle-outline'"
                   [iconClass]="cssClass.cta3PrimaryIcon"
-                  (click)="editConnection('injective', 'injective wallet')">
+                  (click)="editConnection('osmosis', 'osmosis wallet')">
+                </app-why-cta-three>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="neutronAddresses[0] === 'neutron wallet'">
+              <app-why-cta-one
+                [cssClass]="neutronAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('neutron', neutronAddresses[0])"
+                [rightIconType]="(neutronAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                [rightIconClass]="'ic16'"
+                [btnImage]="'./assets/img/png/neutron.png'"
+                [btnLabel]="neutronAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                  *ngIf="neutronAddresses[0] !== 'neutron wallet'">
+                <app-why-cta-one
+                  [cssClass]="neutronAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="neutronExtended = !neutronExtended"
+                  [rightIconType]="(neutronExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/neutron.png'"
+                  [btnLabel]="'Neutron: ' + neutronAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="neutronExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of neutronAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="(neutronInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('neutron', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16' + (neutronInactiveWallets.includes(wallet) ? ' error ' : '')"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
+                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('neutron', 'neutron wallet')">
+                </app-why-cta-three>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="junoAddresses[0] === 'juno wallet'">
+              <app-why-cta-one
+                [cssClass]="junoAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('juno', junoAddresses[0])"
+                [rightIconType]="(junoAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                [rightIconClass]="'ic16'"
+                [btnImage]="'./assets/img/png/juno.png'"
+                [btnLabel]="junoAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                  *ngIf="junoAddresses[0] !== 'juno wallet'">
+                <app-why-cta-one
+                  [cssClass]="junoAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="junoExtended = !junoExtended"
+                  [rightIconType]="(junoExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/juno.png'"
+                  [btnLabel]="'Juno: ' + junoAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="junoExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of junoAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="(junoInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('juno', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16' + (junoInactiveWallets.includes(wallet) ? ' error ' : '')"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
+                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('juno', 'juno wallet')">
                 </app-why-cta-three>
               </div>
           </div>
@@ -304,6 +430,39 @@
                   [btnImage]="'./assets/img/png/injective.png'"
                   [btnLabel]="injectiveAddresses[0]"></app-why-cta-one>
               </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="osmosisAddresses[0] !== 'osmosis wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('osmosis', osmosisAddresses[0])"
+                  [rightIconType]="(osmosisAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/osmosis.png'"
+                  [btnLabel]="osmosisAddresses[0]"></app-why-cta-one>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="neutronAddresses[0] !== 'neutron wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('neutron', neutronAddresses[0])"
+                  [rightIconType]="(neutronAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/neutron.png'"
+                  [btnLabel]="neutronAddresses[0]"></app-why-cta-one>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="junoAddresses[0] !== 'juno wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('juno', junoAddresses[0])"
+                  [rightIconType]="(junoAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/juno.png'"
+                  [btnLabel]="junoAddresses[0]"></app-why-cta-one>
+              </div>
             </div>
           </div>
         </div>
@@ -353,7 +512,7 @@
           </label>
         </div>
         <div>
-          <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
+          <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0 || osmosisInactiveWallets.length > 0 || neutronInactiveWallets.length > 0 || junoInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
             You lost premium access, resulting in some wallets being deactivated.
           </label>
           <label class="app-why-lbl f16 light-70 ft-lato">
@@ -455,6 +614,27 @@
         (click)="selectOption('injective')"
         [btnImage]="'./assets/img/png/injective.png'"
         [btnLabel]="'Injective'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'osmosis' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('osmosis')"
+        [btnImage]="'./assets/img/png/osmosis.png'"
+        [btnLabel]="'Osmosis'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'neutron' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('neutron')"
+        [btnImage]="'./assets/img/png/neutron.png'"
+        [btnLabel]="'Neutron'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'juno' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('juno')"
+        [btnImage]="'./assets/img/png/juno.png'"
+        [btnLabel]="'Juno'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
@@ -559,6 +739,84 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Injective wallet chains connection list Modal End -->
+
+<!-- Osmosis wallet chains connection list Modal Start -->
+<app-why-modal id="osmosisWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Osmosis Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Osmosis compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Osmosis')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Osmosis')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Osmosis wallet chains connection list Modal End -->
+
+<!-- Neutron wallet chains connection list Modal Start -->
+<app-why-modal id="neutronWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Neutron Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Neutron compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Neutron')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Neutron')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Neutron wallet chains connection list Modal End -->
+
+<!-- Juno wallet chains connection list Modal Start -->
+<app-why-modal id="junoWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Juno Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Juno compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Juno')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Juno')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Juno wallet chains connection list Modal End -->
 
 <!-- Remove wallet Modal Start -->
 <app-why-modal id="removeWalletModal" [popUpType]="'confirmation'">

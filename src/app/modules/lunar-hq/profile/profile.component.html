@@ -53,7 +53,7 @@
           <div class="mr-left-40 mr-right-40 mr-top-24 profile-header">
             <label class="app-why-lbl f16 ft-bold no-letter-spacing light">WALLETS</label>
             <div class="divider mr-top-9"></div>
-              <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0" class="app-why-lbl f16 error ft-lato">
+              <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0 || osmosisInactiveWallets.length > 0  || neutronInactiveWallets.length > 0 || junoInactiveWallets.length > 0" class="app-why-lbl f16 error ft-lato">
                 You lost premium access, resulting in some wallets being deactivated.
             </label>
           </div>
@@ -142,6 +142,27 @@
         (click)="selectOption('injective')"
         [btnImage]="'./assets/img/png/injective.png'"
         [btnLabel]="'Injective'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'osmosis' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('osmosis')"
+        [btnImage]="'./assets/img/png/osmosis.png'"
+        [btnLabel]="'Osmosis'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'neutron' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('neutron')"
+        [btnImage]="'./assets/img/png/neutron.png'"
+        [btnLabel]="'Neutron'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="selectedWallet === 'juno' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('juno')"
+        [btnImage]="'./assets/img/png/juno.png'"
+        [btnLabel]="'Juno'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-between pd-top-56 pd-bottom-40">
       <div>
@@ -363,6 +384,84 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Injective wallet chains connection list Modal End -->
+
+<!-- Osmosis wallet chains connection list Modal Start -->
+<app-why-modal id="osmosisWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Osmosis Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Osmosis compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Osmosis')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Osmosis')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Osmosis wallet chains connection list Modal End -->
+
+<!-- Neutron wallet chains connection list Modal Start -->
+<app-why-modal id="neutronWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Neutron Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Neutron compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Neutron')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Neutron')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Neutron wallet chains connection list Modal End -->
+
+<!-- Juno wallet chains connection list Modal Start -->
+<app-why-modal id="junoWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Juno Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Juno compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Juno')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Juno')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Juno wallet chains connection list Modal End -->
 
 <!-- No User Premium rights Modal Start -->
 <app-why-modal id="notPremiumUser" [popUpType]="'confirmation'">
