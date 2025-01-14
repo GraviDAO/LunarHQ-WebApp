@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
   injectiveInactiveWallets: string[] = [];
+  cosmosInactiveWallets: string[] = [];
   osmosisInactiveWallets: string[] = [];
   junoInactiveWallets: string[] = [];
   neutronInactiveWallets: string[] = [];
@@ -74,6 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               else if(aw.blockchainName === "Terra Classic") this.terraClassicInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Stargaze") this.stargazeInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Injective") this.injectiveInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Cosmos") this.cosmosInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Osmosis") this.osmosisInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Juno") this.junoInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Neutron") this.neutronInactiveWallets.push(aw.address)
@@ -127,6 +129,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     else if(blockchainName === "Terra Classic") return this.terraClassicInactiveWallets.includes(wallet)
     else if(blockchainName === "Stargaze") return this.stargazeInactiveWallets.includes(wallet)
     else if(blockchainName === "Injective") return this.injectiveInactiveWallets.includes(wallet)
+    else if(blockchainName === "Cosmos") return this.cosmosInactiveWallets.includes(wallet)
     else if(blockchainName === "Osmosis") return this.osmosisInactiveWallets.includes(wallet)
     else if(blockchainName === "Juno") return this.junoInactiveWallets.includes(wallet)
     else if(blockchainName === "Neutron") return this.neutronInactiveWallets.includes(wallet)

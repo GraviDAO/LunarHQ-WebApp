@@ -208,47 +208,89 @@
                 </app-why-cta-three>
               </div>
 
-                <div class="pd-top-16 d-flex justify-content-center"
-                   *ngIf="injectiveAddresses[0] === 'injective wallet'">
+              <div class="pd-top-16 d-flex justify-content-center"
+                  *ngIf="injectiveAddresses[0] === 'injective wallet'">
+              <app-why-cta-one
+                [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('injective', injectiveAddresses[0])"
+                [rightIconType]="(injectiveAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                [rightIconClass]="'ic16'"
+                [btnImage]="'./assets/img/png/injective.png'"
+                [btnLabel]="injectiveAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                  *ngIf="injectiveAddresses[0] !== 'injective wallet'">
                 <app-why-cta-one
                   [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                  (click)="editConnection('injective', injectiveAddresses[0])"
-                  [rightIconType]="(injectiveAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  (click)="injectiveExtended = !injectiveExtended"
+                  [rightIconType]="(injectiveExtended ? 'caret-up-outline' : 'caret-down-outline')"
                   [rightIconClass]="'ic16'"
                   [btnImage]="'./assets/img/png/injective.png'"
-                  [btnLabel]="injectiveAddresses[0]"></app-why-cta-one>
+                  [btnLabel]="'Injective: ' + injectiveAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="injectiveExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of injectiveAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="(injectiveInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('injective', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16' + (injectiveInactiveWallets.includes(wallet) ? ' error ' : '')"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
                 </div>
-                <div class="pd-top-16 d-flex justify-content-center"
-                    *ngIf="injectiveAddresses[0] !== 'injective wallet'">
-                  <app-why-cta-one
-                    [cssClass]="injectiveAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
-                    (click)="injectiveExtended = !injectiveExtended"
-                    [rightIconType]="(injectiveExtended ? 'caret-up-outline' : 'caret-down-outline')"
-                    [rightIconClass]="'ic16'"
-                    [btnImage]="'./assets/img/png/injective.png'"
-                    [btnLabel]="'Injective: ' + injectiveAddresses.length"></app-why-cta-one>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('injective', 'injective wallet')">
+                </app-why-cta-three>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="cosmosAddresses[0] === 'cosmos wallet'">
+              <app-why-cta-one
+                [cssClass]="cosmosAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                (click)="editConnection('cosmos', cosmosAddresses[0])"
+                [rightIconType]="(cosmosAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                [rightIconClass]="'ic16'"
+                [btnImage]="'./assets/img/png/cosmos.png'"
+                [btnLabel]="cosmosAddresses[0]"></app-why-cta-one>
+              </div>
+              <div class="pd-top-16 d-flex justify-content-center"
+                  *ngIf="cosmosAddresses[0] !== 'cosmos wallet'">
+                <app-why-cta-one
+                  [cssClass]="cosmosAddresses[0].length< 20 ? cssClass.cta1LightActive : cssClass.cta1Dark100Active"
+                  (click)="cosmosExtended = !cosmosExtended"
+                  [rightIconType]="(cosmosExtended ? 'caret-up-outline' : 'caret-down-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/cosmos.png'"
+                  [btnLabel]="'Cosmos: ' + cosmosAddresses.length"></app-why-cta-one>
+              </div>
+              <div *ngIf="cosmosExtended" class="mr-top-10">
+                <div class="wallet-container d-flex justify-content-center" 
+                    *ngFor="let wallet of cosmosAddresses let i = index;">
+                    <app-why-cta-one
+                    class="mr-left-25 wallet-in-drop-down"
+                    [cssClass]="(cosmosInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
+                    (click)="editConnection('cosmos', wallet)"
+                    [rightIconType]="'close-circle-outline'"
+                    [rightIconClass]="'ic16' + (cosmosInactiveWallets.includes(wallet) ? ' error ' : '')"
+                    [lengthOverride]="7"
+                    [btnLabel]="wallet"></app-why-cta-one>
                 </div>
-                <div *ngIf="injectiveExtended" class="mr-top-10">
-                  <div class="wallet-container d-flex justify-content-center" 
-                      *ngFor="let wallet of injectiveAddresses let i = index;">
-                      <app-why-cta-one
-                      class="mr-left-25 wallet-in-drop-down"
-                      [cssClass]="(injectiveInactiveWallets.includes(wallet) ? 'error ' : '') + cssClass.cta1LightActive + 'btn full-width bg-transparent'"
-                      (click)="editConnection('injective', wallet)"
-                      [rightIconType]="'close-circle-outline'"
-                      [rightIconClass]="'ic16' + (injectiveInactiveWallets.includes(wallet) ? ' error ' : '')"
-                      [lengthOverride]="7"
-                      [btnLabel]="wallet"></app-why-cta-one>
-                  </div>
-                  <app-why-cta-three
-                    class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
-                    [btnClass]="cssClass.cta3Primary14"
-                    [btnLabel]="'ADD A WALLET'"
-                    [leftIconType]="'add-circle-outline'"
-                    [iconClass]="cssClass.cta3PrimaryIcon"
-                    (click)="editConnection('injective', 'injective wallet')">
-                  </app-why-cta-three>
-                </div>
+                <app-why-cta-three
+                  class="mr-right-55 mr-top-8 mr-bottom-12 d-flex justify-content-end"
+                  [btnClass]="cssClass.cta3Primary14"
+                  [btnLabel]="'ADD A WALLET'"
+                  [leftIconType]="'add-circle-outline'"
+                  [iconClass]="cssClass.cta3PrimaryIcon"
+                  (click)="editConnection('cosmos', 'cosmos wallet')">
+                </app-why-cta-three>
+              </div>
 
               <div class="pd-top-16 d-flex justify-content-center"
                    *ngIf="osmosisAddresses[0] === 'osmosis wallet'">
@@ -299,7 +341,7 @@
                 (click)="editConnection('neutron', neutronAddresses[0])"
                 [rightIconType]="(neutronAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                 [rightIconClass]="'ic16'"
-                [btnImage]="'./assets/img/png/neutron.png'"
+                [btnImage]="'./assets/img/svg/neutron.svg'"
                 [btnLabel]="neutronAddresses[0]"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
@@ -309,7 +351,7 @@
                   (click)="neutronExtended = !neutronExtended"
                   [rightIconType]="(neutronExtended ? 'caret-up-outline' : 'caret-down-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/png/neutron.png'"
+                  [btnImage]="'./assets/img/svg/neutron.svg'"
                   [btnLabel]="'Neutron: ' + neutronAddresses.length"></app-why-cta-one>
               </div>
               <div *ngIf="neutronExtended" class="mr-top-10">
@@ -432,6 +474,17 @@
               </div>
 
               <div class="pd-top-16 d-flex justify-content-center"
+                   *ngIf="cosmosAddresses[0] !== 'cosmos wallet'">
+                <app-why-cta-one
+                  [cssClass]="cssClass.cta1Dark100Active"
+                  (click)="editConnection('cosmos', cosmosAddresses[0])"
+                  [rightIconType]="(cosmosAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
+                  [rightIconClass]="'ic16'"
+                  [btnImage]="'./assets/img/png/cosmos.png'"
+                  [btnLabel]="cosmosAddresses[0]"></app-why-cta-one>
+              </div>
+
+              <div class="pd-top-16 d-flex justify-content-center"
                    *ngIf="osmosisAddresses[0] !== 'osmosis wallet'">
                 <app-why-cta-one
                   [cssClass]="cssClass.cta1Dark100Active"
@@ -449,7 +502,7 @@
                   (click)="editConnection('neutron', neutronAddresses[0])"
                   [rightIconType]="(neutronAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/png/neutron.png'"
+                  [btnImage]="'./assets/img/svg/neutron.svg'"
                   [btnLabel]="neutronAddresses[0]"></app-why-cta-one>
               </div>
 
@@ -512,7 +565,7 @@
           </label>
         </div>
         <div>
-          <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0 || osmosisInactiveWallets.length > 0 || neutronInactiveWallets.length > 0 || junoInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
+          <label *ngIf="terraClassicInactiveWallets.length > 0 || terraInactiveWallets.length > 0 || polygonInactiveWallets.length > 0 || stargazeInactiveWallets.length > 0 || injectiveInactiveWallets.length > 0 || osmosisInactiveWallets.length > 0 || neutronInactiveWallets.length > 0 || junoInactiveWallets.length > 0 || cosmosInactiveWallets.length > 0" class="app-why-lbl f16 light-70 ft-lato error">
             You lost premium access, resulting in some wallets being deactivated.
           </label>
           <label class="app-why-lbl f16 light-70 ft-lato">
@@ -617,6 +670,13 @@
     </div>
     <div class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
+        [cssClass]="selectedWallet === 'cosmos' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
+        (click)="selectOption('cosmos')"
+        [iconPath]="'./assets/img/png/cosmos.png'"
+        [btnLabel]="'Cosmos'"></app-why-cta-one>
+    </div>
+    <div class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
         [cssClass]="selectedWallet === 'osmosis' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('osmosis')"
         [btnImage]="'./assets/img/png/osmosis.png'"
@@ -626,7 +686,7 @@
       <app-why-cta-one
         [cssClass]="selectedWallet === 'neutron' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('neutron')"
-        [btnImage]="'./assets/img/png/neutron.png'"
+        [btnImage]="'./assets/img/svg/neutron.svg'"
         [btnLabel]="'Neutron'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-center pd-top-16">
@@ -739,6 +799,32 @@
   </app-why-modal-wrapper>
 </app-why-modal>
 <!-- Injective wallet chains connection list Modal End -->
+
+<!-- Cosmos wallet chains connection list Modal Start -->
+<app-why-modal id="cosmosWallet" [popUpType]="'confirmation'">
+  <app-why-modal-wrapper>
+    <div class="app-why-lbl f22 ft-uni ft-medium light mr-bottom-48">Cosmos Wallet</div>
+    <div *ngIf="!keplrInstalled && !leapInstalled" class="app-why-lbl f20 ft-uni ft-medium light mr-bottom-48">No Cosmos compatible wallet installed. If you're on mobile please switch to desktop.</div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Cosmos')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectLeap('Cosmos')"
+        [btnImage]="'./assets/img/svg/leap.svg'"
+        [btnLabel]="'Leap Wallet'">
+      </app-why-cta-one>
+    </div>
+    <div class="mr-bottom-64"></div>
+  </app-why-modal-wrapper>
+</app-why-modal>
+<!-- Cosmos wallet chains connection list Modal End -->
 
 <!-- Osmosis wallet chains connection list Modal Start -->
 <app-why-modal id="osmosisWallet" [popUpType]="'confirmation'">

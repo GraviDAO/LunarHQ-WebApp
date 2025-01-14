@@ -46,6 +46,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   stargazeAddress = 'stargaze wallet';
   injectiveWalletExists: boolean = false;
   injectiveAddress = 'injective wallet';
+  cosmosWalletExists: boolean = false;
+  cosmosAddress = 'cosmos wallet';
   osmosisWalletExists: boolean = false;
   osmosisAddress = 'osmosis wallet';
   junoWalletExists: boolean = false;
@@ -64,6 +66,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
   injectiveInactiveWallets: string[] = [];
+  cosmosInactiveWallets: string[] = [];
   osmosisInactiveWallets: string[] = [];
   junoInactiveWallets: string[] = [];
   neutronInactiveWallets: string[] = [];
@@ -184,6 +187,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     else if(blockchainName === "Terra Classic") return this.terraClassicInactiveWallets.includes(wallet)
     else if(blockchainName === "Stargaze") return this.stargazeInactiveWallets.includes(wallet)
     else if(blockchainName === "Injective") return this.injectiveInactiveWallets.includes(wallet)
+    else if(blockchainName === "Cosmos") return this.cosmosInactiveWallets.includes(wallet)
     else if(blockchainName === "Osmosis") return this.osmosisInactiveWallets.includes(wallet)
     else if(blockchainName === "Juno") return this.junoInactiveWallets.includes(wallet)
     else if(blockchainName === "Neutron") return this.neutronInactiveWallets.includes(wallet)
@@ -202,6 +206,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.polygonInactiveWallets = [];
           this.stargazeInactiveWallets = [];
           this.injectiveInactiveWallets = [];
+          this.cosmosInactiveWallets = [];
           this.osmosisInactiveWallets = [];
           this.junoInactiveWallets = [];
           this.neutronInactiveWallets = [];
@@ -212,6 +217,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
               else if(aw.blockchainName === "Terra Classic") this.terraClassicInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Stargaze") this.stargazeInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Injective") this.injectiveInactiveWallets.push(aw.address)
+              else if(aw.blockchainName === "Cosmos") this.cosmosInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Osmosis") this.osmosisInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Juno") this.junoInactiveWallets.push(aw.address)
               else if(aw.blockchainName === "Neutron") this.neutronInactiveWallets.push(aw.address)
@@ -220,6 +226,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.polygonWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'polygon-mainnet');
           this.stargazeWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName.toLowerCase() === 'stargaze');
           this.injectiveWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName.toLowerCase() === 'injective');
+          this.cosmosWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Cosmos');
           this.osmosisWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Osmosis');
           this.junoWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Juno');
           this.neutronWalletExists = this.profileObj.accountWallets.some((obj: any) => obj.blockchainName === 'Neutron');
@@ -390,6 +397,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       } else {
         this.injectiveWalletConnect();
       }
+    } else if(this.selectedWallet === 'cosmos') {
+      if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Cosmos')) {
+        this.userIsPremium().then(r => {
+          if(r) {
+            this.cosmosWalletConnect();
+          } else {
+            this.exitModal();
+            this.modalService.open('notPremiumUser');
+          }
+        });
+      } else {
+        this.cosmosWalletConnect();
+      }
     } else if(this.selectedWallet === 'osmosis') {
       if(this.profileObj.accountWallets.find((aw: any) => aw.blockchainName === 'Osmosis')) {
         this.userIsPremium().then(r => {
@@ -500,6 +520,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.modalService.open('injectiveWallet');
   }
 
+  async cosmosWalletConnect() {
+    this.exitModal();
+    // @ts-ignore
+    if(window.keplr) this.keplrInstalled = true;
+    if(window.leap) this.leapInstalled = true;
+    this.modalService.open('cosmosWallet');
+  }
+
   async osmosisWalletConnect() {
     this.exitModal();
     // @ts-ignore
@@ -524,7 +552,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.modalService.open('neutronWallet');
   }
 
-  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron') {
+  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     // @ts-ignore
     if (!window.keplr) {
       alert("Please install keplr extension");
@@ -553,7 +581,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron') {
+  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -589,7 +617,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  connectLeap(chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron') {
+  connectLeap(chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     // @ts-ignore
     if (!window.leap) {
       alert("Please install leap extension");
@@ -622,7 +650,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron') {
+  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     try {
       this.loaderService.start();
       setTimeout(() => {

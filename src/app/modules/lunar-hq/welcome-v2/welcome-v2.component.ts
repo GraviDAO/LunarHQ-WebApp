@@ -48,6 +48,7 @@ export class WelcomeV2Component implements OnDestroy {
   terraClassicAddresses = ['terra classic'];
   stargazeAddresses = ['stargaze wallet'];
   injectiveAddresses = ['injective wallet'];
+  cosmosAddresses = ['cosmos wallet'];
   osmosisAddresses = ['osmosis wallet'];
   junoAddresses = ['juno wallet'];
   neutronAddresses = ['neutron wallet'];
@@ -68,6 +69,7 @@ export class WelcomeV2Component implements OnDestroy {
   terraClassicExtended = false;
   stargazeExtended = false;
   injectiveExtended = false;
+  cosmosExtended = false;
   osmosisExtended = false;
   junoExtended = false;
   neutronExtended = false;
@@ -77,6 +79,7 @@ export class WelcomeV2Component implements OnDestroy {
   stargazeInactiveWallets: string[] = [];
   polygonInactiveWallets: string[] = [];
   injectiveInactiveWallets: string[] = [];
+  cosmosInactiveWallets: string[] = [];
   osmosisInactiveWallets: string[] = [];
   junoInactiveWallets: string[] = [];
   neutronInactiveWallets: string[] = [];
@@ -236,6 +239,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.polygonAddresses = ['polygon wallet'];
     this.stargazeAddresses = ['stargaze wallet'];
     this.injectiveAddresses = ['injective wallet'];
+    this.cosmosAddresses = ['cosmos wallet'];
     this.osmosisAddresses = ['osmosis wallet'];
     this.junoAddresses = ['juno wallet'];
     this.neutronAddresses = ['neutron wallet'];
@@ -259,6 +263,12 @@ export class WelcomeV2Component implements OnDestroy {
         this.injectiveAddresses.push(obj.address);
         if(!obj.active) {
           this.injectiveInactiveWallets.push(obj.address);
+        }
+      } else if(obj.blockchainName === 'Cosmos') {
+        if(this.cosmosAddresses[0] === 'cosmos wallet') this.cosmosAddresses = [];
+        this.cosmosAddresses.push(obj.address);
+        if(!obj.active) {
+          this.cosmosInactiveWallets.push(obj.address);
         }
       } else if(obj.blockchainName === 'Osmosis') {
         if(this.osmosisAddresses[0] === 'osmosis wallet') this.osmosisAddresses = [];
@@ -309,6 +319,7 @@ export class WelcomeV2Component implements OnDestroy {
       let tempTerraObj: any;
       let tempStargazeObj: any;
       let tempInjectiveObj: any;
+      let tempCosmosObj: any;
       let tempOsmosisObj: any;
       let tempJunoObj: any;
       let tempNeutronObj: any;
@@ -317,6 +328,7 @@ export class WelcomeV2Component implements OnDestroy {
         tempTerraObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Terra');
         tempStargazeObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Stargaze');
         tempInjectiveObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Injective');
+        tempCosmosObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Cosmos');
         tempOsmosisObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Osmosis');
         tempJunoObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Juno');
         tempNeutronObj = lunarUserObj.walletAddress.find((obj: any) => obj.blockchainName === 'Neutron');
@@ -325,6 +337,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.terraAddresses = tempTerraObj === undefined ? 'terra wallet' : tempTerraObj.publicAddress;
       this.stargazeAddresses = tempStargazeObj === undefined ? 'stargaze wallet' : tempStargazeObj.publicAddress;
       this.injectiveAddresses = tempInjectiveObj === undefined ? 'injective wallet' : tempInjectiveObj.publicAddress;
+      this.cosmosAddresses = tempCosmosObj === undefined ? 'cosmos wallet' : tempCosmosObj.publicAddress;
       this.osmosisAddresses = tempOsmosisObj === undefined ? 'osmosis wallet' : tempOsmosisObj.publicAddress;
       this.junoAddresses = tempJunoObj === undefined ? 'juno wallet' : tempJunoObj.publicAddress;
       this.neutronAddresses = tempNeutronObj === undefined ? 'neutron wallet' : tempNeutronObj.publicAddress;
@@ -356,6 +369,8 @@ export class WelcomeV2Component implements OnDestroy {
       this.stargazeWalletConnect();
     } else if(this.selectedWallet === 'injective') {
       this.injectiveWalletConnect();
+    } else if(this.selectedWallet === 'osmosis') {
+      this.cosmosWalletConnect();
     } else if(this.selectedWallet === 'osmosis') {
       this.osmosisWalletConnect();
     } else if(this.selectedWallet === 'juno') {
@@ -407,6 +422,14 @@ export class WelcomeV2Component implements OnDestroy {
     this.modalService.open('injectiveWallet');
   }
 
+  async cosmosWalletConnect() {
+    this.exitModal();
+    // @ts-ignore
+    if(window.keplr) this.keplrInstalled = true;
+    if(window.leap) this.leapInstalled = true;
+    this.modalService.open('cosmosWallet');
+  }
+
   async osmosisWalletConnect() {
     this.exitModal();
     // @ts-ignore
@@ -431,7 +454,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.modalService.open('neutronWallet');
   }
 
-  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron') {
+  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     // @ts-ignore
     if (!window.keplr) {
       alert("Please install keplr extension");
@@ -460,7 +483,7 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron') {
+  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -496,7 +519,7 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  connectLeap(chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron') {
+  connectLeap(chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     // @ts-ignore
     if (!window.leap) {
       alert("Please install leap extension");
@@ -529,7 +552,7 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron') {
+  async signLeap(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Terra' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -607,6 +630,8 @@ export class WelcomeV2Component implements OnDestroy {
             this.stargazeAddresses = [publicAddress];
           } else if (blockchainName === 'Injective') {
             this.injectiveAddresses = [publicAddress];
+          } else if(blockchainName === 'Cosmos') {
+            this.cosmosAddresses = [publicAddress];
           } else if (blockchainName === 'Osmosis') {
             this.osmosisAddresses = [publicAddress];
           } else if (blockchainName === 'Juno') {
@@ -643,6 +668,8 @@ export class WelcomeV2Component implements OnDestroy {
               this.stargazeAddresses = [publicAddress];
             } else if (blockchainName === 'Injective') {
               this.injectiveAddresses = [publicAddress];
+            } else if(blockchainName === 'Cosmos') {
+              this.cosmosAddresses = [publicAddress];
             } else if (blockchainName === 'Osmosis') {
               this.osmosisAddresses = [publicAddress];
             } else if (blockchainName === 'Juno') {
@@ -959,6 +986,19 @@ export class WelcomeV2Component implements OnDestroy {
         } else {
           this.injectiveWalletConnect();
         }
+      } else if(address === 'cosmos wallet') {
+        if(this.cosmosAddresses[0] !== 'cosmos wallet') {
+          this.userIsPremium().then(r => {
+            if(r) {
+              this.cosmosWalletConnect();
+            } else {
+              this.exitModal();
+              this.modalService.open('notPremiumUser');
+            }
+          });
+        } else {
+          this.cosmosWalletConnect();
+        }
       } else if (address === 'terra wallet') {
         if(this.terraAddresses[0] !== 'terra wallet') {
           this.userIsPremium().then(r => {
@@ -1080,6 +1120,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.terraAddresses = ['terra wallet'];
       this.stargazeAddresses = ['stargaze wallet'];
       this.injectiveAddresses = ['injective wallet'];
+      this.cosmosAddresses = ['cosmos wallet'];
       this.osmosisAddresses = ['osmosis wallet'];
       this.junoAddresses = ['juno wallet'];
       this.neutronAddresses = ['neutron wallet'];
@@ -1097,6 +1138,13 @@ export class WelcomeV2Component implements OnDestroy {
         // @ts-ignore
         if (window.keplr) {
           const chainId = "injective-1";
+          // @ts-ignore
+          window.keplr.disable(chainId);
+        } 
+      } else if(this.unlink.chainType === 'cosmos') {
+        // @ts-ignore
+        if (window.keplr) {
+          const chainId = "cosmoshub-4";
           // @ts-ignore
           window.keplr.disable(chainId);
         } 
@@ -1174,6 +1222,17 @@ export class WelcomeV2Component implements OnDestroy {
             // @ts-ignore
             if (window.keplr) {
               const chainId = "injective-1";
+              // @ts-ignore
+              window.keplr.disable(chainId);
+            }
+          } else if(this.unlink.chainType === 'cosmos') {
+            this.cosmosExtended = false;
+            this.cosmosAddresses = this.cosmosAddresses.filter(a => a !== this.unlink.address);
+            this.cosmosInactiveWallets = this.cosmosInactiveWallets.filter(a => a !== this.unlink.address);
+            if(this.cosmosAddresses.length === 0) this.cosmosAddresses = ['cosmos wallet'];
+            // @ts-ignore
+            if (window.keplr) {
+              const chainId = "cosmoshub-4";
               // @ts-ignore
               window.keplr.disable(chainId);
             }
