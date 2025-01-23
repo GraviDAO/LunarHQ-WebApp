@@ -341,7 +341,7 @@
                 (click)="editConnection('neutron', neutronAddresses[0])"
                 [rightIconType]="(neutronAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                 [rightIconClass]="'ic16'"
-                [btnImage]="'./assets/img/svg/neutron.svg'"
+                [btnImage]="'./assets/img/png/neutron.png'"
                 [btnLabel]="neutronAddresses[0]"></app-why-cta-one>
               </div>
               <div class="pd-top-16 d-flex justify-content-center"
@@ -351,7 +351,7 @@
                   (click)="neutronExtended = !neutronExtended"
                   [rightIconType]="(neutronExtended ? 'caret-up-outline' : 'caret-down-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/svg/neutron.svg'"
+                  [btnImage]="'./assets/img/png/neutron.png'"
                   [btnLabel]="'Neutron: ' + neutronAddresses.length"></app-why-cta-one>
               </div>
               <div *ngIf="neutronExtended" class="mr-top-10">
@@ -502,7 +502,7 @@
                   (click)="editConnection('neutron', neutronAddresses[0])"
                   [rightIconType]="(neutronAddresses[0].length< 20 ? 'add-outline' : 'close-circle-outline')"
                   [rightIconClass]="'ic16'"
-                  [btnImage]="'./assets/img/svg/neutron.svg'"
+                  [btnImage]="'./assets/img/png/neutron.png'"
                   [btnLabel]="neutronAddresses[0]"></app-why-cta-one>
               </div>
 
@@ -686,7 +686,7 @@
       <app-why-cta-one
         [cssClass]="selectedWallet === 'neutron' ? cssClass.cta1Dark50Active : cssClass.cta1Dark50"
         (click)="selectOption('neutron')"
-        [btnImage]="'./assets/img/svg/neutron.svg'"
+        [btnImage]="'./assets/img/png/neutron.png'"
         [btnLabel]="'Neutron'"></app-why-cta-one>
     </div>
     <div class="d-flex justify-content-center pd-top-16">
