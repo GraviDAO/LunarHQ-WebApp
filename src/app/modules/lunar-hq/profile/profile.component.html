@@ -327,6 +327,14 @@
         [btnLabel]="'Ledger Station'">
       </app-why-cta-one>
     </div>
+    <div *ngIf="keplrInstalled" class="d-flex justify-content-center pd-top-16">
+      <app-why-cta-one
+        [cssClass]="cssClass.cta1Dark50"
+        (click)="connectKeplr('Terra')"
+        [btnImage]="'./assets/img/png/keplr.png'"
+        [btnLabel]="'Keplr Wallet'">
+      </app-why-cta-one>
+    </div>
     <div *ngIf="leapInstalled" class="d-flex justify-content-center pd-top-16">
       <app-why-cta-one
         [cssClass]="cssClass.cta1Dark50"

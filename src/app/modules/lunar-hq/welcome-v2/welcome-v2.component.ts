@@ -369,7 +369,7 @@ export class WelcomeV2Component implements OnDestroy {
       this.stargazeWalletConnect();
     } else if(this.selectedWallet === 'injective') {
       this.injectiveWalletConnect();
-    } else if(this.selectedWallet === 'osmosis') {
+    } else if(this.selectedWallet === 'cosmos') {
       this.cosmosWalletConnect();
     } else if(this.selectedWallet === 'osmosis') {
       this.osmosisWalletConnect();
@@ -454,7 +454,7 @@ export class WelcomeV2Component implements OnDestroy {
     this.modalService.open('neutronWallet');
   }
 
-  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
+  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos' | 'Terra') {
     // @ts-ignore
     if (!window.keplr) {
       alert("Please install keplr extension");
@@ -483,7 +483,7 @@ export class WelcomeV2Component implements OnDestroy {
     }
   }
 
-  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
+  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos' | 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -710,6 +710,8 @@ export class WelcomeV2Component implements OnDestroy {
   // function to subscribe to terra list availableConnections & state
   async terraWalletConnect() {
     this.exitModal();
+    // @ts-ignore
+    if(window.keplr) this.keplrInstalled = true;
     if(window.leap) this.leapInstalled = true;
     if(window.station) this.stationInstalled = true;
     this.modalService.open('terraWallet');

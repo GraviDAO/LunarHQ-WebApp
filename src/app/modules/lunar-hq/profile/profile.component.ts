@@ -552,7 +552,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.modalService.open('neutronWallet');
   }
 
-  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
+  connectKeplr(chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos' | 'Terra') {
     // @ts-ignore
     if (!window.keplr) {
       alert("Please install keplr extension");
@@ -581,7 +581,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos') {
+  async signKelpr(address: string, publicAddressArray: Uint8Array, nonceResult: any, chain: 'Stargaze'| 'Injective' | 'Osmosis' | 'Juno' | 'Neutron' | 'Cosmos' | 'Terra') {
     try {
       this.loaderService.start();
       setTimeout(() => {
@@ -768,6 +768,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   // function to subscribe to terra list availableConnections & state
   async terraWalletConnect() {
     this.exitModal();
+    // @ts-ignore
+    if(window.keplr) this.keplrInstalled = true;
     if(window.leap) this.leapInstalled = true;
     this.modalService.open('terraWallet');
   }
