@@ -1186,6 +1186,8 @@ export class WelcomeV2Component implements OnDestroy {
         blockChainName = 'Osmosis';
       } else if(this.unlink.chainType === 'juno') {
         blockChainName = 'Juno';
+      } else if(this.unlink.chainType === 'cosmos') {
+        blockChainName = 'Cosmos';
       } else if(this.unlink.chainType === 'neutron') {
         blockChainName = 'Neutron';
       } else {
